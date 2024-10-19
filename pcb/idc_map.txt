@@ -1,0 +1,11 @@
+IDC_3 => HD_GPIO_1
+IDC_4 => HD_GPIO_2
+IDC_7 => HD_GPIO_3
+IDC_8 => HD_GPIO_4
+IDC_11 => HD_GPIO_5
+IDC_12 => MIO36_PS_GPIO1_0
+IDC_13 => HD_GPIO_11 (clk ultra input)
+IDC_14 => MIO37_PS_GPIO1_1
+IDC_17 => I2C_SCL
+IDC_18 => HD_GPIO_11 (clk ultra input)
+IDC_21 => I2C_SDA

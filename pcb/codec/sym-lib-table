@@ -1,0 +1,6 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "RND_Audio")(type "KiCad")(uri "${KIPRJMOD}/ul_ADAU1761BCPZ/KiCADv6/2024-10-11_13-34-32.kicad_sym")(options "")(descr ""))
+  (lib (name "RND_PWR")(type "KiCad")(uri "${KIPRJMOD}/ul_PLMR51610XDBVR/KiCADv6/2023-12-02_15-37-26.kicad_sym")(options "")(descr ""))
+  (lib (name "L77HDE15SD1CH4RHNVGA")(type "KiCad")(uri "${KIPRJMOD}/vga/KiCad/L77HDE15SD1CH4RHNVGA.kicad_sym")(options "")(descr ""))
+)
