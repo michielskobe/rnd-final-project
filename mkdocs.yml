@@ -15,15 +15,9 @@ theme:
   language: en
   palette:
     - scheme: default
-      toggle:
-        icon: material/toggle-switch-off-outline 
-        name: Switch to dark mode
       primary: pink
       accent: purple 
     - scheme: slate 
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode    
       primary: teal
       accent: lime
 
@@ -74,7 +68,7 @@ copyright: |
   &copy; 2024 <a href=""  target="_blank" rel="noopener">TEAM Name</a>
 
 nav:
- - Team X: # This can be a grouping header, in that case do not put a file name behind it 
+ - Team E: # This can be a grouping header, in that case do not put a file name behind it 
    - General info : index.md
    - Extra info : extra.md
  - Project:
