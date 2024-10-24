@@ -27,7 +27,7 @@
 #set_property -dict { PACKAGE_PIN V17   IOSTANDARD LVCMOS33 } [get_ports { ar[8] }]; #IO_L21P_T3_DQS_34 Sch=ar[8]
 # IDC_14 ultra MIO37_PS_GPIO1_1 <==> ar_9 pynq
 #set_property -dict { PACKAGE_PIN V18   IOSTANDARD LVCMOS33 } [get_ports { ar[9] }]; #IO_L21N_T3_DQS_34 Sch=ar[9]
-# IDC_18 ultra HD_GPIO_11 (clk ultra input) <==> ar_10 pynq
+# IDC_18 ultra HD_GPIO_12 (clk ultra input) <==> ar_10 pynq
 #set_property -dict { PACKAGE_PIN T16   IOSTANDARD LVCMOS33 } [get_ports { ar[10] }]; #IO_L9P_T1_DQS_34 Sch=ar[10]
 
 # I2C IDC
