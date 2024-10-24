@@ -65,7 +65,7 @@ markdown_extensions:
   - attr_list
 
 copyright: |
-  &copy; 2024 <a href=""  target="_blank" rel="noopener">TEAM Name</a>
+  &copy; 2024 <a href=""  target="_blank" rel="noopener">TEAM E -- Beats N Bytes</a>
 
 nav:
  - Team E: # This can be a grouping header, in that case do not put a file name behind it 

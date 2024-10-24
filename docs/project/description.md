@@ -1,10 +1,8 @@
-# A Fancy Project Description
-
-This page is here to show you can create subfolders...
+# A Fancy Project Description of the Blendinator
 
 ## Topic
 
-Here we describe our topic
+We are making a mixing table using the ultra96-V2
 
 ##### Block diagram
 
