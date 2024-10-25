@@ -74,3 +74,4 @@ nav:
  - Project:
    - Description : project/description.md
    - PetaLinux: project/petalinux.md
+   - PCB: project/pcb.md
