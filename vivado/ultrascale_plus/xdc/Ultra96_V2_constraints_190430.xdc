@@ -97,26 +97,6 @@ set_property PACKAGE_PIN D8   [get_ports {CSI1_MCLK              }];  # "D8.CSI1
 # Bank 65
 set_property PACKAGE_PIN F4   [get_ports {FAN_PWM                }];  # "F4.FAN_PWM"
 
-# ----------------------------------------------------------------------------
-# Low-speed expansion connector
-# ---------------------------------------------------------------------------- 
-# Bank 65
-set_property PACKAGE_PIN D7   [get_ports {HD_GPIO_0              }];  # "D7.HD_GPIO_0"
-set_property PACKAGE_PIN F8   [get_ports {HD_GPIO_1              }];  # "F8.HD_GPIO_1"
-set_property PACKAGE_PIN F7   [get_ports {HD_GPIO_2              }];  # "F7.HD_GPIO_2"
-set_property PACKAGE_PIN G7   [get_ports {HD_GPIO_3              }];  # "G7.HD_GPIO_3"
-set_property PACKAGE_PIN F6   [get_ports {HD_GPIO_4              }];  # "F6.HD_GPIO_4"
-set_property PACKAGE_PIN G5   [get_ports {HD_GPIO_5              }];  # "G5.HD_GPIO_5"
-set_property PACKAGE_PIN A6   [get_ports {HD_GPIO_6              }];  # "A6.HD_GPIO_6"
-set_property PACKAGE_PIN A7   [get_ports {HD_GPIO_7              }];  # "A7.HD_GPIO_7"
-set_property PACKAGE_PIN G6   [get_ports {HD_GPIO_8              }];  # "G6.HD_GPIO_8"
-set_property PACKAGE_PIN E6   [get_ports {HD_GPIO_9              }];  # "E6.HD_GPIO_9"
-set_property PACKAGE_PIN E5   [get_ports {HD_GPIO_10             }];  # "E5.HD_GPIO_10"
-set_property PACKAGE_PIN D6   [get_ports {HD_GPIO_11             }];  # "D6.HD_GPIO_11"
-set_property PACKAGE_PIN D5   [get_ports {HD_GPIO_12             }];  # "D5.HD_GPIO_12"
-set_property PACKAGE_PIN C7   [get_ports {HD_GPIO_13             }];  # "C7.HD_GPIO_13"
-set_property PACKAGE_PIN B6   [get_ports {HD_GPIO_14             }];  # "B6.HD_GPIO_14"
-set_property PACKAGE_PIN C5   [get_ports {HD_GPIO_15             }];  # "C5.HD_GPIO_15"
 
 # ----------------------------------------------------------------------------
 # IOSTANDARD Constraints
@@ -225,17 +205,6 @@ set_property IOSTANDARD LVCMOS12 [get_ports -of_objects [get_iobanks 66]];
 #PMBUS
 #set_property PACKAGE_PIN F11  [get_ports {MIO31_MHTN_ALRT        }];  # "F11.MIO31_MHTN_ALRT"
 
-# Low-speed expansion connector
-#set_property PACKAGE_PIN D10  [get_ports {MIO36_PS_GPIO1_0       }];  # "D10.MIO36_PS_GPIO1_0"
-#set_property PACKAGE_PIN E11  [get_ports {MIO37_PS_GPIO1_1       }];  # "E11.MIO37_PS_GPIO1_1"
-#set_property PACKAGE_PIN C10  [get_ports {MIO39_PS_GPIO1_2       }];  # "C10.MIO39_PS_GPIO1_2"
-#set_property PACKAGE_PIN D11  [get_ports {MIO40_PS_GPIO1_3       }];  # "D11.MIO40_PS_GPIO1_3"
-#set_property PACKAGE_PIN B11  [get_ports {MIO44_PS_GPIO1_4       }];  # "B11.MIO44_PS_GPIO1_4"
-#set_property PACKAGE_PIN A11  [get_ports {MIO45_PS_GPIO1_5       }];  # "A11.MIO45_PS_GPIO1_5"
-#set_property PACKAGE_PIN C9   [get_ports {MIO38_SPI0_SCLK        }];  # "C9.MIO38_SPI0_SCLK"
-#set_property PACKAGE_PIN B10  [get_ports {MIO41_SPI0_CS          }];  # "B10.MIO41_SPI0_CS"
-#set_property PACKAGE_PIN D12  [get_ports {MIO42_SPI0_MISO        }];  # "D12.MIO42_SPI0_MISO"
-#set_property PACKAGE_PIN E13  [get_ports {MIO43_SPI0_MOSI        }];  # "E13.MIO43_SPI0_MOSI"
 
 #wi-Fi
 #set_property PACKAGE_PIN V3   [get_ports {MIO8_RADIO_EN          }];  # "V3.MIO8_RADIO_EN"
