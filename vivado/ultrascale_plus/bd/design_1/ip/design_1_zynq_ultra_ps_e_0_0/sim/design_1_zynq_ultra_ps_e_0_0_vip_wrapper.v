@@ -138,6 +138,15 @@ maxigp1_rvalid,
 maxigp1_rready, 
 maxigp1_awqos, 
 maxigp1_arqos, 
+emio_gpio_i, 
+emio_gpio_o, 
+emio_gpio_t, 
+emio_uart0_ctsn, 
+emio_uart0_rtsn, 
+emio_uart0_dsrn, 
+emio_uart0_dcdn, 
+emio_uart0_rin, 
+emio_uart0_dtrn, 
 pl_ps_irq0, 
 pl_resetn0, 
 pl_clk0 
@@ -222,6 +231,15 @@ input maxigp1_rvalid;
 output maxigp1_rready;
 output [3 : 0] maxigp1_awqos;
 output [3 : 0] maxigp1_arqos;
+input [94 : 0] emio_gpio_i;
+output [94 : 0] emio_gpio_o;
+output [94 : 0] emio_gpio_t;
+input emio_uart0_ctsn;
+output emio_uart0_rtsn;
+input emio_uart0_dsrn;
+input emio_uart0_dcdn;
+input emio_uart0_rin;
+output emio_uart0_dtrn;
 input [0 : 0] pl_ps_irq0;
 output pl_resetn0;
 output pl_clk0;

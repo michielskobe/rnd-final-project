@@ -45,13 +45,33 @@
 # ----------------------------------------------------------------------------
  
 
-# ----------------------------------------------------------------------------
-# Bluetooth
-# ---------------------------------------------------------------------------- 
-set_property PACKAGE_PIN B5   [get_ports {BT_HCI_CTS             }];  # "B5.BT_HCI_CTS"
-set_property PACKAGE_PIN B7   [get_ports {BT_HCI_RTS             }];  # "B7.BT_HCI_RTS"
-set_property PACKAGE_PIN A9   [get_ports {RADIO_LED0             }];  # "A9.RADIO_LED0"
-set_property PACKAGE_PIN B9   [get_ports {RADIO_LED1             }];  # "B9.RADIO_LED1"
+#######################################################################
+# Ultra96 Bluetooth UART Modem Signals
+#######################################################################
+set_property IOSTANDARD LVCMOS18 [get_ports bt*]
+
+#BT_HCI_RTS on FPGA / emio_uart0_ctsn
+set_property PACKAGE_PIN B7 [get_ports bt_ctsn]
+#BT_HCI_CTS on FPGA / emio_uart0_rtsn
+set_property PACKAGE_PIN B5 [get_ports bt_rtsn]
+
+#######################################################################
+# Ultra96 WiFi & BT LEDs
+#######################################################################
+set_property IOSTANDARD LVCMOS18 [get_ports *_en_led*]
+
+#RADIO_LED0 on FPGA / LED D9 / WiFi LED
+set_property PACKAGE_PIN A9 [get_ports {wifi_en_led_tri_o[0]}]
+#RADIO_LED1 on FPGA / LED D10 / Bluetooth LED
+set_property PACKAGE_PIN B9 [get_ports {bt_en_led_tri_o[0]}]
+
+#######################################################################
+# Ultra96 Fan
+#######################################################################
+set_property IOSTANDARD LVCMOS12 [get_ports {fan_pwm_tri_o[0]}]
+
+#FAN_PWM on FPGA
+set_property PACKAGE_PIN F4 [get_ports {fan_pwm_tri_o[0]}]
 
 # ----------------------------------------------------------------------------
 # High-speed expansion connector
@@ -90,13 +110,6 @@ set_property PACKAGE_PIN A2   [get_ports {HSIC_STR               }];  # "A2.HSIC
 # Bank 26
 set_property PACKAGE_PIN E8   [get_ports {CSI0_MCLK              }];  # "E8.CSI0_MCLK"
 set_property PACKAGE_PIN D8   [get_ports {CSI1_MCLK              }];  # "D8.CSI1_MCLK"
-
-# ----------------------------------------------------------------------------
-# Fan control
-# ---------------------------------------------------------------------------- 
-# Bank 65
-set_property PACKAGE_PIN F4   [get_ports {FAN_PWM                }];  # "F4.FAN_PWM"
-
 
 # ----------------------------------------------------------------------------
 # IOSTANDARD Constraints

@@ -135,6 +135,15 @@ ENTITY design_1_zynq_ultra_ps_e_0_0 IS
     maxigp1_rready : OUT STD_LOGIC;
     maxigp1_awqos : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     maxigp1_arqos : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    emio_gpio_i : IN STD_LOGIC_VECTOR(94 DOWNTO 0);
+    emio_gpio_o : OUT STD_LOGIC_VECTOR(94 DOWNTO 0);
+    emio_gpio_t : OUT STD_LOGIC_VECTOR(94 DOWNTO 0);
+    emio_uart0_ctsn : IN STD_LOGIC;
+    emio_uart0_rtsn : OUT STD_LOGIC;
+    emio_uart0_dsrn : IN STD_LOGIC;
+    emio_uart0_dcdn : IN STD_LOGIC;
+    emio_uart0_rin : IN STD_LOGIC;
+    emio_uart0_dtrn : OUT STD_LOGIC;
     pl_ps_irq0 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     pl_resetn0 : OUT STD_LOGIC;
     pl_clk0 : OUT STD_LOGIC
@@ -955,9 +964,9 @@ ARCHITECTURE design_1_zynq_ultra_ps_e_0_0_arch OF design_1_zynq_ultra_ps_e_0_0 I
       emio_enet1_dma_bus_width : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       emio_enet2_dma_bus_width : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       emio_enet3_dma_bus_width : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-      emio_gpio_i : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      emio_gpio_o : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-      emio_gpio_t : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      emio_gpio_i : IN STD_LOGIC_VECTOR(94 DOWNTO 0);
+      emio_gpio_o : OUT STD_LOGIC_VECTOR(94 DOWNTO 0);
+      emio_gpio_t : OUT STD_LOGIC_VECTOR(94 DOWNTO 0);
       emio_i2c0_scl_i : IN STD_LOGIC;
       emio_i2c0_scl_o : OUT STD_LOGIC;
       emio_i2c0_scl_t : OUT STD_LOGIC;
@@ -1661,7 +1670,7 @@ ARCHITECTURE design_1_zynq_ultra_ps_e_0_0_arch OF design_1_zynq_ultra_ps_e_0_0 I
       emio_enet1_mdio_t_n : OUT STD_LOGIC;
       emio_enet2_mdio_t_n : OUT STD_LOGIC;
       emio_enet3_mdio_t_n : OUT STD_LOGIC;
-      emio_gpio_t_n : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      emio_gpio_t_n : OUT STD_LOGIC_VECTOR(94 DOWNTO 0);
       emio_i2c1_scl_t_n : OUT STD_LOGIC;
       emio_i2c1_sda_t_n : OUT STD_LOGIC;
       emio_spi0_sclk_t_n : OUT STD_LOGIC;
@@ -1681,9 +1690,18 @@ ARCHITECTURE design_1_zynq_ultra_ps_e_0_0_arch OF design_1_zynq_ultra_ps_e_0_0 I
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
   ATTRIBUTE CORE_GENERATION_INFO OF design_1_zynq_ultra_ps_e_0_0_arch: ARCHITECTURE IS "design_1_zynq_ultra_ps_e_0_0,zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e,{x_ipProduct=Vivado 2024.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=zynq_ultra_ps_e,x_ipVersion=3.5,x_ipCoreRevision=3,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_DP_USE_AUDIO=0,C_DP_USE_VIDEO=0,C_MAXIGP0_DATA_WIDTH=128,C_MAXIGP1_DATA_WIDTH=128,C_MAXIGP2_DATA_WIDTH=32,C_SAXIGP0_DATA_WIDTH=128,C_SAXIGP1_DATA_WIDTH=128,C_SAXIGP2_DATA_WIDTH=128,C_SAXIGP3_DATA_WIDTH=128,C_SAXIGP4_DATA_WIDTH=128,C_SAXIGP5_DATA_WIDTH=128,C_SAXIGP6_" & 
 "DATA_WIDTH=128,C_USE_DIFF_RW_CLK_GP0=0,C_USE_DIFF_RW_CLK_GP1=0,C_USE_DIFF_RW_CLK_GP2=0,C_USE_DIFF_RW_CLK_GP3=0,C_USE_DIFF_RW_CLK_GP4=0,C_USE_DIFF_RW_CLK_GP5=0,C_USE_DIFF_RW_CLK_GP6=0,C_EN_FIFO_ENET0=0,C_EN_FIFO_ENET1=0,C_EN_FIFO_ENET2=0,C_EN_FIFO_ENET3=0,C_PL_CLK0_BUF=TRUE,C_PL_CLK1_BUF=FALSE,C_PL_CLK2_BUF=FALSE,C_PL_CLK3_BUF=FALSE,C_TRACE_PIPELINE_WIDTH=8,C_EN_EMIO_TRACE=0,C_TRACE_DATA_WIDTH=32,C_USE_DEBUG_TEST=0,C_SD0_INTERNAL_BUS_WIDTH=4,C_SD1_INTERNAL_BUS_WIDTH=4,C_NUM_F2P_0_INTR_INPUTS=1,C_" & 
-"NUM_F2P_1_INTR_INPUTS=1,C_EMIO_GPIO_WIDTH=1,C_NUM_FABRIC_RESETS=1}";
+"NUM_F2P_1_INTR_INPUTS=1,C_EMIO_GPIO_WIDTH=95,C_NUM_FABRIC_RESETS=1}";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
+  ATTRIBUTE X_INTERFACE_INFO OF emio_gpio_i: SIGNAL IS "xilinx.com:interface:gpio:1.0 GPIO_0 TRI_I";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_gpio_o: SIGNAL IS "xilinx.com:interface:gpio:1.0 GPIO_0 TRI_O";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_gpio_t: SIGNAL IS "xilinx.com:interface:gpio:1.0 GPIO_0 TRI_T";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_uart0_ctsn: SIGNAL IS "xilinx.com:interface:uart:1.0 UART_0 CTSn";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_uart0_dcdn: SIGNAL IS "xilinx.com:interface:uart:1.0 UART_0 DCDn";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_uart0_dsrn: SIGNAL IS "xilinx.com:interface:uart:1.0 UART_0 DSRn";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_uart0_dtrn: SIGNAL IS "xilinx.com:interface:uart:1.0 UART_0 DTRn";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_uart0_rin: SIGNAL IS "xilinx.com:interface:uart:1.0 UART_0 RI";
+  ATTRIBUTE X_INTERFACE_INFO OF emio_uart0_rtsn: SIGNAL IS "xilinx.com:interface:uart:1.0 UART_0 RTSn";
   ATTRIBUTE X_INTERFACE_INFO OF maxigp0_araddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARADDR";
   ATTRIBUTE X_INTERFACE_INFO OF maxigp0_arburst: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARBURST";
   ATTRIBUTE X_INTERFACE_INFO OF maxigp0_arcache: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARCACHE";
@@ -1814,7 +1832,7 @@ BEGIN
       C_SD1_INTERNAL_BUS_WIDTH => 4,
       C_NUM_F2P_0_INTR_INPUTS => 1,
       C_NUM_F2P_1_INTR_INPUTS => 1,
-      C_EMIO_GPIO_WIDTH => 1,
+      C_EMIO_GPIO_WIDTH => 95,
       C_NUM_FABRIC_RESETS => 1
     )
     PORT MAP (
@@ -2293,16 +2311,20 @@ BEGIN
       emio_enet1_ext_int_in => '0',
       emio_enet2_ext_int_in => '0',
       emio_enet3_ext_int_in => '0',
-      emio_gpio_i => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 1)),
+      emio_gpio_i => emio_gpio_i,
+      emio_gpio_o => emio_gpio_o,
+      emio_gpio_t => emio_gpio_t,
       emio_i2c0_scl_i => '0',
       emio_i2c0_sda_i => '0',
       emio_i2c1_scl_i => '0',
       emio_i2c1_sda_i => '0',
       emio_uart0_rxd => '0',
-      emio_uart0_ctsn => '0',
-      emio_uart0_dsrn => '0',
-      emio_uart0_dcdn => '0',
-      emio_uart0_rin => '0',
+      emio_uart0_ctsn => emio_uart0_ctsn,
+      emio_uart0_rtsn => emio_uart0_rtsn,
+      emio_uart0_dsrn => emio_uart0_dsrn,
+      emio_uart0_dcdn => emio_uart0_dcdn,
+      emio_uart0_rin => emio_uart0_rin,
+      emio_uart0_dtrn => emio_uart0_dtrn,
       emio_uart1_rxd => '0',
       emio_uart1_ctsn => '0',
       emio_uart1_dsrn => '0',

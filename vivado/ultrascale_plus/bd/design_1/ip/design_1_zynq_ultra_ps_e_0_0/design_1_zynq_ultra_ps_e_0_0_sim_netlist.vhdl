@@ -2,7 +2,7 @@
 -- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
--- Date        : Thu Oct 24 14:08:07 2024
+-- Date        : Fri Oct 25 15:31:03 2024
 -- Host        : fedora running 64-bit unknown
 -- Command     : write_vhdl -force -mode funcsim
 --               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0_sim_netlist.vhdl
@@ -792,10 +792,10 @@ entity design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e is
     emio_enet1_dma_bus_width : out STD_LOGIC_VECTOR ( 1 downto 0 );
     emio_enet2_dma_bus_width : out STD_LOGIC_VECTOR ( 1 downto 0 );
     emio_enet3_dma_bus_width : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    emio_gpio_i : in STD_LOGIC_VECTOR ( 0 to 0 );
-    emio_gpio_o : out STD_LOGIC_VECTOR ( 0 to 0 );
-    emio_gpio_t : out STD_LOGIC_VECTOR ( 0 to 0 );
-    emio_gpio_t_n : out STD_LOGIC_VECTOR ( 0 to 0 );
+    emio_gpio_i : in STD_LOGIC_VECTOR ( 94 downto 0 );
+    emio_gpio_o : out STD_LOGIC_VECTOR ( 94 downto 0 );
+    emio_gpio_t : out STD_LOGIC_VECTOR ( 94 downto 0 );
+    emio_gpio_t_n : out STD_LOGIC_VECTOR ( 94 downto 0 );
     emio_i2c0_scl_i : in STD_LOGIC;
     emio_i2c0_scl_o : out STD_LOGIC;
     emio_i2c0_scl_t_n : out STD_LOGIC;
@@ -1514,7 +1514,7 @@ entity design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e is
   attribute C_DP_USE_VIDEO : integer;
   attribute C_DP_USE_VIDEO of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 0;
   attribute C_EMIO_GPIO_WIDTH : integer;
-  attribute C_EMIO_GPIO_WIDTH of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 1;
+  attribute C_EMIO_GPIO_WIDTH of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 95;
   attribute C_EN_EMIO_TRACE : integer;
   attribute C_EN_EMIO_TRACE of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 0;
   attribute C_EN_FIFO_ENET0 : string;
@@ -2265,7 +2265,6 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zy
   signal PS8_i_n_1437 : STD_LOGIC;
   signal PS8_i_n_1438 : STD_LOGIC;
   signal PS8_i_n_1439 : STD_LOGIC;
-  signal PS8_i_n_144 : STD_LOGIC;
   signal PS8_i_n_1440 : STD_LOGIC;
   signal PS8_i_n_1441 : STD_LOGIC;
   signal PS8_i_n_1442 : STD_LOGIC;
@@ -2276,7 +2275,6 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zy
   signal PS8_i_n_1447 : STD_LOGIC;
   signal PS8_i_n_1448 : STD_LOGIC;
   signal PS8_i_n_1449 : STD_LOGIC;
-  signal PS8_i_n_145 : STD_LOGIC;
   signal PS8_i_n_1450 : STD_LOGIC;
   signal PS8_i_n_1451 : STD_LOGIC;
   signal PS8_i_n_1452 : STD_LOGIC;
@@ -3974,8 +3972,101 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zy
   signal PS8_i_n_3538 : STD_LOGIC;
   signal PS8_i_n_3539 : STD_LOGIC;
   signal PS8_i_n_36 : STD_LOGIC;
-  signal PS8_i_n_3635 : STD_LOGIC;
+  signal PS8_i_n_3637 : STD_LOGIC;
+  signal PS8_i_n_3638 : STD_LOGIC;
+  signal PS8_i_n_3639 : STD_LOGIC;
+  signal PS8_i_n_3640 : STD_LOGIC;
+  signal PS8_i_n_3641 : STD_LOGIC;
+  signal PS8_i_n_3642 : STD_LOGIC;
+  signal PS8_i_n_3643 : STD_LOGIC;
+  signal PS8_i_n_3644 : STD_LOGIC;
+  signal PS8_i_n_3645 : STD_LOGIC;
+  signal PS8_i_n_3646 : STD_LOGIC;
+  signal PS8_i_n_3647 : STD_LOGIC;
+  signal PS8_i_n_3648 : STD_LOGIC;
+  signal PS8_i_n_3649 : STD_LOGIC;
+  signal PS8_i_n_3650 : STD_LOGIC;
+  signal PS8_i_n_3651 : STD_LOGIC;
+  signal PS8_i_n_3652 : STD_LOGIC;
+  signal PS8_i_n_3653 : STD_LOGIC;
+  signal PS8_i_n_3654 : STD_LOGIC;
+  signal PS8_i_n_3655 : STD_LOGIC;
+  signal PS8_i_n_3656 : STD_LOGIC;
+  signal PS8_i_n_3657 : STD_LOGIC;
+  signal PS8_i_n_3658 : STD_LOGIC;
+  signal PS8_i_n_3659 : STD_LOGIC;
+  signal PS8_i_n_3660 : STD_LOGIC;
+  signal PS8_i_n_3661 : STD_LOGIC;
+  signal PS8_i_n_3662 : STD_LOGIC;
+  signal PS8_i_n_3663 : STD_LOGIC;
+  signal PS8_i_n_3664 : STD_LOGIC;
+  signal PS8_i_n_3665 : STD_LOGIC;
+  signal PS8_i_n_3666 : STD_LOGIC;
+  signal PS8_i_n_3667 : STD_LOGIC;
+  signal PS8_i_n_3668 : STD_LOGIC;
+  signal PS8_i_n_3669 : STD_LOGIC;
+  signal PS8_i_n_3670 : STD_LOGIC;
+  signal PS8_i_n_3671 : STD_LOGIC;
+  signal PS8_i_n_3672 : STD_LOGIC;
+  signal PS8_i_n_3673 : STD_LOGIC;
+  signal PS8_i_n_3674 : STD_LOGIC;
+  signal PS8_i_n_3675 : STD_LOGIC;
+  signal PS8_i_n_3676 : STD_LOGIC;
+  signal PS8_i_n_3677 : STD_LOGIC;
+  signal PS8_i_n_3678 : STD_LOGIC;
+  signal PS8_i_n_3679 : STD_LOGIC;
+  signal PS8_i_n_3680 : STD_LOGIC;
+  signal PS8_i_n_3681 : STD_LOGIC;
+  signal PS8_i_n_3682 : STD_LOGIC;
+  signal PS8_i_n_3683 : STD_LOGIC;
+  signal PS8_i_n_3684 : STD_LOGIC;
+  signal PS8_i_n_3685 : STD_LOGIC;
+  signal PS8_i_n_3686 : STD_LOGIC;
+  signal PS8_i_n_3687 : STD_LOGIC;
+  signal PS8_i_n_3688 : STD_LOGIC;
+  signal PS8_i_n_3689 : STD_LOGIC;
+  signal PS8_i_n_3690 : STD_LOGIC;
+  signal PS8_i_n_3691 : STD_LOGIC;
+  signal PS8_i_n_3692 : STD_LOGIC;
+  signal PS8_i_n_3693 : STD_LOGIC;
+  signal PS8_i_n_3694 : STD_LOGIC;
+  signal PS8_i_n_3695 : STD_LOGIC;
+  signal PS8_i_n_3696 : STD_LOGIC;
+  signal PS8_i_n_3697 : STD_LOGIC;
+  signal PS8_i_n_3698 : STD_LOGIC;
+  signal PS8_i_n_3699 : STD_LOGIC;
   signal PS8_i_n_37 : STD_LOGIC;
+  signal PS8_i_n_3700 : STD_LOGIC;
+  signal PS8_i_n_3701 : STD_LOGIC;
+  signal PS8_i_n_3702 : STD_LOGIC;
+  signal PS8_i_n_3703 : STD_LOGIC;
+  signal PS8_i_n_3704 : STD_LOGIC;
+  signal PS8_i_n_3705 : STD_LOGIC;
+  signal PS8_i_n_3706 : STD_LOGIC;
+  signal PS8_i_n_3707 : STD_LOGIC;
+  signal PS8_i_n_3708 : STD_LOGIC;
+  signal PS8_i_n_3709 : STD_LOGIC;
+  signal PS8_i_n_3710 : STD_LOGIC;
+  signal PS8_i_n_3711 : STD_LOGIC;
+  signal PS8_i_n_3712 : STD_LOGIC;
+  signal PS8_i_n_3713 : STD_LOGIC;
+  signal PS8_i_n_3714 : STD_LOGIC;
+  signal PS8_i_n_3715 : STD_LOGIC;
+  signal PS8_i_n_3716 : STD_LOGIC;
+  signal PS8_i_n_3717 : STD_LOGIC;
+  signal PS8_i_n_3718 : STD_LOGIC;
+  signal PS8_i_n_3719 : STD_LOGIC;
+  signal PS8_i_n_3720 : STD_LOGIC;
+  signal PS8_i_n_3721 : STD_LOGIC;
+  signal PS8_i_n_3722 : STD_LOGIC;
+  signal PS8_i_n_3723 : STD_LOGIC;
+  signal PS8_i_n_3724 : STD_LOGIC;
+  signal PS8_i_n_3725 : STD_LOGIC;
+  signal PS8_i_n_3726 : STD_LOGIC;
+  signal PS8_i_n_3727 : STD_LOGIC;
+  signal PS8_i_n_3728 : STD_LOGIC;
+  signal PS8_i_n_3729 : STD_LOGIC;
+  signal PS8_i_n_3730 : STD_LOGIC;
   signal PS8_i_n_3731 : STD_LOGIC;
   signal PS8_i_n_3743 : STD_LOGIC;
   signal PS8_i_n_3744 : STD_LOGIC;
@@ -4598,8 +4689,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zy
   signal NLW_PS8_i_PSS_ALTO_CORE_PAD_REFP3IN_UNCONNECTED : STD_LOGIC;
   signal NLW_PS8_i_PSS_ALTO_CORE_PAD_SRSTB_UNCONNECTED : STD_LOGIC;
   signal NLW_PS8_i_PSS_ALTO_CORE_PAD_ZQ_UNCONNECTED : STD_LOGIC;
-  signal NLW_PS8_i_EMIOGPIOO_UNCONNECTED : STD_LOGIC_VECTOR ( 94 downto 1 );
-  signal NLW_PS8_i_EMIOGPIOTN_UNCONNECTED : STD_LOGIC_VECTOR ( 95 downto 1 );
+  signal NLW_PS8_i_EMIOGPIOTN_UNCONNECTED : STD_LOGIC_VECTOR ( 95 to 95 );
   signal NLW_PS8_i_EMIOSDIO0DATAENA_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 4 );
   signal NLW_PS8_i_EMIOSDIO0DATAOUT_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 4 );
   signal NLW_PS8_i_EMIOSDIO1DATAENA_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 4 );
@@ -5200,8 +5290,100 @@ begin
   emio_enet3_tx_r_status(1) <= \<const0>\;
   emio_enet3_tx_r_status(0) <= \<const0>\;
   emio_enet3_tx_sof <= \<const0>\;
-  emio_gpio_o(0) <= \<const0>\;
-  emio_gpio_t(0) <= \<const0>\;
+  emio_gpio_t_n(94) <= \<const0>\;
+  emio_gpio_t_n(93) <= \<const0>\;
+  emio_gpio_t_n(92) <= \<const0>\;
+  emio_gpio_t_n(91) <= \<const0>\;
+  emio_gpio_t_n(90) <= \<const0>\;
+  emio_gpio_t_n(89) <= \<const0>\;
+  emio_gpio_t_n(88) <= \<const0>\;
+  emio_gpio_t_n(87) <= \<const0>\;
+  emio_gpio_t_n(86) <= \<const0>\;
+  emio_gpio_t_n(85) <= \<const0>\;
+  emio_gpio_t_n(84) <= \<const0>\;
+  emio_gpio_t_n(83) <= \<const0>\;
+  emio_gpio_t_n(82) <= \<const0>\;
+  emio_gpio_t_n(81) <= \<const0>\;
+  emio_gpio_t_n(80) <= \<const0>\;
+  emio_gpio_t_n(79) <= \<const0>\;
+  emio_gpio_t_n(78) <= \<const0>\;
+  emio_gpio_t_n(77) <= \<const0>\;
+  emio_gpio_t_n(76) <= \<const0>\;
+  emio_gpio_t_n(75) <= \<const0>\;
+  emio_gpio_t_n(74) <= \<const0>\;
+  emio_gpio_t_n(73) <= \<const0>\;
+  emio_gpio_t_n(72) <= \<const0>\;
+  emio_gpio_t_n(71) <= \<const0>\;
+  emio_gpio_t_n(70) <= \<const0>\;
+  emio_gpio_t_n(69) <= \<const0>\;
+  emio_gpio_t_n(68) <= \<const0>\;
+  emio_gpio_t_n(67) <= \<const0>\;
+  emio_gpio_t_n(66) <= \<const0>\;
+  emio_gpio_t_n(65) <= \<const0>\;
+  emio_gpio_t_n(64) <= \<const0>\;
+  emio_gpio_t_n(63) <= \<const0>\;
+  emio_gpio_t_n(62) <= \<const0>\;
+  emio_gpio_t_n(61) <= \<const0>\;
+  emio_gpio_t_n(60) <= \<const0>\;
+  emio_gpio_t_n(59) <= \<const0>\;
+  emio_gpio_t_n(58) <= \<const0>\;
+  emio_gpio_t_n(57) <= \<const0>\;
+  emio_gpio_t_n(56) <= \<const0>\;
+  emio_gpio_t_n(55) <= \<const0>\;
+  emio_gpio_t_n(54) <= \<const0>\;
+  emio_gpio_t_n(53) <= \<const0>\;
+  emio_gpio_t_n(52) <= \<const0>\;
+  emio_gpio_t_n(51) <= \<const0>\;
+  emio_gpio_t_n(50) <= \<const0>\;
+  emio_gpio_t_n(49) <= \<const0>\;
+  emio_gpio_t_n(48) <= \<const0>\;
+  emio_gpio_t_n(47) <= \<const0>\;
+  emio_gpio_t_n(46) <= \<const0>\;
+  emio_gpio_t_n(45) <= \<const0>\;
+  emio_gpio_t_n(44) <= \<const0>\;
+  emio_gpio_t_n(43) <= \<const0>\;
+  emio_gpio_t_n(42) <= \<const0>\;
+  emio_gpio_t_n(41) <= \<const0>\;
+  emio_gpio_t_n(40) <= \<const0>\;
+  emio_gpio_t_n(39) <= \<const0>\;
+  emio_gpio_t_n(38) <= \<const0>\;
+  emio_gpio_t_n(37) <= \<const0>\;
+  emio_gpio_t_n(36) <= \<const0>\;
+  emio_gpio_t_n(35) <= \<const0>\;
+  emio_gpio_t_n(34) <= \<const0>\;
+  emio_gpio_t_n(33) <= \<const0>\;
+  emio_gpio_t_n(32) <= \<const0>\;
+  emio_gpio_t_n(31) <= \<const0>\;
+  emio_gpio_t_n(30) <= \<const0>\;
+  emio_gpio_t_n(29) <= \<const0>\;
+  emio_gpio_t_n(28) <= \<const0>\;
+  emio_gpio_t_n(27) <= \<const0>\;
+  emio_gpio_t_n(26) <= \<const0>\;
+  emio_gpio_t_n(25) <= \<const0>\;
+  emio_gpio_t_n(24) <= \<const0>\;
+  emio_gpio_t_n(23) <= \<const0>\;
+  emio_gpio_t_n(22) <= \<const0>\;
+  emio_gpio_t_n(21) <= \<const0>\;
+  emio_gpio_t_n(20) <= \<const0>\;
+  emio_gpio_t_n(19) <= \<const0>\;
+  emio_gpio_t_n(18) <= \<const0>\;
+  emio_gpio_t_n(17) <= \<const0>\;
+  emio_gpio_t_n(16) <= \<const0>\;
+  emio_gpio_t_n(15) <= \<const0>\;
+  emio_gpio_t_n(14) <= \<const0>\;
+  emio_gpio_t_n(13) <= \<const0>\;
+  emio_gpio_t_n(12) <= \<const0>\;
+  emio_gpio_t_n(11) <= \<const0>\;
+  emio_gpio_t_n(10) <= \<const0>\;
+  emio_gpio_t_n(9) <= \<const0>\;
+  emio_gpio_t_n(8) <= \<const0>\;
+  emio_gpio_t_n(7) <= \<const0>\;
+  emio_gpio_t_n(6) <= \<const0>\;
+  emio_gpio_t_n(5) <= \<const0>\;
+  emio_gpio_t_n(4) <= \<const0>\;
+  emio_gpio_t_n(3) <= \<const0>\;
+  emio_gpio_t_n(2) <= \<const0>\;
+  emio_gpio_t_n(1) <= \<const0>\;
   emio_gpio_t_n(0) <= \<const0>\;
   emio_i2c0_scl_o <= \<const0>\;
   emio_i2c0_scl_t <= \<const0>\;
@@ -5291,8 +5473,6 @@ begin
   emio_u2dsport_vbus_ctrl_usb3_1 <= \<const0>\;
   emio_u3dsport_vbus_ctrl_usb3_0 <= \<const0>\;
   emio_u3dsport_vbus_ctrl_usb3_1 <= \<const0>\;
-  emio_uart0_dtrn <= \<const0>\;
-  emio_uart0_rtsn <= \<const0>\;
   emio_uart0_txd <= \<const0>\;
   emio_uart1_dtrn <= \<const0>\;
   emio_uart1_rtsn <= \<const0>\;
@@ -8971,11 +9151,105 @@ PS8_i: unisim.vcomponents.PS8
       EMIOGEM3TSUTIMERCMPVAL => PS8_i_n_105,
       EMIOGEM3TXRFIXEDLAT => PS8_i_n_106,
       EMIOGEM3TXSOF => PS8_i_n_107,
-      EMIOGPIOI(95 downto 0) => B"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      EMIOGPIOI(95) => '0',
+      EMIOGPIOI(94 downto 0) => emio_gpio_i(94 downto 0),
       EMIOGPIOO(95) => pl_resetn0,
-      EMIOGPIOO(94 downto 1) => NLW_PS8_i_EMIOGPIOO_UNCONNECTED(94 downto 1),
-      EMIOGPIOO(0) => PS8_i_n_3635,
-      EMIOGPIOTN(95 downto 1) => NLW_PS8_i_EMIOGPIOTN_UNCONNECTED(95 downto 1),
+      EMIOGPIOO(94 downto 0) => emio_gpio_o(94 downto 0),
+      EMIOGPIOTN(95) => NLW_PS8_i_EMIOGPIOTN_UNCONNECTED(95),
+      EMIOGPIOTN(94) => PS8_i_n_3637,
+      EMIOGPIOTN(93) => PS8_i_n_3638,
+      EMIOGPIOTN(92) => PS8_i_n_3639,
+      EMIOGPIOTN(91) => PS8_i_n_3640,
+      EMIOGPIOTN(90) => PS8_i_n_3641,
+      EMIOGPIOTN(89) => PS8_i_n_3642,
+      EMIOGPIOTN(88) => PS8_i_n_3643,
+      EMIOGPIOTN(87) => PS8_i_n_3644,
+      EMIOGPIOTN(86) => PS8_i_n_3645,
+      EMIOGPIOTN(85) => PS8_i_n_3646,
+      EMIOGPIOTN(84) => PS8_i_n_3647,
+      EMIOGPIOTN(83) => PS8_i_n_3648,
+      EMIOGPIOTN(82) => PS8_i_n_3649,
+      EMIOGPIOTN(81) => PS8_i_n_3650,
+      EMIOGPIOTN(80) => PS8_i_n_3651,
+      EMIOGPIOTN(79) => PS8_i_n_3652,
+      EMIOGPIOTN(78) => PS8_i_n_3653,
+      EMIOGPIOTN(77) => PS8_i_n_3654,
+      EMIOGPIOTN(76) => PS8_i_n_3655,
+      EMIOGPIOTN(75) => PS8_i_n_3656,
+      EMIOGPIOTN(74) => PS8_i_n_3657,
+      EMIOGPIOTN(73) => PS8_i_n_3658,
+      EMIOGPIOTN(72) => PS8_i_n_3659,
+      EMIOGPIOTN(71) => PS8_i_n_3660,
+      EMIOGPIOTN(70) => PS8_i_n_3661,
+      EMIOGPIOTN(69) => PS8_i_n_3662,
+      EMIOGPIOTN(68) => PS8_i_n_3663,
+      EMIOGPIOTN(67) => PS8_i_n_3664,
+      EMIOGPIOTN(66) => PS8_i_n_3665,
+      EMIOGPIOTN(65) => PS8_i_n_3666,
+      EMIOGPIOTN(64) => PS8_i_n_3667,
+      EMIOGPIOTN(63) => PS8_i_n_3668,
+      EMIOGPIOTN(62) => PS8_i_n_3669,
+      EMIOGPIOTN(61) => PS8_i_n_3670,
+      EMIOGPIOTN(60) => PS8_i_n_3671,
+      EMIOGPIOTN(59) => PS8_i_n_3672,
+      EMIOGPIOTN(58) => PS8_i_n_3673,
+      EMIOGPIOTN(57) => PS8_i_n_3674,
+      EMIOGPIOTN(56) => PS8_i_n_3675,
+      EMIOGPIOTN(55) => PS8_i_n_3676,
+      EMIOGPIOTN(54) => PS8_i_n_3677,
+      EMIOGPIOTN(53) => PS8_i_n_3678,
+      EMIOGPIOTN(52) => PS8_i_n_3679,
+      EMIOGPIOTN(51) => PS8_i_n_3680,
+      EMIOGPIOTN(50) => PS8_i_n_3681,
+      EMIOGPIOTN(49) => PS8_i_n_3682,
+      EMIOGPIOTN(48) => PS8_i_n_3683,
+      EMIOGPIOTN(47) => PS8_i_n_3684,
+      EMIOGPIOTN(46) => PS8_i_n_3685,
+      EMIOGPIOTN(45) => PS8_i_n_3686,
+      EMIOGPIOTN(44) => PS8_i_n_3687,
+      EMIOGPIOTN(43) => PS8_i_n_3688,
+      EMIOGPIOTN(42) => PS8_i_n_3689,
+      EMIOGPIOTN(41) => PS8_i_n_3690,
+      EMIOGPIOTN(40) => PS8_i_n_3691,
+      EMIOGPIOTN(39) => PS8_i_n_3692,
+      EMIOGPIOTN(38) => PS8_i_n_3693,
+      EMIOGPIOTN(37) => PS8_i_n_3694,
+      EMIOGPIOTN(36) => PS8_i_n_3695,
+      EMIOGPIOTN(35) => PS8_i_n_3696,
+      EMIOGPIOTN(34) => PS8_i_n_3697,
+      EMIOGPIOTN(33) => PS8_i_n_3698,
+      EMIOGPIOTN(32) => PS8_i_n_3699,
+      EMIOGPIOTN(31) => PS8_i_n_3700,
+      EMIOGPIOTN(30) => PS8_i_n_3701,
+      EMIOGPIOTN(29) => PS8_i_n_3702,
+      EMIOGPIOTN(28) => PS8_i_n_3703,
+      EMIOGPIOTN(27) => PS8_i_n_3704,
+      EMIOGPIOTN(26) => PS8_i_n_3705,
+      EMIOGPIOTN(25) => PS8_i_n_3706,
+      EMIOGPIOTN(24) => PS8_i_n_3707,
+      EMIOGPIOTN(23) => PS8_i_n_3708,
+      EMIOGPIOTN(22) => PS8_i_n_3709,
+      EMIOGPIOTN(21) => PS8_i_n_3710,
+      EMIOGPIOTN(20) => PS8_i_n_3711,
+      EMIOGPIOTN(19) => PS8_i_n_3712,
+      EMIOGPIOTN(18) => PS8_i_n_3713,
+      EMIOGPIOTN(17) => PS8_i_n_3714,
+      EMIOGPIOTN(16) => PS8_i_n_3715,
+      EMIOGPIOTN(15) => PS8_i_n_3716,
+      EMIOGPIOTN(14) => PS8_i_n_3717,
+      EMIOGPIOTN(13) => PS8_i_n_3718,
+      EMIOGPIOTN(12) => PS8_i_n_3719,
+      EMIOGPIOTN(11) => PS8_i_n_3720,
+      EMIOGPIOTN(10) => PS8_i_n_3721,
+      EMIOGPIOTN(9) => PS8_i_n_3722,
+      EMIOGPIOTN(8) => PS8_i_n_3723,
+      EMIOGPIOTN(7) => PS8_i_n_3724,
+      EMIOGPIOTN(6) => PS8_i_n_3725,
+      EMIOGPIOTN(5) => PS8_i_n_3726,
+      EMIOGPIOTN(4) => PS8_i_n_3727,
+      EMIOGPIOTN(3) => PS8_i_n_3728,
+      EMIOGPIOTN(2) => PS8_i_n_3729,
+      EMIOGPIOTN(1) => PS8_i_n_3730,
       EMIOGPIOTN(0) => PS8_i_n_3731,
       EMIOHUBPORTOVERCRNTUSB20 => '0',
       EMIOHUBPORTOVERCRNTUSB21 => '0',
@@ -9081,12 +9355,12 @@ PS8_i: unisim.vcomponents.PS8
       EMIOU2DSPORTVBUSCTRLUSB31 => PS8_i_n_141,
       EMIOU3DSPORTVBUSCTRLUSB30 => PS8_i_n_142,
       EMIOU3DSPORTVBUSCTRLUSB31 => PS8_i_n_143,
-      EMIOUART0CTSN => '0',
-      EMIOUART0DCDN => '0',
-      EMIOUART0DSRN => '0',
-      EMIOUART0DTRN => PS8_i_n_144,
-      EMIOUART0RIN => '0',
-      EMIOUART0RTSN => PS8_i_n_145,
+      EMIOUART0CTSN => emio_uart0_ctsn,
+      EMIOUART0DCDN => emio_uart0_dcdn,
+      EMIOUART0DSRN => emio_uart0_dsrn,
+      EMIOUART0DTRN => emio_uart0_dtrn,
+      EMIOUART0RIN => emio_uart0_rin,
+      EMIOUART0RTSN => emio_uart0_rtsn,
       EMIOUART0RX => '0',
       EMIOUART0TX => PS8_i_n_146,
       EMIOUART1CTSN => '0',
@@ -11692,6 +11966,766 @@ PS8_i: unisim.vcomponents.PS8
       I => pl_clk_unbuffered(0),
       O => pl_clk0
     );
+\emio_gpio_t[0]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3731,
+      O => emio_gpio_t(0)
+    );
+\emio_gpio_t[10]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3721,
+      O => emio_gpio_t(10)
+    );
+\emio_gpio_t[11]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3720,
+      O => emio_gpio_t(11)
+    );
+\emio_gpio_t[12]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3719,
+      O => emio_gpio_t(12)
+    );
+\emio_gpio_t[13]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3718,
+      O => emio_gpio_t(13)
+    );
+\emio_gpio_t[14]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3717,
+      O => emio_gpio_t(14)
+    );
+\emio_gpio_t[15]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3716,
+      O => emio_gpio_t(15)
+    );
+\emio_gpio_t[16]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3715,
+      O => emio_gpio_t(16)
+    );
+\emio_gpio_t[17]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3714,
+      O => emio_gpio_t(17)
+    );
+\emio_gpio_t[18]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3713,
+      O => emio_gpio_t(18)
+    );
+\emio_gpio_t[19]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3712,
+      O => emio_gpio_t(19)
+    );
+\emio_gpio_t[1]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3730,
+      O => emio_gpio_t(1)
+    );
+\emio_gpio_t[20]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3711,
+      O => emio_gpio_t(20)
+    );
+\emio_gpio_t[21]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3710,
+      O => emio_gpio_t(21)
+    );
+\emio_gpio_t[22]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3709,
+      O => emio_gpio_t(22)
+    );
+\emio_gpio_t[23]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3708,
+      O => emio_gpio_t(23)
+    );
+\emio_gpio_t[24]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3707,
+      O => emio_gpio_t(24)
+    );
+\emio_gpio_t[25]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3706,
+      O => emio_gpio_t(25)
+    );
+\emio_gpio_t[26]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3705,
+      O => emio_gpio_t(26)
+    );
+\emio_gpio_t[27]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3704,
+      O => emio_gpio_t(27)
+    );
+\emio_gpio_t[28]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3703,
+      O => emio_gpio_t(28)
+    );
+\emio_gpio_t[29]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3702,
+      O => emio_gpio_t(29)
+    );
+\emio_gpio_t[2]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3729,
+      O => emio_gpio_t(2)
+    );
+\emio_gpio_t[30]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3701,
+      O => emio_gpio_t(30)
+    );
+\emio_gpio_t[31]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3700,
+      O => emio_gpio_t(31)
+    );
+\emio_gpio_t[32]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3699,
+      O => emio_gpio_t(32)
+    );
+\emio_gpio_t[33]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3698,
+      O => emio_gpio_t(33)
+    );
+\emio_gpio_t[34]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3697,
+      O => emio_gpio_t(34)
+    );
+\emio_gpio_t[35]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3696,
+      O => emio_gpio_t(35)
+    );
+\emio_gpio_t[36]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3695,
+      O => emio_gpio_t(36)
+    );
+\emio_gpio_t[37]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3694,
+      O => emio_gpio_t(37)
+    );
+\emio_gpio_t[38]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3693,
+      O => emio_gpio_t(38)
+    );
+\emio_gpio_t[39]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3692,
+      O => emio_gpio_t(39)
+    );
+\emio_gpio_t[3]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3728,
+      O => emio_gpio_t(3)
+    );
+\emio_gpio_t[40]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3691,
+      O => emio_gpio_t(40)
+    );
+\emio_gpio_t[41]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3690,
+      O => emio_gpio_t(41)
+    );
+\emio_gpio_t[42]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3689,
+      O => emio_gpio_t(42)
+    );
+\emio_gpio_t[43]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3688,
+      O => emio_gpio_t(43)
+    );
+\emio_gpio_t[44]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3687,
+      O => emio_gpio_t(44)
+    );
+\emio_gpio_t[45]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3686,
+      O => emio_gpio_t(45)
+    );
+\emio_gpio_t[46]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3685,
+      O => emio_gpio_t(46)
+    );
+\emio_gpio_t[47]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3684,
+      O => emio_gpio_t(47)
+    );
+\emio_gpio_t[48]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3683,
+      O => emio_gpio_t(48)
+    );
+\emio_gpio_t[49]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3682,
+      O => emio_gpio_t(49)
+    );
+\emio_gpio_t[4]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3727,
+      O => emio_gpio_t(4)
+    );
+\emio_gpio_t[50]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3681,
+      O => emio_gpio_t(50)
+    );
+\emio_gpio_t[51]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3680,
+      O => emio_gpio_t(51)
+    );
+\emio_gpio_t[52]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3679,
+      O => emio_gpio_t(52)
+    );
+\emio_gpio_t[53]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3678,
+      O => emio_gpio_t(53)
+    );
+\emio_gpio_t[54]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3677,
+      O => emio_gpio_t(54)
+    );
+\emio_gpio_t[55]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3676,
+      O => emio_gpio_t(55)
+    );
+\emio_gpio_t[56]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3675,
+      O => emio_gpio_t(56)
+    );
+\emio_gpio_t[57]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3674,
+      O => emio_gpio_t(57)
+    );
+\emio_gpio_t[58]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3673,
+      O => emio_gpio_t(58)
+    );
+\emio_gpio_t[59]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3672,
+      O => emio_gpio_t(59)
+    );
+\emio_gpio_t[5]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3726,
+      O => emio_gpio_t(5)
+    );
+\emio_gpio_t[60]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3671,
+      O => emio_gpio_t(60)
+    );
+\emio_gpio_t[61]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3670,
+      O => emio_gpio_t(61)
+    );
+\emio_gpio_t[62]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3669,
+      O => emio_gpio_t(62)
+    );
+\emio_gpio_t[63]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3668,
+      O => emio_gpio_t(63)
+    );
+\emio_gpio_t[64]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3667,
+      O => emio_gpio_t(64)
+    );
+\emio_gpio_t[65]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3666,
+      O => emio_gpio_t(65)
+    );
+\emio_gpio_t[66]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3665,
+      O => emio_gpio_t(66)
+    );
+\emio_gpio_t[67]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3664,
+      O => emio_gpio_t(67)
+    );
+\emio_gpio_t[68]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3663,
+      O => emio_gpio_t(68)
+    );
+\emio_gpio_t[69]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3662,
+      O => emio_gpio_t(69)
+    );
+\emio_gpio_t[6]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3725,
+      O => emio_gpio_t(6)
+    );
+\emio_gpio_t[70]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3661,
+      O => emio_gpio_t(70)
+    );
+\emio_gpio_t[71]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3660,
+      O => emio_gpio_t(71)
+    );
+\emio_gpio_t[72]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3659,
+      O => emio_gpio_t(72)
+    );
+\emio_gpio_t[73]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3658,
+      O => emio_gpio_t(73)
+    );
+\emio_gpio_t[74]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3657,
+      O => emio_gpio_t(74)
+    );
+\emio_gpio_t[75]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3656,
+      O => emio_gpio_t(75)
+    );
+\emio_gpio_t[76]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3655,
+      O => emio_gpio_t(76)
+    );
+\emio_gpio_t[77]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3654,
+      O => emio_gpio_t(77)
+    );
+\emio_gpio_t[78]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3653,
+      O => emio_gpio_t(78)
+    );
+\emio_gpio_t[79]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3652,
+      O => emio_gpio_t(79)
+    );
+\emio_gpio_t[7]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3724,
+      O => emio_gpio_t(7)
+    );
+\emio_gpio_t[80]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3651,
+      O => emio_gpio_t(80)
+    );
+\emio_gpio_t[81]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3650,
+      O => emio_gpio_t(81)
+    );
+\emio_gpio_t[82]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3649,
+      O => emio_gpio_t(82)
+    );
+\emio_gpio_t[83]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3648,
+      O => emio_gpio_t(83)
+    );
+\emio_gpio_t[84]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3647,
+      O => emio_gpio_t(84)
+    );
+\emio_gpio_t[85]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3646,
+      O => emio_gpio_t(85)
+    );
+\emio_gpio_t[86]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3645,
+      O => emio_gpio_t(86)
+    );
+\emio_gpio_t[87]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3644,
+      O => emio_gpio_t(87)
+    );
+\emio_gpio_t[88]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3643,
+      O => emio_gpio_t(88)
+    );
+\emio_gpio_t[89]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3642,
+      O => emio_gpio_t(89)
+    );
+\emio_gpio_t[8]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3723,
+      O => emio_gpio_t(8)
+    );
+\emio_gpio_t[90]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3641,
+      O => emio_gpio_t(90)
+    );
+\emio_gpio_t[91]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3640,
+      O => emio_gpio_t(91)
+    );
+\emio_gpio_t[92]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3639,
+      O => emio_gpio_t(92)
+    );
+\emio_gpio_t[93]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3638,
+      O => emio_gpio_t(93)
+    );
+\emio_gpio_t[94]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3637,
+      O => emio_gpio_t(94)
+    );
+\emio_gpio_t[9]_INST_0\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => PS8_i_n_3722,
+      O => emio_gpio_t(9)
+    );
 i_0: unisim.vcomponents.LUT1
     generic map(
       INIT => X"2"
@@ -13891,6 +14925,15 @@ entity design_1_zynq_ultra_ps_e_0_0 is
     maxigp1_rready : out STD_LOGIC;
     maxigp1_awqos : out STD_LOGIC_VECTOR ( 3 downto 0 );
     maxigp1_arqos : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    emio_gpio_i : in STD_LOGIC_VECTOR ( 94 downto 0 );
+    emio_gpio_o : out STD_LOGIC_VECTOR ( 94 downto 0 );
+    emio_gpio_t : out STD_LOGIC_VECTOR ( 94 downto 0 );
+    emio_uart0_ctsn : in STD_LOGIC;
+    emio_uart0_rtsn : out STD_LOGIC;
+    emio_uart0_dsrn : in STD_LOGIC;
+    emio_uart0_dcdn : in STD_LOGIC;
+    emio_uart0_rin : in STD_LOGIC;
+    emio_uart0_dtrn : out STD_LOGIC;
     pl_ps_irq0 : in STD_LOGIC_VECTOR ( 0 to 0 );
     pl_resetn0 : out STD_LOGIC;
     pl_clk0 : out STD_LOGIC
@@ -14073,8 +15116,6 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   signal NLW_U0_emio_u2dsport_vbus_ctrl_usb3_1_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_emio_u3dsport_vbus_ctrl_usb3_0_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_emio_u3dsport_vbus_ctrl_usb3_1_UNCONNECTED : STD_LOGIC;
-  signal NLW_U0_emio_uart0_dtrn_UNCONNECTED : STD_LOGIC;
-  signal NLW_U0_emio_uart0_rtsn_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_emio_uart0_txd_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_emio_uart1_dtrn_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_emio_uart1_rtsn_UNCONNECTED : STD_LOGIC;
@@ -14419,9 +15460,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   signal NLW_U0_emio_enet3_rx_w_status_UNCONNECTED : STD_LOGIC_VECTOR ( 44 downto 0 );
   signal NLW_U0_emio_enet3_speed_mode_UNCONNECTED : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal NLW_U0_emio_enet3_tx_r_status_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal NLW_U0_emio_gpio_o_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal NLW_U0_emio_gpio_t_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal NLW_U0_emio_gpio_t_n_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal NLW_U0_emio_gpio_t_n_UNCONNECTED : STD_LOGIC_VECTOR ( 94 downto 0 );
   signal NLW_U0_emio_sdio0_bus_volt_UNCONNECTED : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal NLW_U0_emio_sdio0_dataena_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_U0_emio_sdio0_dataout_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
@@ -14624,7 +15663,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   attribute C_DP_USE_VIDEO : integer;
   attribute C_DP_USE_VIDEO of U0 : label is 0;
   attribute C_EMIO_GPIO_WIDTH : integer;
-  attribute C_EMIO_GPIO_WIDTH of U0 : label is 1;
+  attribute C_EMIO_GPIO_WIDTH of U0 : label is 95;
   attribute C_EN_EMIO_TRACE : integer;
   attribute C_EN_EMIO_TRACE of U0 : label is 0;
   attribute C_EN_FIFO_ENET0 : string;
@@ -14882,6 +15921,12 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   attribute PSS_POWER : string;
   attribute PSS_POWER of U0 : label is "<BLOCKTYPE name={PS8}> <PS8><FPD><PROCESSSORS><PROCESSOR name={Cortex A-53} numCores={4} L2Cache={Enable} clockFreq={1200.000000} load={0.5}/><PROCESSOR name={GPU Mali-400 MP} numCores={2} clockFreq={500.000000} load={0.5} /></PROCESSSORS><PLLS><PLL domain={APU} vco={2399.976} /><PLL domain={DDR} vco={2133.312} /><PLL domain={Video} vco={2366.643} /></PLLS><MEMORY memType={LPDDR4} dataWidth={4} clockFreq={533.333} readRate={0.5} writeRate={0.5} cmdAddressActivity={0.5} /><SERDES><GT name={PCIe} standard={} lanes={} usageRate={0.5} /><GT name={SATA} standard={} lanes={} usageRate={0.5} /><GT name={Display Port} standard={SVGA-60 (800x600)} lanes={2} usageRate={0.5} />clockFreq={60} /><GT name={USB3} standard={USB3.0} lanes={2}usageRate={0.5} /><GT name={SGMII} standard={SGMII} lanes={0} usageRate={0.5} /></SERDES><AFI master={2} slave={0} clockFreq={100.000} usageRate={0.5} /><FPINTERCONNECT clockFreq={533.333313} Bandwidth={Low} /></FPD><LPD><PROCESSSORS><PROCESSOR name={Cortex R-5} usage={Enable} TCM={Enable} OCM={Enable} clockFreq={500.000000} load={0.5}/></PROCESSSORS><PLLS><PLL domain={IO} vco={1499.985} /><PLL domain={RPLL} vco={2333.310} /></PLLS><CSUPMU><Unit name={CSU} usageRate={0.5} clockFreq={500} /><Unit name={PMU} usageRate={0.5} clockFreq={180} /></CSUPMU><GPIO><Bank ioBank={VCC_PSIO0} number={9} io_standard={LVCMOS 1.8V} /><Bank ioBank={VCC_PSIO1} number={8} io_standard={LVCMOS 1.8V} /><Bank ioBank={VCC_PSIO2} number={2} io_standard={LVCMOS 1.8V} /><Bank ioBank={VCC_PSIO3} number={16} io_standard={LVCMOS 1.8V} /></GPIO><IOINTERFACES> <IO name={QSPI} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={NAND 3.1} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={USB0} io_standard={} ioBank={VCC_PSIO2} clockFreq={250.000000} inputs={3} outputs={1} inouts={8} usageRate={0.5}/><IO name={USB1} io_standard={} ioBank={VCC_PSIO2} clockFreq={250.000000} inputs={3} outputs={1} inouts={8} usageRate={0.5}/><IO name={GigabitEth0} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={GigabitEth1} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={GigabitEth2} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={GigabitEth3} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={GPIO 0} io_standard={} ioBank={VCC_PSIO0} clockFreq={1} inputs={0} outputs={0} inouts={9} usageRate={0.5}/><IO name={GPIO 1} io_standard={} ioBank={VCC_PSIO1} clockFreq={1} inputs={0} outputs={0} inouts={8} usageRate={0.5}/><IO name={GPIO 2} io_standard={} ioBank={VCC_PSIO2} clockFreq={1} inputs={0} outputs={0} inouts={2} usageRate={0.5}/><IO name={GPIO 3} io_standard={} ioBank={VCC_PSIO3} clockFreq={1} inputs={} outputs={} inouts={16} usageRate={0.5}/><IO name={UART0} io_standard={} ioBank={VCC_PSIO0} clockFreq={100.000000} inputs={1} outputs={1} inouts={0} usageRate={0.5}/><IO name={UART1} io_standard={} ioBank={VCC_PSIO0} clockFreq={100.000000} inputs={1} outputs={1} inouts={0} usageRate={0.5}/><IO name={I2C0} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={I2C1} io_standard={} ioBank={VCC_PSIO0} clockFreq={100.000000} inputs={0} outputs={0} inouts={2} usageRate={0.5}/><IO name={SPI0} io_standard={} ioBank={VCC_PSIO1} clockFreq={187.500000} inputs={0} outputs={0} inouts={4} usageRate={0.5}/><IO name={SPI1} io_standard={} ioBank={VCC_PSIO0} clockFreq={187.500000} inputs={0} outputs={0} inouts={4} usageRate={0.5}/><IO name={CAN0} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={CAN1} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={SD0} io_standard={} ioBank={VCC_PSIO0} clockFreq={187.500000} inputs={1} outputs={1} inouts={5} usageRate={0.5}/><IO name={SD1} io_standard={} ioBank={VCC_PSIO1} clockFreq={187.500000} inputs={0} outputs={1} inouts={5} usageRate={0.5}/><IO name={Trace} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={TTC0} io_standard={} ioBank={} clockFreq={100} inputs={0} outputs={0} inouts={0} usageRate={0.5}/><IO name={TTC1} io_standard={} ioBank={} clockFreq={100} inputs={0} outputs={0} inouts={0} usageRate={0.5}/><IO name={TTC2} io_standard={} ioBank={} clockFreq={100} inputs={0} outputs={0} inouts={0} usageRate={0.5}/><IO name={TTC3} io_standard={} ioBank={} clockFreq={100} inputs={0} outputs={0} inouts={0} usageRate={0.5}/><IO name={PJTAG} io_standard={} ioBank={} clockFreq={} inputs={} outputs={} inouts={} usageRate={0.5}/><IO name={DPAUX} io_standard={} ioBank={VCC_PSIO1} clockFreq={} inputs={2} outputs={2} inouts={0} usageRate={0.5}/><IO name={WDT0} io_standard={} ioBank={} clockFreq={100} inputs={0} outputs={0} inouts={0} usageRate={0.5}/><IO name={WDT1} io_standard={} ioBank={} clockFreq={100} inputs={0} outputs={0} inouts={0} usageRate={0.5}/></IOINTERFACES><AFI master={0} slave={0} clockFreq={333.333} usageRate={0.5} /><LPINTERCONNECT clockFreq={500.000000} Bandwidth={High} /></LPD></PS8></BLOCKTYPE>/>";
   attribute x_interface_info : string;
+  attribute x_interface_info of emio_uart0_ctsn : signal is "xilinx.com:interface:uart:1.0 UART_0 CTSn";
+  attribute x_interface_info of emio_uart0_dcdn : signal is "xilinx.com:interface:uart:1.0 UART_0 DCDn";
+  attribute x_interface_info of emio_uart0_dsrn : signal is "xilinx.com:interface:uart:1.0 UART_0 DSRn";
+  attribute x_interface_info of emio_uart0_dtrn : signal is "xilinx.com:interface:uart:1.0 UART_0 DTRn";
+  attribute x_interface_info of emio_uart0_rin : signal is "xilinx.com:interface:uart:1.0 UART_0 RI";
+  attribute x_interface_info of emio_uart0_rtsn : signal is "xilinx.com:interface:uart:1.0 UART_0 RTSn";
   attribute x_interface_info of maxigp0_arlock : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARLOCK";
   attribute x_interface_info of maxigp0_arready : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARREADY";
   attribute x_interface_info of maxigp0_arvalid : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARVALID";
@@ -14919,6 +15964,9 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   attribute x_interface_parameter of pl_clk0 : signal is "XIL_INTERFACENAME PL_CLK0, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, INSERT_VIP 0";
   attribute x_interface_info of pl_resetn0 : signal is "xilinx.com:signal:reset:1.0 PL_RESETN0 RST";
   attribute x_interface_parameter of pl_resetn0 : signal is "XIL_INTERFACENAME PL_RESETN0, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  attribute x_interface_info of emio_gpio_i : signal is "xilinx.com:interface:gpio:1.0 GPIO_0 TRI_I";
+  attribute x_interface_info of emio_gpio_o : signal is "xilinx.com:interface:gpio:1.0 GPIO_0 TRI_O";
+  attribute x_interface_info of emio_gpio_t : signal is "xilinx.com:interface:gpio:1.0 GPIO_0 TRI_T";
   attribute x_interface_info of maxigp0_araddr : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARADDR";
   attribute x_interface_info of maxigp0_arburst : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARBURST";
   attribute x_interface_info of maxigp0_arcache : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM0_FPD ARCACHE";
@@ -15232,10 +16280,10 @@ U0: entity work.design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_p
       emio_enet3_tx_r_valid => '0',
       emio_enet3_tx_sof => NLW_U0_emio_enet3_tx_sof_UNCONNECTED,
       emio_enet_tsu_clk => '0',
-      emio_gpio_i(0) => '0',
-      emio_gpio_o(0) => NLW_U0_emio_gpio_o_UNCONNECTED(0),
-      emio_gpio_t(0) => NLW_U0_emio_gpio_t_UNCONNECTED(0),
-      emio_gpio_t_n(0) => NLW_U0_emio_gpio_t_n_UNCONNECTED(0),
+      emio_gpio_i(94 downto 0) => emio_gpio_i(94 downto 0),
+      emio_gpio_o(94 downto 0) => emio_gpio_o(94 downto 0),
+      emio_gpio_t(94 downto 0) => emio_gpio_t(94 downto 0),
+      emio_gpio_t_n(94 downto 0) => NLW_U0_emio_gpio_t_n_UNCONNECTED(94 downto 0),
       emio_hub_port_overcrnt_usb2_0 => '0',
       emio_hub_port_overcrnt_usb2_1 => '0',
       emio_hub_port_overcrnt_usb3_0 => '0',
@@ -15330,12 +16378,12 @@ U0: entity work.design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_p
       emio_u2dsport_vbus_ctrl_usb3_1 => NLW_U0_emio_u2dsport_vbus_ctrl_usb3_1_UNCONNECTED,
       emio_u3dsport_vbus_ctrl_usb3_0 => NLW_U0_emio_u3dsport_vbus_ctrl_usb3_0_UNCONNECTED,
       emio_u3dsport_vbus_ctrl_usb3_1 => NLW_U0_emio_u3dsport_vbus_ctrl_usb3_1_UNCONNECTED,
-      emio_uart0_ctsn => '0',
-      emio_uart0_dcdn => '0',
-      emio_uart0_dsrn => '0',
-      emio_uart0_dtrn => NLW_U0_emio_uart0_dtrn_UNCONNECTED,
-      emio_uart0_rin => '0',
-      emio_uart0_rtsn => NLW_U0_emio_uart0_rtsn_UNCONNECTED,
+      emio_uart0_ctsn => emio_uart0_ctsn,
+      emio_uart0_dcdn => emio_uart0_dcdn,
+      emio_uart0_dsrn => emio_uart0_dsrn,
+      emio_uart0_dtrn => emio_uart0_dtrn,
+      emio_uart0_rin => emio_uart0_rin,
+      emio_uart0_rtsn => emio_uart0_rtsn,
       emio_uart0_rxd => '0',
       emio_uart0_txd => NLW_U0_emio_uart0_txd_UNCONNECTED,
       emio_uart1_ctsn => '0',

@@ -88,7 +88,7 @@ design_1_zynq_ultra_ps_e_0_0_sc::design_1_zynq_ultra_ps_e_0_0_sc(const sc_core::
     model_param_props.addLong("C_SD1_INTERNAL_BUS_WIDTH", "4");
     model_param_props.addLong("C_NUM_F2P_0_INTR_INPUTS", "1");
     model_param_props.addLong("C_NUM_F2P_1_INTR_INPUTS", "1");
-    model_param_props.addLong("C_EMIO_GPIO_WIDTH", "1");
+    model_param_props.addLong("C_EMIO_GPIO_WIDTH", "95");
     model_param_props.addLong("C_NUM_FABRIC_RESETS", "1");
     model_param_props.addString("C_EN_FIFO_ENET0", "0");
     model_param_props.addString("C_EN_FIFO_ENET1", "0");
