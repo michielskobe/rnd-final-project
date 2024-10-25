@@ -73,3 +73,4 @@ nav:
    - Extra info : extra.md
  - Project:
    - Description : project/description.md
+   - PetaLinux: project/petalinux.md
