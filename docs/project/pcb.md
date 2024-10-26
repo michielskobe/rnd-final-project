@@ -39,6 +39,7 @@ We also want to be able to communicate at high speeds. For our particular case, 
 <img src="/img/ultra_revA.png"/>
 
 Some notes:
+
  * Every unprotected FPGA input pin has an RCR T-filter (10 Ohm and 1nF)
  * Every new output has a 2.54mm pitch for easy connections
  * The IDC connectors have evenly divided I/O from the FPGA
@@ -57,6 +58,7 @@ Some notes:
 <img src="/img/pynq_revA.png"/>
 
 some notes:
+
  * Very simple
  * Added scope points between IDC and headers
 
