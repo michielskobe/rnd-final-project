@@ -74,4 +74,5 @@ nav:
  - Project:
    - Description : project/description.md
    - PetaLinux: project/petalinux.md
+   - Bluetooth: project/bluetooth.md
    - PCB: project/pcb.md
