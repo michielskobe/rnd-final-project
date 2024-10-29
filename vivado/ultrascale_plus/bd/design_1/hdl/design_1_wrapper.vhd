@@ -2,8 +2,8 @@
 --Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
---Date        : Fri Oct 25 15:28:54 2024
---Host        : fedora running 64-bit unknown
+--Date        : Tue Oct 29 14:01:20 2024
+--Host        : fedora running 64-bit Fedora release 40 (Forty)
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
 --Purpose     : IP block netlist
@@ -25,11 +25,11 @@ end design_1_wrapper;
 architecture STRUCTURE of design_1_wrapper is
   component design_1 is
   port (
-    bt_ctsn : in STD_LOGIC;
-    bt_rtsn : out STD_LOGIC;
     wifi_en_led_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 );
     bt_en_led_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 );
-    fan_pwm_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 )
+    fan_pwm_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 );
+    bt_ctsn : in STD_LOGIC;
+    bt_rtsn : out STD_LOGIC
   );
   end component design_1;
 begin
