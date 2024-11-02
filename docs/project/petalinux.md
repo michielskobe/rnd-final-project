@@ -92,4 +92,25 @@ After we made all the necessary modifications to our project, we can start to bu
 petalinux-build
 ```
 
-This may take a while. Right now, the build still fails because of an opencv-issue. 
+This may take a while. After this, we can create the boot files with the following command:
+
+``` bash
+petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --fpga images/linux/system.bit --pmufw images/linux/pmufw.elf --u-boot
+```
+
+Lastly, we can create a .wic-image file which we can easily flash to a SD card:
+
+``` bash 
+petalinux-package wic --images-dir images/linux/ --bootfiles "boot.scr,Image,system.dtb"
+```
+
+The .wic file can be flashed with any disk utility tool. When doing so, 2 partitions will be created on the SD card: the BOOT and root partition. 
+After flashing, the files **image.ub** and **BOOT.BIN** need to be copied to the BOOT partition.
+On most Linux distributions, this can be done with the following commands:
+
+``` bash
+cp BOOT.BIN /mount-point-for-BOOT-partition/
+cp image.ub /mount-point-for-BOOT-partition/
+```
+
+Where the mount point for the BOOT partition can be e.g. /media/user/BOOT/.
