@@ -80,7 +80,7 @@ git log -1 --pretty=%H wilc_linux_16_3
 
 ### Upgrading Bluez5
 
-We changed the name of the bluez5 bitbake file **bluez5-5.65.bb** to **bluez5-5.79.bb** so that version 5.79 will be downloaded from the kernel.org website. In the include file, two lines should be added so that the neccessary files are incorporated in the installation process.
+We changed the name of the bluez5 bitbake file **bluez5_5.65.bb** to **bluez5_5.79.bb** so that version 5.79 will be downloaded from the kernel.org website. In the include file, two lines should be added so that the neccessary files are incorporated in the installation process.
 
 ```diff
     FILES:${PN} += " \
@@ -90,6 +90,14 @@ We changed the name of the bluez5 bitbake file **bluez5-5.65.bb** to **bluez5-5.
 +       /usr/lib/systemd/user/mpris-proxy.service \
 +       /usr/lib/systemd/user/dbus-org.bluez.obex.service \
     "
+```
+
+Also the checksum of the bluez5 archive file should be changed in **bluez5_5.79.bb**:
+
+```diff
+- SRC_URI[sha256sum] = "2565a4d48354b576e6ad92e25b54ed66808296581c8abb80587051f9993d96d4"
++ SRC_URI[sha256sum] = "4164a5303a9f71c70f48c03ff60be34231b568d93a9ad5e79928d34e6aa0ea8a"
+
 ```
 The files related to bluez5 can be found in `/components/yocto/layers/poky/meta/recipes-connectivity/bluez5`.
 
