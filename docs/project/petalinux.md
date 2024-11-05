@@ -14,6 +14,14 @@ petalinux-create -t project -s ~/path/to/u96v2_sbc_base_2023_2.bsp --name <proje
 
 After the PetaLinux project is created, we can directly build the system image by running the command `petalinux-build`. Before we execute this command, we first needed to make some changes in order to get a working build.
 
+### Adding our custom XSA
+
+First of all, we want to add our custom XSA-file to the project. We do this with `petalinux-config`:
+
+``` bash
+petalinux-config --get-hw-description ~/path/to/xsa
+```
+
 ### Removing redundant u-boot patch
 
 We removed a patch in `/project-spec/meta-avnet/recipes-bsp/u-boot/u-boot-xlnx_%.bbappend`. The reason for this is that the changes this patch was attempting to make were already made and the line numbers between the source file and the patch did not match. We can therefore safely remove this patch.
@@ -84,14 +92,6 @@ We changed the name of the bluez5 bitbake file **bluez5-5.65.bb** to **bluez5-5.
     "
 ```
 The files related to bluez5 can be found in `/components/yocto/layers/poky/meta/recipes-connectivity/bluez5`.
-
-### Adding our custom XSA
-
-When these modifications are done, we want to add our custom XSA-file to the project. We do this with `petalinux-config`:
-
-``` bash
-petalinux-config --get-hw-description ~/path/to/xsa
-```
 
 ### Adding Pipewire and Wireplumber
 
