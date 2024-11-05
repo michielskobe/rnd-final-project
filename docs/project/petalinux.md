@@ -65,13 +65,20 @@ petalinux-config --get-hw-description ~/path/to/xsa
 
 To be able to support Bluetooth Audio later on in the project, we will also need Pipewire and Wireplumber. We need to execute a couple steps in order to add this to the project.
 
-- First, we clone the [meta-openembedded GitHub-repository](https://github.com/openembedded/meta-openembedded) in the `/project-spec/meta-user/`-directory.
+- First, we clone the [meta-openembedded GitHub-repository](https://github.com/openembedded/meta-openembedded) in the `/project-spec/`-directory.
 
 ```bash
 git clone git@github.com:openembedded/meta-openembedded.git
 ```
 
-- Then, we run `petalinux-config` in our terminal. We go to **Yocto Settings** → **User Layers**. Here we add a new user layer: `${PROOT}/project-spec/meta-user/meta-openembedded/meta-multimedia`.
+- Then, we run `petalinux-config` in our terminal. We go to **Yocto Settings** → **User Layers**. Here we add a new user layer: `${PROOT}/project-spec/meta-openembedded/meta-multimedia`. This results in the following errors: 
+
+```bash
+ERROR: Found duplicated BBFILE_COLLECTIONS 'multimedia-layer', check bblayers.conf or layer.conf to fix it.
+ERROR: Found duplicated BBFILE_COLLECTIONS 'multimedia-layer', check bblayers.conf or layer.conf to fix it.
+```
+
+To solve these errors, we go to `build/conf/bblayers.conf`. Here we got a duplicate entry for `meta-multimedia`, so we removed one of these entries. 
 
 - In `/project-spec/meta-user/conf/user-rootfsconfig`, we add the following lines:
 
@@ -82,8 +89,6 @@ git clone git@github.com:openembedded/meta-openembedded.git
 
 - We run the command `petalinux-config -c rootfs` and go to **user packages**. Here we enable `pipewire` and `wireplumber` by pressing `y`.
 
-- Lastly, we go to `build/conf/bblayers.conf`. Here we got a duplicate entry for `meta-multimedia`, so we removed one of these entries. 
-
 ## Building our PetaLinux project
 
 After we made all the necessary modifications to our project, we can start to build it by running the following command:
@@ -92,7 +97,11 @@ After we made all the necessary modifications to our project, we can start to bu
 petalinux-build
 ```
 
-This may take a while. After this, we can create the boot files with the following command:
+This may take a while. 
+
+## Creating the boot files
+
+When the build is finished, we can create the boot files with the following command:
 
 ``` bash
 petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --fpga images/linux/system.bit --pmufw images/linux/pmufw.elf --u-boot
