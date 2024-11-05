@@ -22,9 +22,10 @@ We removed a patch in `/project-spec/meta-avnet/recipes-bsp/u-boot/u-boot-xlnx_%
 -            "
 ```
 
-### Upgrading WILC firmware
+### Upgrading WILC kernel drivers
 
-We created `/project-spec/meta-avnet/recipes-modules/wilc/wilc_16.3.bb`, which is a copy of `wilc_16.1.1.bb` with some adaptations. These adaptations update the Linux kernel to version 6.6 and the WILC firmware to 16.3.
+We created `/project-spec/meta-avnet/recipes-modules/wilc/wilc_16.3.bb`, which is a copy of `wilc_16.1.1.bb` with some adaptations. These adaptations update the kernel drivers for the WILC chip to version 16.3 which supports Linux kernel version 6.6.
+
 ```diff
 - SRC_URI = "git://github.com/linux4sam/linux-at91.git;protocol=http;branch=${BRANCH};subpath=drivers/net/wireless/microchip/wilc1000 \ 
 -           file://0001-ultra96-modifications-16.1.patch \ 
@@ -52,6 +53,37 @@ We also added a patch file for `wilc_16.3.bb`. We tried to generate this patch b
 git diff 3f619ddf943b04c6f34f276a65f183a881a7c9c5 4b6e171642a4167dbbb572d5101681f0b2e75772 -- drivers/net/wireless/microchip/wilc1000 > ~/path/to/petalinux/project/project-spec/meta-avnet/recipes-modules/wilc/files/0001-ultra96-modifications-16.3.patch
 ```
 This turned out to be unsuccessful and we ended up using a [patch](https://gitlab.kuleuven.be/groep-t/courses/rndembed/2425/team-e/-/blob/fc166c653e7d07ab2270e85d3484d8db5c27b601/petalinux/0001-ultra96-modifications-16.3.patch) based on the patch for version 16.1.1, provided to us by Yuri Cauwerts. The patch file is placed in the folder `/project-spec/meta-avnet/recipes-modules/wilc/files/`.
+
+### Upgrading WILC3000 firmware
+
+We created `/project-spec/meta-avnet/recipes-bsp/wilc3000-fw/wilc3000-fw_16.3.bb`, which is a copy of `wilc3000-fw_16.1.1.bb` with some adaptations. These adaptations update the wilc3000 firmware to version 16.3.
+
+```diff
+- # Tag: wilc_linux_16_1_1
++ # Tag: wilc_linux_16_3
+
+- SRCREV = "ab40db5d41f4c9cd9b74a922d7f781bb07f0610b" 
++ SRCREV = "7cbf0cdf1aabc4da48802d5f2d3d5525304af61d" 
+```
+The updated SRCREV for the WILC Linux 16.3 release can be found by running the following git command in the [linux4wilc/firmware GitHub-repository](https://github.com/linux4wilc/firmware):
+```bash
+git log -1 --pretty=%H wilc_linux_16_3
+```
+
+### Upgrading Bluez5
+
+We changed the name of the bluez5 bitbake file **bluez5-5.65.bb** to **bluez5-5.79.bb** so that version 5.79 will be downloaded from the kernel.org website. In the include file, two lines should be added so that the neccessary files are incorporated in the installation process.
+
+```diff
+    FILES:${PN} += " \
+        ${libdir}/bluetooth/plugins/*.so \
+        ${systemd_unitdir}/ ${datadir}/dbus-1 \
+        ${libdir}/cups \
++       /usr/lib/systemd/user/mpris-proxy.service \
++       /usr/lib/systemd/user/dbus-org.bluez.obex.service \
+    "
+```
+The files related to bluez5 can be found in `/components/yocto/layers/poky/meta/recipes-connectivity/bluez5`.
 
 ### Adding our custom XSA
 
