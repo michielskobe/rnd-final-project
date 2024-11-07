@@ -63,7 +63,7 @@ begin
      -- device under test
      i_dut: entity wav2axi
      generic map(
-        g_file_name => "/home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/test_piano.wav",
+        g_file_name => "test_piano.wav",
         g_channel => 0 
      )
      port map(

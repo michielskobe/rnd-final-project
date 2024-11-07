@@ -21,7 +21,10 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
+use IEEE.NUMERIC_STD.ALL;
+use ieee.MATH_REAL.all;
+use ieee.std_logic_arith.all;
+use ieee.STD_LOGIC_UNSIGNED.all;
 use std.textio.all;
 
 
@@ -63,6 +66,7 @@ begin
         variable    v_wav_opened : FILE_OPEN_STATUS;
         variable    v_opened     : BOOLEAN;
         variable    v_wav_header : t_wav_header;
+        variable    v_chan_offset: BOOLEAN;
     begin
 
         assert g_file_name /= ""
@@ -77,6 +81,28 @@ begin
         v_opened := true;
 
         open_wav(v_wav_file, v_wav_header);
+        
+        -- set the TID
+        v_chan_offset := FALSE;
+        axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel, c_ID_width));
+
+        -- set the valid signal
+        axi_out_fwd.TValid <= '1';
+        
+        while not ENDFILE(v_wav_file) loop
+            -- ensure switching of TID
+            if v_chan_offset then
+                v_chan_offset := false;
+                axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel+1, c_ID_width));
+            else
+                v_chan_offset := true;
+                axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel, c_ID_width));
+            end if;
+
+            wait until rising_edge(clk_in);
+            axi_out_fwd.TData <= read_data_sample(v_wav_file);
+        end loop;
+
     end process;
 
 end Behavioral;

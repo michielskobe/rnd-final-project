@@ -25,6 +25,7 @@ use IEEE.NUMERIC_STD.ALL;
 use ieee.MATH_REAL.all;
 use ieee.std_logic_arith.all;
 use ieee.STD_LOGIC_UNSIGNED.all;
+use work.axi4_audio_pkg.all;
 
 package wav_lib_pkg is
 
@@ -57,7 +58,7 @@ package wav_lib_pkg is
     impure function read_long(file f : t_wav_file) return t_wav_long;
     impure function read_short_l(file f : t_wav_file) return t_wav_short;
     impure function read_long_l(file f : t_wav_file) return t_wav_long;
-    impure function read_data_sample(file f : t_wav_file) return t_sample;
+    impure function read_data_sample(file f : t_wav_file) return STD_LOGIC_VECTOR;
 
 end package wav_lib_pkg;
 
@@ -116,8 +117,8 @@ package body wav_lib_pkg is
         return v_char;
     end;
 
-    impure function read_data_sample(file f : t_wav_file) return t_sample is
-        variable v_char : natural;
+    impure function read_data_sample(file f : t_wav_file) return STD_LOGIC_VECTOR is
+        variable v_char : STD_LOGIC_VECTOR(c_audio_width -1 downto 0);
         variable v1 : natural;
         variable v2 : natural;
         variable v3 : natural;
@@ -125,7 +126,7 @@ package body wav_lib_pkg is
         v1 := read_byte(f);
         v2 := read_byte(f);
         v3 := read_byte(f);
-        v_char := v1 + v2*256 + v3*256*256;
+        v_char := STD_LOGIC_VECTOR(to_unsigned(v1 + v2*256 + v3*256*256, c_audio_width));
         return v_char;
     end;
 
