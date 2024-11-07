@@ -53,8 +53,8 @@ architecture Behavioral of tb_wav2axi is
     -- AXI streams
     ------------------------------------
     signal wav_axi_fwd : t_axi4_audio_fwd;
-    signal wav_axi_bwd : t_axi4_audio_bwd := (TReady => '0');
-    signal bp_period : time := 100 ns;
+    signal wav_axi_bwd : t_axi4_audio_bwd := (TReady => '1');
+    signal bp_period : time := 100000 ns;
 
 begin
 
@@ -70,7 +70,7 @@ begin
      )
      port map(
          -- input
-         ratio => 256,
+         ratio => 128,
          clk_in => clk,
          
          -- output

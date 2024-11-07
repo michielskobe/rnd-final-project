@@ -58,8 +58,14 @@ end wav2axi;
 
 architecture Behavioral of wav2axi is
 
+    signal ratio_ctr : natural range 0 to 256 := 0;
+    signal valid     : STD_LOGIC := '0';
+    signal ready     : STD_LOGIC := '0';
 
 begin
+
+    axi_out_fwd.TValid <= valid;
+    ready <= axi_out_bwd.TReady;
 
     p_read : process 
         file        v_wav_file   : t_wav_file;
@@ -86,11 +92,10 @@ begin
         v_chan_offset := FALSE;
         axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel, c_ID_width));
 
-        -- set the valid signal
-        axi_out_fwd.TValid <= '1';
         
         while not ENDFILE(v_wav_file) loop
-            if axi_out_bwd.TReady = '1' then
+            -- on a valid axi handshake
+            if ready = '1' and valid = '1' then
                 -- ensure switching of TID
                 if v_chan_offset then
                     v_chan_offset := false;
@@ -107,6 +112,21 @@ begin
             end if;
         end loop;
 
+    end process;
+
+    p_ratio: process (clk_in)
+    begin
+        if rising_edge(clk_in) then
+            ratio_ctr <= ratio_ctr +1;
+            valid <= '0';
+            if ratio_ctr <= ratio then
+                valid <= '1';
+            end if;
+            
+            if ratio_ctr = 256 then
+                ratio_ctr <= 0;
+            end if;
+        end if;
     end process;
 
 end Behavioral;
