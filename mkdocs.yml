@@ -77,5 +77,6 @@ nav:
    - Bluetooth: project/bluetooth.md
    - PCB: project/pcb.md
    - HDL:
+      - Audio AXI: project/hdl_audio_axi.md
       - Simulation: project/hdl_simulation.md
 
