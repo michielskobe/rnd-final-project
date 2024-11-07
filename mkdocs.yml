@@ -76,3 +76,6 @@ nav:
    - PetaLinux: project/petalinux.md
    - Bluetooth: project/bluetooth.md
    - PCB: project/pcb.md
+   - HDL:
+      - Simulation: project/hdl_simulation.md
+
