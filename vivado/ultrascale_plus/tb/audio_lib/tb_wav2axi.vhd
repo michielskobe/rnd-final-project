@@ -53,12 +53,14 @@ architecture Behavioral of tb_wav2axi is
     -- AXI streams
     ------------------------------------
     signal wav_axi_fwd : t_axi4_audio_fwd;
-    signal wav_axi_bwd : t_axi4_audio_bwd;
+    signal wav_axi_bwd : t_axi4_audio_bwd := (TReady => '0');
+    signal bp_period : time := 100 ns;
 
 begin
 
     --clock
     clk <= not clk after clk_period/2;
+    wav_axi_bwd.TReady <= not wav_axi_bwd.TReady after bp_period;
 
      -- device under test
      i_dut: entity wav2axi
@@ -75,7 +77,6 @@ begin
          axi_out_fwd => wav_axi_fwd,
          axi_out_bwd => wav_axi_bwd
      );
-     wav_axi_bwd.TReady <= '1';
 
 
 end Behavioral;

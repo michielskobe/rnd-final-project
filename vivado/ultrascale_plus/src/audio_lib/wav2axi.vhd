@@ -90,17 +90,21 @@ begin
         axi_out_fwd.TValid <= '1';
         
         while not ENDFILE(v_wav_file) loop
-            -- ensure switching of TID
-            if v_chan_offset then
-                v_chan_offset := false;
-                axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel+1, c_ID_width));
-            else
-                v_chan_offset := true;
-                axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel, c_ID_width));
-            end if;
+            if axi_out_bwd.TReady = '1' then
+                -- ensure switching of TID
+                if v_chan_offset then
+                    v_chan_offset := false;
+                    axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel+1, c_ID_width));
+                else
+                    v_chan_offset := true;
+                    axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel, c_ID_width));
+                end if;
 
-            wait until rising_edge(clk_in);
-            axi_out_fwd.TData <= read_data_sample(v_wav_file);
+                axi_out_fwd.TData <= read_data_sample(v_wav_file);
+                wait until rising_edge(clk_in);
+            else 
+                wait until rising_edge(clk_in);
+            end if;
         end loop;
 
     end process;
