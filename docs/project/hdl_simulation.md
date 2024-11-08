@@ -7,7 +7,7 @@ The blendinator contains a lot of complex elements which handle the processing o
 We decided to load WAV sound files into the simulation because they don't use any special encoding and just store raw 24 bit audio samples. We first made a library to read the header and samples called `wav_lib_pkg`. This is some VHDL which is capable of reading and validating a WAV file. 
 !!! info
 
-    At this moment, the lib can only read stereo 96kHz 24bit WAV files. 
+    At this moment, the lib can only read and write stereo 96kHz 24bit WAV files. 
 
 ### WAV2AXI
 
@@ -17,3 +17,15 @@ To actually implement the library in a usefull way, we needed an entity to gener
 * Support for our axi4-streaming audio implementation
 * Generating the right TID for the stereo channels with a base offset
 * Support for generating front-pressure to test downstream AXI compliance
+* Support for starting with a delay
+
+### AXI2WAV
+
+We also want to listen to the outputs of our code, we also need to be able to convert AXI into a WAV file. This gave rise to `axi2wav.vhd`.. It is capable of the following things:
+
+* Support for our axi4-streaming audio implementation
+* Support for generating back-pressure to test upstream AXI compliance
+
+### Posible future extentions
+
+We could make it so that a lot more WAV files are supported (other bitrate, bit/sample, nr of channels). This would make it a more versitile tool for the future.
