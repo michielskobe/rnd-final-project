@@ -75,6 +75,7 @@ nav:
    - Description : project/description.md
    - PetaLinux: project/petalinux.md
    - Bluetooth: project/bluetooth.md
+   - MIDI: project/midi.md
    - PCB: project/pcb.md
    - HDL:
       - Audio AXI: project/hdl_audio_axi.md
