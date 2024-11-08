@@ -2,13 +2,13 @@
 -- Company: KUL - rnd embed - Beats N Bytes
 -- Engineer: Robbe Decapmaker <debber@dcpm.be>
 -- 
--- Create Date: 10/10/2024 06:16:45 PM
--- Design Name: wav2axi
--- Module Name: wav2axi - Behavioral
+-- Create Date: 08/11/2024 09:21:45 AM
+-- Design Name: axi2wav
+-- Module Name: axi2wav - Behavioral
 -- Project Name: Blendinator
 -- Target Devices: non-synth
 -- Tool Versions: vivado 2024.1
--- Description: converts a wav file into an axi stream
+-- Description: converts an audio AXI stream into a WAV file
 -- 
 -- Dependencies: none
 -- 
@@ -40,11 +40,10 @@ use work.wav_lib_pkg.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wav2axi is
+entity axi2wav is
     generic (
         g_file_name : string := "";
-        g_channel   : integer := 0;
-        g_start_del : integer := 4
+        g_channel   : integer := 0
     );
     Port (
     -- inputs
@@ -52,99 +51,86 @@ entity wav2axi is
     clk_in : in STD_LOGIC;
 
     -- outputs
-    axi_out_fwd : out t_axi4_audio_fwd;
-    axi_out_bwd : in t_axi4_audio_bwd
+    axi_in_fwd : in t_axi4_audio_fwd;
+    axi_in_bwd : out t_axi4_audio_bwd
     );
-end wav2axi;
+end axi2wav;
 
-architecture Behavioral of wav2axi is
+architecture Behavioral of axi2wav is
 
-    signal start_del : natural := 0;
-    signal start_en  : STD_LOGIC := '0';
     signal ratio_ctr : natural range 0 to 256 := 0;
     signal valid     : STD_LOGIC := '0';
     signal ready     : STD_LOGIC := '0';
 
 begin
+    axi_in_bwd.TReady <= ready;
+    valid <= axi_in_fwd.TValid;
 
-    axi_out_fwd.TValid <= valid;
-    ready <= axi_out_bwd.TReady;
-
-    p_read : process 
+    p_write : process
         file        v_wav_file   : t_wav_file;
         variable    v_wav_opened : FILE_OPEN_STATUS;
         variable    v_opened     : BOOLEAN;
         variable    v_wav_header : t_wav_header;
         variable    v_chan_offset: BOOLEAN;
     begin
-
+        
         assert g_file_name /= ""
             report "File name is not defined"
             severity failure;
         
-        file_open(v_wav_opened, v_wav_file, g_file_name, read_mode);
+        file_open(v_wav_opened, v_wav_file, g_file_name, write_mode);
         assert v_wav_opened = OPEN_OK
             report "Failed to open " & g_file_name
             severity failure;
         
         v_opened := true;
+        -- I hate WAV
+        -- To future readers, this header is a total hack. It is because stuff was annoying and I needed to make progress
+        v_wav_header := (
+            TRiff_ID => 16#52494646#,
+            TChunk_size => 16#00000000#, 
+            TWave => 16#57415645#,
+            Tfmt => 16#666d7420#,
+            TSub_chunk_size => 16#10000000#,
+            TAudio_Format => 16#01#,
+            TNum_channels => 16#02#,
+            TSample_rate => 16#00770100#,
+            TByte_rate => 16#00ca0800#,
+            TBlock_align => 16#0006#,
+            TBits_per_sample => 16#0018#,
+            TData => 16#64617461#,
+            TSub_chunk_2_size => 16#0500eac3#
+        );
 
-        open_wav(v_wav_file, v_wav_header);
-        
-        -- set the TID
-        v_chan_offset := FALSE;
-        axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel, c_ID_width));
-
-        
-        axi_out_fwd.TData <= read_data_sample(v_wav_file);
-        while not ENDFILE(v_wav_file) loop
-            -- on a valid axi handshake
+        write_header(v_wav_file, v_wav_header);
+        -- on a valid axi handshake
+        while True loop
             if ready = '1' and valid = '1' then
-                -- ensure switching of TID
-                if v_chan_offset then
-                    v_chan_offset := false;
-                    axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel+1, c_ID_width));
-                else
-                    v_chan_offset := true;
-                    axi_out_fwd.TID <= STD_LOGIC_VECTOR(to_unsigned(g_channel, c_ID_width));
-                end if;
-
-                axi_out_fwd.TData <= read_data_sample(v_wav_file);
+                write_sample(v_wav_file, axi_in_fwd.TData);
                 wait until rising_edge(clk_in);
             else 
                 wait until rising_edge(clk_in);
             end if;
+            
         end loop;
         FILE_CLOSE(v_wav_file);
+        wait until rising_edge(clk_in);
+        
 
-    end process;
-
-    p_start_delay: process (clk_in)
-    begin
-        if rising_edge(clk_in) then
-            start_del <= start_del +1;
-            start_en <= '0';
-            if start_del >= g_start_del then
-                start_del <= start_del;
-                start_en <= '1';
-            end if;
-        end if;
     end process;
 
     p_ratio: process (clk_in)
     begin
         if rising_edge(clk_in) then
-            valid <= '0';
-            if start_en = '1' then
-                ratio_ctr <= ratio_ctr +1;
-                if ratio_ctr <= ratio then
-                    valid <= '1';
-                end if;
-                
-                if ratio_ctr = 256 then
-                    ratio_ctr <= 0;
-                end if;
-            end if; 
+            ratio_ctr <= ratio_ctr +1;
+            ready <= '0';
+            if ratio_ctr <= ratio then
+                ready <= '1';
+            end if;
+            
+            if ratio_ctr = 256 then
+                ratio_ctr <= 0;
+            end if;
         end if;
     end process;
 

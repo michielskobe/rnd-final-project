@@ -60,6 +60,12 @@ package wav_lib_pkg is
     impure function read_long_l(file f : t_wav_file) return t_wav_long;
     impure function read_data_sample(file f : t_wav_file) return STD_LOGIC_VECTOR;
 
+    procedure write_header(file f: t_wav_file; header : in t_wav_header);
+    procedure write_byte(file f: t_wav_file; byte: in t_wav_byte);
+    procedure write_short(file f: t_wav_file; short: in t_wav_short);
+    procedure write_long(file f: t_wav_file; long: in t_wav_long);
+    procedure write_sample(file f: t_wav_file; sample: in STD_LOGIC_VECTOR);
+
 end package wav_lib_pkg;
 
 package body wav_lib_pkg is
@@ -185,6 +191,90 @@ package body wav_lib_pkg is
 
         header := v_this;
     end procedure;
+
+    
+    procedure write_byte(file f: t_wav_file; byte: in t_wav_byte) is
+    begin 
+        write(f,character'val(t_wav_byte'pos(byte)));
+    end write_byte;
+
+    procedure write_short(file f: t_wav_file; short: in t_wav_short) is
+        variable v_char : t_wav_byte;
+        variable v_char_2 : t_wav_byte;
+        variable v_tmp : t_wav_short;
+    begin
+        v_tmp := short;
+        v_char := v_tmp mod 256;
+        v_tmp := (v_tmp - v_char)/256;
+        v_char_2 := v_tmp mod 256;
+        write_byte(f, v_char);
+        write_byte(f, v_char_2);
+    end write_short;
+
+    procedure write_long(file f: t_wav_file; long: in t_wav_long) is
+        variable v_char : t_wav_byte;
+        variable v_char_2 : t_wav_byte;
+        variable v_char_3 : t_wav_byte;
+        variable v_char_4 : t_wav_byte;
+        variable v_tmp : t_wav_long;
+    begin
+        v_tmp := long;
+        v_char := v_tmp mod 256;
+        v_tmp := (v_tmp - v_char)/256;
+        v_char_2 := v_tmp mod 256;
+        v_tmp := (v_tmp - v_char_2)/256;
+        v_char_3 := v_tmp mod 256;
+        v_tmp := (v_tmp - v_char_3)/256;
+        v_char_4 := v_tmp mod 256;
+        write_byte(f, v_char_4);
+        write_byte(f, v_char_3);
+        write_byte(f, v_char_2);
+        write_byte(f, v_char);
+    end write_long;
+
+    procedure write_sample(file f: t_wav_file; sample: in STD_LOGIC_VECTOR) is
+        variable v_char : t_wav_byte;
+        variable v_char_2 : t_wav_byte;
+        variable v_char_3 : t_wav_byte;
+        variable v_tmp : t_sample;
+    begin
+        v_tmp := ieee.NUMERIC_STD.TO_INTEGER(ieee.NUMERIC_STD.unsigned(sample));
+        v_char := ieee.NUMERIC_STD.TO_INTEGER(ieee.NUMERIC_STD.unsigned(sample(23 downto 16)));
+        v_char_2 := ieee.NUMERIC_STD.TO_INTEGER(ieee.NUMERIC_STD.unsigned(sample(15 downto 8)));
+        v_char_3 := ieee.NUMERIC_STD.TO_INTEGER(ieee.NUMERIC_STD.unsigned(sample(7 downto 0)));
+        -- v_char := v_tmp mod 256;
+        -- v_tmp := (v_tmp - v_char)/256;
+        -- v_char_2 := v_tmp mod 256;
+        -- v_tmp := (v_tmp - v_char_2)/256;
+        -- v_char_3 := v_tmp mod 256;
+        write_byte(f, v_char_3);
+        write_byte(f, v_char_2);
+        write_byte(f, v_char);
+    end write_sample;
+
+
+    procedure write_header(file f: t_wav_file; header : in t_wav_header) is 
+    begin
+        -- To future readers, this header is a total hack. It is because stuff was annoying and I needed to make progress
+        write_long(f, header.TRiff_ID);
+        -- write_long(f, header.TChunk_size);
+        write_short(f, 16#C40E#);
+        write_short(f, 16#00A5#); -- I hate WAV
+        write_long(f, header.TWave);
+        write_long(f, header.Tfmt);
+        write_long(f, header.TSub_chunk_size);
+        write_short(f, header.TAudio_Format);
+        write_short(f, header.TNum_channels);
+        write_long(f, header.TSample_rate);
+        write_long(f, header.TByte_rate);
+        write_short(f, header.TBlock_align);
+        write_short(f, header.TBits_per_sample);
+        write_long(f, header.TData);
+        -- write_long(f, header.TSub_chunk_2_size);
+        write_short(f, 16#c3ea#);
+        write_short(f, 16#00a5#); -- I hate WAV
+
+    end write_header;
 
 end package body wav_lib_pkg;
 

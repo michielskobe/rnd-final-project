@@ -32,6 +32,7 @@ use std.env.stop;
 
 library work;
 use work.wav2axi;
+use work.axi2wav;
 use work.axi4_audio_pkg.all;
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -60,17 +61,18 @@ begin
 
     --clock
     clk <= not clk after clk_period/2;
-    wav_axi_bwd.TReady <= not wav_axi_bwd.TReady after bp_period;
+    -- wav_axi_bwd.TReady <= not wav_axi_bwd.TReady after bp_period;
 
      -- device under test
      i_dut: entity wav2axi
      generic map(
         g_file_name => "test_piano.wav",
-        g_channel => 0 
+        g_channel => 0,
+        g_start_del => 50
      )
      port map(
          -- input
-         ratio => 128,
+         ratio => 256,
          clk_in => clk,
          
          -- output
@@ -78,5 +80,20 @@ begin
          axi_out_bwd => wav_axi_bwd
      );
 
+     -- device under test
+     i_dut_2: entity axi2wav
+     generic map(
+        g_file_name => "test_piano_out.wav",
+        g_channel => 0 
+     )
+     port map(
+         -- input
+         ratio => 50,
+         clk_in => clk,
+         
+         -- output
+         axi_in_fwd => wav_axi_fwd,
+         axi_in_bwd => wav_axi_bwd
+     );
 
 end Behavioral;
