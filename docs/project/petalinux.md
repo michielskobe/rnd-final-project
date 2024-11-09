@@ -147,6 +147,7 @@ When the build is finished, we can create the boot files with the following comm
 petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --fpga images/linux/system.bit --pmufw images/linux/pmufw.elf --u-boot
 ```
 
+If some bootfiles were created earlier, the `--force` option could be used to overwrite the old files.
 Lastly, we can create a .wic-image file which we can easily flash to a SD card:
 
 ``` bash 
