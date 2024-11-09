@@ -1,21 +1,35 @@
 # Bluetooth
 
-We initially encountered some problems to get the Bluetooth up and running. We found an [issue](https://github.com/Avnet/Ultra96-PYNQ/issues/52) in the Avnet Ultra-PYNQ GitHub repository that had a similar problem and were able to use the proposed solution to get the Bluetooth to work. We wrote the following shell script to achieve this:
+Note: before interacting with a bluetooth controller, it is advised to update the Linux Bluetooth stack bluez5 to the latest version for the best performance and stability. The version used when writing this documentation was **bluez 5.79**. Some of the console snippets could differ when using another bluez5 version.
+
+## Bluetooth with the integrated WILC chip
+
+### Initialize the device
+
+We initially encountered some problems to get bluetooth up and running. We found an [issue](https://github.com/Avnet/Ultra96-PYNQ/issues/52) in the Avnet Ultra-PYNQ GitHub repository where a similar problem was described and were able to use the proposed solution to get bluetooth to work. We took the following shell script from the mentioned GitHub URL to achieve this:
 
 ```bash
 #!/bin/bash
 echo BT_POWER_UP > /dev/wilc_bt
 echo BT_DOWNLOAD_FW > /dev/wilc_bt
 
-stty -F /dev/ttyPS2 115200
-
-hciattach /dev/ttyPS2 -t 10 any 115200 noflow nosleep
+stty -F /dev/ttyPS1 115200
 sleep 1s
+
+hciattach /dev/ttyPS1 -t 10 any 115200 noflow nosleep
+sleep 2s
 hciconfig hci0 up
 hciconfig hci0
 ```
 
-With this script, the bluetooth firmware for the ATWILC3000 chip is downloaded and installed. After this, we can check if the bluetooth service is working:
+We added a few more delays in the script so the WILC3000 chip has time to start up. Without this delays, the chip would return error codes indicating it could not start successfully.
+After executing this script, the firmware is downloaded and a new hci device (the bluetooth controller) is up and running.
+
+A major disadvantage is that the script must be executed every time the system boots in order to interact with the integrated bluetooth chip.
+
+### Interacting with the controller
+
+After the firmware is downloaded and loaded, the `bluetoothd`-process in Linux is automatically started. This means we can open a bluetooth command prompt and check the current state of the controller we just initialized:
 
 ```console
 blendinator:~$ bluetoothctl
@@ -25,61 +39,17 @@ hci0 new_settings: powered bondable le secure-conn
 [bluetooth]# 
 ```
 
-This shows that a bluetooth controller with MAC-address F8:F0:05:C3:34:27 is found. If needed, some extra information about the current state of the controller can be retrieved:
+This shows that a bluetooth controller with MAC-address F8:F0:05:C3:34:27 is found and the controller is in the pairable state. The bluetooth command prompt will be used later on in this documentation.
 
-```console
-[bluetooth]# show
-Controller F8:F0:05:C3:34:27 (public)
-	Manufacturer: 0x0013 (19)
-	Version: 0x06 (6)
-	Name: u96v2-sbc-base-2023-2
-	Alias: u96v2-sbc-base-2023-2
-	Class: 0x00000000 (0)
-	Powered: yes
-	PowerState: on
-	Discoverable: no
-	DiscoverableTimeout: 0x000000b4 (180)
-	Pairable: yes
-	UUID: Handsfree                 (0000111e-0000-1000-8000-00805f9b34fb)
-	UUID: Generic Attribute Profile (00001801-0000-1000-8000-00805f9b34fb)
-	UUID: Generic Access Profile    (00001800-0000-1000-8000-00805f9b34fb)
-	UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
-	UUID: A/V Remote Control Target (0000110c-0000-1000-8000-00805f9b34fb)
-	UUID: A/V Remote Control        (0000110e-0000-1000-8000-00805f9b34fb)
-	UUID: Device Information        (0000180a-0000-1000-8000-00805f9b34fb)
-	Modalias: usb:v1D6Bp0246d054E
-	Discovering: no
-	Roles: central
-	Roles: peripheral
-Advertising Features:
-	ActiveInstances: 0x00 (0)
-	SupportedInstances: 0x05 (5)
-	SupportedIncludes: tx-power
-	SupportedIncludes: appearance
-	SupportedIncludes: local-name
-	SupportedCapabilities.MaxAdvLen: 0x1f (31)
-	SupportedCapabilities.MaxScnRspLen: 0x1f (31)
-```
+### Notes about the WILC chip
 
-This shows that the controller is powered on and pairable, but not yet discoverable. To make the controller discoverable for devices we need to run one more command in the bluetooth console:
+In our project, we will not use the integrated ATWILC3000 chip for Bluetooth connections. The chip supports Bluetooth 5.0, but only the Low Energy (LE)-variant of bluetooth. This means that audio streaming with the A2DP protocol is not supported since it is one of the features of "classic" bluetooth.
 
-```console
-[bluetooth]# discoverable on 
-[bluetooth]# hci0 new_settings: powered connectable bondable le secure-conn 
-[bluetooth]# hci0 new_settings: powered connectable discoverable bondable le secure-conn 
-[bluetooth]# Changing discoverable on succeeded
-[bluetooth]# [CHG] Controller F8:F0:05:C3:34:27 Discoverable: yes
-```
+However, this controller could be used for other types of connections. This includes MIDI over Bluetooth, controling the mixer via Bluetooth, and so on.
 
-Now, the controller is visible to all bluetooth devices nearby. The controller can also scan for nearby devices itself with the 'scan on' command:
+Note: when writing this documentation, the latest variant of bluetooth is Bluetooth 5.4. It is worth mentioning that from Bluetooth 5.2 onwards, audio streaming is supported in Bluetooth Low Energy. The feature is called "LE Audio" and uses the LC3 codec for streaming audio. This codec is very promising as it has a good trade-off between bandwidth and quality, such that no software codec such as LDAC can match it. Another nice feature of LE Audio is "Auracast": it is from now on possible to stream to an unlimited number of audio sinks with LE Audio. More information about LE Audio could be found on the [Official Bluetooth website](https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/le-audio/).
 
-```console
-[bluetooth]# scan on
-[bluetooth]# SetDiscoveryFilter success
-[bluetooth]# Discovery started
-[bluetooth]# [CHG] Controller F8:F0:05:C3:34:27 Discovering: yes
-[bluetooth]# [NEW] Device 6D:19:AC:25:B0:96 6D-19-AC-25-B0-96
-[bluetooth]# [NEW] Device B2:5C:DA:FA:97:9F B2-5C-DA-FA-97-9F
-[bluetooth]# [NEW] Device 4B:C8:F8:8E:2C:6C 4B-C8-F8-8E-2C-6C
-...
-```
+In this project we will stick with Bluetooth 5.0 and classic Bluetooth Audio because the LE Audio variant is not yet widely used and supported.
+
+## Bluetooth with the TP-Link UB500
+
