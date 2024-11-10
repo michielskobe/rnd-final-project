@@ -25,7 +25,7 @@ hciconfig hci0
 We added a few more delays in the script so the WILC3000 chip has time to start up. Without this delays, the chip would return error codes indicating it could not start successfully.
 After executing this script, the firmware is downloaded and a new hci device (the bluetooth controller) is up and running.
 
-A major disadvantage to this is that the script must be executed every time the system boots in order to interact with the integrated bluetooth chip.
+A major **disadvantage** to this is that the script must be executed every time the system boots in order to interact with the integrated bluetooth chip.
 
 ### Interacting with the controller
 
@@ -51,7 +51,7 @@ However, this controller could still be used for other types of connections. Thi
 
 ### Installing the firmware
 
-To support audio streaming via Bluetooth to the Ultra96-V2, we will use the **TP-Link UB500** Bluetooth USB dongle which contains a **Realtek rtl8761bu chipset**. When inserting the dongle in the board it is immediately recognized by the system via `lsusb` the command, but the neccessary firmware is not yet installed. For this we will need the [RTL8761BU GitHub respository](https://github.com/Elif-dot/RTL8761BU) which contains the binary firmware files. 
+To support audio streaming via Bluetooth to the Ultra96-V2, we will use the **TP-Link UB500** Bluetooth USB dongle which contains a **Realtek rtl8761bu chipset**. When inserting the dongle in the board it is immediately recognized by the system via the `lsusb` command, but the neccessary firmware is not yet installed. For this we will need the [RTL8761BU GitHub respository](https://github.com/Elif-dot/RTL8761BU) which contains the binary firmware files. 
 
 We cloned this repository, renamed the files to .bin files and copied them to `/lib/firmware/rtl_bt/` so the system can load them on startup:
 
@@ -78,7 +78,7 @@ hci0:	Type: Primary  Bus: USB
 	TX bytes:26607 acl:0 sco:0 commands:330 errors:0
 ```
 
-The advantage of this dongle is that the firmware only needed to be downloaded and installed once. Now that the files are installed, the device will automatically be initialized on startup.
+The advantage of this dongle is that the firmware only needed to be downloaded and installed once. Once the files are installed, the device will automatically be initialized on startup.
 
 ### The bluetooth console
 
