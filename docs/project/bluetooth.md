@@ -29,7 +29,7 @@ A major disadvantage to this is that the script must be executed every time the 
 
 ### Interacting with the controller
 
-After the firmware is downloaded and loaded, the `bluetoothd`-process in Linux is automatically started. This means we can open a bluetooth command prompt with the `bluetoothctl`command and check the current state of the controller we just initialized:
+After the firmware is downloaded and loaded, the `bluetoothd`-process in Linux is automatically started. This means we can open a bluetooth command prompt with the `bluetoothctl` command and check the current state of the controller we just initialized:
 
 ```console
 blendinator:~$ bluetoothctl
@@ -43,27 +43,21 @@ This shows that a bluetooth controller with MAC-address F8:F0:05:C3:34:27 is fou
 
 ### Notes about the WILC chip
 
-In our project, we will not use the integrated ATWILC3000 chip for Bluetooth connections. The chip supports Bluetooth 5.0, but only the Low Energy (LE)-variant of bluetooth. This means that audio streaming with the A2DP protocol is not supported since it is one of the features of "classic" bluetooth.[^1]
+In our project, we will not use the integrated ATWILC3000 chip for Bluetooth connections. The chip supports Bluetooth 5.0, but only the Low Energy (LE)-variant. This means that audio streaming with the A2DP protocol is not supported since it is one of the features of "classic" Bluetooth.[^1]
 
-However, this controller could be used for other types of connections. This includes MIDI over Bluetooth, controling the mixer via Bluetooth, and so on.
+However, this controller could still be used for other types of connections. This includes MIDI over Bluetooth, controling the mixer via Bluetooth, and so on.
 
 ## Bluetooth with the TP-Link UB500
 
 ### Installing the firmware
 
-To support audio streaming to the Ultra96-V2, we will use the **TP-Link UB500** Bluetooth USB dongle which contains a **Realtek rtl8761bu chipset**. When inserting the dongle in the board it is recognized by the system via `lsusb` the command but the neccessary firmware is not yet installed. For this we will need the [RTL8761BU GitHub respository](https://github.com/Elif-dot/RTL8761BU) from Elif-dot which contains the binary firmware files. 
+To support audio streaming via Bluetooth to the Ultra96-V2, we will use the **TP-Link UB500** Bluetooth USB dongle which contains a **Realtek rtl8761bu chipset**. When inserting the dongle in the board it is immediately recognized by the system via `lsusb` the command, but the neccessary firmware is not yet installed. For this we will need the [RTL8761BU GitHub respository](https://github.com/Elif-dot/RTL8761BU) which contains the binary firmware files. 
 
 We cloned this repository, renamed the files to .bin files and copied them to `/lib/firmware/rtl_bt/` so the system can load them on startup:
 
 ```console
 blendinator:~$ git clone https://github.com/Elif-dot/RTL8761BU.git
 Cloning into 'RTL8761BU'...
-remote: Enumerating objects: 44, done.
-remote: Counting objects: 100% (44/44), done.
-remote: Compressing objects: 100% (43/43), done.
-remote: Total 44 (delta 16), reused 0 (delta 0), pack-reused 0 (from 0)
-Receiving objects: 100% (44/44), 79.30 KiB | 293.00 KiB/s, done.
-Resolving deltas: 100% (16/16), done.
 blendinator:~$ cd RTL8761BU/
 blendinator:~/RTL8761BU$ cd 8761BU/
 blendinator:~/RTL8761BU/8761BU$ mv rtl8761bu_fw rtl8761bu_fw.bin
@@ -73,7 +67,7 @@ blendinator:~/RTL8761BU/8761BU$ sudo cp rtl8761bu_fw.bin /lib/firmware/rtl_bt/
 blendinator:~/RTL8761BU/8761BU$ sudo reboot
 ```
 
-After the firmware files are installed, the system needs to be rebooted. If the installation was succesful, a new hci device should on the USB bus should appear with `hciconfig`:
+After the firmware files are installed, the system needs to be rebooted. If the installation was succesful, a new hci device on the USB bus should appear in `hciconfig`:
 
 ```console
 blendinator:~$ hciconfig
@@ -84,7 +78,7 @@ hci0:	Type: Primary  Bus: USB
 	TX bytes:26607 acl:0 sco:0 commands:330 errors:0
 ```
 
-Another advantage of this dongle is that the firmware only needed to be downloaded and installed once. Now that the files are installed, the device will automatically be initialized on startup.
+The advantage of this dongle is that the firmware only needed to be downloaded and installed once. Now that the files are installed, the device will automatically be initialized on startup.
 
 ### The bluetooth console
 

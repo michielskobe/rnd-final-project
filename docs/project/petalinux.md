@@ -103,7 +103,7 @@ The files related to bluez5 can be found in `/components/yocto/layers/poky/meta/
 
 ### Adding Pipewire and Wireplumber
 
-To be able to support Bluetooth Audio later on in the project, we will also need Pipewire and Wireplumber. We need to execute a couple steps in order to add this to the project.
+To provide the best support for Bluetooth Audio later on in the project, we will also need the latest version of PipeWire and Wireplumber. Both packages are already included in the meta-openembedded layer of yocto. However, they are still stuck at version 0.3.59 and 0.4.5 respectively. We need to execute a couple of steps in order to update them to the latest version.
 
 - First, we clone the [meta-openembedded GitHub-repository](https://github.com/openembedded/meta-openembedded) in the `/project-spec/`-directory.
 
