@@ -2,11 +2,11 @@
 -- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
--- Date        : Fri Nov 15 13:07:31 2024
--- Host        : fedora running 64-bit unknown
+-- Date        : Sun Oct 27 18:25:06 2024
+-- Host        : fedora running 64-bit Fedora release 40 (Forty)
 -- Command     : write_vhdl -force -mode synth_stub -rename_top design_1_auto_pc_1 -prefix
---               design_1_auto_pc_1_ design_1_auto_pc_0_stub.vhdl
--- Design      : design_1_auto_pc_0
+--               design_1_auto_pc_1_ design_1_auto_pc_1_stub.vhdl
+-- Design      : design_1_auto_pc_1
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xczu3eg-sbva484-1-i
 -- --------------------------------------------------------------------------------
