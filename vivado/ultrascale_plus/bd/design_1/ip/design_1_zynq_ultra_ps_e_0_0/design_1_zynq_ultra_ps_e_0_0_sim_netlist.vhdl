@@ -2,7 +2,7 @@
 -- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
--- Date        : Fri Nov 15 13:07:19 2024
+-- Date        : Fri Nov 15 14:41:36 2024
 -- Host        : fedora running 64-bit unknown
 -- Command     : write_vhdl -force -mode funcsim
 --               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0_sim_netlist.vhdl
@@ -991,7 +991,7 @@ entity design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e is
     ps_pl_trigger_3 : out STD_LOGIC;
     ftm_gpo : out STD_LOGIC_VECTOR ( 31 downto 0 );
     ftm_gpi : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    pl_ps_irq0 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    pl_ps_irq0 : in STD_LOGIC_VECTOR ( 1 downto 0 );
     pl_ps_irq1 : in STD_LOGIC_VECTOR ( 0 to 0 );
     pl_resetn0 : out STD_LOGIC;
     pl_resetn1 : out STD_LOGIC;
@@ -1532,7 +1532,7 @@ entity design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e is
   attribute C_MAXIGP2_DATA_WIDTH : integer;
   attribute C_MAXIGP2_DATA_WIDTH of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 32;
   attribute C_NUM_F2P_0_INTR_INPUTS : integer;
-  attribute C_NUM_F2P_0_INTR_INPUTS of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 1;
+  attribute C_NUM_F2P_0_INTR_INPUTS of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 2;
   attribute C_NUM_F2P_1_INTR_INPUTS : integer;
   attribute C_NUM_F2P_1_INTR_INPUTS of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 1;
   attribute C_NUM_FABRIC_RESETS : integer;
@@ -9499,8 +9499,8 @@ PS8_i: unisim.vcomponents.PS8
       PLPSAPUGICFIQ(3 downto 0) => B"0000",
       PLPSAPUGICIRQ(3 downto 0) => B"0000",
       PLPSEVENTI => '0',
-      PLPSIRQ0(7 downto 1) => B"0000000",
-      PLPSIRQ0(0) => pl_ps_irq0(0),
+      PLPSIRQ0(7 downto 2) => B"000000",
+      PLPSIRQ0(1 downto 0) => pl_ps_irq0(1 downto 0),
       PLPSIRQ1(7 downto 0) => B"00000000",
       PLPSTRACECLK => '0',
       PLPSTRIGACK(3 downto 0) => B"0000",
@@ -14535,7 +14535,7 @@ entity design_1_zynq_ultra_ps_e_0_0 is
     emio_uart0_dcdn : in STD_LOGIC;
     emio_uart0_rin : in STD_LOGIC;
     emio_uart0_dtrn : out STD_LOGIC;
-    pl_ps_irq0 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    pl_ps_irq0 : in STD_LOGIC_VECTOR ( 1 downto 0 );
     pl_resetn0 : out STD_LOGIC;
     pl_clk0 : out STD_LOGIC
   );
@@ -15271,7 +15271,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   attribute C_MAXIGP2_DATA_WIDTH : integer;
   attribute C_MAXIGP2_DATA_WIDTH of U0 : label is 32;
   attribute C_NUM_F2P_0_INTR_INPUTS : integer;
-  attribute C_NUM_F2P_0_INTR_INPUTS of U0 : label is 1;
+  attribute C_NUM_F2P_0_INTR_INPUTS of U0 : label is 2;
   attribute C_NUM_F2P_1_INTR_INPUTS : integer;
   attribute C_NUM_F2P_1_INTR_INPUTS of U0 : label is 1;
   attribute C_NUM_FABRIC_RESETS : integer;
@@ -15629,7 +15629,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   attribute x_interface_info of maxigp1_wdata : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM1_FPD WDATA";
   attribute x_interface_info of maxigp1_wstrb : signal is "xilinx.com:interface:aximm:1.0 M_AXI_HPM1_FPD WSTRB";
   attribute x_interface_info of pl_ps_irq0 : signal is "xilinx.com:signal:interrupt:1.0 PL_PS_IRQ0 INTERRUPT";
-  attribute x_interface_parameter of pl_ps_irq0 : signal is "XIL_INTERFACENAME PL_PS_IRQ0, SENSITIVITY LEVEL_HIGH, PortWidth 1";
+  attribute x_interface_parameter of pl_ps_irq0 : signal is "XIL_INTERFACENAME PL_PS_IRQ0, SENSITIVITY LEVEL_HIGH:LEVEL_HIGH, PortWidth 2";
   attribute x_interface_info of saxigp2_araddr : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD ARADDR";
   attribute x_interface_info of saxigp2_arburst : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD ARBURST";
   attribute x_interface_info of saxigp2_arcache : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD ARCACHE";
@@ -16489,7 +16489,7 @@ U0: entity work.design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_p
       pl_ps_apugic_fiq(3 downto 0) => B"0000",
       pl_ps_apugic_irq(3 downto 0) => B"0000",
       pl_ps_eventi => '0',
-      pl_ps_irq0(0) => pl_ps_irq0(0),
+      pl_ps_irq0(1 downto 0) => pl_ps_irq0(1 downto 0),
       pl_ps_irq1(0) => '0',
       pl_ps_trace_clk => '0',
       pl_ps_trigack_0 => '0',

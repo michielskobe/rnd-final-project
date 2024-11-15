@@ -3619,7 +3619,7 @@
   <spirit:addressSpaces>
     <spirit:addressSpace>
       <spirit:name>Data_SG</spirit:name>
-      <spirit:range spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_SG_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
+      <spirit:range spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_SG_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
       <spirit:width spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_SG_ADDR_WIDTH&apos;))">64</spirit:width>
       <spirit:parameters>
         <spirit:parameter>
@@ -3641,7 +3641,7 @@
     </spirit:addressSpace>
     <spirit:addressSpace>
       <spirit:name>Data</spirit:name>
-      <spirit:range spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_MM2S_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
+      <spirit:range spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_MM2S_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
       <spirit:width spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_MM2S_ADDR_WIDTH&apos;))">64</spirit:width>
       <spirit:parameters>
         <spirit:parameter>
@@ -3663,7 +3663,7 @@
     </spirit:addressSpace>
     <spirit:addressSpace>
       <spirit:name>Data_MM2S</spirit:name>
-      <spirit:range spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_MM2S_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
+      <spirit:range spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_MM2S_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
       <spirit:width spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_MM2S_ADDR_WIDTH&apos;))">64</spirit:width>
       <spirit:parameters>
         <spirit:parameter>
@@ -3685,7 +3685,7 @@
     </spirit:addressSpace>
     <spirit:addressSpace>
       <spirit:name>Data_S2MM</spirit:name>
-      <spirit:range spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_S2MM_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
+      <spirit:range spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(pow(2,spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_S2MM_ADDR_WIDTH&apos;)))))">16777216T</spirit:range>
       <spirit:width spirit:format="long" spirit:resolve="dependent" spirit:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_M_AXI_S2MM_ADDR_WIDTH&apos;))">64</spirit:width>
       <spirit:parameters>
         <spirit:parameter>
@@ -8768,7 +8768,7 @@ Note: This value must be greater than or equal to the largest expected packet to
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.AXI_RESETN.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.MM2S_CNTRL_RESET_OUT_N.POLARITY" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.MM2S_INTROUT.PortWidth" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.MM2S_INTROUT.PortWidth" xilinx:valueSource="default_prop" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.MM2S_INTROUT.SENSITIVITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.MM2S_PRMRY_RESET_OUT_N.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXIS_CNTRL.CLK_DOMAIN" xilinx:valuePermission="bd"/>
@@ -8908,7 +8908,7 @@ Note: This value must be greater than or equal to the largest expected packet to
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_SG_CLK.FREQ_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_SG_CLK.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M_AXI_SG_CLK.PHASE" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S2MM_INTROUT.PortWidth" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S2MM_INTROUT.PortWidth" xilinx:valueSource="default_prop" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S2MM_INTROUT.SENSITIVITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S2MM_PRMRY_RESET_OUT_N.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S2MM_STS_RESET_OUT_N.POLARITY" xilinx:valuePermission="bd"/>

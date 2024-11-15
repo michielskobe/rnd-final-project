@@ -2,7 +2,7 @@
 // Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
-// Date        : Fri Nov 15 13:07:19 2024
+// Date        : Fri Nov 15 14:41:36 2024
 // Host        : fedora running 64-bit unknown
 // Command     : write_verilog -force -mode funcsim
 //               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0_sim_netlist.v
@@ -277,7 +277,7 @@ module design_1_zynq_ultra_ps_e_0_0
   (* x_interface_info = "xilinx.com:interface:uart:1.0 UART_0 DCDn" *) input emio_uart0_dcdn;
   (* x_interface_info = "xilinx.com:interface:uart:1.0 UART_0 RI" *) input emio_uart0_rin;
   (* x_interface_info = "xilinx.com:interface:uart:1.0 UART_0 DTRn" *) output emio_uart0_dtrn;
-  (* x_interface_info = "xilinx.com:signal:interrupt:1.0 PL_PS_IRQ0 INTERRUPT" *) (* x_interface_parameter = "XIL_INTERFACENAME PL_PS_IRQ0, SENSITIVITY LEVEL_HIGH, PortWidth 1" *) input [0:0]pl_ps_irq0;
+  (* x_interface_info = "xilinx.com:signal:interrupt:1.0 PL_PS_IRQ0 INTERRUPT" *) (* x_interface_parameter = "XIL_INTERFACENAME PL_PS_IRQ0, SENSITIVITY LEVEL_HIGH:LEVEL_HIGH, PortWidth 2" *) input [1:0]pl_ps_irq0;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 PL_RESETN0 RST" *) (* x_interface_parameter = "XIL_INTERFACENAME PL_RESETN0, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) output pl_resetn0;
   (* x_interface_info = "xilinx.com:signal:clock:1.0 PL_CLK0 CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME PL_CLK0, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, INSERT_VIP 0" *) output pl_clk0;
 
@@ -371,7 +371,7 @@ module design_1_zynq_ultra_ps_e_0_0
   wire maxihpm0_fpd_aclk;
   wire maxihpm1_fpd_aclk;
   wire pl_clk0;
-  wire [0:0]pl_ps_irq0;
+  wire [1:0]pl_ps_irq0;
   wire pl_resetn0;
   wire [48:0]saxigp2_araddr;
   wire [1:0]saxigp2_arburst;
@@ -1123,7 +1123,7 @@ module design_1_zynq_ultra_ps_e_0_0
   (* C_MAXIGP0_DATA_WIDTH = "128" *) 
   (* C_MAXIGP1_DATA_WIDTH = "128" *) 
   (* C_MAXIGP2_DATA_WIDTH = "32" *) 
-  (* C_NUM_F2P_0_INTR_INPUTS = "1" *) 
+  (* C_NUM_F2P_0_INTR_INPUTS = "2" *) 
   (* C_NUM_F2P_1_INTR_INPUTS = "1" *) 
   (* C_NUM_FABRIC_RESETS = "1" *) 
   (* C_PL_CLK0_BUF = "TRUE" *) 
@@ -2650,7 +2650,7 @@ endmodule
 (* C_DP_USE_AUDIO = "0" *) (* C_DP_USE_VIDEO = "0" *) (* C_EMIO_GPIO_WIDTH = "95" *) 
 (* C_EN_EMIO_TRACE = "0" *) (* C_EN_FIFO_ENET0 = "0" *) (* C_EN_FIFO_ENET1 = "0" *) 
 (* C_EN_FIFO_ENET2 = "0" *) (* C_EN_FIFO_ENET3 = "0" *) (* C_MAXIGP0_DATA_WIDTH = "128" *) 
-(* C_MAXIGP1_DATA_WIDTH = "128" *) (* C_MAXIGP2_DATA_WIDTH = "32" *) (* C_NUM_F2P_0_INTR_INPUTS = "1" *) 
+(* C_MAXIGP1_DATA_WIDTH = "128" *) (* C_MAXIGP2_DATA_WIDTH = "32" *) (* C_NUM_F2P_0_INTR_INPUTS = "2" *) 
 (* C_NUM_F2P_1_INTR_INPUTS = "1" *) (* C_NUM_FABRIC_RESETS = "1" *) (* C_PL_CLK0_BUF = "TRUE" *) 
 (* C_PL_CLK1_BUF = "FALSE" *) (* C_PL_CLK2_BUF = "FALSE" *) (* C_PL_CLK3_BUF = "FALSE" *) 
 (* C_SAXIGP0_DATA_WIDTH = "128" *) (* C_SAXIGP1_DATA_WIDTH = "128" *) (* C_SAXIGP2_DATA_WIDTH = "128" *) 
@@ -5127,7 +5127,7 @@ module design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e
   output ps_pl_trigger_3;
   output [31:0]ftm_gpo;
   input [31:0]ftm_gpi;
-  input [0:0]pl_ps_irq0;
+  input [1:0]pl_ps_irq0;
   input [0:0]pl_ps_irq1;
   output pl_resetn0;
   output pl_resetn1;
@@ -8419,7 +8419,7 @@ module design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e
   wire maxihpm1_fpd_aclk;
   wire pl_clk0;
   wire [0:0]pl_clk_unbuffered;
-  wire [0:0]pl_ps_irq0;
+  wire [1:0]pl_ps_irq0;
   wire pl_resetn0;
   wire [48:0]saxigp2_araddr;
   wire [1:0]saxigp2_arburst;
@@ -12667,7 +12667,7 @@ module design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e
         .PLPSAPUGICFIQ({1'b0,1'b0,1'b0,1'b0}),
         .PLPSAPUGICIRQ({1'b0,1'b0,1'b0,1'b0}),
         .PLPSEVENTI(1'b0),
-        .PLPSIRQ0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,pl_ps_irq0}),
+        .PLPSIRQ0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,pl_ps_irq0}),
         .PLPSIRQ1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .PLPSTRACECLK(1'b0),
         .PLPSTRIGACK({1'b0,1'b0,1'b0,1'b0}),

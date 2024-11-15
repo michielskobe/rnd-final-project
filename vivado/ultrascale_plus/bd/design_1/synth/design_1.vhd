@@ -2,7 +2,7 @@
 --Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
---Date        : Fri Nov 15 13:04:56 2024
+--Date        : Fri Nov 15 14:40:16 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -2428,7 +2428,7 @@ entity design_1 is
     wifi_en_led_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=20,numReposBlks=13,numNonXlnxBlks=0,numHierBlks=7,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=7,da_board_cnt=1,da_clkrst_cnt=2,da_zynq_ultra_ps_e_cnt=2,synth_mode=Hierarchical}";
+  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=21,numReposBlks=14,numNonXlnxBlks=0,numHierBlks=7,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=7,da_board_cnt=1,da_clkrst_cnt=2,da_zynq_ultra_ps_e_cnt=2,synth_mode=Hierarchical}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of design_1 : entity is "design_1.hwdef";
 end design_1;
@@ -2565,7 +2565,7 @@ architecture STRUCTURE of design_1 is
     emio_uart0_dcdn : in STD_LOGIC;
     emio_uart0_rin : in STD_LOGIC;
     emio_uart0_dtrn : out STD_LOGIC;
-    pl_ps_irq0 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    pl_ps_irq0 : in STD_LOGIC_VECTOR ( 1 downto 0 );
     pl_resetn0 : out STD_LOGIC;
     pl_clk0 : out STD_LOGIC
   );
@@ -2744,6 +2744,24 @@ architecture STRUCTURE of design_1 is
     S00_AXI_rlast : out STD_LOGIC;
     S00_AXI_rvalid : out STD_LOGIC;
     S00_AXI_rready : in STD_LOGIC;
+    S01_AXI_awaddr : in STD_LOGIC_VECTOR ( 63 downto 0 );
+    S01_AXI_awlen : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    S01_AXI_awsize : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    S01_AXI_awburst : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    S01_AXI_awlock : in STD_LOGIC_VECTOR ( 0 to 0 );
+    S01_AXI_awcache : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S01_AXI_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    S01_AXI_awqos : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S01_AXI_awvalid : in STD_LOGIC;
+    S01_AXI_awready : out STD_LOGIC;
+    S01_AXI_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    S01_AXI_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S01_AXI_wlast : in STD_LOGIC;
+    S01_AXI_wvalid : in STD_LOGIC;
+    S01_AXI_wready : out STD_LOGIC;
+    S01_AXI_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    S01_AXI_bvalid : out STD_LOGIC;
+    S01_AXI_bready : in STD_LOGIC;
     M00_AXI_awaddr : out STD_LOGIC_VECTOR ( 48 downto 0 );
     M00_AXI_awlen : out STD_LOGIC_VECTOR ( 7 downto 0 );
     M00_AXI_awsize : out STD_LOGIC_VECTOR ( 2 downto 0 );
@@ -2776,25 +2794,7 @@ architecture STRUCTURE of design_1 is
     M00_AXI_rresp : in STD_LOGIC_VECTOR ( 1 downto 0 );
     M00_AXI_rlast : in STD_LOGIC;
     M00_AXI_rvalid : in STD_LOGIC;
-    M00_AXI_rready : out STD_LOGIC;
-    S01_AXI_awaddr : in STD_LOGIC_VECTOR ( 63 downto 0 );
-    S01_AXI_awlen : in STD_LOGIC_VECTOR ( 7 downto 0 );
-    S01_AXI_awsize : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    S01_AXI_awburst : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    S01_AXI_awlock : in STD_LOGIC_VECTOR ( 0 to 0 );
-    S01_AXI_awcache : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S01_AXI_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    S01_AXI_awqos : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S01_AXI_awvalid : in STD_LOGIC;
-    S01_AXI_awready : out STD_LOGIC;
-    S01_AXI_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    S01_AXI_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S01_AXI_wlast : in STD_LOGIC;
-    S01_AXI_wvalid : in STD_LOGIC;
-    S01_AXI_wready : out STD_LOGIC;
-    S01_AXI_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    S01_AXI_bvalid : out STD_LOGIC;
-    S01_AXI_bready : in STD_LOGIC
+    M00_AXI_rready : out STD_LOGIC
   );
   end component design_1_axi_smc_0;
   component design_1_axis_data_fifo_0_0 is
@@ -2813,6 +2813,13 @@ architecture STRUCTURE of design_1 is
     m_axis_tlast : out STD_LOGIC
   );
   end component design_1_axis_data_fifo_0_0;
+  component design_1_xlconcat_0_0 is
+  port (
+    In0 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    In1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    dout : out STD_LOGIC_VECTOR ( 1 downto 0 )
+  );
+  end component design_1_xlconcat_0_0;
   signal axi_dma_0_M_AXIS_MM2S_TDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal axi_dma_0_M_AXIS_MM2S_TKEEP : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal axi_dma_0_M_AXIS_MM2S_TLAST : STD_LOGIC;
@@ -2847,6 +2854,8 @@ architecture STRUCTURE of design_1 is
   signal axi_dma_0_M_AXI_S2MM_WREADY : STD_LOGIC;
   signal axi_dma_0_M_AXI_S2MM_WSTRB : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal axi_dma_0_M_AXI_S2MM_WVALID : STD_LOGIC;
+  signal axi_dma_0_mm2s_introut : STD_LOGIC;
+  signal axi_dma_0_s2mm_introut : STD_LOGIC;
   signal axi_gpio_0_GPIO2_TRI_O : STD_LOGIC_VECTOR ( 0 to 0 );
   signal axi_gpio_0_GPIO_TRI_O : STD_LOGIC_VECTOR ( 0 to 0 );
   signal axi_gpio_1_GPIO_TRI_O : STD_LOGIC_VECTOR ( 0 to 0 );
@@ -2957,6 +2966,7 @@ architecture STRUCTURE of design_1 is
   signal ps8_0_axi_periph_M03_AXI_WDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal ps8_0_axi_periph_M03_AXI_WREADY : STD_LOGIC;
   signal ps8_0_axi_periph_M03_AXI_WVALID : STD_LOGIC;
+  signal xlconcat_0_dout : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARADDR : STD_LOGIC_VECTOR ( 39 downto 0 );
   signal zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARBURST : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARCACHE : STD_LOGIC_VECTOR ( 3 downto 0 );
@@ -3034,9 +3044,7 @@ architecture STRUCTURE of design_1 is
   signal zynq_ultra_ps_e_0_emio_uart0_rtsn : STD_LOGIC;
   signal zynq_ultra_ps_e_0_pl_clk0 : STD_LOGIC;
   signal zynq_ultra_ps_e_0_pl_resetn0 : STD_LOGIC;
-  signal NLW_axi_dma_0_mm2s_introut_UNCONNECTED : STD_LOGIC;
   signal NLW_axi_dma_0_mm2s_prmry_reset_out_n_UNCONNECTED : STD_LOGIC;
-  signal NLW_axi_dma_0_s2mm_introut_UNCONNECTED : STD_LOGIC;
   signal NLW_axi_dma_0_s2mm_prmry_reset_out_n_UNCONNECTED : STD_LOGIC;
   signal NLW_axi_intc_0_irq_UNCONNECTED : STD_LOGIC;
   signal NLW_proc_sys_reset_0_mb_reset_UNCONNECTED : STD_LOGIC;
@@ -3101,9 +3109,9 @@ axi_dma_0: component design_1_axi_dma_0_0
       m_axis_mm2s_tlast => axi_dma_0_M_AXIS_MM2S_TLAST,
       m_axis_mm2s_tready => axi_dma_0_M_AXIS_MM2S_TREADY,
       m_axis_mm2s_tvalid => axi_dma_0_M_AXIS_MM2S_TVALID,
-      mm2s_introut => NLW_axi_dma_0_mm2s_introut_UNCONNECTED,
+      mm2s_introut => axi_dma_0_mm2s_introut,
       mm2s_prmry_reset_out_n => NLW_axi_dma_0_mm2s_prmry_reset_out_n_UNCONNECTED,
-      s2mm_introut => NLW_axi_dma_0_s2mm_introut_UNCONNECTED,
+      s2mm_introut => axi_dma_0_s2mm_introut,
       s2mm_prmry_reset_out_n => NLW_axi_dma_0_s2mm_prmry_reset_out_n_UNCONNECTED,
       s_axi_lite_aclk => zynq_ultra_ps_e_0_pl_clk0,
       s_axi_lite_araddr(9 downto 0) => ps8_0_axi_periph_M03_AXI_ARADDR(9 downto 0),
@@ -3456,6 +3464,12 @@ ps8_0_axi_periph: entity work.design_1_ps8_0_axi_periph_0
       S01_AXI_wstrb(15 downto 0) => zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WSTRB(15 downto 0),
       S01_AXI_wvalid => zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WVALID
     );
+xlconcat_0: component design_1_xlconcat_0_0
+     port map (
+      In0(0) => axi_dma_0_mm2s_introut,
+      In1(0) => axi_dma_0_s2mm_introut,
+      dout(1 downto 0) => xlconcat_0_dout(1 downto 0)
+    );
 zynq_ultra_ps_e_0: component design_1_zynq_ultra_ps_e_0_0
      port map (
       emio_gpio_i(94 downto 0) => B"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -3548,7 +3562,7 @@ zynq_ultra_ps_e_0: component design_1_zynq_ultra_ps_e_0_0
       maxihpm0_fpd_aclk => zynq_ultra_ps_e_0_pl_clk0,
       maxihpm1_fpd_aclk => zynq_ultra_ps_e_0_pl_clk0,
       pl_clk0 => zynq_ultra_ps_e_0_pl_clk0,
-      pl_ps_irq0(0) => '0',
+      pl_ps_irq0(1 downto 0) => xlconcat_0_dout(1 downto 0),
       pl_resetn0 => zynq_ultra_ps_e_0_pl_resetn0,
       saxigp2_araddr(48 downto 0) => axi_smc_M00_AXI_ARADDR(48 downto 0),
       saxigp2_arburst(1 downto 0) => axi_smc_M00_AXI_ARBURST(1 downto 0),

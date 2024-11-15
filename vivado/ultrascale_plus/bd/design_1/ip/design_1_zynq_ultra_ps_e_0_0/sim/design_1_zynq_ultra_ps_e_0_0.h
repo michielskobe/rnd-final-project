@@ -209,7 +209,7 @@ public:
   sc_core::sc_in< bool > emio_uart0_dcdn;
   sc_core::sc_in< bool > emio_uart0_rin;
   sc_core::sc_out< bool > emio_uart0_dtrn;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
+  sc_core::sc_in< sc_dt::sc_bv<2> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
 
@@ -378,7 +378,7 @@ public:
   sc_core::sc_in< bool > emio_uart0_dcdn;
   sc_core::sc_in< bool > emio_uart0_rin;
   sc_core::sc_out< bool > emio_uart0_dtrn;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
+  sc_core::sc_in< sc_dt::sc_bv<2> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
 
@@ -547,7 +547,7 @@ public:
   sc_core::sc_in< bool > emio_uart0_dcdn;
   sc_core::sc_in< bool > emio_uart0_rin;
   sc_core::sc_out< bool > emio_uart0_dtrn;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
+  sc_core::sc_in< sc_dt::sc_bv<2> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
 
@@ -720,7 +720,7 @@ public:
   sc_core::sc_in< bool > emio_uart0_dcdn;
   sc_core::sc_in< bool > emio_uart0_rin;
   sc_core::sc_out< bool > emio_uart0_dtrn;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
+  sc_core::sc_in< sc_dt::sc_bv<2> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
 
@@ -903,7 +903,7 @@ public:
   sc_core::sc_in< bool > emio_uart0_dcdn;
   sc_core::sc_in< bool > emio_uart0_rin;
   sc_core::sc_out< bool > emio_uart0_dtrn;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
+  sc_core::sc_in< sc_dt::sc_bv<2> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
 

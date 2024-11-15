@@ -195,7 +195,7 @@ module design_1_zynq_ultra_ps_e_0_0 (
   input bit_as_bool emio_uart0_dcdn,
   input bit_as_bool emio_uart0_rin,
   output bit_as_bool emio_uart0_dtrn,
-  input bit [0 : 0] pl_ps_irq0,
+  input bit [1 : 0] pl_ps_irq0,
   output bit_as_bool pl_resetn0,
   output bit_as_bool pl_clk0
 );
@@ -336,7 +336,7 @@ module design_1_zynq_ultra_ps_e_0_0 (maxihpm0_fpd_aclk,maxigp0_awid,maxigp0_awad
   input bit emio_uart0_dcdn;
   input bit emio_uart0_rin;
   output wire emio_uart0_dtrn;
-  input bit [0 : 0] pl_ps_irq0;
+  input bit [1 : 0] pl_ps_irq0;
   output wire pl_resetn0;
   output wire pl_clk0;
 endmodule

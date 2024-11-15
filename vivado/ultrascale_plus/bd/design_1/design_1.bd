@@ -32,7 +32,8 @@
       "axi_intc_0": "",
       "axi_dma_0": "",
       "axi_smc": "",
-      "axis_data_fifo_0": ""
+      "axis_data_fifo_0": "",
+      "xlconcat_0": ""
     },
     "interface_ports": {
       "wifi_en_led": {
@@ -1475,6 +1476,9 @@
           "PSU__USE__IRQ0": {
             "value": "1"
           },
+          "PSU__USE__IRQ1": {
+            "value": "0"
+          },
           "PSU__USE__M_AXI_GP0": {
             "value": "1"
           },
@@ -2596,6 +2600,13 @@
             ]
           }
         }
+      },
+      "xlconcat_0": {
+        "vlnv": "xilinx.com:ip:xlconcat:2.1",
+        "ip_revision": "6",
+        "xci_name": "design_1_xlconcat_0_0",
+        "xci_path": "ip/design_1_xlconcat_0_0/design_1_xlconcat_0_0.xci",
+        "inst_hier_path": "xlconcat_0"
       }
     },
     "interface_nets": {
@@ -2685,6 +2696,18 @@
       }
     },
     "nets": {
+      "axi_dma_0_mm2s_introut": {
+        "ports": [
+          "axi_dma_0/mm2s_introut",
+          "xlconcat_0/In0"
+        ]
+      },
+      "axi_dma_0_s2mm_introut": {
+        "ports": [
+          "axi_dma_0/s2mm_introut",
+          "xlconcat_0/In1"
+        ]
+      },
       "bt_ctsn_1": {
         "ports": [
           "bt_ctsn",
@@ -2707,6 +2730,12 @@
           "ps8_0_axi_periph/M03_ARESETN",
           "axi_smc/aresetn",
           "axis_data_fifo_0/s_axis_aresetn"
+        ]
+      },
+      "xlconcat_0_dout": {
+        "ports": [
+          "xlconcat_0/dout",
+          "zynq_ultra_ps_e_0/pl_ps_irq0"
         ]
       },
       "zynq_ultra_ps_e_0_emio_uart0_rtsn": {

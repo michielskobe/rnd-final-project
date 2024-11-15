@@ -194,39 +194,41 @@ begin
     -------------------------------------
     -- Shift register
     -------------------------------------
-    process (i_sclk)
+    process (m_clk)
     begin
-        if rising_edge(i_sclk) then
+        if rising_edge(m_clk) then
             start <= '0';
-            if lr_counter = 0 or lr_counter = g_clock_div_lrclk/2 then
+            if lr_counter = 1 or lr_counter = g_clock_div_lrclk/2 +1 then
                 start <= '1';
             end if; 
         end if;
     end process;
 
-    process (i_sclk)
+    process (m_clk)
     begin
-        if rising_edge(i_sclk) then
-            busy <= '0';
-            data_out <= '0';
-            l_sent <= '0';
-            r_sent <= '0';
-            if start = '1' or busy = '1' then
-                busy <= '1';
-                offset <= offset - 1;
-                if i_lrclk = '0' then
-                    data_out <= l_sample(to_integer(unsigned(offset -1)));
-                else
-                    data_out <= r_sample(to_integer(unsigned(offset -1)));
-                end if;
-                if offset = 1 then
-                    offset <= STD_LOGIC_VECTOR(to_unsigned(c_audio_width, integer(ceil(log2(real(c_audio_width))))));
+        if rising_edge(m_clk) then
+            if serial_counter >= g_clock_div_sclk -1 then
+                busy <= '0';
+                data_out <= '0';
+                l_sent <= '0';
+                r_sent <= '0';
+                if start = '1' or busy = '1' then
+                    busy <= '1';
+                    offset <= offset - 1;
                     if i_lrclk = '0' then
-                        l_sent <= '1';
+                        data_out <= l_sample(to_integer(unsigned(offset -1)));
                     else
-                        r_sent <= '1';
+                        data_out <= r_sample(to_integer(unsigned(offset -1)));
                     end if;
-                    busy <= '0';
+                    if offset = 1 then
+                        offset <= STD_LOGIC_VECTOR(to_unsigned(c_audio_width, integer(ceil(log2(real(c_audio_width))))));
+                        if i_lrclk = '0' then
+                            l_sent <= '1';
+                        else
+                            r_sent <= '1';
+                        end if;
+                        busy <= '0';
+                    end if;
                 end if;
             end if;
         end if;

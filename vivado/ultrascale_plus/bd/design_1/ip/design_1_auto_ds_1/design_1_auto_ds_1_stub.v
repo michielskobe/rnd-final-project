@@ -4,8 +4,8 @@
 // Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
 // Date        : Fri Nov 15 13:07:40 2024
 // Host        : fedora running 64-bit unknown
-// Command     : write_verilog -force -mode synth_stub
-//               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_auto_ds_1/design_1_auto_ds_1_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top design_1_auto_ds_1 -prefix
+//               design_1_auto_ds_1_ design_1_auto_ds_1_stub.v
 // Design      : design_1_auto_ds_1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xczu3eg-sbva484-1-i
