@@ -9,18 +9,16 @@ To be able to work with Mido, we need to install the following packages:
 python3 -m pip install mido
 python3 -m pip install python-rtmidi
 ```
+
 We wrote the following Python code to receive the MIDI messages:
 
 ```python
 import mido
 
-def list_midi_input_ports():
-    '''Function to list available MIDI input ports'''
-    print("Available MIDI input ports:")
-    for port_name in mido.get_input_names():
-        print(f" - {port_name}")
+input_port_name = 'Your MIDI Device Name'
+filename = "Your Message Destination File Name"
 
-def write_midi_input_to_file(message, filename):
+def write_midi_input_to_file(message):
     '''Function to write the received MIDI message to a given file'''
     file = open(filename, "a")
     file.write(message + "\n")
@@ -38,17 +36,21 @@ def listen_to_midi_input(port_name):
                 for byte in msg.bytes():  # Convert received MIDI messages to bytes and print
                     msg_bin += f"{byte:#010b} "  # Display each byte in binary format
                 print(f"Binary MIDI Message: {msg_bin}")
-                write_midi_input_to_file(msg_bin, "Your Message Destination File Name")
+                write_midi_input_to_file(msg_bin)
     except KeyboardInterrupt:
         print("Stopped listening.")
-
-# List available ports and set the desired port name
-list_midi_input_ports()
-input_port_name = 'Your MIDI Device Name'
 
 # Start listening to the specified MIDI input port
 listen_to_midi_input(input_port_name)
 ```
 
-This Python code lists all the available MIDI input ports and listens to the desired port. It will convert all the MIDI messages to their binary equivalent and write them to a desired file.
+This Python code listens to the desired port. It will convert all the MIDI messages to their binary equivalent and write them to a desired file. To list all the available MIDI input ports, you can run the following Python code:
+
+```python
+import mido
+
+print("Available MIDI input ports:")
+for port_name in mido.get_input_names():
+    print(f" - {port_name}")
+```
 
