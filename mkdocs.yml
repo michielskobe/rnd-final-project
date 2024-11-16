@@ -75,7 +75,6 @@ nav:
    - Description : project/description.md
    - Embedded Linux:
       - PetaLinux: project/petalinux.md
-      - Operating System: project/embedded_system.md
       - Bluetooth: project/bluetooth.md
       - MIDI: project/midi.md
    - PCB: project/pcb.md

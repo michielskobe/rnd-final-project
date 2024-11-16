@@ -43,7 +43,7 @@ This shows that a bluetooth controller with MAC-address F8:F0:05:C3:34:27 is fou
 
 ### Notes about the WILC chip
 
-In our project, we will not use the integrated ATWILC3000 chip for Bluetooth connections. The chip supports Bluetooth 5.0, but only the Low Energy (LE)-variant. This means that audio streaming with the A2DP protocol is not supported since it is one of the features of "classic" Bluetooth.[^1]
+In our project, we will not use the integrated ATWILC3000 chip for Bluetooth connections. The chip supports Bluetooth 5.0, but only the Low Energy (LE)-variant. This means that audio streaming with the A2DP protocol is not supported since it is one of the features of native Bluetooth.[^1]
 
 However, this controller could still be used for other types of connections. This includes MIDI over Bluetooth, controling the mixer via Bluetooth, and so on.
 
@@ -51,23 +51,10 @@ However, this controller could still be used for other types of connections. Thi
 
 ### Installing the firmware
 
-To support audio streaming via Bluetooth to the Ultra96-V2, we will use the **TP-Link UB500** Bluetooth USB dongle which contains a **Realtek rtl8761bu chipset**. When inserting the dongle in the board it is immediately recognized by the system via the `lsusb` command, but the neccessary firmware is not yet installed. For this we will need the [RTL8761BU GitHub respository](https://github.com/Elif-dot/RTL8761BU) which contains the binary firmware files. 
+To support audio streaming via Bluetooth to the Ultra96-V2, we will use the **TP-Link UB500** Bluetooth USB dongle which contains a **Realtek rtl8761bu chipset**. When inserting the dongle in the board it is immediately recognized by the system via the `lsusb` command, but the neccessary firmware is not yet installed. The firmware files for the rtl8761bu chipset can be found on the internet or on every Linux distribution with kernel 5.8+. We uploaded the neccessary firmware files to the GitLab repository of this project.
 
-We cloned this repository, renamed the files to .bin files and copied them to `/lib/firmware/rtl_bt/` so the system can load them on startup:
-
-```console
-blendinator:~$ git clone https://github.com/Elif-dot/RTL8761BU.git
-Cloning into 'RTL8761BU'...
-blendinator:~$ cd RTL8761BU/
-blendinator:~/RTL8761BU$ cd 8761BU/
-blendinator:~/RTL8761BU/8761BU$ mv rtl8761bu_fw rtl8761bu_fw.bin
-blendinator:~/RTL8761BU/8761BU$ mv rtl8761bu_config rtl8761bu_config.bin
-blendinator:~/RTL8761BU/8761BU$ sudo cp rtl8761bu_config.bin /lib/firmware/rtl_bt/
-blendinator:~/RTL8761BU/8761BU$ sudo cp rtl8761bu_fw.bin /lib/firmware/rtl_bt/
-blendinator:~/RTL8761BU/8761BU$ sudo reboot
-```
-
-After the firmware files are installed, the system needs to be rebooted. If the installation was succesful, a new hci device on the USB bus should appear in `hciconfig`:
+To install the firmware, the two `.bin` firmware files need to be copied to `/lib/firmware/rtl_bt/`. The firmware will be loaded whenever the USB dongle is inserted. 
+If the installation was succesful, a new hci device on the USB bus should appear in `hciconfig`:
 
 ```console
 blendinator:~$ hciconfig
@@ -82,9 +69,13 @@ The advantage of this dongle is that the firmware only needed to be downloaded a
 
 ### The bluetooth console
 
+Now that the firmware is installed, we can open a bluetooth console to interact with the TP-Link UB500 Bluetooth dongle. Before opening the console, we will do a quick check with Bluez-alsa to check which A2DP profiles, also known as Bluetooth codecs, are supported. Each profile will be registered with the bluetooth agent as *MediaEndpoint*. To check which profiles are currently supported, we run the `bluealsa-cli status` command:
 
-[^1]: When writing this documentation, the latest variant of bluetooth is Bluetooth 5.4. It is worth mentioning that from Bluetooth 5.2 onwards, audio streaming is supported in Bluetooth Low Energy. The feature is called "LE Audio" and uses the LC3 codec for streaming audio. This codec is very promising as it has a good trade-off between bandwidth and quality, such that no software codec such as LDAC can match it. Another nice feature of LE Audio is "Auracast": it is from now on possible to stream to an unlimited number of audio sinks with LE Audio. More information about LE Audio could be found on the [Official Bluetooth website](https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/le-audio/).
-  In this project we will stick with Bluetooth 5.0 and classic Bluetooth Audio because the LE Audio variant is not yet widely used and supported.
+*To be continued*
+
+
+[^1]: When writing this documentation, the latest variant of bluetooth is Bluetooth 5.4. It is worth mentioning that from Bluetooth 5.2 onwards, audio streaming is supported in Bluetooth Low Energy. The feature is called "LE Audio" and uses the LC3 codec for streaming audio. This codec is very promising as it has a good trade-off between bandwidth and quality, such that no existing software codec such as LDAC can match it. Another nice feature of LE Audio is "Auracast": it is from now on possible to stream to an unlimited number of audio sinks with LE Audio. More information about LE Audio could be found on the [Official Bluetooth website](https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/le-audio/).
+  In this project we will stick with Bluetooth 5.0 and native Bluetooth Audio because the LE Audio variant is not yet widely used and supported.
 
 
 

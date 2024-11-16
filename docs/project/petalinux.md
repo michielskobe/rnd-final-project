@@ -101,33 +101,75 @@ Also the checksum of the bluez5 archive file should be changed in **bluez5_5.79.
 ```
 The files related to bluez5 can be found in `/components/yocto/layers/poky/meta/recipes-connectivity/bluez5`.
 
-### Adding Pipewire and Wireplumber
+### Adding libfreeaptx
 
-To provide the best support for Bluetooth Audio later on in the project, we will also need the latest version of PipeWire and Wireplumber. Both packages are already included in the meta-openembedded layer of yocto. However, they are still stuck at version 0.3.59 and 0.4.5 respectively. We need to execute a couple of steps in order to update them to the latest version.
+In our project, we will support HD audio streaming over Bluetooth which can be achieved with the **aptX-HD codec**. We need to install an extra library to add support for this codec later on.
+The library **libfreeaptx** is an open-source implementation of the aptX-HD codec and is required by the next package bluez-alsa to support aptX-HD. We created a custom bitbake file to build and include the library in our PetaLinux project. The bitbake file can be found in the `bitbake` folder on the GitLab repository of this project.
 
-- First, we clone the [meta-openembedded GitHub-repository](https://github.com/openembedded/meta-openembedded) in the `/project-spec/`-directory.
+To install the library in our project, we created the folder `libfreeaptx` in `components/yocto/layers/meta-openembedded/meta-multimedia/recipes-multimedia/` and placed the bitbake file in it.
 
-```bash
-git clone git@github.com:openembedded/meta-openembedded.git
-```
+### Adding Bluez-Alsa
 
-- Then, we run `petalinux-config` in our terminal. We go to **Yocto Settings** → **User Layers**. Here we add a new user layer: `${PROOT}/project-spec/meta-openembedded/meta-multimedia`. This results in the following errors: 
+We will use the package Bluez-alsa to route audio from a Bluetooth device to an ALSA sink. The bitbake file for bluez-alsa already exists in `components/yocto/layers/meta-openembedded/meta-multimedia/recipes-multimedia/bluealsa`, but we will upgrade it to a higher version for more support. A newer version can be found in the [meta-openembedded repository](https://github.com/openembedded/meta-openembedded) at `meta-multimedia/recipes-multimedia/bluealsa/`.
 
-```bash
-ERROR: Found duplicated BBFILE_COLLECTIONS 'multimedia-layer', check bblayers.conf or layer.conf to fix it.
-ERROR: Found duplicated BBFILE_COLLECTIONS 'multimedia-layer', check bblayers.conf or layer.conf to fix it.
-```
-
-To solve these errors, we go to `build/conf/bblayers.conf`. Here we got a duplicate entry for `meta-multimedia`, so we removed one of these entries. 
-
-- In `/project-spec/meta-user/conf/user-rootfsconfig`, we add the following lines:
+After copying the newer bitbake file to the project, we changed a few things in the file to support some extra Bluetooth codecs:
 
 ```diff
-+ CONFIG_pipewire
-+ CONFIG_wireplumber
+-   DEPENDS += "alsa-lib bluez5 dbus glib-2.0-native python3-packaging-native sbc"
++   DEPENDS += "alsa-lib bluez5 dbus glib-2.0-native python3-packaging-native sbc libfreeaptx libopus"
+
+    EXTRA_OECONF = "\
+-       --disable-aptx \
++       --enable-debug \
++       --enable-systemd \
++       --enable-a2dpconf \
++       --enable-cli \
++       --enable-midi \
++       --enable-opus \
++       --enable-aptx \
++       --enable-aptx-hd \
++       --with-libfreeaptx \
+        --disable-lc3plus \
+        --disable-ldac \
+-       --disable-manpages \
+
+- SYSTEMD_BLUEALSA_ARGS ?= "-p a2dp-source -p a2dp-sink"
++ SYSTEMD_BLUEALSA_ARGS ?= "--codec=aptX --codec=aptX-HD --codec=Opus -p a2dp-sink"
 ```
 
-- We run the command `petalinux-config -c rootfs` and go to **user packages**. Here we enable `pipewire` and `wireplumber` by pressing `y`.
+With this changes, 2 extra Bluetooth codecs are now supported: **aptX-HD** and **Opus**. The systemd service will start at boot with this codecs enabled by default. For now, the device will only act as a Bluetooth audio sink, meaning audio can be received but not sent over Bluetooth on our system.
+
+To include the bluealsa (= bluez-alsa) package in the build, we need to add the following line to the `user-rootfsconfig` file in `project-spec/meta-user/conf/`:
+
+```diff
++ CONFIG_bluealsa
+```
+
+After this, run `petalinux-config -c rootfs` again and select **bluealsa** in **user packages**.
+
+### Adding a Wifi network
+
+For ease, we ensured that the `wpa_supplicant.conf` file contained a network configuration before the first boot so that the Ultra96-V2 will automatically connect to the network and there's no need for a JTAG UART-to-USB header anymore. This can be done by editing the `wpa_supplicant-wlan0.conf` file in `/components/yocto/layers/meta-petalinux/recipes-connectivity/ultra96-wlan0-config/ultra96-wlan0-config/`. We added the following network configuration:
+
+```diff 
+    ctrl_interface=/var/run/wpa_supplicant
+    ctrl_interface_group=0
+    update_config=1
+
++   network={
++       ssid="UltraHotspot"
++       #psk="Petalinux"
++       psk=e40db57c89bfdf4a7a5d1e4e0ede7c1ad54c4b5decf373cc57f28753ac424e77
++   }
+```
+
+The system will now connect to the network with SSID `UltraHotspot` at boot and it will be possible to use ssh as remote console.
+
+### Changing the hostname
+
+Lastly, we changed the hostname of the system from **u96v2-sbc-base-2023-2** to **blendinator** to fit our project. This can be done by running `petalinux-config` again and changing the name in `firmware version settings`.
+
+From now on, we can connect to the system by starting a connection to `blendinator.local`. 
 
 ## Building our PetaLinux project
 
