@@ -2,7 +2,7 @@
 --Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
---Date        : Thu Oct 24 10:30:47 2024
+--Date        : Sun Nov 17 16:21:29 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
@@ -34,7 +34,15 @@ entity design_1_wrapper is
     FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
-    FIXED_IO_ps_srstb : inout STD_LOGIC
+    FIXED_IO_ps_srstb : inout STD_LOGIC;
+    ad_lrclk : out STD_LOGIC;
+    ad_mclk : out STD_LOGIC;
+    ad_sclk : out STD_LOGIC;
+    ad_sdo : in STD_LOGIC;
+    da_lrclk : out STD_LOGIC;
+    da_mclk : out STD_LOGIC;
+    da_sclk : out STD_LOGIC;
+    da_sdi : out STD_LOGIC
   );
 end design_1_wrapper;
 
@@ -61,7 +69,15 @@ architecture STRUCTURE of design_1_wrapper is
     FIXED_IO_ddr_vrp : inout STD_LOGIC;
     FIXED_IO_ps_srstb : inout STD_LOGIC;
     FIXED_IO_ps_clk : inout STD_LOGIC;
-    FIXED_IO_ps_porb : inout STD_LOGIC
+    FIXED_IO_ps_porb : inout STD_LOGIC;
+    ad_mclk : out STD_LOGIC;
+    ad_lrclk : out STD_LOGIC;
+    ad_sclk : out STD_LOGIC;
+    da_mclk : out STD_LOGIC;
+    da_lrclk : out STD_LOGIC;
+    da_sclk : out STD_LOGIC;
+    da_sdi : out STD_LOGIC;
+    ad_sdo : in STD_LOGIC
   );
   end component design_1;
 begin
@@ -87,6 +103,14 @@ design_1_i: component design_1
       FIXED_IO_mio(53 downto 0) => FIXED_IO_mio(53 downto 0),
       FIXED_IO_ps_clk => FIXED_IO_ps_clk,
       FIXED_IO_ps_porb => FIXED_IO_ps_porb,
-      FIXED_IO_ps_srstb => FIXED_IO_ps_srstb
+      FIXED_IO_ps_srstb => FIXED_IO_ps_srstb,
+      ad_lrclk => ad_lrclk,
+      ad_mclk => ad_mclk,
+      ad_sclk => ad_sclk,
+      ad_sdo => ad_sdo,
+      da_lrclk => da_lrclk,
+      da_mclk => da_mclk,
+      da_sclk => da_sclk,
+      da_sdi => da_sdi
     );
 end STRUCTURE;

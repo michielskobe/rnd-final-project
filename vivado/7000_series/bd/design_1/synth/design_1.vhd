@@ -2,7 +2,7 @@
 --Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
---Date        : Thu Oct 24 10:30:47 2024
+--Date        : Sun Nov 17 16:21:29 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -34,10 +34,18 @@ entity design_1 is
     FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
-    FIXED_IO_ps_srstb : inout STD_LOGIC
+    FIXED_IO_ps_srstb : inout STD_LOGIC;
+    ad_lrclk : out STD_LOGIC;
+    ad_mclk : out STD_LOGIC;
+    ad_sclk : out STD_LOGIC;
+    ad_sdo : in STD_LOGIC;
+    da_lrclk : out STD_LOGIC;
+    da_mclk : out STD_LOGIC;
+    da_sclk : out STD_LOGIC;
+    da_sdi : out STD_LOGIC
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=1,numReposBlks=1,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_ps7_cnt=1,synth_mode=Hierarchical}";
+  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=2,numReposBlks=2,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_ps7_cnt=1,synth_mode=Hierarchical}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of design_1 : entity is "design_1.hwdef";
 end design_1;
@@ -88,6 +96,7 @@ architecture STRUCTURE of design_1 is
     M_AXI_GP0_RRESP : in STD_LOGIC_VECTOR ( 1 downto 0 );
     M_AXI_GP0_RDATA : in STD_LOGIC_VECTOR ( 31 downto 0 );
     FCLK_CLK0 : out STD_LOGIC;
+    FCLK_CLK1 : out STD_LOGIC;
     FCLK_RESET0_N : out STD_LOGIC;
     MIO : inout STD_LOGIC_VECTOR ( 53 downto 0 );
     DDR_CAS_n : inout STD_LOGIC;
@@ -112,6 +121,43 @@ architecture STRUCTURE of design_1 is
     PS_PORB : inout STD_LOGIC
   );
   end component design_1_processing_system7_0_0;
+  component design_1_I2S_wrapper_0_0 is
+  port (
+    m_clk : in STD_LOGIC;
+    m_rst : in STD_LOGIC;
+    mclk_r : out STD_LOGIC;
+    lrclk_r : out STD_LOGIC;
+    sclk_r : out STD_LOGIC;
+    mclk_t : out STD_LOGIC;
+    lrclk_t : out STD_LOGIC;
+    sclk_t : out STD_LOGIC;
+    data_in : in STD_LOGIC;
+    data_out : out STD_LOGIC;
+    s_TValid_in : in STD_LOGIC;
+    s_TLast_in : in STD_LOGIC;
+    s_TData_in : in STD_LOGIC_VECTOR ( 23 downto 0 );
+    s_TID_in : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_TReady_in : out STD_LOGIC;
+    s_TValid_out : out STD_LOGIC;
+    s_TLast_out : out STD_LOGIC;
+    s_TData_out : out STD_LOGIC_VECTOR ( 23 downto 0 );
+    s_TID_out : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_TReady_out : in STD_LOGIC
+  );
+  end component design_1_I2S_wrapper_0_0;
+  signal I2S_wrapper_0_data_out : STD_LOGIC;
+  signal I2S_wrapper_0_lrclk_r : STD_LOGIC;
+  signal I2S_wrapper_0_lrclk_t : STD_LOGIC;
+  signal I2S_wrapper_0_mclk_r : STD_LOGIC;
+  signal I2S_wrapper_0_mclk_t : STD_LOGIC;
+  signal I2S_wrapper_0_s_out_TDATA : STD_LOGIC_VECTOR ( 23 downto 0 );
+  signal I2S_wrapper_0_s_out_TID : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal I2S_wrapper_0_s_out_TLAST : STD_LOGIC;
+  signal I2S_wrapper_0_s_out_TREADY : STD_LOGIC;
+  signal I2S_wrapper_0_s_out_TVALID : STD_LOGIC;
+  signal I2S_wrapper_0_sclk_r : STD_LOGIC;
+  signal I2S_wrapper_0_sclk_t : STD_LOGIC;
+  signal data_in_0_1 : STD_LOGIC;
   signal processing_system7_0_DDR_ADDR : STD_LOGIC_VECTOR ( 14 downto 0 );
   signal processing_system7_0_DDR_BA : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal processing_system7_0_DDR_CAS_N : STD_LOGIC;
@@ -128,6 +174,7 @@ architecture STRUCTURE of design_1 is
   signal processing_system7_0_DDR_RESET_N : STD_LOGIC;
   signal processing_system7_0_DDR_WE_N : STD_LOGIC;
   signal processing_system7_0_FCLK_CLK0 : STD_LOGIC;
+  signal processing_system7_0_FCLK_CLK1 : STD_LOGIC;
   signal processing_system7_0_FIXED_IO_DDR_VRN : STD_LOGIC;
   signal processing_system7_0_FIXED_IO_DDR_VRP : STD_LOGIC;
   signal processing_system7_0_FIXED_IO_MIO : STD_LOGIC_VECTOR ( 53 downto 0 );
@@ -190,6 +237,37 @@ architecture STRUCTURE of design_1 is
   attribute X_INTERFACE_INFO of DDR_dqs_p : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_P";
   attribute X_INTERFACE_INFO of FIXED_IO_mio : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO";
 begin
+  ad_lrclk <= I2S_wrapper_0_lrclk_r;
+  ad_mclk <= I2S_wrapper_0_mclk_r;
+  ad_sclk <= I2S_wrapper_0_sclk_r;
+  da_lrclk <= I2S_wrapper_0_lrclk_t;
+  da_mclk <= I2S_wrapper_0_mclk_t;
+  da_sclk <= I2S_wrapper_0_sclk_t;
+  da_sdi <= I2S_wrapper_0_data_out;
+  data_in_0_1 <= ad_sdo;
+I2S_wrapper_0: component design_1_I2S_wrapper_0_0
+     port map (
+      data_in => data_in_0_1,
+      data_out => I2S_wrapper_0_data_out,
+      lrclk_r => I2S_wrapper_0_lrclk_r,
+      lrclk_t => I2S_wrapper_0_lrclk_t,
+      m_clk => processing_system7_0_FCLK_CLK1,
+      m_rst => '0',
+      mclk_r => I2S_wrapper_0_mclk_r,
+      mclk_t => I2S_wrapper_0_mclk_t,
+      s_TData_in(23 downto 0) => I2S_wrapper_0_s_out_TDATA(23 downto 0),
+      s_TData_out(23 downto 0) => I2S_wrapper_0_s_out_TDATA(23 downto 0),
+      s_TID_in(3 downto 0) => I2S_wrapper_0_s_out_TID(3 downto 0),
+      s_TID_out(3 downto 0) => I2S_wrapper_0_s_out_TID(3 downto 0),
+      s_TLast_in => I2S_wrapper_0_s_out_TLAST,
+      s_TLast_out => I2S_wrapper_0_s_out_TLAST,
+      s_TReady_in => I2S_wrapper_0_s_out_TREADY,
+      s_TReady_out => I2S_wrapper_0_s_out_TREADY,
+      s_TValid_in => I2S_wrapper_0_s_out_TVALID,
+      s_TValid_out => I2S_wrapper_0_s_out_TVALID,
+      sclk_r => I2S_wrapper_0_sclk_r,
+      sclk_t => I2S_wrapper_0_sclk_t
+    );
 processing_system7_0: component design_1_processing_system7_0_0
      port map (
       DDR_Addr(14 downto 0) => DDR_addr(14 downto 0),
@@ -210,6 +288,7 @@ processing_system7_0: component design_1_processing_system7_0_0
       DDR_VRP => FIXED_IO_ddr_vrp,
       DDR_WEB => DDR_we_n,
       FCLK_CLK0 => processing_system7_0_FCLK_CLK0,
+      FCLK_CLK1 => processing_system7_0_FCLK_CLK1,
       FCLK_RESET0_N => NLW_processing_system7_0_FCLK_RESET0_N_UNCONNECTED,
       MIO(53 downto 0) => FIXED_IO_mio(53 downto 0),
       M_AXI_GP0_ACLK => processing_system7_0_FCLK_CLK0,
