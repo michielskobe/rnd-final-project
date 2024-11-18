@@ -78,3 +78,50 @@ We decided to implement a fix on the PYNQ side of things because it is the simpl
 
 <img src="/img/pynq_revB_front.png"/>
 <img src="/img/pynq_revB_back.png"/>
+
+## Results
+
+When we tested revision A of the ultra PCB together with revision B of the PYNQ pcb for the first time, the results were less than stellar: 
+
+<img src="/img/first_test_pcb.png"/>
+
+Here, the blue trace is the output of the PYNQ, the yellow trace is the signal after voltage translation from 3V3 to 1V8 and the pink line is what arrives at the ultra board. It does not take a lot of thought to realize this situation is less than ideal. We suspected that the design fell victim to improper signal integrity resulting in reflections. To combat this, we added a few temporary slew rate resistors before and after the level shifter in order to try to minimize the reflections. This gave us the following improvement:
+
+<img src="/img/slew_resistors.png"/>
+
+This is a nice improvement already, but there are still a lot of problems. Not the least of which is that the purple line still does not even come close to resembling a square wave. We also see that the square waves we get are still not ideal, they still contain ringing. Due to the large resistors we needed to get to this stage, they also did not have the right voltage anymore: 1V8 instead of 3V3 before down translation and 1V2 instead of 1V8 after down translation. We also decided to create a step input so that we could better see what was going on: 
+
+<img src="/img/slew_resistors_step.png"/>
+
+This more or less confirmed that we had major problems with very sharp edges. At this point, we needed some external help, a big thanks goes out to Gert Van Loock and Lode Decapmaker for taking the time to look at our problems and come up with a few tips which could help us fix these problems. 
+
+### The 'solution' to these troubles 
+
+First and foremost, we removed all the temporary resistors and returned to the original design. Then we implemented the following suggestions:
+
+* We changed the pin configuration of the 7000 series to have a slow slewrate and minimal drive strength in order to reduce the sharp edges:
+```
+set_property -dict { PACKAGE_PIN U13   IOSTANDARD LVCMOS33 SLEW SLOW DRIVE 4 } [get_ports {clk_out}];
+```
+
+* We made the filters on the Ultra board less harsh, this way they would interfere less with the signal
+* Where needed on up translation (ultra to PYNQ), we can activate the `PULLUP true` constraint on the PYNQ to address a missing pull up resistor on the PCB.
+
+These changes gave us the following results:
+
+* Output of the PYNQ (3V3)
+
+<img src="/img/post_fix_3V3.png"/>
+
+* After voltage translation (1V8)
+
+<img src="/img/post_fix_translated.png"/>
+
+* At the ultra board: 
+
+<img src="/img/post_fix_next_board.png"/>
+
+
+### Conclusion
+
+The fixes suggested do certainly help, although it looks like there might still be a bit too much parasitic capacitance on the lines since the falling edge is not what we would expect. At the time of writing, we have also already invested in another [commercial solution](https://www.seeedstudio.com/96Boards-Sensors.html), so we might not make use of these PCBs at all.
