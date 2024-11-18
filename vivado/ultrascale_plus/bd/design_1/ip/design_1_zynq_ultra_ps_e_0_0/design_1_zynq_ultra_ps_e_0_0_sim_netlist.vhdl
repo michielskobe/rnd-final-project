@@ -2,7 +2,7 @@
 -- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
--- Date        : Fri Nov 15 14:41:36 2024
+-- Date        : Mon Nov 18 12:59:05 2024
 -- Host        : fedora running 64-bit unknown
 -- Command     : write_vhdl -force -mode funcsim
 --               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_zynq_ultra_ps_e_0_0/design_1_zynq_ultra_ps_e_0_0_sim_netlist.vhdl
@@ -246,8 +246,8 @@ entity design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e is
     saxigp2_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     saxigp2_awvalid : in STD_LOGIC;
     saxigp2_awready : out STD_LOGIC;
-    saxigp2_wdata : in STD_LOGIC_VECTOR ( 127 downto 0 );
-    saxigp2_wstrb : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    saxigp2_wdata : in STD_LOGIC_VECTOR ( 63 downto 0 );
+    saxigp2_wstrb : in STD_LOGIC_VECTOR ( 7 downto 0 );
     saxigp2_wlast : in STD_LOGIC;
     saxigp2_wvalid : in STD_LOGIC;
     saxigp2_wready : out STD_LOGIC;
@@ -266,7 +266,7 @@ entity design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e is
     saxigp2_arvalid : in STD_LOGIC;
     saxigp2_arready : out STD_LOGIC;
     saxigp2_rid : out STD_LOGIC_VECTOR ( 5 downto 0 );
-    saxigp2_rdata : out STD_LOGIC_VECTOR ( 127 downto 0 );
+    saxigp2_rdata : out STD_LOGIC_VECTOR ( 63 downto 0 );
     saxigp2_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     saxigp2_rlast : out STD_LOGIC;
     saxigp2_rvalid : out STD_LOGIC;
@@ -1550,7 +1550,7 @@ entity design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e is
   attribute C_SAXIGP1_DATA_WIDTH : integer;
   attribute C_SAXIGP1_DATA_WIDTH of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 128;
   attribute C_SAXIGP2_DATA_WIDTH : integer;
-  attribute C_SAXIGP2_DATA_WIDTH of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 128;
+  attribute C_SAXIGP2_DATA_WIDTH of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 64;
   attribute C_SAXIGP3_DATA_WIDTH : integer;
   attribute C_SAXIGP3_DATA_WIDTH of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_ps_e : entity is 128;
   attribute C_SAXIGP4_DATA_WIDTH : integer;
@@ -4563,6 +4563,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zy
   signal NLW_PS8_i_PSS_ALTO_CORE_PAD_DRAMDQSN_UNCONNECTED : STD_LOGIC_VECTOR ( 8 downto 0 );
   signal NLW_PS8_i_PSS_ALTO_CORE_PAD_DRAMODT_UNCONNECTED : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal NLW_PS8_i_PSS_ALTO_CORE_PAD_MIO_UNCONNECTED : STD_LOGIC_VECTOR ( 77 downto 0 );
+  signal NLW_PS8_i_SAXIGP2RDATA_UNCONNECTED : STD_LOGIC_VECTOR ( 127 downto 64 );
   attribute BOX_TYPE : string;
   attribute BOX_TYPE of PS8_i : label is "PRIMITIVE";
   attribute DONT_TOUCH : boolean;
@@ -10676,7 +10677,8 @@ PS8_i: unisim.vcomponents.PS8
       SAXIGP2RCOUNT(2) => PS8_i_n_3371,
       SAXIGP2RCOUNT(1) => PS8_i_n_3372,
       SAXIGP2RCOUNT(0) => PS8_i_n_3373,
-      SAXIGP2RDATA(127 downto 0) => saxigp2_rdata(127 downto 0),
+      SAXIGP2RDATA(127 downto 64) => NLW_PS8_i_SAXIGP2RDATA_UNCONNECTED(127 downto 64),
+      SAXIGP2RDATA(63 downto 0) => saxigp2_rdata(63 downto 0),
       SAXIGP2RID(5 downto 0) => saxigp2_rid(5 downto 0),
       SAXIGP2RLAST => saxigp2_rlast,
       SAXIGP2RREADY => saxigp2_rready,
@@ -10695,10 +10697,12 @@ PS8_i: unisim.vcomponents.PS8
       SAXIGP2WCOUNT(2) => PS8_i_n_3379,
       SAXIGP2WCOUNT(1) => PS8_i_n_3380,
       SAXIGP2WCOUNT(0) => PS8_i_n_3381,
-      SAXIGP2WDATA(127 downto 0) => saxigp2_wdata(127 downto 0),
+      SAXIGP2WDATA(127 downto 64) => B"0000000000000000000000000000000000000000000000000000000000000000",
+      SAXIGP2WDATA(63 downto 0) => saxigp2_wdata(63 downto 0),
       SAXIGP2WLAST => saxigp2_wlast,
       SAXIGP2WREADY => saxigp2_wready,
-      SAXIGP2WSTRB(15 downto 0) => saxigp2_wstrb(15 downto 0),
+      SAXIGP2WSTRB(15 downto 8) => B"00000000",
+      SAXIGP2WSTRB(7 downto 0) => saxigp2_wstrb(7 downto 0),
       SAXIGP2WVALID => saxigp2_wvalid,
       SAXIGP3ARADDR(48 downto 0) => B"0000000000000000000000000000000000000000000000000",
       SAXIGP3ARBURST(1 downto 0) => B"00",
@@ -14499,8 +14503,8 @@ entity design_1_zynq_ultra_ps_e_0_0 is
     saxigp2_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     saxigp2_awvalid : in STD_LOGIC;
     saxigp2_awready : out STD_LOGIC;
-    saxigp2_wdata : in STD_LOGIC_VECTOR ( 127 downto 0 );
-    saxigp2_wstrb : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    saxigp2_wdata : in STD_LOGIC_VECTOR ( 63 downto 0 );
+    saxigp2_wstrb : in STD_LOGIC_VECTOR ( 7 downto 0 );
     saxigp2_wlast : in STD_LOGIC;
     saxigp2_wvalid : in STD_LOGIC;
     saxigp2_wready : out STD_LOGIC;
@@ -14519,7 +14523,7 @@ entity design_1_zynq_ultra_ps_e_0_0 is
     saxigp2_arvalid : in STD_LOGIC;
     saxigp2_arready : out STD_LOGIC;
     saxigp2_rid : out STD_LOGIC_VECTOR ( 5 downto 0 );
-    saxigp2_rdata : out STD_LOGIC_VECTOR ( 127 downto 0 );
+    saxigp2_rdata : out STD_LOGIC_VECTOR ( 63 downto 0 );
     saxigp2_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     saxigp2_rlast : out STD_LOGIC;
     saxigp2_rvalid : out STD_LOGIC;
@@ -15289,7 +15293,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   attribute C_SAXIGP1_DATA_WIDTH : integer;
   attribute C_SAXIGP1_DATA_WIDTH of U0 : label is 128;
   attribute C_SAXIGP2_DATA_WIDTH : integer;
-  attribute C_SAXIGP2_DATA_WIDTH of U0 : label is 128;
+  attribute C_SAXIGP2_DATA_WIDTH of U0 : label is 64;
   attribute C_SAXIGP3_DATA_WIDTH : integer;
   attribute C_SAXIGP3_DATA_WIDTH of U0 : label is 128;
   attribute C_SAXIGP4_DATA_WIDTH : integer;
@@ -15557,7 +15561,7 @@ architecture STRUCTURE of design_1_zynq_ultra_ps_e_0_0 is
   attribute x_interface_info of saxigp2_arlock : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD ARLOCK";
   attribute x_interface_info of saxigp2_arready : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD ARREADY";
   attribute x_interface_info of saxigp2_aruser : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD ARUSER";
-  attribute x_interface_parameter of saxigp2_aruser : signal is "XIL_INTERFACENAME S_AXI_HP0_FPD, NUM_WRITE_OUTSTANDING 16, NUM_READ_OUTSTANDING 16, DATA_WIDTH 128, PROTOCOL AXI4, FREQ_HZ 100000000, ID_WIDTH 6, ADDR_WIDTH 49, AWUSER_WIDTH 1, ARUSER_WIDTH 1, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, MAX_BURST_LENGTH 4, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
+  attribute x_interface_parameter of saxigp2_aruser : signal is "XIL_INTERFACENAME S_AXI_HP0_FPD, NUM_WRITE_OUTSTANDING 16, NUM_READ_OUTSTANDING 16, DATA_WIDTH 64, PROTOCOL AXI4, FREQ_HZ 100000000, ID_WIDTH 6, ADDR_WIDTH 49, AWUSER_WIDTH 1, ARUSER_WIDTH 1, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, MAX_BURST_LENGTH 16, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
   attribute x_interface_info of saxigp2_arvalid : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD ARVALID";
   attribute x_interface_info of saxigp2_awlock : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD AWLOCK";
   attribute x_interface_info of saxigp2_awready : signal is "xilinx.com:interface:aximm:1.0 S_AXI_HP0_FPD AWREADY";
@@ -16846,7 +16850,7 @@ U0: entity work.design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_p
       saxigp2_bvalid => saxigp2_bvalid,
       saxigp2_racount(3 downto 0) => NLW_U0_saxigp2_racount_UNCONNECTED(3 downto 0),
       saxigp2_rcount(7 downto 0) => NLW_U0_saxigp2_rcount_UNCONNECTED(7 downto 0),
-      saxigp2_rdata(127 downto 0) => saxigp2_rdata(127 downto 0),
+      saxigp2_rdata(63 downto 0) => saxigp2_rdata(63 downto 0),
       saxigp2_rid(5 downto 0) => saxigp2_rid(5 downto 0),
       saxigp2_rlast => saxigp2_rlast,
       saxigp2_rready => saxigp2_rready,
@@ -16854,10 +16858,10 @@ U0: entity work.design_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_3_zynq_ultra_p
       saxigp2_rvalid => saxigp2_rvalid,
       saxigp2_wacount(3 downto 0) => NLW_U0_saxigp2_wacount_UNCONNECTED(3 downto 0),
       saxigp2_wcount(7 downto 0) => NLW_U0_saxigp2_wcount_UNCONNECTED(7 downto 0),
-      saxigp2_wdata(127 downto 0) => saxigp2_wdata(127 downto 0),
+      saxigp2_wdata(63 downto 0) => saxigp2_wdata(63 downto 0),
       saxigp2_wlast => saxigp2_wlast,
       saxigp2_wready => saxigp2_wready,
-      saxigp2_wstrb(15 downto 0) => saxigp2_wstrb(15 downto 0),
+      saxigp2_wstrb(7 downto 0) => saxigp2_wstrb(7 downto 0),
       saxigp2_wvalid => saxigp2_wvalid,
       saxigp3_araddr(48 downto 0) => B"0000000000000000000000000000000000000000000000000",
       saxigp3_arburst(1 downto 0) => B"00",

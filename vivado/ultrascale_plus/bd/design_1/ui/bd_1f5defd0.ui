@@ -19,33 +19,33 @@ preplace inst ps8_0_axi_periph -pg 1 -lvl 6 -x 2150 -y 400 -defaultsOSRD
 preplace inst axi_intc_0 -pg 1 -lvl 7 -x 2460 -y 610 -defaultsOSRD
 preplace inst axi_dma_0 -pg 1 -lvl 3 -x 840 -y 290 -defaultsOSRD
 preplace inst axi_smc -pg 1 -lvl 4 -x 1200 -y 260 -defaultsOSRD
-preplace inst axis_data_fifo_0 -pg 1 -lvl 2 -x 520 -y 490 -defaultsOSRD
+preplace inst axis_data_fifo_0 -pg 1 -lvl 2 -x 530 -y 490 -defaultsOSRD
 preplace inst xlconcat_0 -pg 1 -lvl 4 -x 1200 -y 90 -defaultsOSRD
 preplace inst axi_lite_0 -pg 1 -lvl 7 -x 2460 -y 460 -defaultsOSRD
-preplace netloc axi_dma_0_mm2s_introut 1 3 1 1010 80n
-preplace netloc axi_dma_0_s2mm_introut 1 3 1 1020 100n
-preplace netloc bt_ctsn_1 1 0 6 NJ 780 NJ 780 650J 620 NJ 620 NJ 620 1960
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 6 390 590 650 600 1070 630 NJ 630 2010 170 2340
-preplace netloc xlconcat_0_dout 1 4 1 1370 90n
-preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 5 3 1970J 160 NJ 160 NJ
-preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 7 30 570 400 570 670 590 1060 170 1350 430 2000 630 2320
-preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 6 40 580 NJ 580 NJ 580 1030J 160 1360J 440 1950
-preplace netloc axi_dma_0_M_AXIS_MM2S 1 1 3 400 410 NJ 410 1000
+preplace netloc axi_dma_0_mm2s_introut 1 3 1 1020 80n
+preplace netloc axi_dma_0_s2mm_introut 1 3 1 1060 100n
+preplace netloc bt_ctsn_1 1 0 6 NJ 780 NJ 780 NJ 780 NJ 780 NJ 780 1970
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 6 400 410 650 140 1050 20 NJ 20 2000 100 2320
+preplace netloc xlconcat_0_dout 1 4 1 1340 90n
+preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 5 3 1960J 160 NJ 160 NJ
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 7 30 510 390 400 660 170 1040 170 1360 170 1990 170 2340
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 6 30 790 NJ 790 NJ 790 NJ 790 NJ 790 1960
+preplace netloc axi_dma_0_M_AXIS_MM2S 1 1 3 410 150 NJ 150 1010
 preplace netloc axi_dma_0_M_AXI_MM2S 1 3 1 N 230
 preplace netloc axi_dma_0_M_AXI_S2MM 1 3 1 N 250
 preplace netloc axi_gpio_0_GPIO 1 7 1 NJ 70
 preplace netloc axi_gpio_0_GPIO2 1 7 1 2580J 90n
 preplace netloc axi_gpio_1_GPIO 1 7 1 NJ 320
 preplace netloc axi_smc_M00_AXI 1 4 1 N 260
-preplace netloc axis_data_fifo_0_M_AXIS 1 2 1 660 260n
-preplace netloc ps8_0_axi_periph_M00_AXI 1 6 1 2290 60n
+preplace netloc axis_data_fifo_0_M_AXIS 1 2 1 670 260n
+preplace netloc ps8_0_axi_periph_M00_AXI 1 6 1 2310 60n
 preplace netloc ps8_0_axi_periph_M01_AXI 1 6 1 2330 300n
-preplace netloc ps8_0_axi_periph_M02_AXI 1 6 1 2300 400n
-preplace netloc ps8_0_axi_periph_M03_AXI 1 2 5 680 640 NJ 640 NJ 640 NJ 640 2290
+preplace netloc ps8_0_axi_periph_M02_AXI 1 6 1 2330 400n
+preplace netloc ps8_0_axi_periph_M03_AXI 1 2 5 670 160 NJ 160 1350J 150 NJ 150 2300
 preplace netloc ps8_0_axi_periph_M04_AXI 1 6 1 N 440
 preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 5 1 N 230
 preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 5 1 N 250
-levelinfo -pg 1 0 210 520 840 1200 1660 2150 2460 2600
+levelinfo -pg 1 0 210 530 840 1200 1660 2150 2460 2600
 pagesize -pg 1 -db -bbox -sgen -100 0 2730 800
 "
 }

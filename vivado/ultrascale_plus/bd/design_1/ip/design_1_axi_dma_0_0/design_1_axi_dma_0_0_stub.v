@@ -2,7 +2,7 @@
 // Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
-// Date        : Fri Nov 15 13:07:55 2024
+// Date        : Mon Nov 18 12:59:32 2024
 // Host        : fedora running 64-bit unknown
 // Command     : write_verilog -force -mode synth_stub
 //               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_axi_dma_0_0/design_1_axi_dma_0_0_stub.v
@@ -31,7 +31,7 @@ module design_1_axi_dma_0_0(s_axi_lite_aclk, m_axi_mm2s_aclk,
   m_axi_s2mm_wready, m_axi_s2mm_bresp, m_axi_s2mm_bvalid, m_axi_s2mm_bready, 
   s2mm_prmry_reset_out_n, s_axis_s2mm_tdata, s_axis_s2mm_tkeep, s_axis_s2mm_tvalid, 
   s_axis_s2mm_tready, s_axis_s2mm_tlast, mm2s_introut, s2mm_introut, axi_dma_tstvec)
-/* synthesis syn_black_box black_box_pad_pin="axi_resetn,s_axi_lite_awvalid,s_axi_lite_awready,s_axi_lite_awaddr[9:0],s_axi_lite_wvalid,s_axi_lite_wready,s_axi_lite_wdata[31:0],s_axi_lite_bresp[1:0],s_axi_lite_bvalid,s_axi_lite_bready,s_axi_lite_arvalid,s_axi_lite_arready,s_axi_lite_araddr[9:0],s_axi_lite_rvalid,s_axi_lite_rready,s_axi_lite_rdata[31:0],s_axi_lite_rresp[1:0],m_axi_mm2s_araddr[63:0],m_axi_mm2s_arlen[7:0],m_axi_mm2s_arsize[2:0],m_axi_mm2s_arburst[1:0],m_axi_mm2s_arprot[2:0],m_axi_mm2s_arcache[3:0],m_axi_mm2s_arvalid,m_axi_mm2s_arready,m_axi_mm2s_rdata[31:0],m_axi_mm2s_rresp[1:0],m_axi_mm2s_rlast,m_axi_mm2s_rvalid,m_axi_mm2s_rready,mm2s_prmry_reset_out_n,m_axis_mm2s_tdata[31:0],m_axis_mm2s_tkeep[3:0],m_axis_mm2s_tvalid,m_axis_mm2s_tready,m_axis_mm2s_tlast,m_axi_s2mm_awaddr[63:0],m_axi_s2mm_awlen[7:0],m_axi_s2mm_awsize[2:0],m_axi_s2mm_awburst[1:0],m_axi_s2mm_awprot[2:0],m_axi_s2mm_awcache[3:0],m_axi_s2mm_awvalid,m_axi_s2mm_awready,m_axi_s2mm_wdata[31:0],m_axi_s2mm_wstrb[3:0],m_axi_s2mm_wlast,m_axi_s2mm_wvalid,m_axi_s2mm_wready,m_axi_s2mm_bresp[1:0],m_axi_s2mm_bvalid,m_axi_s2mm_bready,s2mm_prmry_reset_out_n,s_axis_s2mm_tdata[31:0],s_axis_s2mm_tkeep[3:0],s_axis_s2mm_tvalid,s_axis_s2mm_tready,s_axis_s2mm_tlast,mm2s_introut,s2mm_introut,axi_dma_tstvec[31:0]" */
+/* synthesis syn_black_box black_box_pad_pin="axi_resetn,s_axi_lite_awvalid,s_axi_lite_awready,s_axi_lite_awaddr[9:0],s_axi_lite_wvalid,s_axi_lite_wready,s_axi_lite_wdata[31:0],s_axi_lite_bresp[1:0],s_axi_lite_bvalid,s_axi_lite_bready,s_axi_lite_arvalid,s_axi_lite_arready,s_axi_lite_araddr[9:0],s_axi_lite_rvalid,s_axi_lite_rready,s_axi_lite_rdata[31:0],s_axi_lite_rresp[1:0],m_axi_mm2s_araddr[31:0],m_axi_mm2s_arlen[7:0],m_axi_mm2s_arsize[2:0],m_axi_mm2s_arburst[1:0],m_axi_mm2s_arprot[2:0],m_axi_mm2s_arcache[3:0],m_axi_mm2s_arvalid,m_axi_mm2s_arready,m_axi_mm2s_rdata[63:0],m_axi_mm2s_rresp[1:0],m_axi_mm2s_rlast,m_axi_mm2s_rvalid,m_axi_mm2s_rready,mm2s_prmry_reset_out_n,m_axis_mm2s_tdata[63:0],m_axis_mm2s_tkeep[7:0],m_axis_mm2s_tvalid,m_axis_mm2s_tready,m_axis_mm2s_tlast,m_axi_s2mm_awaddr[31:0],m_axi_s2mm_awlen[7:0],m_axi_s2mm_awsize[2:0],m_axi_s2mm_awburst[1:0],m_axi_s2mm_awprot[2:0],m_axi_s2mm_awcache[3:0],m_axi_s2mm_awvalid,m_axi_s2mm_awready,m_axi_s2mm_wdata[63:0],m_axi_s2mm_wstrb[7:0],m_axi_s2mm_wlast,m_axi_s2mm_wvalid,m_axi_s2mm_wready,m_axi_s2mm_bresp[1:0],m_axi_s2mm_bvalid,m_axi_s2mm_bready,s2mm_prmry_reset_out_n,s_axis_s2mm_tdata[63:0],s_axis_s2mm_tkeep[7:0],s_axis_s2mm_tvalid,s_axis_s2mm_tready,s_axis_s2mm_tlast,mm2s_introut,s2mm_introut,axi_dma_tstvec[31:0]" */
 /* synthesis syn_force_seq_prim="s_axi_lite_aclk" */
 /* synthesis syn_force_seq_prim="m_axi_mm2s_aclk" */
 /* synthesis syn_force_seq_prim="m_axi_s2mm_aclk" */;
@@ -55,7 +55,7 @@ module design_1_axi_dma_0_0(s_axi_lite_aclk, m_axi_mm2s_aclk,
   input s_axi_lite_rready;
   output [31:0]s_axi_lite_rdata;
   output [1:0]s_axi_lite_rresp;
-  output [63:0]m_axi_mm2s_araddr;
+  output [31:0]m_axi_mm2s_araddr;
   output [7:0]m_axi_mm2s_arlen;
   output [2:0]m_axi_mm2s_arsize;
   output [1:0]m_axi_mm2s_arburst;
@@ -63,18 +63,18 @@ module design_1_axi_dma_0_0(s_axi_lite_aclk, m_axi_mm2s_aclk,
   output [3:0]m_axi_mm2s_arcache;
   output m_axi_mm2s_arvalid;
   input m_axi_mm2s_arready;
-  input [31:0]m_axi_mm2s_rdata;
+  input [63:0]m_axi_mm2s_rdata;
   input [1:0]m_axi_mm2s_rresp;
   input m_axi_mm2s_rlast;
   input m_axi_mm2s_rvalid;
   output m_axi_mm2s_rready;
   output mm2s_prmry_reset_out_n;
-  output [31:0]m_axis_mm2s_tdata;
-  output [3:0]m_axis_mm2s_tkeep;
+  output [63:0]m_axis_mm2s_tdata;
+  output [7:0]m_axis_mm2s_tkeep;
   output m_axis_mm2s_tvalid;
   input m_axis_mm2s_tready;
   output m_axis_mm2s_tlast;
-  output [63:0]m_axi_s2mm_awaddr;
+  output [31:0]m_axi_s2mm_awaddr;
   output [7:0]m_axi_s2mm_awlen;
   output [2:0]m_axi_s2mm_awsize;
   output [1:0]m_axi_s2mm_awburst;
@@ -82,8 +82,8 @@ module design_1_axi_dma_0_0(s_axi_lite_aclk, m_axi_mm2s_aclk,
   output [3:0]m_axi_s2mm_awcache;
   output m_axi_s2mm_awvalid;
   input m_axi_s2mm_awready;
-  output [31:0]m_axi_s2mm_wdata;
-  output [3:0]m_axi_s2mm_wstrb;
+  output [63:0]m_axi_s2mm_wdata;
+  output [7:0]m_axi_s2mm_wstrb;
   output m_axi_s2mm_wlast;
   output m_axi_s2mm_wvalid;
   input m_axi_s2mm_wready;
@@ -91,8 +91,8 @@ module design_1_axi_dma_0_0(s_axi_lite_aclk, m_axi_mm2s_aclk,
   input m_axi_s2mm_bvalid;
   output m_axi_s2mm_bready;
   output s2mm_prmry_reset_out_n;
-  input [31:0]s_axis_s2mm_tdata;
-  input [3:0]s_axis_s2mm_tkeep;
+  input [63:0]s_axis_s2mm_tdata;
+  input [7:0]s_axis_s2mm_tkeep;
   input s_axis_s2mm_tvalid;
   output s_axis_s2mm_tready;
   input s_axis_s2mm_tlast;
