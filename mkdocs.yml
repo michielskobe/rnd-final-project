@@ -82,4 +82,5 @@ nav:
       - Audio AXI: project/hdl_audio_axi.md
       - Simulation: project/hdl_simulation.md
       - I2S: project/hdl_I2S.md
+      - Volume Control: project/hdl_volume.md
 
