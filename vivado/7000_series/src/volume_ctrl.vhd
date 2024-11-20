@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- Max frequency : ~160MHz
+-- Max frequency : ~270MHz
 ----------------------------------------------------------------------------------
 
 
@@ -72,17 +72,20 @@ architecture Behavioral of volume_ctrl is
     -------------------------------------
     signal tid_pre_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
     signal tid_mid_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
+    signal tid_late_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
     signal tid_post_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
     signal vol : sfixed(g_volume_width -1 downto 0);
+    signal res : sfixed(48 -1 downto 0);
 
     signal sample_pre_calc : sfixed(c_audio_width -1 downto 0);
     signal sample_mid_calc : sfixed(c_audio_width -1 downto 0);
+    signal sample_late_calc : sfixed(c_audio_width -1 downto 0);
     signal sample_post_calc : sfixed(c_audio_width -1 downto 0);
 
     -------------------------------------
     -- Control flow
     -------------------------------------
-    signal prime_counter : integer range 0 to 5 := 0;
+    signal prime_counter : integer range 0 to 6 := 0;
 begin
 
     p_axi_mm : process (axi_clk)
@@ -110,8 +113,12 @@ begin
                 tid_mid_calc <= tid_pre_calc;
 
                 -- calculate the volume change
-                sample_post_calc <= resize(vol * sample_mid_calc, sample_post_calc);
-                tid_post_calc <= tid_mid_calc;
+                res <= resize(vol * sample_mid_calc, res);
+                tid_late_calc <= tid_mid_calc;
+
+                -- reduce output to sample size
+                sample_post_calc <= resize(res, sample_post_calc);
+                tid_post_calc <= tid_late_calc;
 
                 -- output the calculated result
                 axi_out_fwd.TData <= to_slv(sample_post_calc);
@@ -131,7 +138,7 @@ begin
         if rising_edge(clk) then
             if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
                 prime_counter <= prime_counter + 1;
-                if prime_counter >= 4 then
+                if prime_counter >= 5 then
                     prime_counter <= prime_counter;
                 end if;
             end if;
@@ -140,7 +147,7 @@ begin
 
     p_valid : process (all)
     begin
-        if prime_counter >= 4 then
+        if prime_counter >= 5 then
             axi_out_fwd.TValid <= axi_in_fwd.TValid;
         else
             axi_out_fwd.TValid <= '0';
