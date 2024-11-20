@@ -3,7 +3,7 @@
 # Eng: Robbe Decapmaker <debber@dcpm.be>
 # Date: 24-10-2024
 #
-# This file describes the constraints needed to use the IDC pcb's properly on the PYNQ-Z2 board. 
+# This file describes the constraints needed to use the IDC pcb's properly on the PYNQ-Z2 board.
 #
 # Pin comment format: $IDC_PIN ultra $ULTRA_SCHEMATIC_PIN <==> $PYNQ_SCHEMATIC_PIN pynq
 #######################################################################################################################
@@ -48,7 +48,7 @@
 #set_property -dict { PACKAGE_PIN Y13   IOSTANDARD LVCMOS33 } [get_ports { a }]; #IO_L20N_T3_13 Sch=a
 
 ##Arduino Digital I/O On Outer Analog Header
-##NOTE: These pins should be used when using the analog header signals A0-A5 as digital I/O 
+##NOTE: These pins should be used when using the analog header signals A0-A5 as digital I/O
 
 #set_property -dict { PACKAGE_PIN Y11   IOSTANDARD LVCMOS33 } [get_ports { a[0] }]; #IO_L18N_T2_13 Sch=a[0]
 #set_property -dict { PACKAGE_PIN Y12   IOSTANDARD LVCMOS33 } [get_ports { a[1] }]; #IO_L20P_T3_13 Sch=a[1]
@@ -56,3 +56,4 @@
 #set_property -dict { PACKAGE_PIN V11   IOSTANDARD LVCMOS33 } [get_ports { a[3] }]; #IO_L21P_T3_DQS_13 Sch=a[3]
 #set_property -dict { PACKAGE_PIN T5    IOSTANDARD LVCMOS33 } [get_ports { a[4] }]; #IO_L19P_T3_13 Sch=a[4]
 #set_property -dict { PACKAGE_PIN U10   IOSTANDARD LVCMOS33 } [get_ports { a[5] }]; #IO_L12N_T1_MRCC_13 Sch=a[5]
+

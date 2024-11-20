@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- Max frequency : ~160MHz
 ----------------------------------------------------------------------------------
 
 
@@ -38,6 +38,7 @@ use ieee.fixed_pkg.all;
 
 entity volume_ctrl is
     generic (
+        g_volume_width : integer := 18;
         g_chip_scope : string := "False"
     );
     port(
@@ -47,7 +48,7 @@ entity volume_ctrl is
 
         -- register settings
         channel_address: in STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
-        channel_volume : in STD_LOGIC_VECTOR(c_audio_width -1 downto 0);
+        channel_volume : in STD_LOGIC_VECTOR(g_volume_width -1 downto 0);
 
         -- axi inputs
         axi_in_fwd : in t_axi4_audio_fwd;
@@ -63,29 +64,32 @@ architecture Behavioral of volume_ctrl is
     -------------------------------------
     -- Memory init
     -------------------------------------
-    type t_volume_array is array (0 to 2**c_ID_width) of sfixed(c_audio_width -1 downto 0);
+    type t_volume_array is array (0 to 2**c_ID_width) of sfixed(g_volume_width -1 downto 0);
     signal volume_array : t_volume_array := (others => (others => '0'));
 
     -------------------------------------
     -- Pipeline
     -------------------------------------
     signal tid_pre_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
+    signal tid_mid_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
     signal tid_post_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
+    signal vol : sfixed(g_volume_width -1 downto 0);
 
     signal sample_pre_calc : sfixed(c_audio_width -1 downto 0);
+    signal sample_mid_calc : sfixed(c_audio_width -1 downto 0);
     signal sample_post_calc : sfixed(c_audio_width -1 downto 0);
 
     -------------------------------------
     -- Control flow
     -------------------------------------
-    signal prime_counter : integer range 0 to 4 := 0;
+    signal prime_counter : integer range 0 to 5 := 0;
 begin
 
     p_axi_mm : process (axi_clk)
     begin
         if rising_edge(axi_clk) then
             -- move axi register commands into memory
-            volume_array(to_integer(unsigned(channel_address))) <= to_sfixed(channel_volume, sample_pre_calc);
+            volume_array(to_integer(unsigned(channel_address))) <= to_sfixed(channel_volume, vol);
         end if;
     end process;
 
@@ -100,9 +104,14 @@ begin
                 sample_pre_calc <= to_sfixed(axi_in_fwd.TData, sample_pre_calc);
                 tid_pre_calc <= axi_in_fwd.TID;
                 
+                -- get volume
+                sample_mid_calc <= sample_pre_calc;
+                vol <= volume_array(to_integer(unsigned(tid_pre_calc)));
+                tid_mid_calc <= tid_pre_calc;
+
                 -- calculate the volume change
-                sample_post_calc <= resize(volume_array(to_integer(unsigned(tid_pre_calc))) * sample_pre_calc, sample_post_calc);
-                tid_post_calc <= tid_pre_calc;
+                sample_post_calc <= resize(vol * sample_mid_calc, sample_post_calc);
+                tid_post_calc <= tid_mid_calc;
 
                 -- output the calculated result
                 axi_out_fwd.TData <= to_slv(sample_post_calc);
@@ -122,7 +131,7 @@ begin
         if rising_edge(clk) then
             if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
                 prime_counter <= prime_counter + 1;
-                if prime_counter >= 3 then
+                if prime_counter >= 4 then
                     prime_counter <= prime_counter;
                 end if;
             end if;
@@ -131,7 +140,7 @@ begin
 
     p_valid : process (all)
     begin
-        if prime_counter >= 3 then
+        if prime_counter >= 4 then
             axi_out_fwd.TValid <= axi_in_fwd.TValid;
         else
             axi_out_fwd.TValid <= '0';

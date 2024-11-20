@@ -67,19 +67,20 @@ architecture Behavioral of tb_volume_ctrl is
     ------------------------------------
     -- volume ctrl
     ------------------------------------
-    signal volume : integer := 0;
+    constant c_volume_width : integer := 18;
+    signal volume : integer := 1;
     signal channel_address : STD_LOGIC_VECTOR(c_ID_width -1 downto 0) := (others => '0');
-    signal channel_volume : STD_LOGIC_VECTOR(c_audio_width -1 downto 0) := (others => '0');
+    signal channel_volume : STD_LOGIC_VECTOR(c_volume_width -1 downto 0) := (others => '0');
 begin
 
     p_volume : process
     begin
         
         wait until rising_edge(axi_clk);
-        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, 23, 0));
+        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, c_volume_width -1, 0));
         wait until rising_edge(axi_clk);
         channel_address <= STD_LOGIC_VECTOR(to_unsigned(1, c_ID_width));
-        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, 23, 0));
+        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, c_volume_width -1, 0));
         wait;
 
 
@@ -108,6 +109,7 @@ begin
 
     volume_ctrl_inst: entity work.volume_ctrl
     generic map(
+        g_volume_width => c_volume_width,
         g_chip_scope => "False"
     )
     port map(
