@@ -4,10 +4,10 @@
 
 We started building our embedded Linux system from an official PetaLinux Board Support Package (BSP). Since there was no publicly released BSP for the Ultra96-V2 for the 2024.1 version of PetaLinux, we used the BSP for the 2023.2 version. This BSP can be downloaded from the [official Avnet Ultra96-V2 website](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/ultra96-v2/?srsltid=AfmBOootw0XqCDDNsKIG109q9VltqPq5CpBv8dUQG7ZsPMgQUcB-zR3p), go to **Reference Designs** → **PetaLinux Board Support Packages** → **Ultra96-V2 – PetaLinux 2020+ BSP (Sharepoint site)** → **2023.2** → **BSP** → **u96v2_sbc_base_2023_2.bsp**.
 
-After we downloaded the BSP, we created a new PetaLinux project with the command `petalinux-create`. The `-t` flag specifies the type of project. In our case, we will need a PetaLinux project structure. The `-s` flag specifies that the project should be created from an existing source. This will be the BSP we just downloaded. The `--name` flag specifies the name of our project.
+After we downloaded the BSP, we created a new PetaLinux project with the command `petalinux-create project`. The `-s` flag specifies that the project should be created from an existing source. This will be the BSP we just downloaded. The `--name` flag specifies the name of our project.
 
 ``` bash
-petalinux-create -t project -s ~/path/to/u96v2_sbc_base_2023_2.bsp --name <project_name>
+petalinux-create project -s ~/path/to/u96v2_sbc_base_2023_2.bsp --name <project_name>
 ```
 
 ## Modifying our PetaLinux project
@@ -80,7 +80,7 @@ git log -1 --pretty=%H wilc_linux_16_3
 
 ### Upgrading Bluez5
 
-We changed the name of the bluez5 bitbake file **bluez5_5.65.bb** to **bluez5_5.79.bb** so that version 5.79 will be downloaded from the kernel.org website. In the include file, two lines should be added so that the neccessary files are incorporated in the installation process.
+We changed the name of the bluez5 bitbake file **bluez5_5.65.bb** to **bluez5_5.79.bb** so that version 5.79 will be downloaded from the kernel.org website. In the include file, two lines should be added so that the neccessary files are incorporated in the installation process. The following code snippet can be found at line 112 in this file.
 
 ```diff
     FILES:${PN} += " \
@@ -104,7 +104,7 @@ The files related to bluez5 can be found in `/components/yocto/layers/poky/meta/
 ### Adding libfreeaptx
 
 In our project, we will support HD audio streaming over Bluetooth which can be achieved with the **aptX-HD codec**. We need to install an extra library to add support for this codec later on.
-The library **libfreeaptx** is an open-source implementation of the aptX-HD codec and is required by the next package bluez-alsa to support aptX-HD. We created a custom bitbake file to build and include the library in our PetaLinux project. The bitbake file can be found in the `bitbake` folder on the GitLab repository of this project.
+The library **libfreeaptx** is an open-source implementation of the aptX-HD codec and is required by the next package bluez-alsa to support aptX-HD. We created a custom bitbake file to build and include the library in our PetaLinux project. The bitbake file can be found in the [bitbake folder on the GitLab repository of this project](https://gitlab.kuleuven.be/groep-t/courses/rndembed/2425/team-e/-/blob/6cc487f8a0df3c43cc798d3384942d8c4a22fc63/bitbake/libfreeaptx.bb).
 
 To install the library in our project, we created the folder `libfreeaptx` in `components/yocto/layers/meta-openembedded/meta-multimedia/recipes-multimedia/` and placed the bitbake file in it.
 
@@ -137,7 +137,7 @@ After copying the newer bitbake file to the project, we changed a few things in 
 + SYSTEMD_BLUEALSA_ARGS ?= "--codec=aptX --codec=aptX-HD --codec=Opus -p a2dp-sink"
 ```
 
-With this changes, 2 extra Bluetooth codecs are now supported: **aptX-HD** and **Opus**. The systemd service will start at boot with this codecs enabled by default. For now, the device will only act as a Bluetooth audio sink, meaning audio can be received but not sent over Bluetooth on our system.
+In the [meta-openembedded repository](https://github.com/openembedded/meta-openembedded), there is also a patch file for the bitbake file. We will add this to `components/yocto/layers/meta-openembedded/meta-multimedia/recipes-multimedia/bluealsa/files`. With these changes, 2 extra Bluetooth codecs are now supported: **aptX-HD** and **Opus**. The systemd service will start at boot with this codecs enabled by default. For now, the device will only act as a Bluetooth audio sink, meaning audio can be received but not sent over Bluetooth on our system.
 
 To include the bluealsa (= bluez-alsa) package in the build, we need to add the following line to the `user-rootfsconfig` file in `project-spec/meta-user/conf/`:
 
@@ -167,7 +167,7 @@ The system will now connect to the network with SSID `UltraHotspot` at boot and 
 
 ### Changing the hostname
 
-Lastly, we changed the hostname of the system from **u96v2-sbc-base-2023-2** to **blendinator** to fit our project. This can be done by running `petalinux-config` again and changing the name in `firmware version settings`.
+Lastly, we changed the hostname of the system from **u96v2-sbc-base-2023-2** to **blendinator** to fit our project. This can be done by running `petalinux-config` again and changing the 'Host Name' in `Firmware Version Configuration`.
 
 From now on, we can connect to the system by starting a connection to `blendinator.local`. 
 
@@ -179,14 +179,14 @@ After we made all the necessary modifications to our project, we can start to bu
 petalinux-build
 ```
 
-This may take a while. 
+This may take a couple of hours. 
 
 ## Creating the boot files
 
 When the build is finished, we can create the boot files with the following command:
 
 ``` bash
-petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --fpga images/linux/system.bit --pmufw images/linux/pmufw.elf --u-boot
+petalinux-package boot --fsbl images/linux/zynqmp_fsbl.elf --fpga images/linux/system.bit --pmufw images/linux/pmufw.elf --u-boot
 ```
 
 If some bootfiles were created earlier, the `--force` option could be used to overwrite the old files.
