@@ -4,22 +4,24 @@ In our digital mixer, we want to utilize various types of filters to control par
 
 ## Low & High Pass Filter
 
-In Simulink, we designed an 8th order low pass filter by using a Cascade of four Direct Form 2 Digital Biquad Filters.
+As mentioned in the introduction to this chapter, we want to able to cut off part of the frequency spectrum from the input sources of our digital mixer. To achieve this, we will employ both low-pass and high-pass filters.
 
-* Top view of the Low Pass Filter
+In Simulink, we designed an 8th order low-pass & high-pass filter by using a Cascade of four Direct Form 2 Digital Biquad Filters.
+
+* Top view of the low-pass Filter
 <img src="/img/low_pass_filter.png"/>
 
 * Direct Form 2 Digital Biquad Filter
 <img src="/img/direct_form_2_digital_biquad_filter.png"/>
 
-The Simulink file for the Low & High Pass Filter can be found in the Git Repo.
+The Simulink files for the low-pass & high-pass Filters can be found in the Git Repo.
 
 We are using a Python library called [SciPy](https://docs.scipy.org/doc/scipy/index.html) to generate the coëfficients for these filters. To be able to work with SciPy, we need to install the following package:
 ```bash
 pip3 install scipy
 ```
 
-This is the script to get the coëfficients for the Low Pass filter:
+This is the script to get the coëfficients for the low-pass filter:
 ```python
 from scipy import signal
 from scipy.signal import sos2tf
@@ -30,7 +32,7 @@ sos = signal.iirfilter(N, wn, btype='lowpass', output = 'sos', ftype='butter')
 
 print(sos)
 ```
-You can use the same code for generating the coëfficients for the High Pass filter by changing **btype** to **highpass**.
+You can use the same code for generating the coëfficients for the high-pass filter by changing **btype** to **highpass**.
 
 To estimate the time required to generate these coefficients, we created a simple script that generates coefficients for a thousand low-pass filters with varying cut-off frequencies.
 
@@ -64,6 +66,11 @@ print(max_time*1000)
 ```
 
 Here are the results obtained from running the script:
-* Average execution time: 1.03 milliseconds
-* Minimum execution time: 0.78 milliseconds
-* Maximum execution time: 1.89 milliseconds
+* Average execution time: 0.88 milliseconds
+* Minimum execution time: 0.74 milliseconds
+* Maximum execution time: 1.78 milliseconds
+
+
+## Shelving Filters
+
+To be continued ...
