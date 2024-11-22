@@ -10,11 +10,11 @@ In Simulink, we designed an 8th order low pass filter by using a Cascade of four
 <img src="/img/low_pass_filter.png"/>
 
 * Direct Form 2 Digital Biquad Filter
-<img src="/img/low_pass_filter.png"/>
+<img src="/img/direct_form_2_digital_biquad_filter.png"/>
 
 The Simulink file for the Low & High Pass Filter can be found in the Git Repo.
 
-We are using a Python library called [SciPy](https://docs.scipy.org/doc/scipy/index.html) to generate the coëfficients. To be able to work with SciPy, we need to install the following package:
+We are using a Python library called [SciPy](https://docs.scipy.org/doc/scipy/index.html) to generate the coëfficients for these filters. To be able to work with SciPy, we need to install the following package:
 ```bash
 pip3 install scipy
 ```
@@ -32,7 +32,7 @@ print(sos)
 ```
 You can use the same code for generating the coëfficients for the High Pass filter by changing **btype** to **highpass**.
 
-To have an indication how low it takes to get these coëfficients, we made this simple scipts that generates coëfficients for a thousand lowpass filters with different cut-off frequencies.
+To estimate the time required to generate these coefficients, we created a simple script that generates coefficients for a thousand low-pass filters with varying cut-off frequencies.
 
 ```python
 from scipy import signal
@@ -63,7 +63,7 @@ print(min_time*1000)
 print(max_time*1000)
 ```
 
-These were the results after running previous script:
-- Average execution time: 1.03 milliseconds
-- Minimum execution time: 0.78 milliseconds
-- Maximum execution time: 1.89 milliseconds
+Here are the results obtained from running the script:
+* Average execution time: 1.03 milliseconds
+* Minimum execution time: 0.78 milliseconds
+* Maximum execution time: 1.89 milliseconds
