@@ -48,7 +48,6 @@ execution_times = []
 for i in range(1000):
     start_time = time.time()
     
-    
     wn = 3*(i+1) / (48000 / 2)  # natural frequency between 0 and 1
     sos = signal.iirfilter(N, wn, btype='lowpass', output='sos', ftype='butter')
     
@@ -66,11 +65,16 @@ print(max_time*1000)
 ```
 
 Here are the results obtained from running the script:
-* Average execution time: 0.88 milliseconds
-* Minimum execution time: 0.74 milliseconds
-* Maximum execution time: 1.78 milliseconds
+ * Average execution time: 0.88 milliseconds
+ * Minimum execution time: 0.74 milliseconds
+ * Maximum execution time: 1.78 milliseconds
 
 
 ## Shelving Filters
 
+Our goal is to control the gain of the low, mid, and high-frequency ranges of the input sources. To achieve this, we aim to design a filter capable of amplifying or attenuating the gain in the low (<200 Hz), mid (200 Hz to <2 kHz), and high (≥2 kHz) frequency bands. The filter type we've selected for this purpose is the shelving filter. Shelving filters are particularly well-suited for this task, as they allow for precise gain adjustments within a specific frequency band while leaving the rest of the frequency spectrum unaffected.
+
+We have reviewed several research papers on designing these filters digitally and have selected [this](https://www.eurasip.org/Proceedings/Eusipco/Eusipco2006/papers/1568980789.pdf) particular paper as our primary source of information.
+
+### MATLAB Simulations
 To be continued ...
