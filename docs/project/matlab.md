@@ -65,9 +65,10 @@ print(max_time*1000)
 ```
 
 Here are the results obtained from running the script:
- * Average execution time: 0.88 milliseconds
- * Minimum execution time: 0.74 milliseconds
- * Maximum execution time: 1.78 milliseconds
+
+* Average execution time: 0.88 milliseconds
+* Minimum execution time: 0.74 milliseconds
+* Maximum execution time: 1.78 milliseconds
 
 
 ## Shelving Filters
