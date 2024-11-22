@@ -84,4 +84,5 @@ nav:
       - I2S: project/hdl_I2S.md
       - Volume Control: project/hdl_volume.md
       - Audio FIFO: project/hdl_audio_fifo.md
+   - MATLAB: project/matlab.md
 
