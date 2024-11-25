@@ -30,10 +30,6 @@ use ieee.fixed_pkg.all;
 Library xpm;
 use xpm.vcomponents.all;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
