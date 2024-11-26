@@ -60,6 +60,8 @@ architecture Behavioral of I2S_clock_gen is
 
     attribute MARK_DEBUG of i_lrclk : signal is g_chip_scope;
     attribute MARK_DEBUG of i_sclk : signal is g_chip_scope;
+    attribute MARK_DEBUG of serial_counter : signal is g_chip_scope;
+    attribute MARK_DEBUG of lr_counter : signal is g_chip_scope;
 
 begin
 
@@ -88,11 +90,11 @@ begin
         mclk <= m_clk;
         i_sclk <= '1';
         i_lrclk <= '1';
-        if serial_counter >= g_clock_div_sclk/2 -1 then
+        if serial_counter >= g_clock_div_sclk/2 then
             i_sclk <= '0';
         end if;
     
-        if lr_counter >= g_clock_div_lrclk/2 -1 then 
+        if lr_counter >= g_clock_div_lrclk/2 then 
             i_lrclk <= '0';
         end if;
     end process;

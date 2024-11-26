@@ -39,7 +39,8 @@ entity I2S_rec is
     generic (
         g_channel_offset : STD_LOGIC_VECTOR(c_ID_width-1 downto 0) := (others => '0');
         g_clock_div_sclk : integer := 4;
-        g_clock_div_lrclk : integer := 64
+        g_clock_div_lrclk : integer := 64;
+        g_chip_scope : string := "true"
     );
     Port (
         -- clock
@@ -100,6 +101,18 @@ architecture Behavioral of I2S_rec is
     signal r_buffr : STD_LOGIC := '0';
     signal l_used : STD_LOGIC := '0';
 
+    -------------------------------------
+    -- Chip Scope
+    -------------------------------------
+    attribute MARK_DEBUG : string;
+
+    attribute MARK_DEBUG of start : signal is g_chip_scope;
+    attribute MARK_DEBUG of busy : signal is g_chip_scope;
+    attribute MARK_DEBUG of offset : signal is g_chip_scope;
+    attribute MARK_DEBUG of l_sent : signal is g_chip_scope;
+    attribute MARK_DEBUG of r_sent : signal is g_chip_scope;
+    attribute MARK_DEBUG of state : signal is g_chip_scope;
+
 begin
     -------------------------------------
     -- Clock generation
@@ -126,11 +139,11 @@ begin
         mclk <= m_clk;
         i_sclk <= '1';
         i_lrclk <= '1';
-        if serial_counter >= g_clock_div_sclk/2 -1 then
+        if serial_counter >= g_clock_div_sclk/2 then
             i_sclk <= '0';
         end if;
     
-        if lr_counter >= g_clock_div_lrclk/2 -1 then 
+        if lr_counter >= g_clock_div_lrclk/2 then 
             i_lrclk <= '0';
         end if;
     end process;
@@ -200,7 +213,7 @@ begin
     begin
         if rising_edge(m_clk) then
             start <= '0';
-            if lr_counter = 1 or lr_counter = g_clock_div_lrclk/2 +1  then
+            if lr_counter = 0 or lr_counter = g_clock_div_lrclk/2 then
                 start <= '1';
             end if; 
         end if;
@@ -216,7 +229,7 @@ begin
             -- shift captured sample into buffer register
             if r_sent = '1' then 
                 l_sample <= r_sample;
-                is_l_sample <= i_lrclk;
+                is_l_sample <= not i_lrclk;
                 l_sent <= '1';
             end if;
             if start = '1' or busy = '1' then

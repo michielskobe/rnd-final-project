@@ -1,11 +1,11 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: KUL - rnd embed - Beats N Bytes
+-- Engineer: Robbe Decapmaker <debber@dcpm.be>
 -- 
 -- Create Date: 11/13/2024 09:41:00 PM
--- Design Name: 
+-- Design Name: I2S wrapper 
 -- Module Name: I2S_wrapper - Behavioral
--- Project Name: 
+-- Project Name: Blendinator
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
@@ -25,6 +25,7 @@ use IEEE.NUMERIC_STD.ALL;
 use ieee.MATH_REAL.all;
 use ieee.STD_LOGIC_UNSIGNED.all;
 use work.axi4_audio_pkg.all;
+use work.audio_fifo;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -123,6 +124,9 @@ architecture Behavioral of I2S_wrapper is
     signal axi_fwd_in : t_axi4_audio_fwd;
     signal axi_bwd_in : t_axi4_audio_bwd;
     
+    signal trans_fwd_in : t_axi4_audio_fwd;
+    signal trans_bwd_in : t_axi4_audio_bwd;
+
     signal axi_fwd_out : t_axi4_audio_fwd;
     signal axi_bwd_out : t_axi4_audio_bwd;
 
@@ -206,6 +210,19 @@ begin
     s_TValid_out <= axi_fwd_out.TValid;
     s_TLast_out <= axi_fwd_out.TLast;
 
+     audio_fifo_inst: entity work.audio_fifo
+      generic map(
+         g_fifo_depth => 16
+     )
+      port map(
+        clk_in => m_clk,
+        clk_out => m_clk,
+        axi_in_fwd => axi_fwd_in,
+        axi_in_bwd => axi_bwd_in,
+        axi_out_fwd => trans_fwd_in,
+        axi_out_bwd => trans_bwd_in
+     );
+
     -------------------------------------
     -- I2S mod
     -------------------------------------
@@ -240,8 +257,8 @@ begin
         lrclk => open,
         sclk => open,
         data_out => do_i,
-        axi_in_fwd => axi_fwd_in,
-        axi_in_bwd => axi_bwd_in
+        axi_in_fwd => trans_fwd_in,
+        axi_in_bwd => trans_bwd_in
     );
 
 end Behavioral;

@@ -40,7 +40,7 @@ entity I2S_trans is
         g_channel_offset : STD_LOGIC_VECTOR(c_ID_width-1 downto 0) := (others => '0');
         g_clock_div_sclk : integer := 4;
         g_clock_div_lrclk : integer := 64;
-        g_chip_scope : string := "False"
+        g_chip_scope : string := "true"
     );
     Port (
         -- clock
@@ -198,7 +198,7 @@ begin
     begin
         if rising_edge(m_clk) then
             start <= '0';
-            if lr_counter = 1 or lr_counter = g_clock_div_lrclk/2 +1 then
+            if lr_counter = 0 or lr_counter = g_clock_div_lrclk/2 then
                 start <= '1';
             end if; 
         end if;
