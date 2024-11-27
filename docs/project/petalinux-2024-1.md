@@ -1,4 +1,16 @@
-# Building an embedded Linux system
+# Building an embedded Linux system using PetaLinux 2024.1
+
+During the development of our embedded Linux system, we initially used PetaLinux 2024.1. However, later in the project, we encountered a critical issue where we were unable to access AXI devices using the `devmem` tool.
+
+After encountering this issue, we identified related reports on the Adaptive SoC & FPGA Support Embedded Linux forums:
+- [Forum thread 1](https://adaptivesupport.amd.com/s/feed/0D54U00008cZFTFSA4?language=en_US)
+- [Forum thread 2](https://adaptivesupport.amd.com/s/question/0D54U00008hyWeeSAE/devmem-access-to-axi-devices-and-bram-work-on-petalinux-20201-but-not-20241-ultrascale?language=en_US)
+
+The problem was traced back to a kernel issue in PetaLinux 2024.1, which impacted access to AXI devices via memory-mapped I/O (`devmem`). This behavior was not observed in earlier versions of PetaLinux, such as 2023.2.
+
+To continue development without further delays, we reverted to PetaLinux 2023.2, which resolved the `devmem` issue and restored reliable access to AXI devices.
+
+For completeness and academic purposes, we have documented our progress with PetaLinux 2024.1.
 
 ## Creating a PetaLinux project
 
