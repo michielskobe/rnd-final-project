@@ -13,7 +13,7 @@
 -- Dependencies: 
 -- 
 -- Revision:
--- Revision 0.01 - File Created
+-- Revision 0.02 - File Created
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
@@ -24,9 +24,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 package axi4_audio_pkg is
 
+    -- settings for the bus
     constant c_audio_width  : integer := 24;
     constant c_ID_width     : integer := 4;
 
+    -- bus definitions
     type t_axi4_audio_fwd is record
         TValid : STD_LOGIC;
         TLast : STD_LOGIC;
@@ -38,4 +40,19 @@ package axi4_audio_pkg is
         TReady : STD_LOGIC;
     end record t_axi4_audio_bwd;
 
+    -- arrays of axi busses
+    type t_axi4_audio_fwd_bus is array(natural range <>) of t_axi4_audio_fwd;
+    type t_axi4_audio_bwd_bus is array(natural range <>) of t_axi4_audio_bwd;
+
+    -- inactive constants
+    constant audio_fwd_inactive : t_axi4_audio_fwd := (
+        TValid => '0',
+        TLast => '0',
+        TData => (others => '0'),
+        TID => (others => '0')
+    );
+
+    constant audio_bwd_inactive : t_axi4_audio_bwd := (
+        TReady => '0'
+    );
 end package axi4_audio_pkg;
