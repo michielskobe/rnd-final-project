@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Nov 18 12:57:01 2024" VIVADOVERSION="2024.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Nov 27 14:21:56 2024" VIVADOVERSION="2023.2">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="avnet.com:ultra96v2:part0:1.2" DEVICE="xczu3eg" NAME="design_1" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
@@ -50,7 +50,7 @@
   </EXTERNALINTERFACES>
 
   <MODULES>
-    <MODULE COREREVISION="32" FULLNAME="/axi_dma_0" HWVERSION="7.1" INSTANCE="axi_dma_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_dma" VLNV="xilinx.com:ip:axi_dma:7.1">
+    <MODULE COREREVISION="30" FULLNAME="/axi_dma_0" HWVERSION="7.1" INSTANCE="axi_dma_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_dma" VLNV="xilinx.com:ip:axi_dma:7.1">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi_dma;v=v7_1;d=pg021_axi_dma.pdf"/>
       </DOCUMENTS>
@@ -883,28 +883,28 @@
         <PARAMETER NAME="C_INCLUDE_SG" VALUE="0"/>
         <PARAMETER NAME="C_INCREASE_THROUGHPUT" VALUE="0"/>
         <PARAMETER NAME="C_MICRO_DMA" VALUE="0"/>
-        <PARAMETER NAME="C_MM2S_BURST_SIZE" VALUE="16"/>
+        <PARAMETER NAME="C_MM2S_BURST_SIZE" VALUE="256"/>
         <PARAMETER NAME="C_M_AXIS_MM2S_CNTRL_TDATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_M_AXIS_MM2S_TDATA_WIDTH" VALUE="64"/>
-        <PARAMETER NAME="C_M_AXI_MM2S_ADDR_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_M_AXI_MM2S_DATA_WIDTH" VALUE="64"/>
-        <PARAMETER NAME="C_M_AXI_S2MM_ADDR_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_M_AXI_S2MM_DATA_WIDTH" VALUE="64"/>
-        <PARAMETER NAME="C_M_AXI_SG_ADDR_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="C_M_AXIS_MM2S_TDATA_WIDTH" VALUE="128"/>
+        <PARAMETER NAME="C_M_AXI_MM2S_ADDR_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_M_AXI_MM2S_DATA_WIDTH" VALUE="128"/>
+        <PARAMETER NAME="C_M_AXI_S2MM_ADDR_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_M_AXI_S2MM_DATA_WIDTH" VALUE="128"/>
+        <PARAMETER NAME="C_M_AXI_SG_ADDR_WIDTH" VALUE="64"/>
         <PARAMETER NAME="C_M_AXI_SG_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_NUM_MM2S_CHANNELS" VALUE="1"/>
         <PARAMETER NAME="C_NUM_S2MM_CHANNELS" VALUE="1"/>
         <PARAMETER NAME="C_PRMRY_IS_ACLK_ASYNC" VALUE="0"/>
-        <PARAMETER NAME="C_S2MM_BURST_SIZE" VALUE="16"/>
+        <PARAMETER NAME="C_S2MM_BURST_SIZE" VALUE="256"/>
         <PARAMETER NAME="C_SG_INCLUDE_STSCNTRL_STRM" VALUE="0"/>
-        <PARAMETER NAME="C_SG_LENGTH_WIDTH" VALUE="14"/>
+        <PARAMETER NAME="C_SG_LENGTH_WIDTH" VALUE="26"/>
         <PARAMETER NAME="C_SG_USE_STSAPP_LENGTH" VALUE="0"/>
         <PARAMETER NAME="C_S_AXIS_S2MM_STS_TDATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_S_AXIS_S2MM_TDATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_S_AXIS_S2MM_TDATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="C_S_AXI_LITE_ADDR_WIDTH" VALUE="10"/>
         <PARAMETER NAME="C_S_AXI_LITE_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="Component_Name" VALUE="design_1_axi_dma_0_0"/>
-        <PARAMETER NAME="c_addr_width" VALUE="32"/>
+        <PARAMETER NAME="c_addr_width" VALUE="64"/>
         <PARAMETER NAME="c_dlytmr_resolution" VALUE="125"/>
         <PARAMETER NAME="c_enable_multi_channel" VALUE="0"/>
         <PARAMETER NAME="c_include_mm2s" VALUE="1"/>
@@ -915,18 +915,18 @@
         <PARAMETER NAME="c_include_s2mm_sf" VALUE="1"/>
         <PARAMETER NAME="c_include_sg" VALUE="0"/>
         <PARAMETER NAME="c_increase_throughput" VALUE="0"/>
-        <PARAMETER NAME="c_m_axi_mm2s_data_width" VALUE="64"/>
-        <PARAMETER NAME="c_m_axi_s2mm_data_width" VALUE="64"/>
-        <PARAMETER NAME="c_m_axis_mm2s_tdata_width" VALUE="64"/>
+        <PARAMETER NAME="c_m_axi_mm2s_data_width" VALUE="128"/>
+        <PARAMETER NAME="c_m_axi_s2mm_data_width" VALUE="128"/>
+        <PARAMETER NAME="c_m_axis_mm2s_tdata_width" VALUE="128"/>
         <PARAMETER NAME="c_micro_dma" VALUE="0"/>
-        <PARAMETER NAME="c_mm2s_burst_size" VALUE="16"/>
+        <PARAMETER NAME="c_mm2s_burst_size" VALUE="256"/>
         <PARAMETER NAME="c_num_mm2s_channels" VALUE="1"/>
         <PARAMETER NAME="c_num_s2mm_channels" VALUE="1"/>
         <PARAMETER NAME="c_prmry_is_aclk_async" VALUE="0"/>
-        <PARAMETER NAME="c_s2mm_burst_size" VALUE="16"/>
-        <PARAMETER NAME="c_s_axis_s2mm_tdata_width" VALUE="64"/>
+        <PARAMETER NAME="c_s2mm_burst_size" VALUE="256"/>
+        <PARAMETER NAME="c_s_axis_s2mm_tdata_width" VALUE="128"/>
         <PARAMETER NAME="c_sg_include_stscntrl_strm" VALUE="0"/>
-        <PARAMETER NAME="c_sg_length_width" VALUE="14"/>
+        <PARAMETER NAME="c_sg_length_width" VALUE="26"/>
         <PARAMETER NAME="c_sg_use_stsapp_length" VALUE="0"/>
         <PARAMETER NAME="c_single_interface" VALUE="0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
@@ -944,7 +944,7 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_axi_mm2s_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_araddr">
+        <PORT DIR="O" LEFT="63" NAME="m_axi_mm2s_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_araddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="S00_AXI_araddr"/>
           </CONNECTIONS>
@@ -984,7 +984,7 @@
             <CONNECTION INSTANCE="axi_smc" PORT="S00_AXI_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="m_axi_mm2s_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
+        <PORT DIR="I" LEFT="127" NAME="m_axi_mm2s_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="S00_AXI_rdata"/>
           </CONNECTIONS>
@@ -1014,7 +1014,7 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_axi_s2mm_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_awaddr">
+        <PORT DIR="O" LEFT="63" NAME="m_axi_s2mm_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="S01_AXI_awaddr"/>
           </CONNECTIONS>
@@ -1069,7 +1069,7 @@
             <CONNECTION INSTANCE="axi_smc" PORT="S01_AXI_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="63" NAME="m_axi_s2mm_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
+        <PORT DIR="O" LEFT="127" NAME="m_axi_s2mm_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="S01_AXI_wdata"/>
           </CONNECTIONS>
@@ -1084,7 +1084,7 @@
             <CONNECTION INSTANCE="axi_smc" PORT="S01_AXI_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="m_axi_s2mm_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
+        <PORT DIR="O" LEFT="15" NAME="m_axi_s2mm_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="S01_AXI_wstrb"/>
           </CONNECTIONS>
@@ -1094,12 +1094,12 @@
             <CONNECTION INSTANCE="axi_smc" PORT="S01_AXI_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="63" NAME="m_axis_mm2s_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
+        <PORT DIR="O" LEFT="127" NAME="m_axis_mm2s_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axis_data_fifo_0" PORT="s_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="m_axis_mm2s_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tkeep">
+        <PORT DIR="O" LEFT="15" NAME="m_axis_mm2s_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tkeep">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axis_data_fifo_0" PORT="s_axis_tkeep"/>
           </CONNECTIONS>
@@ -1216,12 +1216,12 @@
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M03_AXI_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="s_axis_s2mm_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
+        <PORT DIR="I" LEFT="127" NAME="s_axis_s2mm_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axis_data_fifo_0" PORT="m_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="s_axis_s2mm_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tkeep">
+        <PORT DIR="I" LEFT="15" NAME="s_axis_s2mm_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tkeep">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axis_data_fifo_0" PORT="m_axis_tkeep"/>
           </CONNECTIONS>
@@ -1263,9 +1263,9 @@
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
-          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
-          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
@@ -1294,13 +1294,13 @@
             <PORTMAP LOGICAL="WVALID" PHYSICAL="s_axi_lite_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="64" NAME="M_AXI_MM2S" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="128" NAME="M_AXI_MM2S" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="64"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
           <PARAMETER NAME="HAS_BURST" VALUE="0"/>
@@ -1313,7 +1313,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="0"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="256"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="16"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="2"/>
@@ -1342,13 +1342,13 @@
             <PORTMAP LOGICAL="RVALID" PHYSICAL="m_axi_mm2s_rvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="64" NAME="M_AXI_S2MM" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="128" NAME="M_AXI_S2MM" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="64"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
           <PARAMETER NAME="HAS_BURST" VALUE="0"/>
@@ -1361,7 +1361,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="256"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="16"/>
@@ -1404,7 +1404,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -1426,7 +1426,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -1447,7 +1447,7 @@
         <PERIPHERAL INSTANCE="zynq_ultra_ps_e_0"/>
       </PERIPHERALS>
     </MODULE>
-    <MODULE COREREVISION="33" FULLNAME="/axi_gpio_0" HWVERSION="2.0" INSTANCE="axi_gpio_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_gpio" VLNV="xilinx.com:ip:axi_gpio:2.0">
+    <MODULE COREREVISION="31" FULLNAME="/axi_gpio_0" HWVERSION="2.0" INSTANCE="axi_gpio_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_gpio" VLNV="xilinx.com:ip:axi_gpio:2.0">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi_gpio;v=v2_0;d=pg144-axi-gpio.pdf"/>
       </DOCUMENTS>
@@ -1462,7 +1462,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_DATA">
+                <FIELD NAME="Channel_1_GPIO_DATA">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO Data Register.&#xA;For each I/O bit programmed as input&#xA;  R - Reads value on the input pin.&#xA;  W - No effect.&#xA;For each I/O bit programmed as output&#xA;  R - Reads value on GPIO_O pins&#xA;  W - Writes value to the corresponding AXI GPIO &#xA;      data register bit and output pin&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1482,7 +1482,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_TRI">
+                <FIELD NAME="Channel_1_GPIO_TRI">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO 3-State Control Register&#xA;Each I/O pin of the AXI GPIO is individually programmable as an input or output   For each of the bits     0 - I/O pin configured as output     1 - I/O pin configured as input&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1502,7 +1502,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH2_DATA">
+                <FIELD NAME="Channel_2_GPIO_DATA">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO Data Register.&#xA;For each I/O bit programmed as input&#xA;  R - Reads value on the input pin.&#xA;  W - No effect.&#xA;For each I/O bit programmed as output&#xA;  R - Reads value on GPIO_O pins&#xA;  W - Writes value to the corresponding AXI GPIO &#xA;      data register bit and output pin&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1522,7 +1522,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH2_TRI">
+                <FIELD NAME="Channel_2_GPIO_TRI">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO 3-State Control Register&#xA;Each I/O pin of the AXI GPIO is individually programmable as an input or output   For each of the bits     0 - I/O pin configured as output     1 - I/O pin configured as input&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1542,7 +1542,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="INT_EN">
+                <FIELD NAME="Global_Interrupt_Enable">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Master enable for the device interrupt output&#xA;  0 - Disabled&#xA;  1 - Enabled&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="31"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1562,7 +1562,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_INT_EN">
+                <FIELD NAME="Channel_1_Interrupt_Enable">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Enable Channel 1 Interrupt&#xA;  0 - Disabled (masked)&#xA;  1 - Enabled&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1572,7 +1572,7 @@
                   <PROPERTY NAME="BIT_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="BIT_WIDTH" VALUE="1"/>
                 </FIELD>
-                <FIELD NAME="CH2_INT_EN">
+                <FIELD NAME="Channel_2_Interrupt_Enable">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Enable Channel 2 Interrupt&#xA;  0 - Disabled (masked)&#xA;  1 - Enabled&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="1"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1592,7 +1592,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_INT_S">
+                <FIELD NAME="Channel_1_Interrupt_Status">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Channel 1 Interrupt Status&#xA;  0 - No Channel 1 input interrupt&#xA;  1 - Channel 1 input interrupt&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1602,7 +1602,7 @@
                   <PROPERTY NAME="BIT_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="BIT_WIDTH" VALUE="1"/>
                 </FIELD>
-                <FIELD NAME="CH2_INT_S">
+                <FIELD NAME="Channel_2_Interrupt_Status">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Channel 2 Interrupt Status&#xA;  0 - No Channel 2 input interrupt&#xA;  1 - Channel 2 input interrupt&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="1"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1813,7 +1813,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="33" FULLNAME="/axi_gpio_1" HWVERSION="2.0" INSTANCE="axi_gpio_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_gpio" VLNV="xilinx.com:ip:axi_gpio:2.0">
+    <MODULE COREREVISION="31" FULLNAME="/axi_gpio_1" HWVERSION="2.0" INSTANCE="axi_gpio_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_gpio" VLNV="xilinx.com:ip:axi_gpio:2.0">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi_gpio;v=v2_0;d=pg144-axi-gpio.pdf"/>
       </DOCUMENTS>
@@ -1828,7 +1828,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_DATA">
+                <FIELD NAME="Channel_1_GPIO_DATA">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO Data Register.&#xA;For each I/O bit programmed as input&#xA;  R - Reads value on the input pin.&#xA;  W - No effect.&#xA;For each I/O bit programmed as output&#xA;  R - Reads value on GPIO_O pins&#xA;  W - Writes value to the corresponding AXI GPIO &#xA;      data register bit and output pin&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1848,7 +1848,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_TRI">
+                <FIELD NAME="Channel_1_GPIO_TRI">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO 3-State Control Register&#xA;Each I/O pin of the AXI GPIO is individually programmable as an input or output   For each of the bits     0 - I/O pin configured as output     1 - I/O pin configured as input&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1868,7 +1868,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH2_DATA">
+                <FIELD NAME="Channel_2_GPIO_DATA">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO Data Register.&#xA;For each I/O bit programmed as input&#xA;  R - Reads value on the input pin.&#xA;  W - No effect.&#xA;For each I/O bit programmed as output&#xA;  R - Reads value on GPIO_O pins&#xA;  W - Writes value to the corresponding AXI GPIO &#xA;      data register bit and output pin&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1888,7 +1888,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH2_TRI">
+                <FIELD NAME="Channel_2_GPIO_TRI">
                   <PROPERTY NAME="DESCRIPTION" VALUE="AXI GPIO 3-State Control Register&#xA;Each I/O pin of the AXI GPIO is individually programmable as an input or output   For each of the bits     0 - I/O pin configured as output     1 - I/O pin configured as input&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1908,7 +1908,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="INT_EN">
+                <FIELD NAME="Global_Interrupt_Enable">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Master enable for the device interrupt output&#xA;  0 - Disabled&#xA;  1 - Enabled&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="31"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1928,7 +1928,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_INT_EN">
+                <FIELD NAME="Channel_1_Interrupt_Enable">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Enable Channel 1 Interrupt&#xA;  0 - Disabled (masked)&#xA;  1 - Enabled&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1938,7 +1938,7 @@
                   <PROPERTY NAME="BIT_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="BIT_WIDTH" VALUE="1"/>
                 </FIELD>
-                <FIELD NAME="CH2_INT_EN">
+                <FIELD NAME="Channel_2_Interrupt_Enable">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Enable Channel 2 Interrupt&#xA;  0 - Disabled (masked)&#xA;  1 - Enabled&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="1"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1958,7 +1958,7 @@
               <PROPERTY NAME="IS_ENABLED" VALUE="true"/>
               <PROPERTY NAME="RESET_VALUE" VALUE="0x0"/>
               <FIELDS>
-                <FIELD NAME="CH1_INT_S">
+                <FIELD NAME="Channel_1_Interrupt_Status">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Channel 1 Interrupt Status&#xA;  0 - No Channel 1 input interrupt&#xA;  1 - Channel 1 input interrupt&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -1968,7 +1968,7 @@
                   <PROPERTY NAME="BIT_OFFSET" VALUE="0"/>
                   <PROPERTY NAME="BIT_WIDTH" VALUE="1"/>
                 </FIELD>
-                <FIELD NAME="CH2_INT_S">
+                <FIELD NAME="Channel_2_Interrupt_Status">
                   <PROPERTY NAME="DESCRIPTION" VALUE="Channel 2 Interrupt Status&#xA;  0 - No Channel 2 input interrupt&#xA;  1 - Channel 2 input interrupt&#xA;"/>
                   <PROPERTY NAME="ADDRESS_OFFSET" VALUE="1"/>
                   <PROPERTY NAME="ACCESS" VALUE="read-write"/>
@@ -2169,7 +2169,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="19" FULLNAME="/axi_intc_0" HWVERSION="4.1" INSTANCE="axi_intc_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="INTERRUPT_CNTLR" MODTYPE="axi_intc" VLNV="xilinx.com:ip:axi_intc:4.1">
+    <MODULE COREREVISION="18" FULLNAME="/axi_intc_0" HWVERSION="4.1" INSTANCE="axi_intc_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="INTERRUPT_CNTLR" MODTYPE="axi_intc" VLNV="xilinx.com:ip:axi_intc:4.1">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi_intc;v=v4_1;d=pg099-axi-intc.pdf"/>
       </DOCUMENTS>
@@ -2386,7 +2386,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_0">
+            <REGISTER NAME="IVAR[0]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 0"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x100"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2406,7 +2406,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_1">
+            <REGISTER NAME="IVAR[1]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 1"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x104"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2426,7 +2426,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_2">
+            <REGISTER NAME="IVAR[2]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 2"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x108"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2446,7 +2446,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_3">
+            <REGISTER NAME="IVAR[3]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 3"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x10C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2466,7 +2466,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_4">
+            <REGISTER NAME="IVAR[4]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 4"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x110"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2486,7 +2486,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_5">
+            <REGISTER NAME="IVAR[5]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 5"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x114"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2506,7 +2506,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_6">
+            <REGISTER NAME="IVAR[6]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 6"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x118"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2526,7 +2526,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_7">
+            <REGISTER NAME="IVAR[7]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 7"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x11C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2546,7 +2546,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_8">
+            <REGISTER NAME="IVAR[8]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 8"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x120"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2566,7 +2566,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_9">
+            <REGISTER NAME="IVAR[9]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 9"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x124"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2586,7 +2586,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_10">
+            <REGISTER NAME="IVAR[10]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 10"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x128"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2606,7 +2606,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_11">
+            <REGISTER NAME="IVAR[11]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 11"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x12C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2626,7 +2626,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_12">
+            <REGISTER NAME="IVAR[12]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 12"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x130"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2646,7 +2646,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_13">
+            <REGISTER NAME="IVAR[13]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 13"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x134"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2666,7 +2666,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_14">
+            <REGISTER NAME="IVAR[14]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 14"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x138"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2686,7 +2686,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_15">
+            <REGISTER NAME="IVAR[15]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 15"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x13C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2706,7 +2706,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_16">
+            <REGISTER NAME="IVAR[16]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 16"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x140"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2726,7 +2726,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_17">
+            <REGISTER NAME="IVAR[17]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 17"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x144"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2746,7 +2746,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_18">
+            <REGISTER NAME="IVAR[18]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 18"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x148"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2766,7 +2766,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_19">
+            <REGISTER NAME="IVAR[19]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 19"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x14C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2786,7 +2786,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_20">
+            <REGISTER NAME="IVAR[20]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 20"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x150"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2806,7 +2806,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_21">
+            <REGISTER NAME="IVAR[21]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 21"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x154"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2826,7 +2826,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_22">
+            <REGISTER NAME="IVAR[22]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 22"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x158"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2846,7 +2846,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_23">
+            <REGISTER NAME="IVAR[23]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 23"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x15C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2866,7 +2866,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_24">
+            <REGISTER NAME="IVAR[24]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 24"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x160"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2886,7 +2886,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_25">
+            <REGISTER NAME="IVAR[25]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 25"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x164"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2906,7 +2906,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_26">
+            <REGISTER NAME="IVAR[26]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 26"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x168"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2926,7 +2926,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_27">
+            <REGISTER NAME="IVAR[27]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 27"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x16C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2946,7 +2946,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_28">
+            <REGISTER NAME="IVAR[28]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 28"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x170"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2966,7 +2966,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_29">
+            <REGISTER NAME="IVAR[29]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 29"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x174"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -2986,7 +2986,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_30">
+            <REGISTER NAME="IVAR[30]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 30"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x178"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3006,7 +3006,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVAR_31">
+            <REGISTER NAME="IVAR[31]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 31"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x17C"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3026,7 +3026,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_0">
+            <REGISTER NAME="IVEAR[0]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 0"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x200"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3046,7 +3046,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_1">
+            <REGISTER NAME="IVEAR[1]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 1"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x208"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3066,7 +3066,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_2">
+            <REGISTER NAME="IVEAR[2]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 2"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x210"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3086,7 +3086,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_3">
+            <REGISTER NAME="IVEAR[3]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 3"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x218"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3106,7 +3106,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_4">
+            <REGISTER NAME="IVEAR[4]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 4"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x220"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3126,7 +3126,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_5">
+            <REGISTER NAME="IVEAR[5]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 5"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x228"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3146,7 +3146,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_6">
+            <REGISTER NAME="IVEAR[6]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 6"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x230"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3166,7 +3166,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_7">
+            <REGISTER NAME="IVEAR[7]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 7"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x238"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3186,7 +3186,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_8">
+            <REGISTER NAME="IVEAR[8]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 8"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x240"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3206,7 +3206,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_9">
+            <REGISTER NAME="IVEAR[9]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 9"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x248"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3226,7 +3226,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_10">
+            <REGISTER NAME="IVEAR[10]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 10"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x250"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3246,7 +3246,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_11">
+            <REGISTER NAME="IVEAR[11]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 11"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x258"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3266,7 +3266,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_12">
+            <REGISTER NAME="IVEAR[12]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 12"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x260"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3286,7 +3286,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_13">
+            <REGISTER NAME="IVEAR[13]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 13"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x268"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3306,7 +3306,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_14">
+            <REGISTER NAME="IVEAR[14]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 14"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x270"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3326,7 +3326,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_15">
+            <REGISTER NAME="IVEAR[15]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 15"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x278"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3346,7 +3346,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_16">
+            <REGISTER NAME="IVEAR[16]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 16"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x280"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3366,7 +3366,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_17">
+            <REGISTER NAME="IVEAR[17]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 17"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x288"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3386,7 +3386,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_18">
+            <REGISTER NAME="IVEAR[18]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 18"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x290"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3406,7 +3406,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_19">
+            <REGISTER NAME="IVEAR[19]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 19"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x298"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3426,7 +3426,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_20">
+            <REGISTER NAME="IVEAR[20]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 20"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2A0"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3446,7 +3446,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_21">
+            <REGISTER NAME="IVEAR[21]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 21"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2A8"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3466,7 +3466,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_22">
+            <REGISTER NAME="IVEAR[22]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 22"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2B0"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3486,7 +3486,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_23">
+            <REGISTER NAME="IVEAR[23]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 23"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2B8"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3506,7 +3506,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_24">
+            <REGISTER NAME="IVEAR[24]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 24"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2C0"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3526,7 +3526,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_25">
+            <REGISTER NAME="IVEAR[25]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 25"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2C8"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3546,7 +3546,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_26">
+            <REGISTER NAME="IVEAR[26]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 26"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2D0"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3566,7 +3566,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_27">
+            <REGISTER NAME="IVEAR[27]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 27"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2D8"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3586,7 +3586,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_28">
+            <REGISTER NAME="IVEAR[28]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 28"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2E0"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3606,7 +3606,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_29">
+            <REGISTER NAME="IVEAR[29]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 29"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2E8"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3626,7 +3626,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_30">
+            <REGISTER NAME="IVEAR[30]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 30"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2F0"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3646,7 +3646,7 @@
                 </FIELD>
               </FIELDS>
             </REGISTER>
-            <REGISTER NAME="IVEAR_31">
+            <REGISTER NAME="IVEAR[31]">
               <PROPERTY NAME="DESCRIPTION" VALUE="Interrupt Vector Address Register 31"/>
               <PROPERTY NAME="ADDRESS_OFFSET" VALUE="0x2F8"/>
               <PROPERTY NAME="SIZE" VALUE="32"/>
@@ -3708,7 +3708,7 @@
         <PARAMETER NAME="C_HIGHADDR" VALUE="0xA002FFFF"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="0" NAME="intr" RIGHT="0" SENSITIVITY="EDGE_RISING" SIGIS="INTERRUPT"/>
+        <PORT DIR="I" LEFT="0" NAME="intr" RIGHT="0" SENSITIVITY="LEVEL_HIGH" SIGIS="INTERRUPT"/>
         <PORT DIR="O" NAME="irq" SIGIS="undef"/>
         <PORT CLKFREQUENCY="100000000" DIR="I" NAME="s_axi_aclk" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
           <CONNECTIONS>
@@ -3827,9 +3827,9 @@
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
-          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
-          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
@@ -4009,9 +4009,9 @@
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
-          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
-          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
@@ -4047,7 +4047,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE BD="design_1_axi_smc_0" BDTYPE="SBD" COREREVISION="23" DRIVERMODE="CORE" FULLNAME="/axi_smc" HWVERSION="1.0" INSTANCE="axi_smc" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="smartconnect" SIM_BD="design_1_axi_smc_0" VLNV="xilinx.com:ip:smartconnect:1.0">
+    <MODULE BD="design_1_axi_smc_0" BDTYPE="SBD" COREREVISION="21" DRIVERMODE="CORE" FULLNAME="/axi_smc" HWVERSION="1.0" INSTANCE="axi_smc" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="smartconnect" SIM_BD="design_1_axi_smc_0" VLNV="xilinx.com:ip:smartconnect:1.0">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=smartconnect;v=v1_0;d=pg247-smartconnect.pdf"/>
       </DOCUMENTS>
@@ -4178,7 +4178,7 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxigp2_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_rdata">
+        <PORT DIR="I" LEFT="127" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_rdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxigp2_rdata"/>
           </CONNECTIONS>
@@ -4203,7 +4203,7 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxigp2_rvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="63" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wdata">
+        <PORT DIR="O" LEFT="127" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxigp2_wdata"/>
           </CONNECTIONS>
@@ -4218,7 +4218,7 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxigp2_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wstrb">
+        <PORT DIR="O" LEFT="15" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wstrb">
           <CONNECTIONS>
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxigp2_wstrb"/>
           </CONNECTIONS>
@@ -4228,7 +4228,7 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxigp2_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="S00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_araddr">
+        <PORT DIR="I" LEFT="63" NAME="S00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_araddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_araddr"/>
           </CONNECTIONS>
@@ -4268,7 +4268,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="63" NAME="S00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
+        <PORT DIR="O" LEFT="127" NAME="S00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_rdata"/>
           </CONNECTIONS>
@@ -4293,7 +4293,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_rvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="S01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_awaddr">
+        <PORT DIR="I" LEFT="63" NAME="S01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_awaddr"/>
           </CONNECTIONS>
@@ -4348,7 +4348,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="S01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
+        <PORT DIR="I" LEFT="127" NAME="S01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_wdata"/>
           </CONNECTIONS>
@@ -4363,7 +4363,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="S01_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
+        <PORT DIR="I" LEFT="15" NAME="S01_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_wstrb"/>
           </CONNECTIONS>
@@ -4385,13 +4385,13 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="64" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="128" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="64"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
           <PARAMETER NAME="HAS_BURST" VALUE="0"/>
@@ -4404,7 +4404,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="0"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="256"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="16"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="2"/>
@@ -4433,13 +4433,13 @@
             <PORTMAP LOGICAL="RVALID" PHYSICAL="S00_AXI_rvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="64" NAME="S01_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="128" NAME="S01_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="64"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
           <PARAMETER NAME="HAS_BURST" VALUE="0"/>
@@ -4452,7 +4452,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="256"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="2"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="16"/>
@@ -4484,13 +4484,13 @@
             <PORTMAP LOGICAL="WVALID" PHYSICAL="S01_AXI_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_smc_M00_AXI" DATAWIDTH="64" NAME="M00_AXI" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
+        <BUSINTERFACE BUSNAME="axi_smc_M00_AXI" DATAWIDTH="128" NAME="M00_AXI" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
           <PARAMETER NAME="ADDR_WIDTH" VALUE="49"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
           <PARAMETER NAME="HAS_BURST" VALUE="1"/>
@@ -4503,7 +4503,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="256"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="16"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="16"/>
@@ -4554,14 +4554,14 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="13" FULLNAME="/axis_data_fifo_0" HWVERSION="2.0" INSTANCE="axis_data_fifo_0" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axis_data_fifo" VLNV="xilinx.com:ip:axis_data_fifo:2.0">
+    <MODULE COREREVISION="11" FULLNAME="/axis_data_fifo_0" HWVERSION="2.0" INSTANCE="axis_data_fifo_0" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axis_data_fifo" VLNV="xilinx.com:ip:axis_data_fifo:2.0">
       <DOCUMENTS>
         <DOCUMENT SOURCE="https://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_data_fifo;v=v2_0;d=pg085-axi4stream-infrastructure.pdf"/>
       </DOCUMENTS>
       <PARAMETERS>
         <PARAMETER NAME="C_ACLKEN_CONV_MODE" VALUE="0"/>
         <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000011011"/>
-        <PARAMETER NAME="C_AXIS_TDATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_AXIS_TDATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_AXIS_TUSER_WIDTH" VALUE="1"/>
@@ -4596,19 +4596,19 @@
         <PARAMETER NAME="PROG_EMPTY_THRESH" VALUE="5"/>
         <PARAMETER NAME="PROG_FULL_THRESH" VALUE="11"/>
         <PARAMETER NAME="SYNCHRONIZATION_STAGES" VALUE="3"/>
-        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
         <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
         <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
         <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="BUS"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="O" LEFT="63" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
+        <PORT DIR="O" LEFT="127" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="s_axis_s2mm_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="m_axis_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tkeep">
+        <PORT DIR="O" LEFT="15" NAME="m_axis_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tkeep">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="s_axis_s2mm_tkeep"/>
           </CONNECTIONS>
@@ -4638,12 +4638,12 @@
             <CONNECTION INSTANCE="proc_sys_reset_0" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
+        <PORT DIR="I" LEFT="127" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axis_mm2s_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="s_axis_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tkeep">
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tkeep" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tkeep">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axis_mm2s_tkeep"/>
           </CONNECTIONS>
@@ -4675,7 +4675,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -4697,7 +4697,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -4711,7 +4711,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="15" FULLNAME="/proc_sys_reset_0" HWVERSION="5.0" INSTANCE="proc_sys_reset_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="proc_sys_reset" VLNV="xilinx.com:ip:proc_sys_reset:5.0">
+    <MODULE COREREVISION="14" FULLNAME="/proc_sys_reset_0" HWVERSION="5.0" INSTANCE="proc_sys_reset_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="proc_sys_reset" VLNV="xilinx.com:ip:proc_sys_reset:5.0">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=proc_sys_reset;v=v5_0;d=pg164-proc-sys-reset.pdf"/>
       </DOCUMENTS>
@@ -4744,20 +4744,20 @@
         <PORT DIR="O" NAME="mb_reset" POLARITY="ACTIVE_HIGH" SIGIS="rst"/>
         <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" POLARITY="ACTIVE_LOW" RIGHT="0" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S00_ARESETN"/>
-            <CONNECTION INSTANCE="axi_gpio_0" PORT="s_axi_aresetn"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M00_ARESETN"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="ARESETN"/>
-            <CONNECTION INSTANCE="axi_gpio_1" PORT="s_axi_aresetn"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_ARESETN"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S01_ARESETN"/>
-            <CONNECTION INSTANCE="axi_intc_0" PORT="s_axi_aresetn"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_ARESETN"/>
+            <CONNECTION INSTANCE="axi_lite_0" PORT="s00_axi_aresetn"/>
             <CONNECTION INSTANCE="axi_dma_0" PORT="axi_resetn"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M03_ARESETN"/>
+            <CONNECTION INSTANCE="axi_gpio_0" PORT="s_axi_aresetn"/>
+            <CONNECTION INSTANCE="axi_gpio_1" PORT="s_axi_aresetn"/>
+            <CONNECTION INSTANCE="axi_intc_0" PORT="s_axi_aresetn"/>
             <CONNECTION INSTANCE="axi_smc" PORT="aresetn"/>
             <CONNECTION INSTANCE="axis_data_fifo_0" PORT="s_axis_aresetn"/>
-            <CONNECTION INSTANCE="axi_lite_0" PORT="s00_axi_aresetn"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="ARESETN"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S00_ARESETN"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M00_ARESETN"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_ARESETN"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S01_ARESETN"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_ARESETN"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M03_ARESETN"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M04_ARESETN"/>
           </CONNECTIONS>
         </PORT>
@@ -4770,7 +4770,7 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="32" FULLNAME="/ps8_0_axi_periph" HWVERSION="2.1" INSTANCE="ps8_0_axi_periph" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axi_interconnect" VLNV="xilinx.com:ip:axi_interconnect:2.1">
+    <MODULE COREREVISION="30" FULLNAME="/ps8_0_axi_periph" HWVERSION="2.1" INSTANCE="ps8_0_axi_periph" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axi_interconnect" VLNV="xilinx.com:ip:axi_interconnect:2.1">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi_interconnect;v=v2_1;d=pg059-axi-interconnect.pdf"/>
       </DOCUMENTS>
@@ -6016,6 +6016,47 @@
             <PORTMAP LOGICAL="WVALID" PHYSICAL="S00_AXI_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="zynq_ultra_ps_e_0_M_AXI_HPM1_FPD" DATAWIDTH="128" NAME="S01_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="ARADDR" PHYSICAL="S01_AXI_araddr"/>
+            <PORTMAP LOGICAL="ARBURST" PHYSICAL="S01_AXI_arburst"/>
+            <PORTMAP LOGICAL="ARCACHE" PHYSICAL="S01_AXI_arcache"/>
+            <PORTMAP LOGICAL="ARID" PHYSICAL="S01_AXI_arid"/>
+            <PORTMAP LOGICAL="ARLEN" PHYSICAL="S01_AXI_arlen"/>
+            <PORTMAP LOGICAL="ARLOCK" PHYSICAL="S01_AXI_arlock"/>
+            <PORTMAP LOGICAL="ARPROT" PHYSICAL="S01_AXI_arprot"/>
+            <PORTMAP LOGICAL="ARQOS" PHYSICAL="S01_AXI_arqos"/>
+            <PORTMAP LOGICAL="ARREADY" PHYSICAL="S01_AXI_arready"/>
+            <PORTMAP LOGICAL="ARSIZE" PHYSICAL="S01_AXI_arsize"/>
+            <PORTMAP LOGICAL="ARVALID" PHYSICAL="S01_AXI_arvalid"/>
+            <PORTMAP LOGICAL="AWADDR" PHYSICAL="S01_AXI_awaddr"/>
+            <PORTMAP LOGICAL="AWBURST" PHYSICAL="S01_AXI_awburst"/>
+            <PORTMAP LOGICAL="AWCACHE" PHYSICAL="S01_AXI_awcache"/>
+            <PORTMAP LOGICAL="AWID" PHYSICAL="S01_AXI_awid"/>
+            <PORTMAP LOGICAL="AWLEN" PHYSICAL="S01_AXI_awlen"/>
+            <PORTMAP LOGICAL="AWLOCK" PHYSICAL="S01_AXI_awlock"/>
+            <PORTMAP LOGICAL="AWPROT" PHYSICAL="S01_AXI_awprot"/>
+            <PORTMAP LOGICAL="AWQOS" PHYSICAL="S01_AXI_awqos"/>
+            <PORTMAP LOGICAL="AWREADY" PHYSICAL="S01_AXI_awready"/>
+            <PORTMAP LOGICAL="AWSIZE" PHYSICAL="S01_AXI_awsize"/>
+            <PORTMAP LOGICAL="AWVALID" PHYSICAL="S01_AXI_awvalid"/>
+            <PORTMAP LOGICAL="BID" PHYSICAL="S01_AXI_bid"/>
+            <PORTMAP LOGICAL="BREADY" PHYSICAL="S01_AXI_bready"/>
+            <PORTMAP LOGICAL="BRESP" PHYSICAL="S01_AXI_bresp"/>
+            <PORTMAP LOGICAL="BVALID" PHYSICAL="S01_AXI_bvalid"/>
+            <PORTMAP LOGICAL="RDATA" PHYSICAL="S01_AXI_rdata"/>
+            <PORTMAP LOGICAL="RID" PHYSICAL="S01_AXI_rid"/>
+            <PORTMAP LOGICAL="RLAST" PHYSICAL="S01_AXI_rlast"/>
+            <PORTMAP LOGICAL="RREADY" PHYSICAL="S01_AXI_rready"/>
+            <PORTMAP LOGICAL="RRESP" PHYSICAL="S01_AXI_rresp"/>
+            <PORTMAP LOGICAL="RVALID" PHYSICAL="S01_AXI_rvalid"/>
+            <PORTMAP LOGICAL="WDATA" PHYSICAL="S01_AXI_wdata"/>
+            <PORTMAP LOGICAL="WLAST" PHYSICAL="S01_AXI_wlast"/>
+            <PORTMAP LOGICAL="WREADY" PHYSICAL="S01_AXI_wready"/>
+            <PORTMAP LOGICAL="WSTRB" PHYSICAL="S01_AXI_wstrb"/>
+            <PORTMAP LOGICAL="WVALID" PHYSICAL="S01_AXI_wvalid"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="ps8_0_axi_periph_M00_AXI" DATAWIDTH="32" NAME="M00_AXI" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
           <PORTMAPS>
             <PORTMAP LOGICAL="ARADDR" PHYSICAL="M00_AXI_araddr"/>
@@ -6056,47 +6097,6 @@
             <PORTMAP LOGICAL="WREADY" PHYSICAL="M01_AXI_wready"/>
             <PORTMAP LOGICAL="WSTRB" PHYSICAL="M01_AXI_wstrb"/>
             <PORTMAP LOGICAL="WVALID" PHYSICAL="M01_AXI_wvalid"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="zynq_ultra_ps_e_0_M_AXI_HPM1_FPD" DATAWIDTH="128" NAME="S01_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
-          <PORTMAPS>
-            <PORTMAP LOGICAL="ARADDR" PHYSICAL="S01_AXI_araddr"/>
-            <PORTMAP LOGICAL="ARBURST" PHYSICAL="S01_AXI_arburst"/>
-            <PORTMAP LOGICAL="ARCACHE" PHYSICAL="S01_AXI_arcache"/>
-            <PORTMAP LOGICAL="ARID" PHYSICAL="S01_AXI_arid"/>
-            <PORTMAP LOGICAL="ARLEN" PHYSICAL="S01_AXI_arlen"/>
-            <PORTMAP LOGICAL="ARLOCK" PHYSICAL="S01_AXI_arlock"/>
-            <PORTMAP LOGICAL="ARPROT" PHYSICAL="S01_AXI_arprot"/>
-            <PORTMAP LOGICAL="ARQOS" PHYSICAL="S01_AXI_arqos"/>
-            <PORTMAP LOGICAL="ARREADY" PHYSICAL="S01_AXI_arready"/>
-            <PORTMAP LOGICAL="ARSIZE" PHYSICAL="S01_AXI_arsize"/>
-            <PORTMAP LOGICAL="ARVALID" PHYSICAL="S01_AXI_arvalid"/>
-            <PORTMAP LOGICAL="AWADDR" PHYSICAL="S01_AXI_awaddr"/>
-            <PORTMAP LOGICAL="AWBURST" PHYSICAL="S01_AXI_awburst"/>
-            <PORTMAP LOGICAL="AWCACHE" PHYSICAL="S01_AXI_awcache"/>
-            <PORTMAP LOGICAL="AWID" PHYSICAL="S01_AXI_awid"/>
-            <PORTMAP LOGICAL="AWLEN" PHYSICAL="S01_AXI_awlen"/>
-            <PORTMAP LOGICAL="AWLOCK" PHYSICAL="S01_AXI_awlock"/>
-            <PORTMAP LOGICAL="AWPROT" PHYSICAL="S01_AXI_awprot"/>
-            <PORTMAP LOGICAL="AWQOS" PHYSICAL="S01_AXI_awqos"/>
-            <PORTMAP LOGICAL="AWREADY" PHYSICAL="S01_AXI_awready"/>
-            <PORTMAP LOGICAL="AWSIZE" PHYSICAL="S01_AXI_awsize"/>
-            <PORTMAP LOGICAL="AWVALID" PHYSICAL="S01_AXI_awvalid"/>
-            <PORTMAP LOGICAL="BID" PHYSICAL="S01_AXI_bid"/>
-            <PORTMAP LOGICAL="BREADY" PHYSICAL="S01_AXI_bready"/>
-            <PORTMAP LOGICAL="BRESP" PHYSICAL="S01_AXI_bresp"/>
-            <PORTMAP LOGICAL="BVALID" PHYSICAL="S01_AXI_bvalid"/>
-            <PORTMAP LOGICAL="RDATA" PHYSICAL="S01_AXI_rdata"/>
-            <PORTMAP LOGICAL="RID" PHYSICAL="S01_AXI_rid"/>
-            <PORTMAP LOGICAL="RLAST" PHYSICAL="S01_AXI_rlast"/>
-            <PORTMAP LOGICAL="RREADY" PHYSICAL="S01_AXI_rready"/>
-            <PORTMAP LOGICAL="RRESP" PHYSICAL="S01_AXI_rresp"/>
-            <PORTMAP LOGICAL="RVALID" PHYSICAL="S01_AXI_rvalid"/>
-            <PORTMAP LOGICAL="WDATA" PHYSICAL="S01_AXI_wdata"/>
-            <PORTMAP LOGICAL="WLAST" PHYSICAL="S01_AXI_wlast"/>
-            <PORTMAP LOGICAL="WREADY" PHYSICAL="S01_AXI_wready"/>
-            <PORTMAP LOGICAL="WSTRB" PHYSICAL="S01_AXI_wstrb"/>
-            <PORTMAP LOGICAL="WVALID" PHYSICAL="S01_AXI_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="ps8_0_axi_periph_M02_AXI" DATAWIDTH="32" NAME="M02_AXI" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
@@ -6165,7 +6165,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="6" FULLNAME="/xlconcat_0" HWVERSION="2.1" INSTANCE="xlconcat_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconcat" VLNV="xilinx.com:ip:xlconcat:2.1">
+    <MODULE COREREVISION="5" FULLNAME="/xlconcat_0" HWVERSION="2.1" INSTANCE="xlconcat_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconcat" VLNV="xilinx.com:ip:xlconcat:2.1">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="IN0_WIDTH" VALUE="1"/>
@@ -6320,7 +6320,7 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE CONFIGURABLE="TRUE" COREREVISION="3" FULLNAME="/zynq_ultra_ps_e_0" HWVERSION="3.5" INSTANCE="zynq_ultra_ps_e_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" IS_PL="FALSE" MODTYPE="zynq_ultra_ps_e" VLNV="xilinx.com:ip:zynq_ultra_ps_e:3.5">
+    <MODULE CONFIGURABLE="TRUE" COREREVISION="1" FULLNAME="/zynq_ultra_ps_e_0" HWVERSION="3.5" INSTANCE="zynq_ultra_ps_e_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" IS_PL="FALSE" MODTYPE="zynq_ultra_ps_e" VLNV="xilinx.com:ip:zynq_ultra_ps_e:3.5">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=zynq_ultra_ps_e;v=v3_5;d=pg201-zynq-ultrascale-plus-processing-system.pdf"/>
       </DOCUMENTS>
@@ -6351,7 +6351,7 @@
         <PARAMETER NAME="C_PL_CLK3_BUF" VALUE="FALSE"/>
         <PARAMETER NAME="C_SAXIGP0_DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="C_SAXIGP1_DATA_WIDTH" VALUE="128"/>
-        <PARAMETER NAME="C_SAXIGP2_DATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_SAXIGP2_DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="C_SAXIGP3_DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="C_SAXIGP4_DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="C_SAXIGP5_DATA_WIDTH" VALUE="128"/>
@@ -7805,7 +7805,7 @@
         <PARAMETER NAME="PSU__PROTECTION__DDR_SEGMENTS" VALUE="NONE"/>
         <PARAMETER NAME="PSU__PROTECTION__DEBUG" VALUE="0"/>
         <PARAMETER NAME="PSU__PROTECTION__ENABLE" VALUE="0"/>
-        <PARAMETER NAME="PSU__PROTECTION__FPD_SEGMENTS" VALUE="SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem"/>
+        <PARAMETER NAME="PSU__PROTECTION__FPD_SEGMENTS" VALUE="SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem"/>
         <PARAMETER NAME="PSU__PROTECTION__LOCK_UNUSED_SEGMENTS" VALUE="0"/>
         <PARAMETER NAME="PSU__PROTECTION__LPD_SEGMENTS" VALUE="SA:0xFF980000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF5E0000; SIZE:2560; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFCC0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF180000; SIZE:768; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF410000; SIZE:640; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFA70000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF9A0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|SA:0xFF5E0000 ; SIZE:2560; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFFCC0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF180000 ; SIZE:768; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF9A0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem"/>
         <PARAMETER NAME="PSU__PROTECTION__MASTERS" VALUE="USB1:NonSecure;1|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;0|S_AXI_HPC0_FPD:NA;0|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;0|S_AXI_HP1_FPD:NA;0|S_AXI_HP0_FPD:NA;1|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;1|SD0:NonSecure;1|SATA1:NonSecure;0|SATA0:NonSecure;0|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;0|PMU:NA;1|PCIe:NonSecure;0|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;0|GEM2:NonSecure;0|GEM1:NonSecure;0|GEM0:NonSecure;0|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1"/>
@@ -7838,7 +7838,7 @@
         <PARAMETER NAME="PSU__SATA__REF_CLK_SEL" VALUE="&lt;Select>"/>
         <PARAMETER NAME="PSU__SAXIGP0__DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="PSU__SAXIGP1__DATA_WIDTH" VALUE="128"/>
-        <PARAMETER NAME="PSU__SAXIGP2__DATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="PSU__SAXIGP2__DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="PSU__SAXIGP3__DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="PSU__SAXIGP4__DATA_WIDTH" VALUE="128"/>
         <PARAMETER NAME="PSU__SAXIGP5__DATA_WIDTH" VALUE="128"/>
@@ -8462,27 +8462,27 @@
         </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="O" NAME="pl_clk0" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxihpm0_fpd_aclk"/>
-            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxihpm1_fpd_aclk"/>
-            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="slowest_sync_clk"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S00_ACLK"/>
+            <CONNECTION INSTANCE="axi_lite_0" PORT="s00_axi_aclk"/>
+            <CONNECTION INSTANCE="axi_dma_0" PORT="s_axi_lite_aclk"/>
+            <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_aclk"/>
+            <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_aclk"/>
             <CONNECTION INSTANCE="axi_gpio_0" PORT="s_axi_aclk"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M00_ACLK"/>
-            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="ACLK"/>
             <CONNECTION INSTANCE="axi_gpio_1" PORT="s_axi_aclk"/>
+            <CONNECTION INSTANCE="axi_intc_0" PORT="s_axi_aclk"/>
+            <CONNECTION INSTANCE="axi_smc" PORT="aclk"/>
+            <CONNECTION INSTANCE="axis_data_fifo_0" PORT="s_axis_aclk"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="slowest_sync_clk"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="ACLK"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S00_ACLK"/>
+            <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M00_ACLK"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_ACLK"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="S01_ACLK"/>
-            <CONNECTION INSTANCE="axi_intc_0" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M02_ACLK"/>
-            <CONNECTION INSTANCE="axi_dma_0" PORT="s_axi_lite_aclk"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M03_ACLK"/>
-            <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_aclk"/>
-            <CONNECTION INSTANCE="axi_smc" PORT="aclk"/>
-            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxihp0_fpd_aclk"/>
-            <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_aclk"/>
-            <CONNECTION INSTANCE="axis_data_fifo_0" PORT="s_axis_aclk"/>
-            <CONNECTION INSTANCE="axi_lite_0" PORT="s00_axi_aclk"/>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M04_ACLK"/>
+            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxihpm0_fpd_aclk"/>
+            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxihpm1_fpd_aclk"/>
+            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="saxihp0_fpd_aclk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="pl_ps_irq0" RIGHT="0" SENSITIVITY="LEVEL_HIGH:LEVEL_HIGH" SIGIS="INTERRUPT" SIGNAME="xlconcat_0_dout">
@@ -8610,7 +8610,7 @@
             <CONNECTION INSTANCE="axi_smc" PORT="M00_AXI_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="63" NAME="saxigp2_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_rdata">
+        <PORT DIR="O" LEFT="127" NAME="saxigp2_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_rdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="M00_AXI_rdata"/>
           </CONNECTIONS>
@@ -8635,7 +8635,7 @@
             <CONNECTION INSTANCE="axi_smc" PORT="M00_AXI_rvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="saxigp2_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wdata">
+        <PORT DIR="I" LEFT="127" NAME="saxigp2_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="M00_AXI_wdata"/>
           </CONNECTIONS>
@@ -8650,7 +8650,7 @@
             <CONNECTION INSTANCE="axi_smc" PORT="M00_AXI_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="saxigp2_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wstrb">
+        <PORT DIR="I" LEFT="15" NAME="saxigp2_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_smc_M00_AXI_wstrb">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_smc" PORT="M00_AXI_wstrb"/>
           </CONNECTIONS>
@@ -8811,13 +8811,13 @@
             <PORTMAP LOGICAL="WVALID" PHYSICAL="maxigp1_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_smc_M00_AXI" DATAWIDTH="64" NAME="S_AXI_HP0_FPD" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+        <BUSINTERFACE BUSNAME="axi_smc_M00_AXI" DATAWIDTH="128" NAME="S_AXI_HP0_FPD" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
           <PARAMETER NAME="ADDR_WIDTH" VALUE="49"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="1"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
           <PARAMETER NAME="HAS_BURST" VALUE="1"/>
@@ -8830,7 +8830,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="6"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="256"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="16"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="16"/>

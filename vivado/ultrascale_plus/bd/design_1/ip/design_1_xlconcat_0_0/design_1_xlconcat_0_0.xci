@@ -4,7 +4,7 @@
     "xci_name": "design_1_xlconcat_0_0",
     "cell_name": "xlconcat_0",
     "component_reference": "xilinx.com:ip:xlconcat:2.1",
-    "ip_revision": "6",
+    "ip_revision": "5",
     "gen_directory": ".",
     "parameters": {
       "component_parameters": {
@@ -288,12 +288,12 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "6" } ],
+        "IPREVISION": [ { "value": "5" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "." } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2024.1" } ],
+        "SWVERSION": [ { "value": "2023.2" } ],
         "SYNTHESISFLOW": [ { "value": "GLOBAL" } ]
       }
     },

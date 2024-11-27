@@ -4,7 +4,7 @@
     "xci_name": "design_1_axi_gpio_0_0",
     "cell_name": "axi_gpio_0",
     "component_reference": "xilinx.com:ip:axi_gpio:2.0",
-    "ip_revision": "33",
+    "ip_revision": "31",
     "gen_directory": ".",
     "parameters": {
       "component_parameters": {
@@ -58,12 +58,12 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "33" } ],
+        "IPREVISION": [ { "value": "31" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "." } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2024.1" } ],
+        "SWVERSION": [ { "value": "2023.2" } ],
         "SYNTHESISFLOW": [ { "value": "OUT_OF_CONTEXT" } ]
       }
     },
@@ -225,7 +225,7 @@
                   "access": "read-write",
                   "reset_value": "0x0",
                   "fields": {
-                    "CH1_DATA": {
+                    "Channel_1_GPIO_DATA": {
                       "bit_offset": 0,
                       "bit_width": 1,
                       "display_name": "Channel_1_GPIO_DATA",
@@ -244,7 +244,7 @@
                   "access": "read-write",
                   "reset_value": "0x0",
                   "fields": {
-                    "CH1_TRI": {
+                    "Channel_1_GPIO_TRI": {
                       "bit_offset": 0,
                       "bit_width": 1,
                       "display_name": "Channel_1_GPIO_DATA",
@@ -263,7 +263,7 @@
                   "access": "read-write",
                   "reset_value": "0x0",
                   "fields": {
-                    "CH2_DATA": {
+                    "Channel_2_GPIO_DATA": {
                       "bit_offset": 0,
                       "bit_width": 1,
                       "display_name": "Channel_2_GPIO_DATA",
@@ -282,7 +282,7 @@
                   "access": "read-write",
                   "reset_value": "0x0",
                   "fields": {
-                    "CH2_TRI": {
+                    "Channel_2_GPIO_TRI": {
                       "bit_offset": 0,
                       "bit_width": 1,
                       "display_name": "Channel_2_GPIO_DATA",
@@ -301,7 +301,7 @@
                   "access": "read-write",
                   "reset_value": "0x0",
                   "fields": {
-                    "INT_EN": {
+                    "Global_Interrupt_Enable": {
                       "bit_offset": 31,
                       "bit_width": 1,
                       "display_name": "Global_Interrupt_Enable",
@@ -320,7 +320,7 @@
                   "access": "read-write",
                   "reset_value": "0x0",
                   "fields": {
-                    "CH1_INT_EN": {
+                    "Channel_1_Interrupt_Enable": {
                       "bit_offset": 0,
                       "bit_width": 1,
                       "display_name": "Channel_1_Interrupt_Enable",
@@ -328,7 +328,7 @@
                       "is_volatile": true,
                       "access": "read-write"
                     },
-                    "CH2_INT_EN": {
+                    "Channel_2_Interrupt_Enable": {
                       "bit_offset": 1,
                       "bit_width": 1,
                       "display_name": "Channel_2_Interrupt_Enable",
@@ -347,7 +347,7 @@
                   "access": "read-write",
                   "reset_value": "0x0",
                   "fields": {
-                    "CH1_INT_S": {
+                    "Channel_1_Interrupt_Status": {
                       "bit_offset": 0,
                       "bit_width": 1,
                       "display_name": "Channel_1_Interrupt_Status",
@@ -355,7 +355,7 @@
                       "is_volatile": true,
                       "access": "read-write"
                     },
-                    "CH2_INT_S": {
+                    "Channel_2_Interrupt_Status": {
                       "bit_offset": 1,
                       "bit_width": 1,
                       "display_name": "Channel_2_Interrupt_Status",

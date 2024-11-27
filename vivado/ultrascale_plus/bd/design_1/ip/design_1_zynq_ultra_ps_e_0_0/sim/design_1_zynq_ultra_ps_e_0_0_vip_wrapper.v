@@ -7,10 +7,10 @@
 
 
 
-// (c) Copyright 1995-2017 Amd, Inc. All rights reserved.
+// (c) Copyright 1995-2017 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
-// of Amd, Inc. and is protected under U.S. and
+// of Xilinx, Inc. and is protected under U.S. and
 // international copyright and other intellectual property
 // laws.
 // 
@@ -18,13 +18,13 @@
 // This disclaimer is not a license and does not grant any
 // rights to the materials distributed herewith. Except as
 // otherwise provided in a valid license issued to you by
-// Amd, and to the maximum extent permitted by applicable
+// Xilinx, and to the maximum extent permitted by applicable
 // law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
-// WITH ALL FAULTS, AND Amd HEREBY DISCLAIMS ALL WARRANTIES
+// WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES
 // AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING
 // BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-
 // INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
-// (2) Amd shall not be liable (whether in contract or tort,
+// (2) Xilinx shall not be liable (whether in contract or tort,
 // including negligence, or under any other theory of
 // liability) for any loss or damage of any kind or nature
 // related to, arising under or in connection with these
@@ -33,11 +33,11 @@
 // (including loss of data, profits, goodwill, or any type of
 // loss or damage suffered as a result of any action brought
 // by a third party) even if such damage or loss was
-// reasonably foreseeable or Amd had been advised of the
+// reasonably foreseeable or Xilinx had been advised of the
 // possibility of the same.
 // 
 // CRITICAL APPLICATIONS
-// Amd products are not designed or intended to be fail-
+// Xilinx products are not designed or intended to be fail-
 // safe, or for use in any application requiring fail-safe
 // performance, such as life-support or safety devices or
 // systems, Class III medical devices, nuclear facilities,
@@ -46,7 +46,7 @@
 // injury, or severe property or environmental damage
 // (individually and collectively, "Critical
 // Applications"). Customer assumes the sole risk and
-// liability of any use of Amd products in Critical
+// liability of any use of Xilinx products in Critical
 // Applications, subject only to applicable laws and
 // regulations governing limitations on product liability.
 // 
@@ -284,8 +284,8 @@ input [3 : 0] saxigp2_awcache;
 input [2 : 0] saxigp2_awprot;
 input saxigp2_awvalid;
 output saxigp2_awready;
-input [63 : 0] saxigp2_wdata;
-input [7 : 0] saxigp2_wstrb;
+input [127 : 0] saxigp2_wdata;
+input [15 : 0] saxigp2_wstrb;
 input saxigp2_wlast;
 input saxigp2_wvalid;
 output saxigp2_wready;
@@ -304,7 +304,7 @@ input [2 : 0] saxigp2_arprot;
 input saxigp2_arvalid;
 output saxigp2_arready;
 output [5 : 0] saxigp2_rid;
-output [63 : 0] saxigp2_rdata;
+output [127 : 0] saxigp2_rdata;
 output [1 : 0] saxigp2_rresp;
 output saxigp2_rlast;
 output saxigp2_rvalid;
@@ -362,7 +362,7 @@ assign pl_clk0 = pl_clk_t[0] ;
   
 
 
-  zynq_ultra_ps_e_vip_v1_0_17 #(
+  zynq_ultra_ps_e_vip_v1_0_15 #(
     .C_USE_M_AXI_GP0(1),
     .C_USE_M_AXI_GP1(1),
     .C_USE_M_AXI_GP2(0),
@@ -380,7 +380,7 @@ assign pl_clk0 = pl_clk_t[0] ;
     .C_M_AXI_GP2_DATA_WIDTH(32),
     .C_S_AXI_GP0_DATA_WIDTH(128),
     .C_S_AXI_GP1_DATA_WIDTH(128),
-    .C_S_AXI_GP2_DATA_WIDTH(64),
+    .C_S_AXI_GP2_DATA_WIDTH(128),
     .C_S_AXI_GP3_DATA_WIDTH(128),
     .C_S_AXI_GP4_DATA_WIDTH(128),
     .C_S_AXI_GP5_DATA_WIDTH(128),

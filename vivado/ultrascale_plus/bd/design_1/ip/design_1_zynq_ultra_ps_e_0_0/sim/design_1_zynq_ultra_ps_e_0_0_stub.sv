@@ -159,8 +159,8 @@ module design_1_zynq_ultra_ps_e_0_0 (
   input bit [2 : 0] saxigp2_awprot,
   input bit_as_bool saxigp2_awvalid,
   output bit_as_bool saxigp2_awready,
-  input bit [63 : 0] saxigp2_wdata,
-  input bit [7 : 0] saxigp2_wstrb,
+  input bit [127 : 0] saxigp2_wdata,
+  input bit [15 : 0] saxigp2_wstrb,
   input bit_as_bool saxigp2_wlast,
   input bit_as_bool saxigp2_wvalid,
   output bit_as_bool saxigp2_wready,
@@ -179,7 +179,7 @@ module design_1_zynq_ultra_ps_e_0_0 (
   input bit_as_bool saxigp2_arvalid,
   output bit_as_bool saxigp2_arready,
   output bit [5 : 0] saxigp2_rid,
-  output bit [63 : 0] saxigp2_rdata,
+  output bit [127 : 0] saxigp2_rdata,
   output bit [1 : 0] saxigp2_rresp,
   output bit_as_bool saxigp2_rlast,
   output bit_as_bool saxigp2_rvalid,
@@ -300,8 +300,8 @@ module design_1_zynq_ultra_ps_e_0_0 (maxihpm0_fpd_aclk,maxigp0_awid,maxigp0_awad
   input bit [2 : 0] saxigp2_awprot;
   input bit saxigp2_awvalid;
   output wire saxigp2_awready;
-  input bit [63 : 0] saxigp2_wdata;
-  input bit [7 : 0] saxigp2_wstrb;
+  input bit [127 : 0] saxigp2_wdata;
+  input bit [15 : 0] saxigp2_wstrb;
   input bit saxigp2_wlast;
   input bit saxigp2_wvalid;
   output wire saxigp2_wready;
@@ -320,7 +320,7 @@ module design_1_zynq_ultra_ps_e_0_0 (maxihpm0_fpd_aclk,maxigp0_awid,maxigp0_awad
   input bit saxigp2_arvalid;
   output wire saxigp2_arready;
   output wire [5 : 0] saxigp2_rid;
-  output wire [63 : 0] saxigp2_rdata;
+  output wire [127 : 0] saxigp2_rdata;
   output wire [1 : 0] saxigp2_rresp;
   output wire saxigp2_rlast;
   output wire saxigp2_rvalid;

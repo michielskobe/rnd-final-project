@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:ip:axi_dwidth_converter:2.1
-// IP Revision: 31
+// IP Revision: 29
 
-(* X_CORE_INFO = "axi_dwidth_converter_v2_1_31_top,Vivado 2024.1" *)
-(* CHECK_LICENSE_TYPE = "design_1_auto_ds_1,axi_dwidth_converter_v2_1_31_top,{}" *)
-(* CORE_GENERATION_INFO = "design_1_auto_ds_1,axi_dwidth_converter_v2_1_31_top,{x_ipProduct=Vivado 2024.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axi_dwidth_converter,x_ipVersion=2.1,x_ipCoreRevision=31,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_FAMILY=zynquplus,C_AXI_PROTOCOL=0,C_S_AXI_ID_WIDTH=16,C_SUPPORTS_ID=1,C_AXI_ADDR_WIDTH=40,C_S_AXI_DATA_WIDTH=128,C_M_AXI_DATA_WIDTH=32,C_AXI_SUPPORTS_WRITE=1,C_AXI_SUPPORTS_READ=1,C_FIFO_MODE=0,C_S_AXI_ACLK_RATIO=1,C_M_AXI_ACLK_RATIO=2,C_AXI_IS_ACLK_ASYNC=0,C_MAX_SPLIT_BEATS=\
+(* X_CORE_INFO = "axi_dwidth_converter_v2_1_29_top,Vivado 2023.2" *)
+(* CHECK_LICENSE_TYPE = "design_1_auto_ds_1,axi_dwidth_converter_v2_1_29_top,{}" *)
+(* CORE_GENERATION_INFO = "design_1_auto_ds_1,axi_dwidth_converter_v2_1_29_top,{x_ipProduct=Vivado 2023.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axi_dwidth_converter,x_ipVersion=2.1,x_ipCoreRevision=29,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_FAMILY=zynquplus,C_AXI_PROTOCOL=0,C_S_AXI_ID_WIDTH=16,C_SUPPORTS_ID=1,C_AXI_ADDR_WIDTH=40,C_S_AXI_DATA_WIDTH=128,C_M_AXI_DATA_WIDTH=32,C_AXI_SUPPORTS_WRITE=1,C_AXI_SUPPORTS_READ=1,C_FIFO_MODE=0,C_S_AXI_ACLK_RATIO=1,C_M_AXI_ACLK_RATIO=2,C_AXI_IS_ACLK_ASYNC=0,C_MAX_SPLIT_BEATS=\
 256,C_PACKING_LEVEL=1,C_SYNCHRONIZER_STAGE=3}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_auto_ds_1 (
@@ -134,7 +134,7 @@ module design_1_auto_ds_1 (
   m_axi_rready
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SI_CLK, ASSOCIATED_BUSIF S_AXI:M_AXI, ASSOCIATED_RESET S_AXI_ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SI_CLK, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, ASSOCIATED_BUSIF S_AXI:M_AXI, ASSOCIATED_RESET S_AXI_ARESETN, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SI_CLK CLK" *)
 input wire s_axi_aclk;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0, TYPE INTERCONNECT" *)
@@ -293,7 +293,7 @@ WRITE_THREADS 4, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RREADY" *)
 output wire m_axi_rready;
 
-  axi_dwidth_converter_v2_1_31_top #(
+  axi_dwidth_converter_v2_1_29_top #(
     .C_FAMILY("zynquplus"),
     .C_AXI_PROTOCOL(0),
     .C_S_AXI_ID_WIDTH(16),

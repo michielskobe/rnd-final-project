@@ -1,11 +1,11 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-// Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
-// Date        : Fri Nov 15 16:55:06 2024
-// Host        : fedora running 64-bit Fedora release 40 (Forty)
+// Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+// Date        : Wed Nov 27 14:23:39 2024
+// Host        : fedora running 64-bit unknown
 // Command     : write_verilog -force -mode synth_stub
-//               /home/kobemichiels/Documents/KULeuven/Master/RND/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_axi_lite_0_0/design_1_axi_lite_0_0_stub.v
+//               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_axi_lite_0_0/design_1_axi_lite_0_0_stub.v
 // Design      : design_1_axi_lite_0_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xczu3eg-sbva484-1-i
@@ -14,7 +14,7 @@
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
-(* x_core_info = "axi_lite,Vivado 2024.1" *)
+(* x_core_info = "axi_lite,Vivado 2023.2" *)
 module design_1_axi_lite_0_0(s00_axi_awaddr, s00_axi_awprot, 
   s00_axi_awvalid, s00_axi_awready, s00_axi_wdata, s00_axi_wstrb, s00_axi_wvalid, 
   s00_axi_wready, s00_axi_bresp, s00_axi_bvalid, s00_axi_bready, s00_axi_araddr, 

@@ -4,7 +4,7 @@
     "xci_name": "bd_afc3_bsw_0",
     "cell_name": "b_switchboard",
     "component_reference": "xilinx.com:ip:sc_switchboard:1.0",
-    "ip_revision": "8",
+    "ip_revision": "7",
     "gen_directory": ".",
     "parameters": {
       "component_parameters": {
@@ -289,7 +289,6 @@
         "BASE_BOARD_PART": [ { "value": "avnet.com:ultra96v2:part0:1.2" } ],
         "BOARD_CONNECTIONS": [ { "value": "" } ],
         "DEVICE": [ { "value": "xczu3eg" } ],
-        "NEXTGEN_VERSAL": [ { "value": "0" } ],
         "PACKAGE": [ { "value": "sbva484" } ],
         "PREFHDL": [ { "value": "VHDL" } ],
         "SILICON_REVISION": [ { "value": "" } ],
@@ -300,12 +299,12 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "8" } ],
+        "IPREVISION": [ { "value": "7" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "." } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../../../../ipshared" } ],
-        "SWVERSION": [ { "value": "2024.1" } ],
+        "SWVERSION": [ { "value": "2023.2" } ],
         "SYNTHESISFLOW": [ { "value": "GLOBAL" } ]
       }
     },

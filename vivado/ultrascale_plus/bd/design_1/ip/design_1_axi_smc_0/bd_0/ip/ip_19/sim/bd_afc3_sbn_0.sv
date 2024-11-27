@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:ip:sc_node:1.0
-// IP Revision: 16
+// IP Revision: 15
 
 `timescale 1ns/1ps
 
@@ -103,7 +103,7 @@ output wire [0 : 0] m_sc_info;
 (* X_INTERFACE_INFO = "xilinx.com:interface:sc:1.0 M_SC PAYLD" *)
 output wire [6 : 0] m_sc_payld;
 
-  sc_node_v1_0_16_top #(
+  sc_node_v1_0_15_top #(
     .C_FAMILY("zynquplus"),
     .C_FIFO_IP(0),
     .C_DISABLE_IP(0),
@@ -116,16 +116,16 @@ output wire [6 : 0] m_sc_payld;
     .C_NUM_MI(1),
     .C_CHANNEL(4),
     .C_PAYLD_WIDTH(7),
-    .C_S_NUM_BYTES_ARRAY(32'H00000008),
-    .C_M_NUM_BYTES_ARRAY(32'H00000008),
+    .C_S_NUM_BYTES_ARRAY(32'H00000010),
+    .C_M_NUM_BYTES_ARRAY(32'H00000010),
     .C_PRIORITY_ARB_ARRAY(1'B0),
     .C_USER_BITS_PER_BYTE(0),
     .C_ARBITER_MODE(1),
     .C_SC_ROUTE_WIDTH(2),
     .C_ID_WIDTH(2),
-    .C_ADDR_WIDTH(32),
+    .C_ADDR_WIDTH(64),
     .C_USER_WIDTH(0),
-    .C_MAX_PAYLD_BYTES(8),
+    .C_MAX_PAYLD_BYTES(16),
     .C_S_PIPELINE(0),
     .C_M_PIPELINE(0),
     .C_M_SEND_PIPELINE(0),

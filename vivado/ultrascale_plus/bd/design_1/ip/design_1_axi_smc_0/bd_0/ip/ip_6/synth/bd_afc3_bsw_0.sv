@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:ip:sc_switchboard:1.0
-// IP Revision: 8
+// IP Revision: 7
 
-(* X_CORE_INFO = "sc_switchboard_v1_0_8_top,Vivado 2024.1" *)
-(* CHECK_LICENSE_TYPE = "bd_afc3_bsw_0,sc_switchboard_v1_0_8_top,{}" *)
-(* CORE_GENERATION_INFO = "bd_afc3_bsw_0,sc_switchboard_v1_0_8_top,{x_ipProduct=Vivado 2024.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=sc_switchboard,x_ipVersion=1.0,x_ipCoreRevision=8,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_PAYLD_WIDTH=7,K_MAX_INFO_WIDTH=1,C_S_PIPELINES=0,C_M_PIPELINES=1,C_S_LATENCY=0,C_NUM_SI=1,C_NUM_MI=2,C_TESTING_MODE=0,C_CONNECTIVITY=0b11}" *)
+(* X_CORE_INFO = "sc_switchboard_v1_0_7_top,Vivado 2023.2" *)
+(* CHECK_LICENSE_TYPE = "bd_afc3_bsw_0,sc_switchboard_v1_0_7_top,{}" *)
+(* CORE_GENERATION_INFO = "bd_afc3_bsw_0,sc_switchboard_v1_0_7_top,{x_ipProduct=Vivado 2023.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=sc_switchboard,x_ipVersion=1.0,x_ipCoreRevision=7,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_PAYLD_WIDTH=7,K_MAX_INFO_WIDTH=1,C_S_PIPELINES=0,C_M_PIPELINES=1,C_S_LATENCY=0,C_NUM_SI=1,C_NUM_MI=2,C_TESTING_MODE=0,C_CONNECTIVITY=0b11}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module bd_afc3_bsw_0 (
   aclk,
@@ -97,7 +97,7 @@ output wire [1 : 0] m_sc_info;
 (* X_INTERFACE_INFO = "xilinx.com:interface:sc:1.0 M00_SC PAYLD [6:0] [6:0], xilinx.com:interface:sc:1.0 M01_SC PAYLD [6:0] [13:7]" *)
 output wire [13 : 0] m_sc_payld;
 
-  sc_switchboard_v1_0_8_top #(
+  sc_switchboard_v1_0_7_top #(
     .C_PAYLD_WIDTH(7),
     .K_MAX_INFO_WIDTH(1),
     .C_S_PIPELINES(0),

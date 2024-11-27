@@ -68,7 +68,7 @@ typedef bit bit_as_bool;
 module design_1_axi_smc_0 (
   input bit_as_bool aclk,
   input bit_as_bool aresetn,
-  input bit [31 : 0] S00_AXI_araddr,
+  input bit [63 : 0] S00_AXI_araddr,
   input bit [7 : 0] S00_AXI_arlen,
   input bit [2 : 0] S00_AXI_arsize,
   input bit [1 : 0] S00_AXI_arburst,
@@ -78,12 +78,12 @@ module design_1_axi_smc_0 (
   input bit [3 : 0] S00_AXI_arqos,
   input bit_as_bool S00_AXI_arvalid,
   output bit_as_bool S00_AXI_arready,
-  output bit [63 : 0] S00_AXI_rdata,
+  output bit [127 : 0] S00_AXI_rdata,
   output bit [1 : 0] S00_AXI_rresp,
   output bit_as_bool S00_AXI_rlast,
   output bit_as_bool S00_AXI_rvalid,
   input bit_as_bool S00_AXI_rready,
-  input bit [31 : 0] S01_AXI_awaddr,
+  input bit [63 : 0] S01_AXI_awaddr,
   input bit [7 : 0] S01_AXI_awlen,
   input bit [2 : 0] S01_AXI_awsize,
   input bit [1 : 0] S01_AXI_awburst,
@@ -93,8 +93,8 @@ module design_1_axi_smc_0 (
   input bit [3 : 0] S01_AXI_awqos,
   input bit_as_bool S01_AXI_awvalid,
   output bit_as_bool S01_AXI_awready,
-  input bit [63 : 0] S01_AXI_wdata,
-  input bit [7 : 0] S01_AXI_wstrb,
+  input bit [127 : 0] S01_AXI_wdata,
+  input bit [15 : 0] S01_AXI_wstrb,
   input bit_as_bool S01_AXI_wlast,
   input bit_as_bool S01_AXI_wvalid,
   output bit_as_bool S01_AXI_wready,
@@ -111,8 +111,8 @@ module design_1_axi_smc_0 (
   output bit [3 : 0] M00_AXI_awqos,
   output bit_as_bool M00_AXI_awvalid,
   input bit_as_bool M00_AXI_awready,
-  output bit [63 : 0] M00_AXI_wdata,
-  output bit [7 : 0] M00_AXI_wstrb,
+  output bit [127 : 0] M00_AXI_wdata,
+  output bit [15 : 0] M00_AXI_wstrb,
   output bit_as_bool M00_AXI_wlast,
   output bit_as_bool M00_AXI_wvalid,
   input bit_as_bool M00_AXI_wready,
@@ -129,7 +129,7 @@ module design_1_axi_smc_0 (
   output bit [3 : 0] M00_AXI_arqos,
   output bit_as_bool M00_AXI_arvalid,
   input bit_as_bool M00_AXI_arready,
-  input bit [63 : 0] M00_AXI_rdata,
+  input bit [127 : 0] M00_AXI_rdata,
   input bit [1 : 0] M00_AXI_rresp,
   input bit_as_bool M00_AXI_rlast,
   input bit_as_bool M00_AXI_rvalid,
@@ -145,7 +145,7 @@ module design_1_axi_smc_0 (aclk,aresetn,S00_AXI_araddr,S00_AXI_arlen,S00_AXI_ars
 *);
   input bit aclk;
   input bit aresetn;
-  input bit [31 : 0] S00_AXI_araddr;
+  input bit [63 : 0] S00_AXI_araddr;
   input bit [7 : 0] S00_AXI_arlen;
   input bit [2 : 0] S00_AXI_arsize;
   input bit [1 : 0] S00_AXI_arburst;
@@ -155,12 +155,12 @@ module design_1_axi_smc_0 (aclk,aresetn,S00_AXI_araddr,S00_AXI_arlen,S00_AXI_ars
   input bit [3 : 0] S00_AXI_arqos;
   input bit S00_AXI_arvalid;
   output wire S00_AXI_arready;
-  output wire [63 : 0] S00_AXI_rdata;
+  output wire [127 : 0] S00_AXI_rdata;
   output wire [1 : 0] S00_AXI_rresp;
   output wire S00_AXI_rlast;
   output wire S00_AXI_rvalid;
   input bit S00_AXI_rready;
-  input bit [31 : 0] S01_AXI_awaddr;
+  input bit [63 : 0] S01_AXI_awaddr;
   input bit [7 : 0] S01_AXI_awlen;
   input bit [2 : 0] S01_AXI_awsize;
   input bit [1 : 0] S01_AXI_awburst;
@@ -170,8 +170,8 @@ module design_1_axi_smc_0 (aclk,aresetn,S00_AXI_araddr,S00_AXI_arlen,S00_AXI_ars
   input bit [3 : 0] S01_AXI_awqos;
   input bit S01_AXI_awvalid;
   output wire S01_AXI_awready;
-  input bit [63 : 0] S01_AXI_wdata;
-  input bit [7 : 0] S01_AXI_wstrb;
+  input bit [127 : 0] S01_AXI_wdata;
+  input bit [15 : 0] S01_AXI_wstrb;
   input bit S01_AXI_wlast;
   input bit S01_AXI_wvalid;
   output wire S01_AXI_wready;
@@ -188,8 +188,8 @@ module design_1_axi_smc_0 (aclk,aresetn,S00_AXI_araddr,S00_AXI_arlen,S00_AXI_ars
   output wire [3 : 0] M00_AXI_awqos;
   output wire M00_AXI_awvalid;
   input bit M00_AXI_awready;
-  output wire [63 : 0] M00_AXI_wdata;
-  output wire [7 : 0] M00_AXI_wstrb;
+  output wire [127 : 0] M00_AXI_wdata;
+  output wire [15 : 0] M00_AXI_wstrb;
   output wire M00_AXI_wlast;
   output wire M00_AXI_wvalid;
   input bit M00_AXI_wready;
@@ -206,7 +206,7 @@ module design_1_axi_smc_0 (aclk,aresetn,S00_AXI_araddr,S00_AXI_arlen,S00_AXI_ars
   output wire [3 : 0] M00_AXI_arqos;
   output wire M00_AXI_arvalid;
   input bit M00_AXI_arready;
-  input bit [63 : 0] M00_AXI_rdata;
+  input bit [127 : 0] M00_AXI_rdata;
   input bit [1 : 0] M00_AXI_rresp;
   input bit M00_AXI_rlast;
   input bit M00_AXI_rvalid;
