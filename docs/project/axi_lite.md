@@ -93,7 +93,7 @@ petalinux-build
 ```
 We can now create the boot files and the wic-image and flash it to our SD card so we are able to boot the system. 
 
-### Testing our custom kernel driver
+## Testing our custom kernel driver
 
 After booting our system, we can test the functionality of our newly created driver. 
 The driver will be directly loaded into the kernel during the boot process. We can verify this by running `lsmod`:
