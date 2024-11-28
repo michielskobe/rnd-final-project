@@ -165,8 +165,12 @@ We can conclude that this filter works as intended, as it amplifies the sine at 
 
 ## Audio Effects
 
+We also want to add some audio effects to the audio pipeline. The chosen effects are saturation, echo and ring modulation. We tested the saturation and echo first in Simulink before implementing it in VHDL.
+
 ### Saturation
+
+<img src="/img/saturation_simulink.png"/>
 
 ### Echo
 
-### Ring Modulation
+<img src="/img/echo_simulink.png"/>
