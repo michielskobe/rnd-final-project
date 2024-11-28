@@ -134,6 +134,39 @@ To create a Band Shelf filter, the input signal is first amplified or attenuated
 ### MATLAB Simulations
 We did some MATLAB Simulations to verify whether the shelving filters work as intended.
 
-<img src="/img/direct_form_2_digital_biquad_filter.png"/>
+<img src="/img/shelving_filter.png"/>
  
 The image above illustrates, from left to right: a Low Shelf filter with a gain of -10dB and a bandwidth of 300Hz, a Band Shelf filter with a gain of -26dB and a bandwidth of 6kHz, and a High Shelf filter with a gain of +5dB and a bandwidth of 18kHz.
+
+## Simulink
+
+We used the same Direct Form 2 Digital Biquad Filter in Simulink to test out the shelving filters. However, this fitler overflowed almost instantly. This is actually a disadvantage of the Direct Form 2 stucture, it can cause numbers to get too large to handle (arithmetic overflow) when using a certain combination of filter coëfficients.
+
+So, we switched to the Direct Form 1 Digital Biquad Filter as shown in the image below.
+
+<img src="/img/direct_form_1_digital_biquad_filter.png"/>
+
+
+!!! info
+
+    Because of the overflow issue, we also switched the Low and High pass filter to the Direct Form 1 Digital Biquad Filter structure. This ensures that all the filters we develop share the same structure, allowing us to implement a single, unified filter design in VHDL.
+
+Instead of calculating the filter coëfficients beforehand, we also added the formulas for calculating the coëfficients in Simulink.
+
+<img src="/img/shelving_filter_coefficients.png"/>
+
+This was the result of simuling the Low Shelf filter with a bandwidth of 400Hz and a gain of +5dB when passing a sine wave of 100Hz and 400Hs through the filter.
+
+<img src="/img/low_shelf_100.png"/>
+
+<img src="/img/low_shelf_400.png"/>
+
+We can conclude that this filter works as intended, as it amplifies the sine at 100Hz and doesn't change the sine wave at 400Hz.
+
+## Audio Effects
+
+### Saturation
+
+### Echo
+
+### Ring Modulation
