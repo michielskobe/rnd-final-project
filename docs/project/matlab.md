@@ -174,3 +174,5 @@ We also want to add some audio effects to the audio pipeline. The chosen effects
 ### Echo
 
 <img src="/img/echo_simulink.png"/>
+
+The simulations for the saturation and echo effects can be found in the Git Repo.
