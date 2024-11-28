@@ -88,11 +88,16 @@ Our goal is to control the gain of the low, mid, and high-frequency ranges of th
 
 We have reviewed several research papers on designing these filters digitally and have selected [this](https://www.eurasip.org/Proceedings/Eusipco/Eusipco2006/papers/1568980789.pdf) particular paper as our primary source of information.
 
-Following is a brief summary of all the variables, and their meanings, that you need to know to calculate the coëfficients for these type of filters.
+### Low Shelf
+
+Following is a brief summary of all the variables, and their meanings, that you need to know to calculate the coëfficients for the Low Shelf version of these type of filters.
 
 $$ \alpha_m=\left(\frac{1}{2}-\frac{2m-1}{2M}\right)\pi $$
+
 $$ c_m=\cos(a_m) $$
+
 $$ V=\sqrt[M]{g}-1 $$
+
 $$ K=\tan\left(\frac{\Omega_B}{2}\right) $$
 
 * M is the filter order
@@ -103,6 +108,24 @@ $$ K=\tan\left(\frac{\Omega_B}{2}\right) $$
 
 $\Omega_B$ can be calculated usting the following formula:
 $$ \Omega_B = \frac{f_{band}}{f_{\frac{s}{2}}}\pi$$
+
+We are using the same biquad filters to implement the shelving filters. The transfer function given in the paper cannot be directly mapped to the $a_0$, $a_1$, $a_2$, $b_0$, $b_1$ and $a_2$ variables. After some calculation, this is the result:
+
+$$ a_0 = K^2 + 2K\cdot c_m + 1 $$
+
+$$ a_1 = 2K^2-2 $$
+
+$$ a_2 = K^2 - 2K\cdot c_m + 1 $$
+
+$$ b_0 = K^2(V^2+2V+1) + 2K\cdot c_m(V+1) +1 $$
+
+$$ b_1 = 2K^2(V^2+2V+1)-2 $$
+
+$$ b_0 = K^2(V^2+2V+1) - 2K\cdot c_m(V+1) +1 $$
+
+### High Shelf
+
+For the High Shelf, you have to do the same calculation as for the low shelf, however, to get a high shelf, you have to negate the $a_1$ and $b_1$ coëfficients.
 
 ### MATLAB Simulations
 To be continued ...
