@@ -115,6 +115,7 @@ begin
                             state <= e_data;
                             sample_counter <= 3;
                             dma_word <= dma_data;
+                            wr_en <= not full;
                         end if;
                     when e_data =>
                         dma_ready <= '0';
@@ -135,8 +136,11 @@ begin
                                 -- switch state
                                 dma_ready <= '1';
                                 state <= e_idle;
+                                wr_en <= '0';
                             end if;
                         end if;
+                    when e_wait =>
+                        state <= e_idle;
                 end case;
             end if;
         end if;
@@ -177,7 +181,7 @@ begin
         axi_fwd.TValid <= not empty;
         axi_fwd.TData <= data;
         axi_fwd.TID <= tid;
-        wr_en <= axi_bwd.TReady;
+        rd_en <= axi_bwd.TReady;
     end process;
 
 end Behavioral;

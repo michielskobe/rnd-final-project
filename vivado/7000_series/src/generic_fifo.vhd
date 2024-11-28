@@ -79,7 +79,7 @@ begin
       CDC_SYNC_STAGES => 2,           -- DECIMAL
       DOUT_RESET_VALUE => "0",        -- String
       ECC_MODE => "no_ecc",           -- String
-      EN_SIM_ASSERT_ERR => "warning", -- String
+      -- EN_SIM_ASSERT_ERR => "warning", -- String
       FIFO_MEMORY_TYPE => "auto",     -- String
       FIFO_READ_LATENCY => 0,         -- DECIMAL
       FIFO_WRITE_DEPTH => g_fifo_depth,       -- DECIMAL
