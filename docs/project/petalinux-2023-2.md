@@ -39,7 +39,25 @@ For convenience, we ensured that the wpa_supplicant.conf file contained a networ
 
 ### Changing the hostname
 
-Lastly, we changed the system's hostname from u96v2-sbc-base-2023-2 to blendinator to align with our project. The steps to perform this change are documented [here](petalinux-2024-1.md#changing-the-hostname).
+Furthermore, we changed the system's hostname from u96v2-sbc-base-2023-2 to blendinator to align with our project. The steps to perform this change are documented [here](petalinux-2024-1.md#changing-the-hostname).
+
+### Adding support for MIDI
+
+In this project, we will work with MIDI inputs. To be able to do this. We need to enable some Device Drivers. We do this by running the following command:
+
+``` bash
+petalinux-config -c kernel
+```
+
+We navigate to **Device Drivers** → **Sound cart support** → **Advanced Linux Sound Architecture** and enable `Sequencer support`.
+
+Next, we run the following command:
+
+``` bash
+petalinux-config -c rootfs
+```
+
+In the grahpical interface, we navigate to **Filesystem Packages** → **console** → **utils** → **alsa-utils** and enable `alsa-utils` and `alsa-utils-midi`.
 
 ## Building our PetaLinux project
 
@@ -62,7 +80,11 @@ petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --fpga images/linux
 
 ```
 
-The command to create a wic-image file stayed the same.
+The command to create a wic-image file is also slightly different:
+
+``` bash 
+petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,Image,system.dtb"
+```
 
 ## Booting the system
 
