@@ -125,7 +125,15 @@ $$ b_0 = K^2(V^2+2V+1) - 2K\cdot c_m(V+1) +1 $$
 
 ### High Shelf
 
-For the High Shelf, you have to do the same calculation as for the low shelf, however, to get a high shelf, you have to negate the $a_1$ and $b_1$ coëfficients.
+To calculate the High Shelf filter, follow the same procedure as for the Low Shelf filter. However, to achieve a High Shelf response, you need to negate the $a_1$ and $b_1$ coefficients.
+
+### Band Shelf
+
+To create a Band Shelf filter, the input signal is first amplified or attenuated to the desired gain. Then, a Low Shelf filter is cascaded with a High Shelf filter to amplify or attenuate the low ans high frequency bands, matching it to the level of the original input signal.
 
 ### MATLAB Simulations
-To be continued ...
+We did some MATLAB Simulations to verify whether the shelving filters work as intended.
+
+<img src="/img/direct_form_2_digital_biquad_filter.png"/>
+ 
+The image above illustrates, from left to right: a Low Shelf filter with a gain of -10dB and a bandwidth of 300Hz, a Band Shelf filter with a gain of -26dB and a bandwidth of 6kHz, and a High Shelf filter with a gain of +5dB and a bandwidth of 18kHz.
