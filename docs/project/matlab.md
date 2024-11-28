@@ -138,7 +138,7 @@ We did some MATLAB Simulations to verify whether the shelving filters work as in
  
 The image above illustrates, from left to right: a Low Shelf filter with a gain of -10dB and a bandwidth of 300Hz, a Band Shelf filter with a gain of -26dB and a bandwidth of 6kHz, and a High Shelf filter with a gain of +5dB and a bandwidth of 18kHz.
 
-## Simulink
+### Simulink
 
 We used the same Direct Form 2 Digital Biquad Filter in Simulink to test out the shelving filters. However, this fitler overflowed almost instantly. This is actually a disadvantage of the Direct Form 2 stucture, it can cause numbers to get too large to handle (arithmetic overflow) when using a certain combination of filter coëfficients.
 
@@ -155,7 +155,7 @@ Instead of calculating the filter coëfficients beforehand, we also added the fo
 
 <img src="/img/shelving_filter_coefficients.png"/>
 
-This was the result of simuling the Low Shelf filter with a bandwidth of 400Hz and a gain of +5dB when passing a sine wave of 100Hz and 400Hs through the filter.
+This was the result of simulating the Low Shelf filter with a bandwidth of 400Hz and a gain of +5dB when passing a sine wave of 100Hz and 400Hs through the filter.
 
 <img src="/img/low_shelf_100.png"/>
 
