@@ -18,17 +18,15 @@ public:
     ~AudioEffectWidget();
 
 private:
-    // Helper function to simplify layout creation
-    QVBoxLayout* createSectionLayout(QDial* high, QDial* mid, QDial* low,
-                                     QDial* highPass, QDial* lowPass,
-                                     QSlider* volume, QSlider* saturation,
-                                     QSlider* echo, QSlider* ringMod, const QString& sectionTitle, QWidget* parent);
+    // Helper functions to simplify layout creation
+    QVBoxLayout* createSectionLayout(QDial* high, QDial* mid, QDial* low, QDial* highPass, QDial* lowPass, QSlider* volume, QDial* saturation, QDial* echo, QDial* ringMod, const QString& sectionTitle, QWidget* parent, bool mirrored);
+    QVBoxLayout* createLabelAndWidget(const QString& labelText, QWidget* widget, QWidget* parent);
 
-    // Helper function for mirrored layout creation
-    QVBoxLayout* createMirroredSectionLayout(QDial* high, QDial* mid, QDial* low,
-                                             QDial* highPass, QDial* lowPass,
-                                             QSlider* volume, QSlider* saturation,
-                                             QSlider* echo, QSlider* ringMod, const QString& sectionTitle, QWidget* parent);
+    // Helper function to simplify QDial creation
+    QDial* createCustomQDial(int rangeMin, int rangeMax, bool wrapping, bool visibleNotches);
+
+    // Helper function to simplify QSlider creation
+    QSlider* createCustomQSlider(Qt::Orientation orientation, int rangeMin, int rangeMax, QSlider::TickPosition tickPosition);
 
     // Analog Section Widgets
     QDial *analogHighDial;
@@ -37,9 +35,9 @@ private:
     QDial *analogHighpassDial;
     QDial *analogLowpassDial;
     QSlider *analogVolumeSlider;
-    QSlider *analogSaturationSlider;
-    QSlider *analogEchoSlider;
-    QSlider *analogRingMdulationSlider;
+    QDial *analogSaturationDial;
+    QDial *analogEchoDial;
+    QDial *analogRingMdulationDial;
 
     // DMA Section Widgets
     QDial *dmaHighDial;
@@ -48,9 +46,9 @@ private:
     QDial *dmaHighpassDial;
     QDial *dmaLowpassDial;
     QSlider *dmaVolumeSlider;
-    QSlider *dmaSaturationSlider;
-    QSlider *dmaEchoSlider;
-    QSlider *dmaRingMdulationSlider;
+    QDial *dmaSaturationDial;
+    QDial *dmaEchoDial;
+    QDial *dmaRingMdulationDial;
 };
 
 #endif // AUDIOEFFECTWIDGET_H
