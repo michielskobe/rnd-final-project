@@ -61,6 +61,8 @@ architecture Behavioral of tb_biquad_3 is
     signal biquad_TID4_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
     signal biquad_TID5_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
     signal biquad_TID6_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
+    signal biquad_TID7_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
+    signal biquad_TID8_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
 
     signal biquad_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
     signal biquad_bwd : t_axi4_audio_bwd := (TReady => '1');
@@ -76,6 +78,12 @@ architecture Behavioral of tb_biquad_3 is
     
     signal biquad_5_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
     signal biquad_5_bwd : t_axi4_audio_bwd := (TReady => '1');
+
+    signal biquad_6_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
+    signal biquad_6_bwd : t_axi4_audio_bwd := (TReady => '1');
+
+    signal biquad_7_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
+    signal biquad_7_bwd : t_axi4_audio_bwd := (TReady => '1');
 
     signal axi_wav_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
     signal axi_wav_bwd : t_axi4_audio_bwd := (TReady => '1');
@@ -93,7 +101,14 @@ begin
      -- device under test
      i_dut: entity wav2axi
      generic map(
-        g_file_name => "Waiting.wav",
+        --g_file_name => "sine_sweep.wav",
+        --g_file_name => "sine_sweep_26.wav",
+        --g_file_name => "sine_sweep_10.wav",
+        --g_file_name => "Heads_Will_Roll.wav",
+        --g_file_name => "Waiting.wav",
+        g_file_name => "Waiting_2.wav",
+        --g_file_name => "Waiting_12.wav",
+        --g_file_name => "sine_sweep.wav",
         g_channel => 0,
         g_start_del => 50
      )
@@ -182,13 +197,39 @@ begin
          clk => clk,
          axi_in_fwd => biquad_TID6_fwd,
          axi_in_bwd => biquad_5_bwd,
+         axi_out_fwd => biquad_6_fwd,
+         axi_out_bwd => biquad_6_bwd
+     );
+
+     i_biquad_7: entity work.biquad_tdm
+      generic map(
+         g_coefficient_width => 27,
+         g_chip_scope => "False"
+     )
+      port map(
+         clk => clk,
+         axi_in_fwd => biquad_TID7_fwd,
+         axi_in_bwd => biquad_6_bwd,
+         axi_out_fwd => biquad_7_fwd,
+         axi_out_bwd => biquad_7_bwd
+     );
+
+     i_biquad_8: entity work.biquad_tdm
+      generic map(
+         g_coefficient_width => 27,
+         g_chip_scope => "False"
+     )
+      port map(
+         clk => clk,
+         axi_in_fwd => biquad_TID8_fwd,
+         axi_in_bwd => biquad_7_bwd,
          axi_out_fwd => axi_wav_fwd,
          axi_out_bwd => axi_wav_bwd
      );
 
      process (all)
      begin
-        biquad_TID1_fwd.TID <= wav_axi_fwd.TID; --+6;
+        biquad_TID1_fwd.TID <= wav_axi_fwd.TID;-- +12;
         biquad_TID1_fwd.TData <= wav_axi_fwd.TData;
         biquad_TID1_fwd.TLast <= wav_axi_fwd.TLast;
         biquad_TID1_fwd.TValid <= wav_axi_fwd.TValid;
@@ -218,12 +259,27 @@ begin
         biquad_TID6_fwd.TLast <= biquad_5_fwd.TLast;
         biquad_TID6_fwd.TValid <= biquad_5_fwd.TValid;
 
+        biquad_TID7_fwd.TID <= biquad_6_fwd.TID+2;
+        biquad_TID7_fwd.TData <= biquad_6_fwd.TData;
+        biquad_TID7_fwd.TLast <= biquad_6_fwd.TLast;
+        biquad_TID7_fwd.TValid <= biquad_6_fwd.TValid;
+
+        biquad_TID8_fwd.TID <= biquad_7_fwd.TID+2;
+        biquad_TID8_fwd.TData <= biquad_7_fwd.TData;
+        biquad_TID8_fwd.TLast <= biquad_7_fwd.TLast;
+        biquad_TID8_fwd.TValid <= biquad_7_fwd.TValid;
+
      end process;
 
      -- device under test
      i_dut_3: entity axi2wav
      generic map(
-        g_file_name => "Waiting_out_4.wav",
+        --g_file_name => "sine_sweep_out_Band_shelf_2.wav",
+        --g_file_name => "Heads_Will_Roll_Out_Low_Pass.wav",
+        --g_file_name => "Waiting_Out_12.wav",
+        g_file_name => "Waiting_Out_2.wav",
+        --g_file_name => "sine_sweep_10_out.wav",
+        --g_file_name => "sine_sweep_out.wav",
         g_channel => 0 
      )
      port map(

@@ -15,6 +15,7 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
+use ieee.MATH_REAL.all;
 use IEEE.fixed_pkg.all;
 
 use work.axi4_audio_pkg.all;
@@ -49,7 +50,7 @@ architecture rtl of ring_modulator is
   constant PI_POS: signed(15 downto 0) := "0110010011101001";
   constant PI_NEG: signed(15 downto 0) := "1001101100010111";
   
-  signal phase_increment: integer := 10;
+  signal phase_increment: integer := 256;
   signal ring_mod_on_off: std_logic := '1';
 
   signal Cordic_Phase: signed(15 downto 0) := (others => '0');
@@ -71,6 +72,7 @@ architecture rtl of ring_modulator is
   signal full : std_logic;
   signal din : std_logic_vector(15 downto 0) := (others => '0');
   signal wr_en : std_logic := '0';
+  signal wr_data_count: std_logic_vector(integer(ceil(log2(real(32)))) downto 0);
   signal almost_empty : std_logic;
   signal empty : std_logic;
   signal dout : std_logic_vector(15 downto 0) := (others => '0');
@@ -139,11 +141,11 @@ BEGIN
    port map(
       clk_in => clk,
       clk_out => clk,
-      almost_full => almost_full,
+      almost_full => almost_full, -- Doesn't work because xpm :(
       full => full,
       din => din,
       wr_en => wr_en,
-      --wr_data_count => wr_data_count,
+      wr_data_count => wr_data_count,
       rst => '0',
       --wr_rst_busy => wr_rst_busy,
       almost_empty => almost_empty,
@@ -155,19 +157,28 @@ BEGIN
       --rd_rst_busy => rd_rst_busy
   );
 
-  Cordic_TReady_Out <= not full;
-
   fifo_input_process : process (clk)
   begin
     if rising_edge(clk) then
       wr_en <= '0';
 
-      if Cordic_TValid_Out = '1' and Cordic_TReady_Out = '1' then
+      if Cordic_TValid_Out = '1' and unsigned(wr_data_count) < 31 then
         wr_en <= '1';
         din   <= Cordic_Cosine;
       end if;
 
     end if;
+  end process;
+
+  process (all)
+  begin
+
+    Cordic_TReady_Out <= '0';
+
+    if (unsigned(wr_data_count) < 31) then
+      Cordic_TReady_Out <= '1';
+    end if;
+  
   end process;
 
   -------------------------------------

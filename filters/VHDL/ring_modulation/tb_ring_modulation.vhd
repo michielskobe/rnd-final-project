@@ -86,7 +86,7 @@ begin
      
      ring_modulator_inst: entity work.ring_modulator
       generic map(
-         g_TID_count => 1,
+         g_TID_count => 2,
          g_chip_scope => "False"
      )
       port map(
@@ -100,7 +100,7 @@ begin
      -- device under test
      i_dut_2: entity axi2wav
      generic map(
-        g_file_name => "sine_sweep_out_ring_mod2.wav",
+        g_file_name => "sine_sweep_out_ring_mod3.wav",
         g_channel => 0 
      )
      port map(

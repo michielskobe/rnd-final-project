@@ -1,3 +1,8 @@
+----------------------------------------------------------------
+-- Company: KUL - rnd embed - Beats N Bytes
+-- Engineer: Wout Lyen
+-- Project Name: Blendinator
+----------------------------------------------------------------
 -- -------------------------------------------------------------
 -- 
 -- File Name: echo_tdm.vhd
@@ -46,11 +51,11 @@ architecture rtl of echo_tdm is
   type t_coefficient_array is array (0 to 2**c_ID_width) of sfixed(g_coefficient_width -1 downto 0);
   signal coefficient_array : t_coefficient_array := (others => to_sfixed(0.5, 0, -23));
 
-  type t_data_array is array (0 to g_delay*2**c_ID_width) of signed(c_audio_width -1 downto 0);
-  signal data_array : t_data_array := (others => (others => '0'));
-  
-  attribute RAM_STYLE : string;
-  attribute RAM_STYLE of data_array: signal is "BLOCK";
+  constant bram_size : natural := g_delay*2**c_ID_width;
+  type t_data_array is array (0 to bram_size -1) of std_logic_vector(c_audio_width -1 downto 0);
+  signal data_array : t_data_array;-- := (others => (others => '0'));
+  attribute ram_style : string;
+  attribute ram_style of data_array: signal is "block";
 
   type t_counter_array is array (0 to 2**c_ID_width) of unsigned(integer(ceil(log2(real(g_delay) - real(1)))) downto 0);
   signal counter_array : t_counter_array := (others => (others => '0'));
@@ -155,6 +160,7 @@ BEGIN
   -- Fetch Data and update Counter
   -------------------------------------
   fetch_process_2 : process (clk)
+    variable addr : integer := 0;
   begin
     if rising_edge(clk) then
       if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
@@ -166,7 +172,8 @@ BEGIN
         TID_counter_2 <= TID_counter;
 
         --Fetch prev data from mem
-        TID_Prev_Data <= data_array(to_integer(unsigned(to_integer(unsigned(TID_stage_2))*g_delay+TID_counter)));
+        addr := to_integer(unsigned(to_integer(unsigned(TID_stage_2))*g_delay+TID_counter));
+        TID_Prev_Data <= signed(data_array(addr));
 
         --Update counter in mem
         counter_array(to_integer(unsigned(TID_stage_2))) <= (TID_counter+1) mod g_delay;
@@ -213,6 +220,7 @@ BEGIN
   -- Output Data
   -------------------------------------
   data_output_process : process (clk)
+    variable addr : integer := 0;
   begin
     if rising_edge(clk) then
       if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
@@ -221,7 +229,8 @@ BEGIN
         axi_out_fwd.TID   <= TID_stage_4;
 
         -- Move Data from Filter
-        data_array(to_integer(unsigned(to_integer(unsigned(TID_stage_4))*g_delay+TID_counter))) <= TData_stage_5;
+        addr := to_integer(unsigned(to_integer(unsigned(TID_stage_4))*g_delay+TID_counter));
+        data_array(addr) <= std_logic_vector(TData_stage_5);
 
       end if;
     end if;
