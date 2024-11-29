@@ -1,57 +1,93 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.428774",
-   "Default View_TopLeft":"278,-61",
+   "Default View_ScaleFactor":"0.993222",
+   "Default View_TopLeft":"986,671",
    "ExpandedHierarchyInLayout":"",
    "PinnedBlocks":"",
    "guistr":"# # String gsaved with Nlview 7.5.8 2022-09-21 7111 VDI=41 GEI=38 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port wifi_en_led -pg 1 -lvl 8 -x 2600 -y 70 -defaultsOSRD
-preplace port bt_en_led -pg 1 -lvl 8 -x 2600 -y 100 -defaultsOSRD
-preplace port fan_pwm -pg 1 -lvl 8 -x 2600 -y 320 -defaultsOSRD
+preplace port wifi_en_led -pg 1 -lvl 7 -x 2980 -y 70 -defaultsOSRD
+preplace port bt_en_led -pg 1 -lvl 7 -x 2980 -y 100 -defaultsOSRD
+preplace port fan_pwm -pg 1 -lvl 7 -x 2980 -y 320 -defaultsOSRD
 preplace port port-id_bt_ctsn -pg 1 -lvl 0 -x 0 -y 780 -defaultsOSRD
-preplace port port-id_bt_rtsn -pg 1 -lvl 8 -x 2600 -y 160 -defaultsOSRD
-preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 5 -x 1660 -y 300 -defaultsOSRD
-preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 210 -y 680 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 7 -x 2460 -y 80 -defaultsOSRD
-preplace inst axi_gpio_1 -pg 1 -lvl 7 -x 2460 -y 320 -defaultsOSRD
-preplace inst ps8_0_axi_periph -pg 1 -lvl 6 -x 2150 -y 400 -defaultsOSRD
-preplace inst axi_intc_0 -pg 1 -lvl 7 -x 2460 -y 610 -defaultsOSRD
-preplace inst axi_dma_0 -pg 1 -lvl 3 -x 840 -y 290 -defaultsOSRD
-preplace inst axi_smc -pg 1 -lvl 4 -x 1200 -y 260 -defaultsOSRD
-preplace inst axis_data_fifo_0 -pg 1 -lvl 2 -x 530 -y 490 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 4 -x 1200 -y 90 -defaultsOSRD
-preplace inst axi_lite_0 -pg 1 -lvl 7 -x 2460 -y 460 -defaultsOSRD
-preplace netloc axi_dma_0_mm2s_introut 1 3 1 1020 80n
-preplace netloc axi_dma_0_s2mm_introut 1 3 1 1060 100n
-preplace netloc bt_ctsn_1 1 0 6 NJ 780 NJ 780 NJ 780 NJ 780 NJ 780 1970
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 6 400 410 650 140 1050 20 NJ 20 2000 100 2320
-preplace netloc xlconcat_0_dout 1 4 1 1340 90n
-preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 5 3 1960J 160 NJ 160 NJ
-preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 7 30 510 390 400 660 170 1040 170 1360 170 1990 170 2340
-preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 6 30 790 NJ 790 NJ 790 NJ 790 NJ 790 1960
-preplace netloc axi_dma_0_M_AXIS_MM2S 1 1 3 410 150 NJ 150 1010
-preplace netloc axi_dma_0_M_AXI_MM2S 1 3 1 N 230
-preplace netloc axi_dma_0_M_AXI_S2MM 1 3 1 N 250
-preplace netloc axi_gpio_0_GPIO 1 7 1 NJ 70
-preplace netloc axi_gpio_0_GPIO2 1 7 1 2580J 90n
-preplace netloc axi_gpio_1_GPIO 1 7 1 NJ 320
-preplace netloc axi_smc_M00_AXI 1 4 1 N 260
-preplace netloc axis_data_fifo_0_M_AXIS 1 2 1 670 260n
-preplace netloc ps8_0_axi_periph_M00_AXI 1 6 1 2310 60n
-preplace netloc ps8_0_axi_periph_M01_AXI 1 6 1 2330 300n
-preplace netloc ps8_0_axi_periph_M02_AXI 1 6 1 2330 400n
-preplace netloc ps8_0_axi_periph_M03_AXI 1 2 5 670 160 NJ 160 1350J 150 NJ 150 2300
-preplace netloc ps8_0_axi_periph_M04_AXI 1 6 1 N 440
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 5 1 N 230
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 5 1 N 250
-levelinfo -pg 1 0 210 530 840 1200 1660 2150 2460 2600
-pagesize -pg 1 -db -bbox -sgen -100 0 2730 800
+preplace port port-id_bt_rtsn -pg 1 -lvl 7 -x 2980 -y 160 -defaultsOSRD
+preplace port port-id_ad_sdout -pg 1 -lvl 0 -x 0 -y 1000 -defaultsOSRD
+preplace port port-id_ad_mclk -pg 1 -lvl 7 -x 2980 -y 750 -defaultsOSRD
+preplace port port-id_ad_lrclk -pg 1 -lvl 7 -x 2980 -y 780 -defaultsOSRD
+preplace port port-id_ad_sclk -pg 1 -lvl 7 -x 2980 -y 810 -defaultsOSRD
+preplace port port-id_da_mclk -pg 1 -lvl 7 -x 2980 -y 960 -defaultsOSRD
+preplace port port-id_da_lrclk -pg 1 -lvl 7 -x 2980 -y 870 -defaultsOSRD
+preplace port port-id_da_sclk -pg 1 -lvl 7 -x 2980 -y 900 -defaultsOSRD
+preplace port port-id_da_sin -pg 1 -lvl 7 -x 2980 -y 930 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 4 -x 1840 -y 300 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 390 -y 680 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 6 -x 2820 -y 80 -defaultsOSRD
+preplace inst axi_gpio_1 -pg 1 -lvl 6 -x 2820 -y 320 -defaultsOSRD
+preplace inst ps8_0_axi_periph -pg 1 -lvl 5 -x 2450 -y 400 -defaultsOSRD
+preplace inst axi_intc_0 -pg 1 -lvl 6 -x 2820 -y 610 -defaultsOSRD
+preplace inst axi_dma_0 -pg 1 -lvl 2 -x 840 -y 290 -defaultsOSRD
+preplace inst axi_smc -pg 1 -lvl 3 -x 1260 -y 260 -defaultsOSRD
+preplace inst axis_data_fifo_0 -pg 1 -lvl 3 -x 1260 -y 530 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 3 -x 1260 -y 90 -defaultsOSRD
+preplace inst axi_lite_0 -pg 1 -lvl 6 -x 2820 -y 460 -defaultsOSRD
+preplace inst I2S_wrapper_0 -pg 1 -lvl 5 -x 2450 -y 1020 -defaultsOSRD
+preplace inst dma_splitter_wrapper_0 -pg 1 -lvl 3 -x 1260 -y 810 -defaultsOSRD
+preplace inst audio_fifo_wrapper_0 -pg 1 -lvl 4 -x 1840 -y 860 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 4 -x 1840 -y 520 -defaultsOSRD
+preplace inst system_ila_0 -pg 1 -lvl 5 -x 2450 -y 750 -defaultsOSRD
+preplace inst system_ila_1 -pg 1 -lvl 6 -x 2820 -y 1010 -defaultsOSRD
+preplace netloc I2S_wrapper_0_data_out 1 5 2 2690J 880 2950J
+preplace netloc I2S_wrapper_0_lrclk_r 1 5 2 2660J 780 NJ
+preplace netloc I2S_wrapper_0_lrclk_t 1 5 2 2630J 870 NJ
+preplace netloc I2S_wrapper_0_mclk_r 1 5 2 2600J 750 NJ
+preplace netloc I2S_wrapper_0_mclk_t 1 5 2 2700J 890 2940J
+preplace netloc I2S_wrapper_0_s_TReady_in 1 4 2 2230 140 2650
+preplace netloc I2S_wrapper_0_sclk_r 1 5 2 2610J 810 NJ
+preplace netloc I2S_wrapper_0_sclk_t 1 5 2 2680J 860 2960J
+preplace netloc audio_fifo_wrapper_0_s_TData_out 1 4 1 2150 850n
+preplace netloc audio_fifo_wrapper_0_s_TID_out 1 4 1 2160 830n
+preplace netloc audio_fifo_wrapper_0_s_TLast_out 1 4 1 2140 870n
+preplace netloc audio_fifo_wrapper_0_s_TReady_in 1 3 2 1500 680 2260
+preplace netloc audio_fifo_wrapper_0_s_TValid_out 1 4 2 2240 160 2640
+preplace netloc axi_dma_0_mm2s_introut 1 2 1 1010 80n
+preplace netloc axi_dma_0_s2mm_introut 1 2 1 1030 100n
+preplace netloc axis_data_fifo_0_m_axis_tdata 1 2 3 1060 670 1460 670 2270
+preplace netloc axis_data_fifo_0_m_axis_tlast 1 2 2 1090 680 1430
+preplace netloc axis_data_fifo_0_m_axis_tvalid 1 2 3 1080 650 1440 650 2280
+preplace netloc bt_ctsn_1 1 0 5 20J 570 NJ 570 1030J 630 NJ 630 2170
+preplace netloc clk_wiz_0_clk_out1 1 3 3 1540 1000 2200 130 2670
+preplace netloc data_in_0_1 1 0 5 NJ 1000 NJ 1000 NJ 1000 1430J 1110 NJ
+preplace netloc dma_splitter_wrapper_0_dma_ready 1 3 2 1450J 660 2250
+preplace netloc dma_splitter_wrapper_0_s_TData_out 1 3 2 1510 690 2210
+preplace netloc dma_splitter_wrapper_0_s_TID_out 1 3 2 1540 720 2180
+preplace netloc dma_splitter_wrapper_0_s_TLast_out 1 3 2 1520 700 2190
+preplace netloc dma_splitter_wrapper_0_s_TValid_out 1 3 2 1530 710 2170
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 5 670 420 1080 430 NJ 430 2300 120 2700
+preplace netloc xlconcat_0_dout 1 3 1 1500 90n
+preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 4 3 2210J 150 2680J 160 NJ
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 6 210 410 660 410 1070 350 1490 440 2290 110 2690
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 5 200 580 NJ 580 1010J 640 1470J 620 2140
+preplace netloc axi_dma_0_M_AXIS_MM2S 1 2 1 1020 270n
+preplace netloc axi_dma_0_M_AXI_MM2S 1 2 1 N 230
+preplace netloc axi_dma_0_M_AXI_S2MM 1 2 1 N 250
+preplace netloc axi_gpio_0_GPIO 1 6 1 NJ 70
+preplace netloc axi_gpio_0_GPIO2 1 6 1 2960J 90n
+preplace netloc axi_gpio_1_GPIO 1 6 1 NJ 320
+preplace netloc axi_smc_M00_AXI 1 3 1 N 260
+preplace netloc ps8_0_axi_periph_M00_AXI 1 5 1 2610 60n
+preplace netloc ps8_0_axi_periph_M01_AXI 1 5 1 2620 300n
+preplace netloc ps8_0_axi_periph_M02_AXI 1 5 1 2660 400n
+preplace netloc ps8_0_axi_periph_M03_AXI 1 1 5 670 170 NJ 170 NJ 170 NJ 170 2600
+preplace netloc ps8_0_axi_periph_M04_AXI 1 5 1 N 440
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 4 1 N 230
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 4 1 N 250
+levelinfo -pg 1 0 390 840 1260 1840 2450 2820 2980
+pagesize -pg 1 -db -bbox -sgen -120 -130 3110 1170
 "
 }
 {
    "da_axi4_cnt":"8",
-   "da_board_cnt":"1",
+   "da_board_cnt":"2",
    "da_clkrst_cnt":"2",
    "da_zynq_ultra_ps_e_cnt":"2"
 }

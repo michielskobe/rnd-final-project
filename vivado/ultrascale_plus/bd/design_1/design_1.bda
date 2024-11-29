@@ -190,8 +190,8 @@
             },
             "V3": {
                 "VT": "AC",
-                "BA": "0x00000000",
-                "HA": "0x7FFFFFFF",
+                "BA": "0x0000000000000000",
+                "HA": "0x000000007FFFFFFF",
                 "BP": "C_BASEADDR",
                 "HP": "C_HIGHADDR",
                 "MA": "Data_MM2S",
@@ -209,8 +209,8 @@
             },
             "V4": {
                 "VT": "AC",
-                "BA": "0x00000000",
-                "HA": "0x7FFFFFFF",
+                "BA": "0x0000000000000000",
+                "HA": "0x000000007FFFFFFF",
                 "BP": "C_BASEADDR",
                 "HP": "C_HIGHADDR",
                 "MA": "Data_S2MM",
@@ -319,8 +319,8 @@
             },
             "V10": {
                 "VT": "ACE",
-                "BA": "0xFF000000",
-                "HA": "0xFFFFFFFF",
+                "BA": "0x00000000FF000000",
+                "HA": "0x00000000FFFFFFFF",
                 "BP": "C_BASEADDR",
                 "HP": "C_HIGHADDR",
                 "MA": "Data_MM2S",
@@ -338,8 +338,8 @@
             },
             "V11": {
                 "VT": "ACE",
-                "BA": "0xFF000000",
-                "HA": "0xFFFFFFFF",
+                "BA": "0x00000000FF000000",
+                "HA": "0x00000000FFFFFFFF",
                 "BP": "C_BASEADDR",
                 "HP": "C_HIGHADDR",
                 "MA": "Data_S2MM",

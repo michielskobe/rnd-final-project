@@ -45,10 +45,6 @@ entity dma_splitter is
         signal clk : in STD_LOGIC;
         signal rest: in STD_LOGIC;
 
-        -- clock outputs
-        signal mclk : out STD_LOGIC;
-        signal lrclk: out STD_LOGIC;
-        signal sclk : out STD_LOGIC;
 
         -- data inputs
         dma_valid : in STD_LOGIC;
@@ -97,6 +93,12 @@ architecture Behavioral of dma_splitter is
     -------------------------------------
     attribute MARK_DEBUG : string;
 
+    attribute MARK_DEBUG of full : signal is g_chip_scope;
+    attribute MARK_DEBUG of wr_en : signal is g_chip_scope;
+    attribute MARK_DEBUG of empty : signal is g_chip_scope;
+    attribute MARK_DEBUG of rd_en : signal is g_chip_scope;
+    attribute MARK_DEBUG of sample_counter : signal is g_chip_scope;
+    attribute MARK_DEBUG of state : signal is g_chip_scope;
 begin
 
     -- TODO: TB maken fucker
@@ -115,16 +117,16 @@ begin
                             state <= e_data;
                             sample_counter <= 3;
                             dma_word <= dma_data;
-                            wr_en <= not full;
+                            -- wr_en <= not full;
                         end if;
                     when e_data =>
                         dma_ready <= '0';
-                        wr_en <= '0';
+                        -- wr_en <= '0';
                         -- this is quite the mux, if I had more time, it would have been better ¯\_(?)_/¯
                         -- check if the fifo is full
                         if full = '0' then
                             sample_counter <= sample_counter -1;
-                            wr_en <= '1';
+                            -- wr_en <= '1';
                             if sample_counter = 3 then
                                 din <= dma_word(23 downto 0) & g_channel_offset; --this is a guess of where the first sample is 
                             elsif sample_counter = 2 then
@@ -136,13 +138,23 @@ begin
                                 -- switch state
                                 dma_ready <= '1';
                                 state <= e_idle;
-                                wr_en <= '0';
+                                -- wr_en <= '0';
                             end if;
                         end if;
                     when e_wait =>
                         state <= e_idle;
                 end case;
             end if;
+        end if;
+    end process;
+
+    process(all)
+    begin
+        -- test
+        if state = e_data then
+            wr_en <= not full;
+        else 
+            wr_en <= '0';
         end if;
     end process;
 

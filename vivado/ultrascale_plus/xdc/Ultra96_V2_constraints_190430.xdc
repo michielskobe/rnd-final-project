@@ -1,23 +1,20 @@
-# ----------------------------------------------------------------------------  
+# ----------------------------------------------------------------------------
 #       __ __
-#      / / \ \
-#     / /   \ \
-#    / /     \ \ 
-#   / / AVNET \ \          www.ultra96.org
+#      / / \ #     / /   \ #    / /     \ #   / / AVNET \ \          www.ultra96.org
 #
 # ----------------------------------------------------------------------------
-# 
-#  Created With Avnet Constraints Generator V0.8.0 
-#     Date: Tuesdat, April 30, 2019 
-#     Time: 12:40 PM 
-# 
+#
+#  Created With Avnet Constraints Generator V0.8.0
+#     Date: Tuesdat, April 30, 2019
+#     Time: 12:40 PM
+#
 #  This design is the property of Avnet.  Publication of this
 #  design is not authorized without written consent from Avnet.
-#  
+#
 #  Please direct any questions to:
 #     Avnet Ultra96 Forums
-#     http://avnet.me/ultra96-community	
-# 
+#     http://avnet.me/ultra96-community
+#
 #  Disclaimer:
 #     Avnet, Inc. makes no warranty for the use of this code or design.
 #     This code is provided  "As Is". Avnet, Inc assumes no responsibility for
@@ -26,24 +23,24 @@
 #     disclaims any implied warranties of fitness for a particular purpose.
 #                      Copyright(c) 2019 Avnet, Inc.
 #                              All rights reserved.
-# 
+#
 # ----------------------------------------------------------------------------
-# 
-#  Notes: 
+#
+#  Notes:
 # 				2019 Apr 19 -- Initial version
 #
 #     IO standard for Bank 26 Vcco supply is fixed at 1.8V
 #     IO standard for Bank 65 Vcco supply is fixed at 1.2V
-# 
+#
 #     Net names are not allowed to contain hyphen characters '-' since this
-#     is not a legal VHDL87 or Verilog character within an identifier.  
-#     HDL net names are adjusted to contain no hyphen characters '-' but 
-#     rather use underscore '_' characters.  Comment net name with the hyphen 
-#     characters will remain in place since these are intended to match the 
+#     is not a legal VHDL87 or Verilog character within an identifier.
+#     HDL net names are adjusted to contain no hyphen characters '-' but
+#     rather use underscore '_' characters.  Comment net name with the hyphen
+#     characters will remain in place since these are intended to match the
 #     schematic net names in order to better enable schematic search.
 #
 # ----------------------------------------------------------------------------
- 
+
 
 #######################################################################
 # Ultra96 Bluetooth UART Modem Signals
@@ -68,14 +65,13 @@ set_property PACKAGE_PIN B9 [get_ports {bt_en_led_tri_o[0]}]
 #######################################################################
 # Ultra96 Fan
 #######################################################################
-set_property IOSTANDARD LVCMOS12 [get_ports {fan_pwm_tri_o[0]}]
 
 #FAN_PWM on FPGA
 set_property PACKAGE_PIN F4 [get_ports {fan_pwm_tri_o[0]}]
 
 # ----------------------------------------------------------------------------
 # High-speed expansion connector
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------
 # Bank 65
 set_property PACKAGE_PIN P1   [get_ports {CSI0_C_N               }];  # "P1.CSI0_C_N"
 set_property PACKAGE_PIN N2   [get_ports {CSI0_C_P               }];  # "N2.CSI0_C_P"
@@ -115,28 +111,28 @@ set_property PACKAGE_PIN D8   [get_ports {CSI1_MCLK              }];  # "D8.CSI1
 # IOSTANDARD Constraints
 #
 # Note that these IOSTANDARD constraints are applied to all IOs currently
-# assigned within an I/O bank.  If these IOSTANDARD constraints are 
-# evaluated prior to other PACKAGE_PIN constraints being applied, then 
-# the IOSTANDARD specified will likely not be applied properly to those 
-# pins.  Therefore, bank wide IOSTANDARD constraints should be placed 
-# within the XDC file in a location that is evaluated AFTER all 
+# assigned within an I/O bank.  If these IOSTANDARD constraints are
+# evaluated prior to other PACKAGE_PIN constraints being applied, then
+# the IOSTANDARD specified will likely not be applied properly to those
+# pins.  Therefore, bank wide IOSTANDARD constraints should be placed
+# within the XDC file in a location that is evaluated AFTER all
 # PACKAGE_PIN constraints within the target bank have been evaluated.
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------
 
 # Set the bank voltage for IO Bank 26 to 1.8V
-set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 26]];
+set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 26]]
 
 # Set the bank voltage for IO Bank 65 to 1.2V
-set_property IOSTANDARD LVCMOS12 [get_ports -of_objects [get_iobanks 65]];
+set_property IOSTANDARD LVCMOS12 [get_ports -of_objects [get_iobanks 65]]
 
 # Set the bank voltage for IO Bank 66 to 1.2V
 set_property IOSTANDARD LVCMOS12 [get_ports -of_objects [get_iobanks 66]];
 
 # ----------------------------------------------------------------------------
-# PS MIO - 
+# PS MIO -
 # For reference only - these are assigned in the FSBL
 # Pin Location and IOSTANDARD constraints are not necessary
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------
 
 # J1 UART
 #set_property PACKAGE_PIN U4   [get_ports {MIO0_UART1_TX          }];  # "U4.MIO0_UART1_TX"
@@ -309,7 +305,7 @@ set_property PACKAGE_PIN AA22 [get_ports {PS_DDR_CAA0            }];  # "AA22.PS
 
 # ----------------------------------------------------------------------------
 # USB Transceiver -- 26 MHz clock
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------
 # Bank 505
 #set_property PACKAGE_PIN L20  [get_ports {U26M_N                 }];  # "L20.U26M_N"
 #set_property PACKAGE_PIN L19  [get_ports {U26M_P                 }];  # "L19.U26M_P"
@@ -324,7 +320,7 @@ set_property PACKAGE_PIN AA22 [get_ports {PS_DDR_CAA0            }];  # "AA22.PS
 
 # ----------------------------------------------------------------------------
 # Display Port -- 27 MHz clock
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------
 # Bank 505
 #set_property PACKAGE_PIN J20  [get_ports {U27M_N                 }];  # "J20.U27M_N"
 #set_property PACKAGE_PIN J19  [get_ports {U27M_P                 }];  # "J19.U27M_P"
@@ -340,3 +336,4 @@ set_property PACKAGE_PIN AA22 [get_ports {PS_DDR_CAA0            }];  # "AA22.PS
 #set_property PACKAGE_PIN B21  [get_ports {GTR_LANE3_RX_P         }];  # "B21.GTR_LANE3_RX_P"
 #set_property PACKAGE_PIN A20  [get_ports {GTR_LANE3_TX_N         }];  # "A20.GTR_LANE3_TX_N"
 #set_property PACKAGE_PIN A19  [get_ports {GTR_LANE3_TX_P         }];  # "A19.GTR_LANE3_TX_P"
+

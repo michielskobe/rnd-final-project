@@ -64,7 +64,7 @@ begin
       CDC_SYNC_STAGES => 2,            -- DECIMAL
       CLOCKING_MODE => "independent_clock", -- String
       ECC_MODE => "no_ecc",            -- String
-      EN_SIM_ASSERT_ERR => "warning",  -- String
+      -- EN_SIM_ASSERT_ERR => "warning",  -- String
       FIFO_DEPTH => g_fifo_depth,              -- DECIMAL
       FIFO_MEMORY_TYPE => "auto",      -- String
       PACKET_FIFO => "false",          -- String

@@ -4,8 +4,8 @@
 -- Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
 -- Date        : Wed Nov 27 14:23:39 2024
 -- Host        : fedora running 64-bit unknown
--- Command     : write_vhdl -force -mode funcsim
---               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_axi_lite_0_0/design_1_axi_lite_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top design_1_axi_lite_0_0 -prefix
+--               design_1_axi_lite_0_0_ design_1_axi_lite_0_0_sim_netlist.vhdl
 -- Design      : design_1_axi_lite_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -35,8 +35,6 @@ entity design_1_axi_lite_0_0_axi_lite_slave_lite_v1_0_S00_AXI is
     s00_axi_rready : in STD_LOGIC;
     s00_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_axi_lite_0_0_axi_lite_slave_lite_v1_0_S00_AXI : entity is "axi_lite_slave_lite_v1_0_S00_AXI";
 end design_1_axi_lite_0_0_axi_lite_slave_lite_v1_0_S00_AXI;
 
 architecture STRUCTURE of design_1_axi_lite_0_0_axi_lite_slave_lite_v1_0_S00_AXI is
@@ -2089,8 +2087,6 @@ entity design_1_axi_lite_0_0_axi_lite is
     s00_axi_rready : in STD_LOGIC;
     s00_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_axi_lite_0_0_axi_lite : entity is "axi_lite";
 end design_1_axi_lite_0_0_axi_lite;
 
 architecture STRUCTURE of design_1_axi_lite_0_0_axi_lite is

@@ -58,7 +58,7 @@ architecture Behavioral of tb_dma_splitter is
     -- AXI streams
     ------------------------------------
     signal axi_fwd : t_axi4_audio_fwd;
-    signal axi_bwd : t_axi4_audio_bwd := (TReady => '1');
+    signal axi_bwd : t_axi4_audio_bwd := (TReady => '0');
     signal rest : STD_LOGIC := '0';
 
     signal dma_valid : STD_LOGIC := '0';
@@ -78,6 +78,20 @@ begin
         wait until rising_edge(clk);
 
         dma_valid <= '1';
+    end process;
+
+    process 
+    begin
+        for i in 0 to 1024 loop
+            wait until rising_edge(clk);
+        end loop;
+            axi_bwd.TReady <= '1';
+            wait until rising_edge(clk);
+            axi_bwd.TReady <= '0';
+            wait until rising_edge(clk);
+            dma_data <= dma_data +1;
+            wait until rising_edge(clk);
+
     end process;
 
     dma_splitter_inst: entity work.dma_splitter
