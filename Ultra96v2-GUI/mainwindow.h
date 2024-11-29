@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTabWidget>
 #include "bluetoothwidget.h"
+#include "audioeffectwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,7 +22,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QTabWidget *tabWidget;
     BluetoothWidget *bluetoothWidget;
+    AudioEffectWidget *audioEffectWidget;
 };
 
 #endif // MAINWINDOW_H

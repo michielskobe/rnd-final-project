@@ -90,4 +90,5 @@ nav:
    - Filters: 
       - MATLAB/Simulink: project/matlab.md
       - HDL: project/hdl_filters.md
-
+    - Qt:
+      - Bluetooth Qt: project/
