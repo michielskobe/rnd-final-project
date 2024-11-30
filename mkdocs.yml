@@ -90,3 +90,8 @@ nav:
    - Filters: 
       - MATLAB/Simulink: project/matlab.md
       - HDL: project/hdl_filters.md
+   - Qt:
+      - Qt application: project/qt.md
+      - Qt Bluetooth Widget: project/qt_bluetooth.md
+      - Qt Audio Effects Widget: project/qt_audio.md
+
