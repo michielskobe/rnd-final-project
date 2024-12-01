@@ -2,10 +2,10 @@
 -- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
--- Date        : Fri Nov 29 10:59:58 2024
+-- Date        : Sun Dec  1 20:32:48 2024
 -- Host        : fedora running 64-bit unknown
--- Command     : write_vhdl -force -mode funcsim -rename_top design_1_I2S_wrapper_0_0 -prefix
---               design_1_I2S_wrapper_0_0_ design_1_I2S_wrapper_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_I2S_wrapper_0_0/design_1_I2S_wrapper_0_0_sim_netlist.vhdl
 -- Design      : design_1_I2S_wrapper_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -22,6 +22,8 @@ entity design_1_I2S_wrapper_0_0_I2S_clock_gen is
     sclk : out STD_LOGIC;
     lrclk : out STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_I2S_clock_gen : entity is "I2S_clock_gen";
   attribute g_chip_scope : string;
   attribute g_chip_scope of design_1_I2S_wrapper_0_0_I2S_clock_gen : entity is "True";
   attribute g_clock_div_lrclk : integer;
@@ -1366,6 +1368,8 @@ entity design_1_I2S_wrapper_0_0_I2S_rec is
     \axi_out_fwd[TID]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
     \axi_out_bwd[TReady]\ : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_I2S_rec : entity is "I2S_rec";
   attribute g_channel_offset : string;
   attribute g_channel_offset of design_1_I2S_wrapper_0_0_I2S_rec : entity is "4'b0000";
   attribute g_chip_scope : string;
@@ -3240,6 +3244,8 @@ entity design_1_I2S_wrapper_0_0_I2S_trans is
     \axi_in_fwd[TID]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
     \axi_in_bwd[TReady]\ : out STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_I2S_trans : entity is "I2S_trans";
   attribute g_channel_offset : string;
   attribute g_channel_offset of design_1_I2S_wrapper_0_0_I2S_trans : entity is "4'b0000";
   attribute g_chip_scope : string;
@@ -5172,6 +5178,8 @@ entity design_1_I2S_wrapper_0_0_xpm_cdc_gray is
   attribute DEST_SYNC_FF of design_1_I2S_wrapper_0_0_xpm_cdc_gray : entity is 2;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of design_1_I2S_wrapper_0_0_xpm_cdc_gray : entity is 1;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_cdc_gray : entity is "xpm_cdc_gray";
   attribute REG_OUTPUT : integer;
   attribute REG_OUTPUT of design_1_I2S_wrapper_0_0_xpm_cdc_gray : entity is 0;
   attribute SIM_ASSERT_CHK : integer;
@@ -6337,6 +6345,8 @@ entity design_1_I2S_wrapper_0_0_xpm_cdc_sync_rst is
   attribute INIT of design_1_I2S_wrapper_0_0_xpm_cdc_sync_rst : entity is "0";
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of design_1_I2S_wrapper_0_0_xpm_cdc_sync_rst : entity is 1;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_cdc_sync_rst : entity is "xpm_cdc_sync_rst";
   attribute SIM_ASSERT_CHK : integer;
   attribute SIM_ASSERT_CHK of design_1_I2S_wrapper_0_0_xpm_cdc_sync_rst : entity is 0;
   attribute VERSION : integer;
@@ -6546,6 +6556,8 @@ entity design_1_I2S_wrapper_0_0_xpm_counter_updn is
     SR : in STD_LOGIC_VECTOR ( 0 to 0 );
     rd_clk : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_counter_updn : entity is "xpm_counter_updn";
 end design_1_I2S_wrapper_0_0_xpm_counter_updn;
 
 architecture STRUCTURE of design_1_I2S_wrapper_0_0_xpm_counter_updn is
@@ -7354,6 +7366,8 @@ entity design_1_I2S_wrapper_0_0_xpm_fifo_reg_bit is
     wr_clk : in STD_LOGIC;
     rst : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_fifo_reg_bit : entity is "xpm_fifo_reg_bit";
 end design_1_I2S_wrapper_0_0_xpm_fifo_reg_bit;
 
 architecture STRUCTURE of design_1_I2S_wrapper_0_0_xpm_fifo_reg_bit is
@@ -7401,6 +7415,8 @@ entity design_1_I2S_wrapper_0_0_xpm_fifo_reg_vec is
     D : in STD_LOGIC_VECTOR ( 3 downto 0 );
     wr_clk : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_fifo_reg_vec : entity is "xpm_fifo_reg_vec";
 end design_1_I2S_wrapper_0_0_xpm_fifo_reg_vec;
 
 architecture STRUCTURE of design_1_I2S_wrapper_0_0_xpm_fifo_reg_vec is
@@ -7686,6 +7702,8 @@ entity design_1_I2S_wrapper_0_0_xpm_memory_base is
   attribute MESSAGE_CONTROL of design_1_I2S_wrapper_0_0_xpm_memory_base : entity is 0;
   attribute NUM_CHAR_LOC : integer;
   attribute NUM_CHAR_LOC of design_1_I2S_wrapper_0_0_xpm_memory_base : entity is 0;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_memory_base : entity is "xpm_memory_base";
   attribute P_ECC_MODE : integer;
   attribute P_ECC_MODE of design_1_I2S_wrapper_0_0_xpm_memory_base : entity is 0;
   attribute P_ENABLE_BYTE_WRITE_A : integer;
@@ -8902,6 +8920,8 @@ entity design_1_I2S_wrapper_0_0_xpm_fifo_rst is
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 );
     rd_en : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_fifo_rst : entity is "xpm_fifo_rst";
 end design_1_I2S_wrapper_0_0_xpm_fifo_rst;
 
 architecture STRUCTURE of design_1_I2S_wrapper_0_0_xpm_fifo_rst is
@@ -9458,6 +9478,8 @@ entity design_1_I2S_wrapper_0_0_xpm_fifo_base is
   attribute FULL_RESET_VALUE of design_1_I2S_wrapper_0_0_xpm_fifo_base : entity is 1;
   attribute FULL_RST_VAL : string;
   attribute FULL_RST_VAL of design_1_I2S_wrapper_0_0_xpm_fifo_base : entity is "1'b1";
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_fifo_base : entity is "xpm_fifo_base";
   attribute PE_THRESH_ADJ : integer;
   attribute PE_THRESH_ADJ of design_1_I2S_wrapper_0_0_xpm_fifo_base : entity is 3;
   attribute PE_THRESH_MAX : integer;
@@ -10179,6 +10201,8 @@ entity design_1_I2S_wrapper_0_0_xpm_fifo_axis is
   attribute FIFO_MEMORY_TYPE of design_1_I2S_wrapper_0_0_xpm_fifo_axis : entity is "auto";
   attribute LOG_DEPTH_AXIS : integer;
   attribute LOG_DEPTH_AXIS of design_1_I2S_wrapper_0_0_xpm_fifo_axis : entity is 4;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_xpm_fifo_axis : entity is "xpm_fifo_axis";
   attribute PACKET_FIFO : string;
   attribute PACKET_FIFO of design_1_I2S_wrapper_0_0_xpm_fifo_axis : entity is "false";
   attribute PKT_SIZE_LT8 : string;
@@ -10492,6 +10516,8 @@ entity design_1_I2S_wrapper_0_0_audio_fifo is
     \axi_out_fwd[TID]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
     \axi_out_bwd[TReady]\ : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_audio_fifo : entity is "audio_fifo";
   attribute g_fifo_depth : integer;
   attribute g_fifo_depth of design_1_I2S_wrapper_0_0_audio_fifo : entity is 16;
 end design_1_I2S_wrapper_0_0_audio_fifo;
@@ -10659,6 +10685,8 @@ entity design_1_I2S_wrapper_0_0_I2S_wrapper is
     s_TID_out : out STD_LOGIC_VECTOR ( 3 downto 0 );
     s_TReady_out : in STD_LOGIC
   );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of design_1_I2S_wrapper_0_0_I2S_wrapper : entity is "I2S_wrapper";
   attribute g_chip_scope : string;
   attribute g_chip_scope of design_1_I2S_wrapper_0_0_I2S_wrapper : entity is "True";
   attribute g_clock_div_lrclk : integer;
@@ -10757,7 +10785,6 @@ begin
   data_out <= do_i;
   di_i <= data_in;
   lrclk_r <= lrclk_r_i;
-  lrclk_t <= lrclk_r_i;
   mclk_r <= mclk_r_i;
   mclk_t <= mclk_r_i;
   s_TData_out(23 downto 0) <= \axi_fwd_out[TData]\(23 downto 0);
@@ -10766,7 +10793,6 @@ begin
   s_TReady_in <= \axi_bwd_in[TReady]\;
   s_TValid_out <= \axi_fwd_out[TValid]\;
   sclk_r <= sclk_r_i;
-  sclk_t <= sclk_r_i;
 I2S_clock_gen_inst: entity work.design_1_I2S_wrapper_0_0_I2S_clock_gen
      port map (
       lrclk => lrclk_r_i,
@@ -10849,6 +10875,22 @@ i_3: unisim.vcomponents.LUT1
         port map (
       I0 => '0',
       O => \axi_fwd_out[TID]\(1)
+    );
+lrclk_r_i_2_reg: unisim.vcomponents.FDRE
+     port map (
+      C => m_clk,
+      CE => '1',
+      D => lrclk_r_i,
+      Q => lrclk_t,
+      R => '0'
+    );
+sclk_r_i_2_reg: unisim.vcomponents.FDRE
+     port map (
+      C => m_clk,
+      CE => '1',
+      D => sclk_r_i,
+      Q => sclk_t,
+      R => '0'
     );
 end STRUCTURE;
 library IEEE;

@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-// Date        : Fri Nov 29 10:59:58 2024
+// Date        : Sun Dec  1 20:32:48 2024
 // Host        : fedora running 64-bit unknown
-// Command     : write_verilog -force -mode funcsim -rename_top design_1_I2S_wrapper_0_0 -prefix
-//               design_1_I2S_wrapper_0_0_ design_1_I2S_wrapper_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim
+//               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_I2S_wrapper_0_0/design_1_I2S_wrapper_0_0_sim_netlist.v
 // Design      : design_1_I2S_wrapper_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -13,8 +13,101 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* g_chip_scope = "True" *) (* g_clock_div_lrclk = "64" *) (* g_clock_div_sclk = "4" *) 
-(* keep_hierarchy = "soft" *) 
+(* CHECK_LICENSE_TYPE = "design_1_I2S_wrapper_0_0,I2S_wrapper,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* ip_definition_source = "module_ref" *) 
+(* x_core_info = "I2S_wrapper,Vivado 2023.2" *) 
+(* NotValidForBitStream *)
+module design_1_I2S_wrapper_0_0
+   (m_clk,
+    m_rst,
+    mclk_r,
+    lrclk_r,
+    sclk_r,
+    mclk_t,
+    lrclk_t,
+    sclk_t,
+    data_in,
+    data_out,
+    s_TValid_in,
+    s_TLast_in,
+    s_TData_in,
+    s_TID_in,
+    s_TReady_in,
+    s_TValid_out,
+    s_TLast_out,
+    s_TData_out,
+    s_TID_out,
+    s_TReady_out);
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 m_clk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME m_clk, ASSOCIATED_RESET m_rst, FREQ_HZ 12287988, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1, INSERT_VIP 0" *) input m_clk;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 m_rst RST" *) (* x_interface_parameter = "XIL_INTERFACENAME m_rst, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input m_rst;
+  output mclk_r;
+  output lrclk_r;
+  output sclk_r;
+  output mclk_t;
+  output lrclk_t;
+  output sclk_t;
+  input data_in;
+  output data_out;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME s_in, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) input s_TValid_in;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TLAST" *) input s_TLast_in;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TDATA" *) input [23:0]s_TData_in;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TID" *) input [3:0]s_TID_in;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TREADY" *) output s_TReady_in;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) output s_TValid_out;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TLAST" *) output s_TLast_out;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TDATA" *) output [23:0]s_TData_out;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TID" *) output [3:0]s_TID_out;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TREADY" *) input s_TReady_out;
+
+  wire data_in;
+  wire data_out;
+  wire lrclk_r;
+  wire lrclk_t;
+  wire m_clk;
+  wire m_rst;
+  wire mclk_r;
+  wire mclk_t;
+  wire [23:0]s_TData_in;
+  wire [23:0]s_TData_out;
+  wire [3:0]s_TID_in;
+  wire [3:0]s_TID_out;
+  wire s_TLast_in;
+  wire s_TLast_out;
+  wire s_TReady_in;
+  wire s_TReady_out;
+  wire s_TValid_in;
+  wire s_TValid_out;
+  wire sclk_r;
+  wire sclk_t;
+
+  (* KEEP_HIERARCHY = "soft" *) 
+  (* g_chip_scope = "True" *) 
+  (* g_clock_div_lrclk = "64" *) 
+  (* g_clock_div_sclk = "4" *) 
+  design_1_I2S_wrapper_0_0_I2S_wrapper U0
+       (.data_in(data_in),
+        .data_out(data_out),
+        .lrclk_r(lrclk_r),
+        .lrclk_t(lrclk_t),
+        .m_clk(m_clk),
+        .m_rst(m_rst),
+        .mclk_r(mclk_r),
+        .mclk_t(mclk_t),
+        .s_TData_in(s_TData_in),
+        .s_TData_out(s_TData_out),
+        .s_TID_in(s_TID_in),
+        .s_TID_out(s_TID_out),
+        .s_TLast_in(s_TLast_in),
+        .s_TLast_out(s_TLast_out),
+        .s_TReady_in(s_TReady_in),
+        .s_TReady_out(s_TReady_out),
+        .s_TValid_in(s_TValid_in),
+        .s_TValid_out(s_TValid_out),
+        .sclk_r(sclk_r),
+        .sclk_t(sclk_t));
+endmodule
+
+(* ORIG_REF_NAME = "I2S_clock_gen" *) (* g_chip_scope = "True" *) (* g_clock_div_lrclk = "64" *) 
+(* g_clock_div_sclk = "4" *) (* keep_hierarchy = "soft" *) 
 module design_1_I2S_wrapper_0_0_I2S_clock_gen
    (m_clk,
     mclk,
@@ -982,8 +1075,8 @@ module design_1_I2S_wrapper_0_0_I2S_clock_gen
         .R(\serial_counter[30]_i_1_n_0 ));
 endmodule
 
-(* g_channel_offset = "4'b0000" *) (* g_chip_scope = "true" *) (* g_clock_div_lrclk = "64" *) 
-(* g_clock_div_sclk = "4" *) 
+(* ORIG_REF_NAME = "I2S_rec" *) (* g_channel_offset = "4'b0000" *) (* g_chip_scope = "true" *) 
+(* g_clock_div_lrclk = "64" *) (* g_clock_div_sclk = "4" *) 
 module design_1_I2S_wrapper_0_0_I2S_rec
    (m_clk,
     m_rst,
@@ -2399,8 +2492,8 @@ module design_1_I2S_wrapper_0_0_I2S_rec
         .R(m_rst));
 endmodule
 
-(* g_channel_offset = "4'b0000" *) (* g_chip_scope = "True" *) (* g_clock_div_lrclk = "64" *) 
-(* g_clock_div_sclk = "4" *) 
+(* ORIG_REF_NAME = "I2S_trans" *) (* g_channel_offset = "4'b0000" *) (* g_chip_scope = "True" *) 
+(* g_clock_div_lrclk = "64" *) (* g_clock_div_sclk = "4" *) 
 module design_1_I2S_wrapper_0_0_I2S_trans
    (m_clk,
     m_rst,
@@ -3865,8 +3958,8 @@ module design_1_I2S_wrapper_0_0_I2S_trans
         .R(m_rst));
 endmodule
 
-(* g_chip_scope = "True" *) (* g_clock_div_lrclk = "64" *) (* g_clock_div_sclk = "4" *) 
-(* keep_hierarchy = "soft" *) 
+(* ORIG_REF_NAME = "I2S_wrapper" *) (* g_chip_scope = "True" *) (* g_clock_div_lrclk = "64" *) 
+(* g_clock_div_sclk = "4" *) (* keep_hierarchy = "soft" *) 
 module design_1_I2S_wrapper_0_0_I2S_wrapper
    (m_clk,
     m_rst,
@@ -3922,10 +4015,12 @@ module design_1_I2S_wrapper_0_0_I2S_wrapper
   (* MARK_DEBUG *) wire di_i;
   (* MARK_DEBUG *) wire do_i;
   (* MARK_DEBUG *) wire lrclk_r_i;
+  wire lrclk_t;
   wire m_clk;
   wire m_rst;
   (* MARK_DEBUG *) wire mclk_r_i;
   (* MARK_DEBUG *) wire sclk_r_i;
+  wire sclk_t;
   wire \trans_bwd_in[TReady] ;
   wire [23:0]\trans_fwd_in[TData] ;
   wire [3:0]\trans_fwd_in[TID] ;
@@ -3948,7 +4043,6 @@ module design_1_I2S_wrapper_0_0_I2S_wrapper
   assign data_out = do_i;
   assign di_i = data_in;
   assign lrclk_r = lrclk_r_i;
-  assign lrclk_t = lrclk_r_i;
   assign mclk_r = mclk_r_i;
   assign mclk_t = mclk_r_i;
   assign s_TData_out[23:0] = \axi_fwd_out[TData] ;
@@ -3957,7 +4051,6 @@ module design_1_I2S_wrapper_0_0_I2S_wrapper
   assign s_TReady_in = \axi_bwd_in[TReady] ;
   assign s_TValid_out = \axi_fwd_out[TValid] ;
   assign sclk_r = sclk_r_i;
-  assign sclk_t = sclk_r_i;
   (* KEEP_HIERARCHY = "soft" *) 
   (* g_chip_scope = "True" *) 
   (* g_clock_div_lrclk = "64" *) 
@@ -4036,9 +4129,21 @@ module design_1_I2S_wrapper_0_0_I2S_wrapper
     i_3
        (.I0(1'b0),
         .O(\axi_fwd_out[TID] [1]));
+  FDRE lrclk_r_i_2_reg
+       (.C(m_clk),
+        .CE(1'b1),
+        .D(lrclk_r_i),
+        .Q(lrclk_t),
+        .R(1'b0));
+  FDRE sclk_r_i_2_reg
+       (.C(m_clk),
+        .CE(1'b1),
+        .D(sclk_r_i),
+        .Q(sclk_t),
+        .R(1'b0));
 endmodule
 
-(* g_fifo_depth = "16" *) 
+(* ORIG_REF_NAME = "audio_fifo" *) (* g_fifo_depth = "16" *) 
 module design_1_I2S_wrapper_0_0_audio_fifo
    (clk_in,
     clk_out,
@@ -4167,103 +4272,10 @@ module design_1_I2S_wrapper_0_0_audio_fifo
         .wr_data_count_axis(NLW_xpm_fifo_axis_inst_wr_data_count_axis_UNCONNECTED[4:0]));
 endmodule
 
-(* CHECK_LICENSE_TYPE = "design_1_I2S_wrapper_0_0,I2S_wrapper,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* ip_definition_source = "module_ref" *) 
-(* x_core_info = "I2S_wrapper,Vivado 2023.2" *) 
-(* NotValidForBitStream *)
-module design_1_I2S_wrapper_0_0
-   (m_clk,
-    m_rst,
-    mclk_r,
-    lrclk_r,
-    sclk_r,
-    mclk_t,
-    lrclk_t,
-    sclk_t,
-    data_in,
-    data_out,
-    s_TValid_in,
-    s_TLast_in,
-    s_TData_in,
-    s_TID_in,
-    s_TReady_in,
-    s_TValid_out,
-    s_TLast_out,
-    s_TData_out,
-    s_TID_out,
-    s_TReady_out);
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 m_clk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME m_clk, ASSOCIATED_RESET m_rst, FREQ_HZ 12287988, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1, INSERT_VIP 0" *) input m_clk;
-  (* x_interface_info = "xilinx.com:signal:reset:1.0 m_rst RST" *) (* x_interface_parameter = "XIL_INTERFACENAME m_rst, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input m_rst;
-  output mclk_r;
-  output lrclk_r;
-  output sclk_r;
-  output mclk_t;
-  output lrclk_t;
-  output sclk_t;
-  input data_in;
-  output data_out;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME s_in, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) input s_TValid_in;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TLAST" *) input s_TLast_in;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TDATA" *) input [23:0]s_TData_in;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TID" *) input [3:0]s_TID_in;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_in TREADY" *) output s_TReady_in;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TVALID" *) (* x_interface_parameter = "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) output s_TValid_out;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TLAST" *) output s_TLast_out;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TDATA" *) output [23:0]s_TData_out;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TID" *) output [3:0]s_TID_out;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 s_out TREADY" *) input s_TReady_out;
-
-  wire data_in;
-  wire data_out;
-  wire lrclk_r;
-  wire lrclk_t;
-  wire m_clk;
-  wire m_rst;
-  wire mclk_r;
-  wire mclk_t;
-  wire [23:0]s_TData_in;
-  wire [23:0]s_TData_out;
-  wire [3:0]s_TID_in;
-  wire [3:0]s_TID_out;
-  wire s_TLast_in;
-  wire s_TLast_out;
-  wire s_TReady_in;
-  wire s_TReady_out;
-  wire s_TValid_in;
-  wire s_TValid_out;
-  wire sclk_r;
-  wire sclk_t;
-
-  (* KEEP_HIERARCHY = "soft" *) 
-  (* g_chip_scope = "True" *) 
-  (* g_clock_div_lrclk = "64" *) 
-  (* g_clock_div_sclk = "4" *) 
-  design_1_I2S_wrapper_0_0_I2S_wrapper U0
-       (.data_in(data_in),
-        .data_out(data_out),
-        .lrclk_r(lrclk_r),
-        .lrclk_t(lrclk_t),
-        .m_clk(m_clk),
-        .m_rst(m_rst),
-        .mclk_r(mclk_r),
-        .mclk_t(mclk_t),
-        .s_TData_in(s_TData_in),
-        .s_TData_out(s_TData_out),
-        .s_TID_in(s_TID_in),
-        .s_TID_out(s_TID_out),
-        .s_TLast_in(s_TLast_in),
-        .s_TLast_out(s_TLast_out),
-        .s_TReady_in(s_TReady_in),
-        .s_TReady_out(s_TReady_out),
-        .s_TValid_in(s_TValid_in),
-        .s_TValid_out(s_TValid_out),
-        .sclk_r(sclk_r),
-        .sclk_t(sclk_t));
-endmodule
-
-(* DEST_SYNC_FF = "2" *) (* INIT_SYNC_FF = "1" *) (* REG_OUTPUT = "0" *) 
-(* SIM_ASSERT_CHK = "0" *) (* SIM_LOSSLESS_GRAY_CHK = "0" *) (* VERSION = "0" *) 
-(* WIDTH = "4" *) (* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) 
-(* xpm_cdc = "GRAY" *) 
+(* DEST_SYNC_FF = "2" *) (* INIT_SYNC_FF = "1" *) (* ORIG_REF_NAME = "xpm_cdc_gray" *) 
+(* REG_OUTPUT = "0" *) (* SIM_ASSERT_CHK = "0" *) (* SIM_LOSSLESS_GRAY_CHK = "0" *) 
+(* VERSION = "0" *) (* WIDTH = "4" *) (* XPM_MODULE = "TRUE" *) 
+(* keep_hierarchy = "true" *) (* xpm_cdc = "GRAY" *) 
 module design_1_I2S_wrapper_0_0_xpm_cdc_gray
    (src_clk,
     src_in_bin,
@@ -5091,8 +5103,9 @@ module design_1_I2S_wrapper_0_0_xpm_cdc_gray__parameterized1
 endmodule
 
 (* DEF_VAL = "1'b0" *) (* DEST_SYNC_FF = "2" *) (* INIT = "0" *) 
-(* INIT_SYNC_FF = "1" *) (* SIM_ASSERT_CHK = "0" *) (* VERSION = "0" *) 
-(* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) (* xpm_cdc = "SYNC_RST" *) 
+(* INIT_SYNC_FF = "1" *) (* ORIG_REF_NAME = "xpm_cdc_sync_rst" *) (* SIM_ASSERT_CHK = "0" *) 
+(* VERSION = "0" *) (* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) 
+(* xpm_cdc = "SYNC_RST" *) 
 module design_1_I2S_wrapper_0_0_xpm_cdc_sync_rst
    (src_rst,
     dest_clk,
@@ -5212,6 +5225,7 @@ module design_1_I2S_wrapper_0_0_xpm_cdc_sync_rst__4
         .R(1'b0));
 endmodule
 
+(* ORIG_REF_NAME = "xpm_counter_updn" *) 
 module design_1_I2S_wrapper_0_0_xpm_counter_updn
    (Q,
     \count_value_i_reg[1]_0 ,
@@ -5859,16 +5873,16 @@ endmodule
 (* CDC_SYNC_STAGES = "2" *) (* CLOCKING_MODE = "independent_clock" *) (* ECC_MODE = "no_ecc" *) 
 (* EN_ADV_FEATURE_AXIS = "16'b0001000000000000" *) (* EN_ADV_FEATURE_AXIS_INT = "16'b0001000000000000" *) (* EN_ALMOST_EMPTY_INT = "1'b0" *) 
 (* EN_ALMOST_FULL_INT = "1'b0" *) (* EN_DATA_VALID_INT = "1'b1" *) (* FIFO_DEPTH = "16" *) 
-(* FIFO_MEMORY_TYPE = "auto" *) (* LOG_DEPTH_AXIS = "4" *) (* PACKET_FIFO = "false" *) 
-(* PKT_SIZE_LT8 = "1'b0" *) (* PROG_EMPTY_THRESH = "5" *) (* PROG_FULL_THRESH = "11" *) 
-(* P_COMMON_CLOCK = "0" *) (* P_ECC_MODE = "0" *) (* P_FIFO_MEMORY_TYPE = "0" *) 
-(* P_PKT_MODE = "0" *) (* RD_DATA_COUNT_WIDTH = "5" *) (* RELATED_CLOCKS = "0" *) 
-(* SIM_ASSERT_CHK = "1" *) (* TDATA_OFFSET = "24" *) (* TDATA_WIDTH = "24" *) 
-(* TDEST_OFFSET = "35" *) (* TDEST_WIDTH = "1" *) (* TID_OFFSET = "34" *) 
-(* TID_WIDTH = "4" *) (* TKEEP_OFFSET = "30" *) (* TSTRB_OFFSET = "27" *) 
-(* TUSER_MAX_WIDTH = "4060" *) (* TUSER_OFFSET = "36" *) (* TUSER_WIDTH = "1" *) 
-(* USE_ADV_FEATURES = "1000" *) (* USE_ADV_FEATURES_INT = "825241648" *) (* WR_DATA_COUNT_WIDTH = "5" *) 
-(* XPM_MODULE = "TRUE" *) (* dont_touch = "true" *) 
+(* FIFO_MEMORY_TYPE = "auto" *) (* LOG_DEPTH_AXIS = "4" *) (* ORIG_REF_NAME = "xpm_fifo_axis" *) 
+(* PACKET_FIFO = "false" *) (* PKT_SIZE_LT8 = "1'b0" *) (* PROG_EMPTY_THRESH = "5" *) 
+(* PROG_FULL_THRESH = "11" *) (* P_COMMON_CLOCK = "0" *) (* P_ECC_MODE = "0" *) 
+(* P_FIFO_MEMORY_TYPE = "0" *) (* P_PKT_MODE = "0" *) (* RD_DATA_COUNT_WIDTH = "5" *) 
+(* RELATED_CLOCKS = "0" *) (* SIM_ASSERT_CHK = "1" *) (* TDATA_OFFSET = "24" *) 
+(* TDATA_WIDTH = "24" *) (* TDEST_OFFSET = "35" *) (* TDEST_WIDTH = "1" *) 
+(* TID_OFFSET = "34" *) (* TID_WIDTH = "4" *) (* TKEEP_OFFSET = "30" *) 
+(* TSTRB_OFFSET = "27" *) (* TUSER_MAX_WIDTH = "4060" *) (* TUSER_OFFSET = "36" *) 
+(* TUSER_WIDTH = "1" *) (* USE_ADV_FEATURES = "1000" *) (* USE_ADV_FEATURES_INT = "825241648" *) 
+(* WR_DATA_COUNT_WIDTH = "5" *) (* XPM_MODULE = "TRUE" *) (* dont_touch = "true" *) 
 module design_1_I2S_wrapper_0_0_xpm_fifo_axis
    (s_aresetn,
     s_aclk,
@@ -6115,19 +6129,19 @@ endmodule
 (* EN_WACK = "1'b0" *) (* EN_WDC = "1'b0" *) (* FG_EQ_ASYM_DOUT = "1'b0" *) 
 (* FIFO_MEMORY_TYPE = "0" *) (* FIFO_MEM_TYPE = "0" *) (* FIFO_READ_DEPTH = "16" *) 
 (* FIFO_READ_LATENCY = "0" *) (* FIFO_SIZE = "592" *) (* FIFO_WRITE_DEPTH = "16" *) 
-(* FULL_RESET_VALUE = "1" *) (* FULL_RST_VAL = "1'b1" *) (* PE_THRESH_ADJ = "3" *) 
-(* PE_THRESH_MAX = "11" *) (* PE_THRESH_MIN = "5" *) (* PF_THRESH_ADJ = "9" *) 
-(* PF_THRESH_MAX = "11" *) (* PF_THRESH_MIN = "7" *) (* PROG_EMPTY_THRESH = "5" *) 
-(* PROG_FULL_THRESH = "11" *) (* RD_DATA_COUNT_WIDTH = "5" *) (* RD_DC_WIDTH_EXT = "5" *) 
-(* RD_LATENCY = "2" *) (* RD_MODE = "1" *) (* RD_PNTR_WIDTH = "4" *) 
-(* READ_DATA_WIDTH = "37" *) (* READ_MODE = "1" *) (* READ_MODE_LL = "1" *) 
-(* RELATED_CLOCKS = "0" *) (* REMOVE_WR_RD_PROT_LOGIC = "0" *) (* SIM_ASSERT_CHK = "1" *) 
-(* USE_ADV_FEATURES = "825241648" *) (* VERSION = "0" *) (* WAKEUP_TIME = "0" *) 
-(* WIDTH_RATIO = "1" *) (* WRITE_DATA_WIDTH = "37" *) (* WR_DATA_COUNT_WIDTH = "5" *) 
-(* WR_DC_WIDTH_EXT = "5" *) (* WR_DEPTH_LOG = "4" *) (* WR_PNTR_WIDTH = "4" *) 
-(* WR_RD_RATIO = "0" *) (* WR_WIDTH_LOG = "6" *) (* XPM_MODULE = "TRUE" *) 
-(* both_stages_valid = "3" *) (* invalid = "0" *) (* keep_hierarchy = "soft" *) 
-(* stage1_valid = "2" *) (* stage2_valid = "1" *) 
+(* FULL_RESET_VALUE = "1" *) (* FULL_RST_VAL = "1'b1" *) (* ORIG_REF_NAME = "xpm_fifo_base" *) 
+(* PE_THRESH_ADJ = "3" *) (* PE_THRESH_MAX = "11" *) (* PE_THRESH_MIN = "5" *) 
+(* PF_THRESH_ADJ = "9" *) (* PF_THRESH_MAX = "11" *) (* PF_THRESH_MIN = "7" *) 
+(* PROG_EMPTY_THRESH = "5" *) (* PROG_FULL_THRESH = "11" *) (* RD_DATA_COUNT_WIDTH = "5" *) 
+(* RD_DC_WIDTH_EXT = "5" *) (* RD_LATENCY = "2" *) (* RD_MODE = "1" *) 
+(* RD_PNTR_WIDTH = "4" *) (* READ_DATA_WIDTH = "37" *) (* READ_MODE = "1" *) 
+(* READ_MODE_LL = "1" *) (* RELATED_CLOCKS = "0" *) (* REMOVE_WR_RD_PROT_LOGIC = "0" *) 
+(* SIM_ASSERT_CHK = "1" *) (* USE_ADV_FEATURES = "825241648" *) (* VERSION = "0" *) 
+(* WAKEUP_TIME = "0" *) (* WIDTH_RATIO = "1" *) (* WRITE_DATA_WIDTH = "37" *) 
+(* WR_DATA_COUNT_WIDTH = "5" *) (* WR_DC_WIDTH_EXT = "5" *) (* WR_DEPTH_LOG = "4" *) 
+(* WR_PNTR_WIDTH = "4" *) (* WR_RD_RATIO = "0" *) (* WR_WIDTH_LOG = "6" *) 
+(* XPM_MODULE = "TRUE" *) (* both_stages_valid = "3" *) (* invalid = "0" *) 
+(* keep_hierarchy = "soft" *) (* stage1_valid = "2" *) (* stage2_valid = "1" *) 
 module design_1_I2S_wrapper_0_0_xpm_fifo_base
    (sleep,
     rst,
@@ -6611,6 +6625,7 @@ module design_1_I2S_wrapper_0_0_xpm_fifo_base
         .wrst_busy(wrst_busy));
 endmodule
 
+(* ORIG_REF_NAME = "xpm_fifo_reg_bit" *) 
 module design_1_I2S_wrapper_0_0_xpm_fifo_reg_bit
    (rst_d1,
     clr_full,
@@ -6646,6 +6661,7 @@ module design_1_I2S_wrapper_0_0_xpm_fifo_reg_bit
         .O(clr_full));
 endmodule
 
+(* ORIG_REF_NAME = "xpm_fifo_reg_vec" *) 
 module design_1_I2S_wrapper_0_0_xpm_fifo_reg_vec
    (s_TValid_in,
     \syncstages_ff_reg[1] ,
@@ -6856,6 +6872,7 @@ module design_1_I2S_wrapper_0_0_xpm_fifo_reg_vec_0
         .R(SR));
 endmodule
 
+(* ORIG_REF_NAME = "xpm_fifo_rst" *) 
 module design_1_I2S_wrapper_0_0_xpm_fifo_rst
    (SR,
     wrst_busy,
@@ -7246,25 +7263,25 @@ endmodule
 (* ECC_TYPE = "NONE" *) (* IGNORE_INIT_SYNTH = "0" *) (* MAX_NUM_CHAR = "0" *) 
 (* MEMORY_INIT_FILE = "none" *) (* MEMORY_INIT_PARAM = "" *) (* MEMORY_OPTIMIZATION = "true" *) 
 (* MEMORY_PRIMITIVE = "0" *) (* MEMORY_SIZE = "592" *) (* MEMORY_TYPE = "1" *) 
-(* MESSAGE_CONTROL = "0" *) (* NUM_CHAR_LOC = "0" *) (* P_ECC_MODE = "0" *) 
-(* P_ENABLE_BYTE_WRITE_A = "0" *) (* P_ENABLE_BYTE_WRITE_B = "0" *) (* P_MAX_DEPTH_DATA = "16" *) 
-(* P_MEMORY_OPT = "yes" *) (* P_MEMORY_PRIMITIVE = "auto" *) (* P_MIN_WIDTH_DATA = "37" *) 
-(* P_MIN_WIDTH_DATA_A = "37" *) (* P_MIN_WIDTH_DATA_B = "37" *) (* P_MIN_WIDTH_DATA_ECC = "37" *) 
-(* P_MIN_WIDTH_DATA_LDW = "4" *) (* P_MIN_WIDTH_DATA_SHFT = "37" *) (* P_NUM_COLS_WRITE_A = "1" *) 
-(* P_NUM_COLS_WRITE_B = "1" *) (* P_NUM_ROWS_READ_A = "1" *) (* P_NUM_ROWS_READ_B = "1" *) 
-(* P_NUM_ROWS_WRITE_A = "1" *) (* P_NUM_ROWS_WRITE_B = "1" *) (* P_SDP_WRITE_MODE = "yes" *) 
-(* P_WIDTH_ADDR_LSB_READ_A = "0" *) (* P_WIDTH_ADDR_LSB_READ_B = "0" *) (* P_WIDTH_ADDR_LSB_WRITE_A = "0" *) 
-(* P_WIDTH_ADDR_LSB_WRITE_B = "0" *) (* P_WIDTH_ADDR_READ_A = "4" *) (* P_WIDTH_ADDR_READ_B = "4" *) 
-(* P_WIDTH_ADDR_WRITE_A = "4" *) (* P_WIDTH_ADDR_WRITE_B = "4" *) (* P_WIDTH_COL_WRITE_A = "37" *) 
-(* P_WIDTH_COL_WRITE_B = "37" *) (* RAM_DECOMP = "auto" *) (* READ_DATA_WIDTH_A = "37" *) 
-(* READ_DATA_WIDTH_B = "37" *) (* READ_LATENCY_A = "2" *) (* READ_LATENCY_B = "2" *) 
-(* READ_RESET_VALUE_A = "0" *) (* READ_RESET_VALUE_B = "" *) (* RST_MODE_A = "SYNC" *) 
-(* RST_MODE_B = "SYNC" *) (* SIM_ASSERT_CHK = "0" *) (* USE_EMBEDDED_CONSTRAINT = "0" *) 
-(* USE_MEM_INIT = "0" *) (* USE_MEM_INIT_MMI = "0" *) (* VERSION = "0" *) 
-(* WAKEUP_TIME = "0" *) (* WRITE_DATA_WIDTH_A = "37" *) (* WRITE_DATA_WIDTH_B = "37" *) 
-(* WRITE_MODE_A = "2" *) (* WRITE_MODE_B = "2" *) (* WRITE_PROTECT = "1" *) 
-(* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "soft" *) (* rsta_loop_iter = "40" *) 
-(* rstb_loop_iter = "40" *) 
+(* MESSAGE_CONTROL = "0" *) (* NUM_CHAR_LOC = "0" *) (* ORIG_REF_NAME = "xpm_memory_base" *) 
+(* P_ECC_MODE = "0" *) (* P_ENABLE_BYTE_WRITE_A = "0" *) (* P_ENABLE_BYTE_WRITE_B = "0" *) 
+(* P_MAX_DEPTH_DATA = "16" *) (* P_MEMORY_OPT = "yes" *) (* P_MEMORY_PRIMITIVE = "auto" *) 
+(* P_MIN_WIDTH_DATA = "37" *) (* P_MIN_WIDTH_DATA_A = "37" *) (* P_MIN_WIDTH_DATA_B = "37" *) 
+(* P_MIN_WIDTH_DATA_ECC = "37" *) (* P_MIN_WIDTH_DATA_LDW = "4" *) (* P_MIN_WIDTH_DATA_SHFT = "37" *) 
+(* P_NUM_COLS_WRITE_A = "1" *) (* P_NUM_COLS_WRITE_B = "1" *) (* P_NUM_ROWS_READ_A = "1" *) 
+(* P_NUM_ROWS_READ_B = "1" *) (* P_NUM_ROWS_WRITE_A = "1" *) (* P_NUM_ROWS_WRITE_B = "1" *) 
+(* P_SDP_WRITE_MODE = "yes" *) (* P_WIDTH_ADDR_LSB_READ_A = "0" *) (* P_WIDTH_ADDR_LSB_READ_B = "0" *) 
+(* P_WIDTH_ADDR_LSB_WRITE_A = "0" *) (* P_WIDTH_ADDR_LSB_WRITE_B = "0" *) (* P_WIDTH_ADDR_READ_A = "4" *) 
+(* P_WIDTH_ADDR_READ_B = "4" *) (* P_WIDTH_ADDR_WRITE_A = "4" *) (* P_WIDTH_ADDR_WRITE_B = "4" *) 
+(* P_WIDTH_COL_WRITE_A = "37" *) (* P_WIDTH_COL_WRITE_B = "37" *) (* RAM_DECOMP = "auto" *) 
+(* READ_DATA_WIDTH_A = "37" *) (* READ_DATA_WIDTH_B = "37" *) (* READ_LATENCY_A = "2" *) 
+(* READ_LATENCY_B = "2" *) (* READ_RESET_VALUE_A = "0" *) (* READ_RESET_VALUE_B = "" *) 
+(* RST_MODE_A = "SYNC" *) (* RST_MODE_B = "SYNC" *) (* SIM_ASSERT_CHK = "0" *) 
+(* USE_EMBEDDED_CONSTRAINT = "0" *) (* USE_MEM_INIT = "0" *) (* USE_MEM_INIT_MMI = "0" *) 
+(* VERSION = "0" *) (* WAKEUP_TIME = "0" *) (* WRITE_DATA_WIDTH_A = "37" *) 
+(* WRITE_DATA_WIDTH_B = "37" *) (* WRITE_MODE_A = "2" *) (* WRITE_MODE_B = "2" *) 
+(* WRITE_PROTECT = "1" *) (* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "soft" *) 
+(* rsta_loop_iter = "40" *) (* rstb_loop_iter = "40" *) 
 module design_1_I2S_wrapper_0_0_xpm_memory_base
    (sleep,
     clka,

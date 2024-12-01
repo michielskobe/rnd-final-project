@@ -137,6 +137,9 @@ architecture Behavioral of I2S_wrapper is
     signal mclk_r_i : STD_LOGIC;
     signal lrclk_r_i : STD_LOGIC;
     signal sclk_r_i : STD_LOGIC;
+    signal mclk_r_i_2 : STD_LOGIC;
+    signal lrclk_r_i_2 : STD_LOGIC;
+    signal sclk_r_i_2 : STD_LOGIC;
 
     -------------------------------------
     -- data
@@ -188,9 +191,18 @@ begin
     lrclk_r <= lrclk_r_i;
     sclk_r <= sclk_r_i;
 
+    -- delay the sclk and lrclk with one mclk for transmitter to play nicer with physical hardware
+    process (m_clk)
+    begin
+        if rising_edge(m_clk) then
+            lrclk_r_i_2 <= lrclk_r_i;
+            sclk_r_i_2 <= sclk_r_i;
+        end if;
+    end process;
+
     mclk_t <= mclk_r_i;
-    lrclk_t <= lrclk_r_i;
-    sclk_t <= sclk_r_i;
+    lrclk_t <= lrclk_r_i_2;
+    sclk_t <= sclk_r_i_2;
 
     di_i <= data_in;
     data_out <= do_i;
