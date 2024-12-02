@@ -27,6 +27,7 @@ use ieee.STD_LOGIC_UNSIGNED.all;
 use work.axi4_audio_pkg.all;
 use work.mixer_settings_pkg.all;
 use work.generic_fifo;
+use ieee.fixed_pkg.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -40,7 +41,8 @@ use work.generic_fifo;
 entity channel_mapper is
     generic (
         g_input_channels : integer := 2;
-        g_output_channels: integer := 2;
+        g_output_channels: integer := 1;
+        g_output_tid: integer := 0;
         g_internal_fifo_depth : integer := 16;
         g_internal_fifo_width : integer := c_audio_width + c_ID_width;
         g_internal_fifo_mode : string := "fwft";
@@ -48,12 +50,10 @@ entity channel_mapper is
     );
     Port (
         -- clocking
-        clk_in : in STD_LOGIC;
-        clk_out : in STD_LOGIC;
+        clk : in STD_LOGIC;
 
         -- channel enable
-        channel_map : in enable_array(g_output_channels -1 downto 0);
-        channel_enable : in STD_LOGIC_VECTOR(g_output_channels -1 downto 0);
+        dma_enable : in std_logic;
         clk_axi_mm: in STD_LOGIC;
 
         -- input axi 
@@ -70,9 +70,9 @@ architecture Behavioral of channel_mapper is
     -------------------------------------
     -- AXI MM
     -------------------------------------
-    signal channel_enable_sync_1 : STD_LOGIC_VECTOR(g_output_channels -1 downto 0);
-    signal channel_enable_sync_2 : STD_LOGIC_VECTOR(g_output_channels -1 downto 0);
-    signal channel_enable_sync_3 : STD_LOGIC_VECTOR(g_output_channels -1 downto 0);
+    signal dma_enable_sync_1 : std_logic := '0';
+    signal dma_enable_sync_2 : std_logic := '0';
+    signal dma_enable_sync_3 : std_logic := '0';
 
     -------------------------------------
     -- FIFO
@@ -89,130 +89,106 @@ architecture Behavioral of channel_mapper is
     -------------------------------------
     -- Input
     -------------------------------------
-    signal active_input : integer range 0 to g_input_channels := 0;
-    signal active_input_axi_fwd : t_axi4_audio_fwd;
-    signal active_input_axi_bwd : t_axi4_audio_bwd;
+    signal anal_pre_calc : sfixed(c_audio_width -1 downto 0);
+    signal dma_pre_calc : sfixed(c_audio_width -1 downto 0);
+    signal post_calc : sfixed(c_audio_width downto 0);
+    signal post_resize : sfixed(c_audio_width -1 downto 0);
 
-    -------------------------------------
-    -- Output
-    -------------------------------------
-    signal active_output : integer range 0 to g_output_channels := 0;
-    signal internal_valid : STD_LOGIC := '0';
+    signal prime_counter : integer range 0 to 3 := 0;
 
+
+    signal internal_fwd : t_axi4_audio_fwd;
+    signal internal_bwd : t_axi4_audio_bwd;
+
+    signal internal_ready: STD_LOGIC := '0';
+    signal internal_valid: STD_LOGIC := '0';
 
 begin
+    internal_fwd.TID <= std_logic_vector(to_unsigned(g_output_tid, c_ID_width));
     p_axi_mm_in : process (clk_axi_mm)
     begin
         if rising_edge(clk_axi_mm) then
-            channel_enable_sync_1 <= channel_enable;
+            dma_enable_sync_1 <= dma_enable;
         end if;
     end process;
 
-    p_axi_mm_sync : process (clk_out)
+    p_axi_mm_sync : process (clk)
     begin
-        if rising_edge(clk_out) then
-            channel_enable_sync_2 <= channel_enable_sync_1;
-            channel_enable_sync_3 <= channel_enable_sync_2;
+        if rising_edge(clk) then
+            dma_enable_sync_2 <= dma_enable_sync_1;
+            dma_enable_sync_3 <= dma_enable_sync_2;
         end if;
     end process;
 
-    p_input: process (clk_in)
+
+    process (clk)
     begin
-        if rising_edge(clk_in) then
-            active_input <= active_input + 1;
-            if active_input >= g_input_channels -1 then
-                active_input <= 0;
+        if rising_edge(clk) then
+            if dma_enable = '1' then
+                -- check if both busses are valid
+                if internal_valid = '1' and axi_in_bwd_bus(0).TReady = '1' then
+                    anal_pre_calc <= to_sfixed(axi_in_fwd_bus(0).TData, anal_pre_calc);
+                    dma_pre_calc <= to_sfixed(axi_in_fwd_bus(1).TData, dma_pre_calc);
+
+                    post_calc <= anal_pre_calc + dma_pre_calc;
+                    post_resize <= resize(post_calc, post_resize);
+                    internal_fwd.TData <= to_slv(post_resize);
+                end if;
             end if;
         end if;
     end process;
 
-    p_input_comb: process (all)
+    p_out : process (all)
     begin
-        for i in 0 to g_input_channels -1 loop
-            if i = active_input then 
-                axi_in_bwd_bus(i) <= active_input_axi_bwd;
-                active_input_axi_fwd <= axi_in_fwd_bus(i);
+    end process;
+
+    
+    -------------------------------------
+    -- Control flow
+    -------------------------------------
+    p_ctrl_flow : process (clk)
+    begin
+        if rising_edge(clk) then
+            if dma_enable = '1' then
+                -- check if both busses are valid
+                if internal_valid = '1' and axi_in_bwd_bus(0).TReady = '1' then
+                    prime_counter <= prime_counter + 1;
+                    if prime_counter >= 2 then
+                        prime_counter <= prime_counter;
+                    end if;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    p_ctrl_flow_valid: process (all)
+    begin
+        if dma_enable = '1' then
+            -- check if both busses are valid
+            if  prime_counter >= 2 then
+                internal_fwd.TVALID <= internal_valid;
             else 
-                axi_in_bwd_bus(i) <= audio_bwd_inactive;
-            end if;
-        end loop;
-        active_input_axi_bwd.TReady <= not full;
-        din <= active_input_axi_fwd.TData & active_input_axi_fwd.TID;
-        wr_en <= active_input_axi_fwd.TValid;
-    end process;
-
-    -- generic fifo 
-    generic_fifo_inst: entity work.generic_fifo
-     generic map(
-        g_fifo_depth => g_internal_fifo_depth,
-        g_fifo_width => g_internal_fifo_width,
-        g_fifo_mode => g_internal_fifo_mode
-    )
-     port map(
-        clk_in => clk_in,
-        clk_out => clk_out,
-        almost_full => almost_full,
-        full => full,
-        din => din,
-        wr_en => wr_en,
-        -- wr_data_count => wr_data_count,
-        rst => '0',
-        -- wr_rst_busy => wr_rst_busy,
-        almost_empty => almost_empty,
-        empty => empty,
-        -- data_valid => data_valid,
-        dout => dout,
-        rd_en => rd_en
-        -- rd_data_count => rd_data_count,
-        -- rd_rst_busy => rd_rst_busy
-    );
-
-    p_output_ctr: process (clk_in)
-    begin
-        if rising_edge(clk_in) then
-            active_output <= active_output + 1;
-            if active_output >= g_output_channels -1 then
-                active_output <= 0;
+                internal_fwd.TValid <= '0';
             end if;
         end if;
+        
     end process;
 
-    --TODO: uitlezen + channel enable + nog wa stuffs wss 
-    -- p_output: process (clk_out)
-    p_output: process (all)
-        variable fifo_tid : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
-        variable fifo_data: STD_LOGIC_VECTOR(c_audio_width -1 downto 0);
+    p_ctrl_flow_ready: process (all)
     begin
-        -- if rising_edge(clk_out) then
-            fifo_data := dout(g_internal_fifo_width -1 downto c_ID_width);
-            fifo_tid := dout (c_ID_width -1 downto 0);
-            rd_en <= '0';
-            internal_valid <= '0';
+        internal_valid <= axi_in_fwd_bus(0).TVALID and axi_in_fwd_bus(1).TVALID;
+        if dma_enable = '1' then
+            axi_out_fwd_bus(0) <= internal_fwd;
+            internal_bwd <= axi_out_bwd_bus(0);
+            axi_in_bwd_bus(0).TREADY <= axi_out_bwd_bus(0).TREADY and internal_valid;
+            axi_in_bwd_bus(1).TREADY <= axi_out_bwd_bus(0).TREADY and internal_valid;
+        else
+            -- only the anal bus should be considered
+            axi_in_bwd_bus(1).TREADY <= '1';
+            axi_out_fwd_bus(0) <= axi_in_fwd_bus(0);
+            axi_in_bwd_bus(0) <= axi_out_bwd_bus(0);
+            axi_out_fwd_bus(0).TID <= internal_fwd.TID;
+        end if;
 
-            -- set all the outputs to inactive
-            for i in 0 to g_output_channels -1 loop
-                if i = to_integer(unsigned(fifo_tid)) then
-                    axi_out_fwd_bus(i).TData <= fifo_data;
-                    axi_out_fwd_bus(i).TID <= fifo_tid;
-                    axi_out_fwd_bus(i).TValid <= internal_valid;
-                else 
-                    axi_out_fwd_bus(i) <= audio_fwd_inactive;
-                end if;
-            end loop;
-            
-            -- check if channel is enabled and valid data is present
-            if channel_enable_sync_3(to_integer(unsigned(fifo_tid))) = '1' and empty = '0' then
-                -- check if output bus is ready
-                if axi_out_bwd_bus(to_integer(unsigned(fifo_tid))).TReady = '1' then
-                    -- output the data onto the bus.
-                    internal_valid <= '1';
-                    -- get the next sample
-                    rd_en <= '1';
-                end if;
-            elsif empty = '0' then -- if chan not enabled, throw away the sample
-                rd_en <= '1';
-            end if;
-
-        -- end if;
-    end process; 
+    end process;
 end Behavioral;

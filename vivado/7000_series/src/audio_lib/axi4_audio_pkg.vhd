@@ -26,7 +26,7 @@ package axi4_audio_pkg is
 
     -- settings for the bus
     constant c_audio_width  : integer := 24;
-    constant c_ID_width     : integer := 4;
+    constant c_ID_width     : integer := 2;
 
     -- bus definitions
     type t_axi4_audio_fwd is record
