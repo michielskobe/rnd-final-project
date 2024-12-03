@@ -7,8 +7,8 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     analogHighDial = createCustomQDial(-26,6,false,true, false);
     analogMidDial = createCustomQDial(-26,6,false,true, false);
     analogLowDial = createCustomQDial(-26,6,false,true, false);
-    analogHighpassDial = createCustomQDial(20,20000,false,true, true);
-    analogLowpassDial = createCustomQDial(20,20000,false,true, true);
+    analogHighpassDial = createCustomQDial(200,20000,false,true, true);
+    analogLowpassDial = createCustomQDial(200,20000,false,true, true);
     analogSaturationDial = createCustomQDial(1,50,false,true, false);
     analogEchoDial= createCustomQDial(0,1,false,true, false);
     analogRingMdulationDial= createCustomQDial(0,100,false,true, false);
@@ -18,8 +18,8 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     dmaHighDial = createCustomQDial(-26,6,false,true, false);
     dmaMidDial = createCustomQDial(-26,6,false,true, false);
     dmaLowDial = createCustomQDial(-26,6,false,true, false);
-    dmaHighpassDial = createCustomQDial(20,20000,false,true, false);
-    dmaLowpassDial = createCustomQDial(20,20000,false,true, false);
+    dmaHighpassDial = createCustomQDial(200,20000,false,true, false);
+    dmaLowpassDial = createCustomQDial(200,20000,false,true, false);
     dmaSaturationDial = createCustomQDial(1,50,false,true, false);
     dmaEchoDial= createCustomQDial(0,1,false,true, false);
     dmaRingMdulationDial= createCustomQDial(0,100,false,true, false);
@@ -229,25 +229,101 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 void AudioEffectWidget::handleAnalogHighpassFilterProcess() {
     QString output = analogHighpassFilterProcess->readAllStandardOutput();
     std::cout << output.toStdString() << std::endl;
-    //writeToAxi(axi_addr, val);                                                // TODO: implement correct write function
+    QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\s*\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
+    QRegularExpressionMatch match = regex.match(output);
+    if (match.hasMatch()) {
+        float first_b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float first_b1 = match.captured(2).toFloat();
+        float first_b2 = match.captured(3).toFloat();
+        float first_a0 = match.captured(4).toFloat();
+        float first_a1 = match.captured(5).toFloat();
+        float first_a2 = match.captured(6).toFloat();
+
+        float second_b0 = match.captured(7).toFloat();                                 // TODO: cast to fixed point
+        float second_b1 = match.captured(8).toFloat();
+        float second_b2 = match.captured(9).toFloat();
+        float second_a0 = match.captured(10).toFloat();
+        float second_a1 = match.captured(11).toFloat();
+        float second_a2 = match.captured(12).toFloat();
+
+        std::cout << "First filter: a0: " << first_a0 << " a1: " << first_a1 << " a2: " << first_a2 << " b0: " << first_b0 << " b1: " << first_b1 << " b2: " << first_b2 << std::endl;
+        std::cout << "Second filter: a0: " << second_a0 << " a1: " << second_a1 << " a2: " << second_a2 << " b0: " << second_b0 << " b1: " << second_b1 << " b2: " << second_b2 << std::endl;
+        //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
+    }
+    else {
+        std::cout << "No match found!" << std::endl;
+    }
 }
 
 void AudioEffectWidget::handleAnalogLowpassFilterProcess() {
     QString output = analogLowpassFilterProcess->readAllStandardOutput();
     std::cout << output.toStdString() << std::endl;
-    //writeToAxi(axi_addr, val);                                                // TODO: implement correct write function
+    QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
+    QRegularExpressionMatch match = regex.match(output);
+    if (match.hasMatch()) {
+        float b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float b1 = match.captured(2).toFloat();
+        float b2 = match.captured(3).toFloat();
+        float a0 = match.captured(4).toFloat();
+        float a1 = match.captured(5).toFloat();
+        float a2 = match.captured(6).toFloat();
+
+        std::cout << "a0: " << a0 << " a1: " << a1 << " a2: " << a2 << " b0: " << b0 << " b1: " << b1 << " b2: " << b2 << std::endl;
+         //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
+    }
+    else {
+        std::cout << "No match found!" << std::endl;
+    }
 }
 
 void AudioEffectWidget::handleDmaHighpassFilterProcess() {
     QString output = dmaHighpassFilterProcess->readAllStandardOutput();
     std::cout << output.toStdString() << std::endl;
-    //writeToAxi(axi_addr, val);                                                // TODO: implement correct write function
+    QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\s*\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
+    QRegularExpressionMatch match = regex.match(output);
+    if (match.hasMatch()) {
+        float first_b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float first_b1 = match.captured(2).toFloat();
+        float first_b2 = match.captured(3).toFloat();
+        float first_a0 = match.captured(4).toFloat();
+        float first_a1 = match.captured(5).toFloat();
+        float first_a2 = match.captured(6).toFloat();
+
+        float second_b0 = match.captured(7).toFloat();                                 // TODO: cast to fixed point
+        float second_b1 = match.captured(8).toFloat();
+        float second_b2 = match.captured(9).toFloat();
+        float second_a0 = match.captured(10).toFloat();
+        float second_a1 = match.captured(11).toFloat();
+        float second_a2 = match.captured(12).toFloat();
+
+        std::cout << "First filter: a0: " << first_a0 << " a1: " << first_a1 << " a2: " << first_a2 << " b0: " << first_b0 << " b1: " << first_b1 << " b2: " << first_b2 << std::endl;
+        std::cout << "Second filter: a0: " << second_a0 << " a1: " << second_a1 << " a2: " << second_a2 << " b0: " << second_b0 << " b1: " << second_b1 << " b2: " << second_b2 << std::endl;
+        //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
+    }
+    else {
+        std::cout << "No match found!" << std::endl;
+    }
 }
 
 void AudioEffectWidget::handleDmaLowpassFilterProcess() {
     QString output = dmaLowpassFilterProcess->readAllStandardOutput();
     std::cout << output.toStdString() << std::endl;
-    //writeToAxi(axi_addr, val);                                                // TODO: implement correct write function
+    QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
+    QRegularExpressionMatch match = regex.match(output);
+    if (match.hasMatch()) {
+        float b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float b1 = match.captured(2).toFloat();
+        float b2 = match.captured(3).toFloat();
+        float a0 = match.captured(4).toFloat();
+        float a1 = match.captured(5).toFloat();
+        float a2 = match.captured(6).toFloat();
+
+        std::cout << "a0: " << a0 << " a1: " << a1 << " a2: " << a2 << " b0: " << b0 << " b1: " << b1 << " b2: " << b2 << std::endl;
+        //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
+    }
+    else {
+        std::cout << "No match found!" << std::endl;
+    }
 }
 
 int AudioEffectWidget::writeToAxi(volatile uint32_t *axi_addr, uint32_t val) {
