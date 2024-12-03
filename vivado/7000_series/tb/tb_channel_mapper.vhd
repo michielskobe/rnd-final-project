@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: KUL - rnd embed - Beats N Bytes
+-- Engineer: Robbe Decapmaker <debber@dcpm.be>
 -- 
 -- Create Date: 12/02/2024 11:11:27 AM
 -- Design Name: 
@@ -266,7 +266,7 @@ begin
         g_channel => 0 
     )
      port map(
-        ratio => 256,
+        ratio => 100,
         clk_in => clk,
         axi_in_fwd => axi_wav_fwd,
         axi_in_bwd => axi_wav_bwd

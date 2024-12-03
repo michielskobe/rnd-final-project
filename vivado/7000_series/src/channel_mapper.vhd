@@ -124,7 +124,7 @@ begin
     process (clk)
     begin
         if rising_edge(clk) then
-            if dma_enable = '1' then
+            if dma_enable_sync_3 = '1' then
                 -- check if both busses are valid
                 if internal_valid = '1' and axi_in_bwd_bus(0).TReady = '1' then
                     anal_pre_calc <= to_sfixed(axi_in_fwd_bus(0).TData, anal_pre_calc);
@@ -149,7 +149,7 @@ begin
     p_ctrl_flow : process (clk)
     begin
         if rising_edge(clk) then
-            if dma_enable = '1' then
+            if dma_enable_sync_3 = '1' then
                 -- check if both busses are valid
                 if internal_valid = '1' and axi_in_bwd_bus(0).TReady = '1' then
                     prime_counter <= prime_counter + 1;
@@ -163,7 +163,7 @@ begin
 
     p_ctrl_flow_valid: process (all)
     begin
-        if dma_enable = '1' then
+        if dma_enable_sync_3 = '1' then
             -- check if both busses are valid
             if  prime_counter >= 2 then
                 internal_fwd.TVALID <= internal_valid;
@@ -177,7 +177,7 @@ begin
     p_ctrl_flow_ready: process (all)
     begin
         internal_valid <= axi_in_fwd_bus(0).TVALID and axi_in_fwd_bus(1).TVALID;
-        if dma_enable = '1' then
+        if dma_enable_sync_3 = '1' then
             axi_out_fwd_bus(0) <= internal_fwd;
             internal_bwd <= axi_out_bwd_bus(0);
             axi_in_bwd_bus(0).TREADY <= axi_out_bwd_bus(0).TREADY and internal_valid;

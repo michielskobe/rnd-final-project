@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
--- Company: KUL - rnd embed - Beats N Bytes
--- Engineer: Robbe Decapmaker <debber@dcpm.be>
+-- company: kul - rnd embed - beats n bytes
+-- engineer: robbe decapmaker <debber@dcpm.be>
 -- 
 -- Create Date: 12/01/2024 11:19:10 AM
 -- Design Name: Channel Merger
