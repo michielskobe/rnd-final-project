@@ -102,9 +102,6 @@ architecture Behavioral of mixer_wrapper is
     signal channel_address: STD_LOGIC_VECTOR(c_ID_width -1 downto 0) := (others => '0');
 
 begin
-    -- TODO: channel enable + dma enable uitzoeken
-    -- TODO: Audio normalizatie uitzoeken
-
     ------------------------------------
     -- dma ctrl
     ------------------------------------
