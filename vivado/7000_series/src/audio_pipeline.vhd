@@ -74,6 +74,11 @@ architecture Behavioral of audio_pipeline is
     constant c_merger_fifo_depth : integer := 32;
 
     -------------------------------------
+    -- ctrl flow
+    -------------------------------------
+    signal channel_enable : STD_LOGIC_VECTOR(2**c_ID_width -1 downto 0) := (0 => '1', 1 => '1', others => '0');
+
+    -------------------------------------
     -- AXI streams
     -------------------------------------
     signal pre_merger_fwd : t_axi4_audio_fwd_bus(1 downto 0);
@@ -143,6 +148,17 @@ begin
     -------------------------------------
     -- Merging of anal and dma streams
     -------------------------------------
+    p_dma : process (clk_axi_mm)
+    begin
+        if rising_edge(clk_axi_mm) then
+            if dma_valid = '1' then
+                channel_enable <= (others => '1');
+            else
+                channel_enable <= (0 => '1', 1 => '1', others => '0');
+            end if;
+        end if;
+    end process;
+
     channel_merger_inst: entity work.channel_merger
      generic map(
         g_input_channels => 2,
@@ -152,8 +168,7 @@ begin
      port map(
         clk_in => clk_in,
         clk_out => clk_out,
-        -- TODO: fix channel enable based on dma status
-        channel_enable => (others => '1'),
+        channel_enable => channel_enable,
         clk_axi_mm => clk_axi_mm,
         axi_in_fwd_bus => pre_merger_fwd,
         axi_in_bwd_bus => pre_merger_bwd,
@@ -186,7 +201,7 @@ begin
     -- Master volume
     -------------------------------------
     b_master_volume : block 
-        signal chan_counter: STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
+        signal chan_counter: STD_LOGIC_VECTOR(c_ID_width -1 downto 0):= (others => '1');
     begin
         p_master_volume_chan : process (clk_axi_mm)
         begin
