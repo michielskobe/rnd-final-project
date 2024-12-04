@@ -19,6 +19,7 @@ use ieee.MATH_REAL.all;
 use IEEE.fixed_pkg.all;
 
 use work.axi4_audio_pkg.all;
+use work.axi4_mm_filter_pkg.all;
 
 
 entity ring_modulator is
@@ -29,6 +30,9 @@ entity ring_modulator is
   port( 
     -- clocking
     clk : in std_logic;
+
+    -- axi mm
+    axi_in_mm : in t_axi4_mm_ring_mod;
 
     -- axi inputs
     axi_in_fwd : in t_axi4_audio_fwd;
@@ -43,6 +47,12 @@ end ring_modulator;
 
 
 architecture rtl of ring_modulator is
+
+  -------------------------------------
+  -- Axi MM
+  -------------------------------------
+  signal axi_in_mm_1 : t_axi4_mm_ring_mod := axi4_mm_ring_mod_inactive;
+  signal axi_in_mm_2 : t_axi4_mm_ring_mod := axi4_mm_ring_mod_inactive;
 
   -------------------------------------
   -- Ring Modulation Data
@@ -107,6 +117,22 @@ architecture rtl of ring_modulator is
 
    
 BEGIN
+
+  -------------------------------------
+  -- Axi MM
+  -------------------------------------
+  axi_mm : process (clk)
+  begin
+    if rising_edge(clk) then
+      
+      axi_in_mm_1 <= axi_in_mm;
+      axi_in_mm_2 <= axi_in_mm_1;
+
+      ring_mod_on_off <= axi_in_mm_2.on_off;
+      phase_increment <= axi_in_mm_2.phase_inc;
+
+    end if;
+  end process;
 
   -------------------------------------
   -- (Co-)Sine Generating (Cordic)

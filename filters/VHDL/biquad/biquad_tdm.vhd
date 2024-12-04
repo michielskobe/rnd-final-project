@@ -18,6 +18,7 @@ use IEEE.numeric_std.all;
 use IEEE.fixed_pkg.all;
 
 use work.axi4_audio_pkg.all;
+use work.axi4_mm_filter_pkg.all;
 
 
 entity biquad_tdm is
@@ -28,6 +29,10 @@ entity biquad_tdm is
   port( 
     -- clocking
     clk : in std_logic;
+    axi_clk : in std_logic;
+
+    -- axi mm
+    axi_in_mm : in t_axi4_mm_filter;
 
     -- axi inputs
     axi_in_fwd : in t_axi4_audio_fwd;
@@ -46,7 +51,7 @@ architecture rtl of biquad_tdm is
   -------------------------------------
   -- Memory init
   -------------------------------------
-  type t_coefficient_array is array (0 to 5*2**c_ID_width) of sfixed(g_coefficient_width -1 downto 0);        
+  type t_coefficient_array is array (0 to 2**c_ID_width) of sfixed(g_coefficient_width -1 downto 0);        
   
   ---------------------------------------------------------------
   -- Low & High Shelf
@@ -87,10 +92,20 @@ architecture rtl of biquad_tdm is
   --signal coefficient_array : t_coefficient_array := (to_sfixed(1.008950182258678, 3, -23), to_sfixed(-1.945362319177541, 3, -23), to_sfixed(0.9438385647258686, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(1.008950182258678, 3, -23), to_sfixed(-1.945362319177541, 3, -23), to_sfixed(0.9438385647258686, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(1.0197761694227283, 3, -23), to_sfixed(-1.880427227271865, 3, -23), to_sfixed(0.867829595704011, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(1.0197761694227283, 3, -23), to_sfixed(-1.880427227271865, 3, -23), to_sfixed(0.867829595704011, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(1.6625451137446459, 3, -23), to_sfixed(-2.6718994675094505, 3, -23), to_sfixed(1.2342681944877785, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(1.6625451137446459, 3, -23), to_sfixed(-2.6718994675094505, 3, -23), to_sfixed(1.2342681944877785, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(1.601599857140952, 3, -23), to_sfixed(-2.177342927562955, 3, -23), to_sfixed(0.759026373691517, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(1.601599857140952, 3, -23), to_sfixed(-2.177342927562955, 3, -23), to_sfixed(0.759026373691517, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(0.9934937201254318, 3, -23), to_sfixed(-1.9478939033324798, 3, -23), to_sfixed(0.9567634427041761, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(0.9934937201254318, 3, -23), to_sfixed(-1.9478939033324798, 3, -23), to_sfixed(0.9567634427041761, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(0.9854368227800754, 3, -23), to_sfixed(-1.8828743085821935, 3, -23), to_sfixed(0.8997218610363353, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(0.9854368227800754, 3, -23), to_sfixed(-1.8828743085821935, 3, -23), to_sfixed(0.8997218610363353, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(0.6200496438757876, 3, -23), to_sfixed(-0.7735890829158706, 3, -23), to_sfixed(0.3784532797630566, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(0.6200496438757876, 3, -23), to_sfixed(-0.7735890829158706, 3, -23), to_sfixed(0.3784532797630566, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(0.6444953856707338, 3, -23), to_sfixed(-0.6304012329089719, 3, -23), to_sfixed(0.16918915050775216, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(0.6444953856707338, 3, -23), to_sfixed(-0.6304012329089719, 3, -23), to_sfixed(0.16918915050775216, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), others => to_sfixed(1.0, 3, -23));
 
   -- Low, Band & High Shelf 4th order +5dB
-  signal coefficient_array : t_coefficient_array := (to_sfixed(0.9964422499868876, 3, -23), to_sfixed(-1.9475123838559043, 3, -23), to_sfixed(0.954196432319296, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(0.9964422499868876, 3, -23), to_sfixed(-1.9475123838559043, 3, -23), to_sfixed(0.954196432319296, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(0.9920568364992021, 3, -23), to_sfixed(-1.8825055240095643, 3, -23), to_sfixed(0.893470631889838, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(0.9920568364992021, 3, -23), to_sfixed(-1.8825055240095643, 3, -23), to_sfixed(0.893470631889838, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(0.7812304403430714, 3, -23), to_sfixed(-1.059671764739872, 3, -23), to_sfixed(0.5033551651197743, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(0.7812304403430714, 3, -23), to_sfixed(-1.059671764739872, 3, -23), to_sfixed(0.5033551651197743, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(0.7967471996984181, 3, -23), to_sfixed(-0.8635313006911832, 3, -23), to_sfixed(0.2500674042622792, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(0.7967471996984181, 3, -23), to_sfixed(-0.8635313006911832, 3, -23), to_sfixed(0.2500674042622792, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(1.004135266390286, 3, -23), to_sfixed(-1.9462886648969502, 3, -23), to_sfixed(0.9477271348748513, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(1.004135266390286, 3, -23), to_sfixed(-1.9462886648969502, 3, -23), to_sfixed(0.9477271348748513, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(1.0091730889683426, 3, -23), to_sfixed(-1.8813226520960593, 3, -23), to_sfixed(0.8775372513342025, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(1.0091730889683426, 3, -23), to_sfixed(-1.8813226520960593, 3, -23), to_sfixed(0.8775372513342025, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(1.2866106370257586, 3, -23), to_sfixed(-1.9772783957793936, 3, -23), to_sfixed(0.9155815994766087, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(1.2866106370257586, 3, -23), to_sfixed(-1.9772783957793936, 3, -23), to_sfixed(0.9155815994766087, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(1.262261431986702, 3, -23), to_sfixed(-1.611293083151176, 3, -23), to_sfixed(0.5323149544339881, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(1.262261431986702, 3, -23), to_sfixed(-1.611293083151176, 3, -23), to_sfixed(0.5323149544339881, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), others => to_sfixed(1.0, 3, -23));
+  --signal coefficient_array : t_coefficient_array := (to_sfixed(0.9964422499868876, 3, -23), to_sfixed(-1.9475123838559043, 3, -23), to_sfixed(0.954196432319296, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(0.9964422499868876, 3, -23), to_sfixed(-1.9475123838559043, 3, -23), to_sfixed(0.954196432319296, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(0.9920568364992021, 3, -23), to_sfixed(-1.8825055240095643, 3, -23), to_sfixed(0.893470631889838, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(0.9920568364992021, 3, -23), to_sfixed(-1.8825055240095643, 3, -23), to_sfixed(0.893470631889838, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(0.7812304403430714, 3, -23), to_sfixed(-1.059671764739872, 3, -23), to_sfixed(0.5033551651197743, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(0.7812304403430714, 3, -23), to_sfixed(-1.059671764739872, 3, -23), to_sfixed(0.5033551651197743, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(0.7967471996984181, 3, -23), to_sfixed(-0.8635313006911832, 3, -23), to_sfixed(0.2500674042622792, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(0.7967471996984181, 3, -23), to_sfixed(-0.8635313006911832, 3, -23), to_sfixed(0.2500674042622792, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(1.004135266390286, 3, -23), to_sfixed(-1.9462886648969502, 3, -23), to_sfixed(0.9477271348748513, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(1.004135266390286, 3, -23), to_sfixed(-1.9462886648969502, 3, -23), to_sfixed(0.9477271348748513, 3, -23), to_sfixed(-1.9469866870630164, 3, -23), to_sfixed(0.9511643790990714, 3, -23), to_sfixed(1.0091730889683426, 3, -23), to_sfixed(-1.8813226520960593, 3, -23), to_sfixed(0.8775372513342025, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(1.0091730889683426, 3, -23), to_sfixed(-1.8813226520960593, 3, -23), to_sfixed(0.8775372513342025, 3, -23), to_sfixed(-1.8819973746777452, 3, -23), to_sfixed(0.8860356177208591, 3, -23), to_sfixed(1.2866106370257586, 3, -23), to_sfixed(-1.9772783957793936, 3, -23), to_sfixed(0.9155815994766087, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(1.2866106370257586, 3, -23), to_sfixed(-1.9772783957793936, 3, -23), to_sfixed(0.9155815994766087, 3, -23), to_sfixed(-1.45386592144609, 3, -23), to_sfixed(0.6787797621690638, 3, -23), to_sfixed(1.262261431986702, 3, -23), to_sfixed(-1.611293083151176, 3, -23), to_sfixed(0.5323149544339881, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), to_sfixed(1.262261431986702, 3, -23), to_sfixed(-1.611293083151176, 3, -23), to_sfixed(0.5323149544339881, 3, -23), to_sfixed(-1.1847618969871463, 3, -23), to_sfixed(0.3680452002566605, 3, -23), others => to_sfixed(1.0, 3, -23));
 
-  type t_data_array is array (0 to 4*2**c_ID_width) of signed(c_audio_width -1 downto 0);
+  signal coefficient_array : t_coefficient_array := (others => to_sfixed(1.0, 3, -23));
+  signal coefficient_array2 : t_coefficient_array := (others => to_sfixed(1.0, 3, -23));
+  signal coefficient_array3 : t_coefficient_array := (others => to_sfixed(1.0, 3, -23));
+  signal coefficient_array4 : t_coefficient_array := (others => to_sfixed(1.0, 3, -23));
+  signal coefficient_array5 : t_coefficient_array := (others => to_sfixed(1.0, 3, -23));
+
+
+  type t_data_array is array (0 to 2**c_ID_width) of signed(c_audio_width -1 downto 0);
   signal data_array : t_data_array := (others => (others => '0'));
+  signal data_array2 : t_data_array := (others => (others => '0'));
+  signal data_array3 : t_data_array := (others => (others => '0'));
+  signal data_array4 : t_data_array := (others => (others => '0'));
 
 
   -------------------------------------
@@ -181,6 +196,24 @@ architecture rtl of biquad_tdm is
 BEGIN
 
   -------------------------------------
+  -- Axi MM
+  -------------------------------------
+  axi_mm : process (axi_clk)
+  begin
+    if rising_edge(axi_clk) then
+      
+      if (axi_in_mm.strobe = '1') then
+        coefficient_array(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.b0;
+        coefficient_array2(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.b1;
+        coefficient_array3(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.b2;
+        coefficient_array4(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.a1;
+        coefficient_array5(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.a2;
+      end if;
+
+    end if;
+  end process;
+
+  -------------------------------------
   -- Data Input
   -------------------------------------
   data_input_process : process (clk)
@@ -205,17 +238,17 @@ BEGIN
         TData_stage_2 <= TData_stage_1;
         TID_stage_2 <= TID_stage_1;
 
-        TID_b0 <= coefficient_array(5*to_integer(unsigned(TID_stage_1)));
-        TID_b1 <= coefficient_array(5*to_integer(unsigned(TID_stage_1))+1);
-        TID_b2 <= coefficient_array(5*to_integer(unsigned(TID_stage_1))+2);
-        TID_a1 <= coefficient_array(5*to_integer(unsigned(TID_stage_1))+3);
-        TID_a2 <= coefficient_array(5*to_integer(unsigned(TID_stage_1))+4);
+        TID_b0 <= coefficient_array(to_integer(unsigned(TID_stage_1)));
+        TID_b1 <= coefficient_array2(to_integer(unsigned(TID_stage_1)));
+        TID_b2 <= coefficient_array3(to_integer(unsigned(TID_stage_1)));
+        TID_a1 <= coefficient_array4(to_integer(unsigned(TID_stage_1)));
+        TID_a2 <= coefficient_array5(to_integer(unsigned(TID_stage_1)));
 
         if TID_stage_1 /= TID_stage_3 then
-          Prev_Delay_X_1 <= data_array(4*to_integer(unsigned(TID_stage_1)));
-          Prev_Delay_X_2 <= data_array(4*to_integer(unsigned(TID_stage_1))+1);
-          Prev_Delay_Y_1 <= data_array(4*to_integer(unsigned(TID_stage_1))+2);
-          Prev_Delay_Y_2 <= data_array(4*to_integer(unsigned(TID_stage_1))+3);
+          Prev_Delay_X_1 <= data_array(to_integer(unsigned(TID_stage_1)));
+          Prev_Delay_X_2 <= data_array2(to_integer(unsigned(TID_stage_1)));
+          Prev_Delay_Y_1 <= data_array3(to_integer(unsigned(TID_stage_1)));
+          Prev_Delay_Y_2 <= data_array4(to_integer(unsigned(TID_stage_1)));
         else
           Prev_Delay_X_1 <= TData_stage_3;
           Prev_Delay_X_2 <= Delay_X_1_muxed;
@@ -335,10 +368,10 @@ BEGIN
         axi_out_fwd.TID   <= TID_stage_3;
 
         -- Move Data from Filter
-        data_array(4*to_integer(unsigned(TID_stage_3)))   <= TData_stage_3;
-        data_array(4*to_integer(unsigned(TID_stage_3))+1) <= Delay_X_1_muxed;
-        data_array(4*to_integer(unsigned(TID_stage_3))+2) <= TData_stage_4;
-        data_array(4*to_integer(unsigned(TID_stage_3))+3) <= Delay_Y_1_muxed;
+        data_array(to_integer(unsigned(TID_stage_3)))   <= TData_stage_3;
+        data_array2(to_integer(unsigned(TID_stage_3))) <= Delay_X_1_muxed;
+        data_array3(to_integer(unsigned(TID_stage_3))) <= TData_stage_4;
+        data_array4(to_integer(unsigned(TID_stage_3))) <= Delay_Y_1_muxed;
 
       end if;
     end if;

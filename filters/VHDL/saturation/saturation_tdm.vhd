@@ -18,6 +18,7 @@ use IEEE.numeric_std.all;
 use IEEE.fixed_pkg.all;
 
 use work.axi4_audio_pkg.all;
+use work.axi4_mm_filter_pkg.all;
 
 
 entity saturation_tdm is
@@ -28,6 +29,10 @@ entity saturation_tdm is
   port( 
     -- clocking
     clk : in std_logic;
+    axi_clk : in std_logic;
+
+    -- axi mm
+    axi_in_mm : in t_axi4_mm_saturation;
 
     -- axi inputs
     axi_in_fwd : in t_axi4_audio_fwd;
@@ -83,6 +88,20 @@ architecture rtl of saturation_tdm is
 
    
 BEGIN
+
+  -------------------------------------
+  -- Axi MM
+  -------------------------------------
+  axi_mm : process (axi_clk)
+  begin
+    if rising_edge(axi_clk) then
+      
+      if (axi_in_mm.strobe = '1') then
+        gain_array(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.channel_value;
+      end if;
+
+    end if;
+  end process;
 
   -------------------------------------
   -- Data Input

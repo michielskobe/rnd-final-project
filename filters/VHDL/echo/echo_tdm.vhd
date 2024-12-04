@@ -19,7 +19,7 @@ use IEEE.fixed_pkg.all;
 use ieee.math_real.all;
 
 use work.axi4_audio_pkg.all;
-
+use work.axi4_mm_filter_pkg.all;
 
 entity echo_tdm is
   generic (
@@ -30,6 +30,10 @@ entity echo_tdm is
   port( 
     -- clocking
     clk : in std_logic;
+    axi_clk : in std_logic;
+
+    -- axi mm
+    axi_in_mm : in t_axi4_mm_echo;
 
     -- axi inputs
     axi_in_fwd : in t_axi4_audio_fwd;
@@ -53,9 +57,9 @@ architecture rtl of echo_tdm is
 
   constant bram_size : natural := g_delay*2**c_ID_width;
   type t_data_array is array (0 to bram_size -1) of std_logic_vector(c_audio_width -1 downto 0);
-  signal data_array : t_data_array;-- := (others => (others => '0'));
-  attribute ram_style : string;
-  attribute ram_style of data_array: signal is "block";
+  signal data_array : t_data_array := (others => (others => '0'));
+  -- attribute ram_style : string;
+  -- attribute ram_style of data_array: signal is "block";
 
   type t_counter_array is array (0 to 2**c_ID_width) of unsigned(integer(ceil(log2(real(g_delay) - real(1)))) downto 0);
   signal counter_array : t_counter_array := (others => (others => '0'));
@@ -116,6 +120,20 @@ architecture rtl of echo_tdm is
 
    
 BEGIN
+
+  -------------------------------------
+  -- Axi MM
+  -------------------------------------
+  axi_mm : process (axi_clk)
+  begin
+    if rising_edge(axi_clk) then
+      
+      if (axi_in_mm.strobe = '1') then
+        coefficient_array(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.channel_value;
+      end if;
+
+    end if;
+  end process;
 
   -------------------------------------
   -- Data Input
