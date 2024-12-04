@@ -68,6 +68,7 @@ architecture Behavioral of tb_audio_pipeline is
 
     signal dma_fwd : t_axi4_audio_fwd;
     signal dma_bwd : t_axi4_audio_bwd;
+    signal dma_bwd_test : t_axi4_audio_bwd;
 
     signal wav_fwd : t_axi4_audio_fwd;
     signal wav_bwd : t_axi4_audio_bwd;
@@ -127,9 +128,17 @@ begin
 
     process 
     begin
+        wait until rising_edge(clk);
+        -- dma_bwd <= dma_bwd_test;
         wait until rising_edge(dma_fwd.TValid);
         dma_valid <= '1';
         wait until rising_edge(clk);
+
+        for i in 0 to 500000 loop
+            wait until rising_edge(clk);
+        end loop;
+        dma_valid <= '0';
+        -- dma_bwd.TREADY <= '0';
         wait;
         
     end process;
