@@ -52,7 +52,7 @@ architecture rtl of saturation_tdm is
   -- Memory init
   -------------------------------------
   type t_gain_array is array (0 to 2**c_ID_width) of sfixed(g_coefficient_width -1 downto 0);
-  signal gain_array : t_gain_array := (others => to_sfixed(7.9, 3, -23));
+  signal gain_array : t_gain_array := (others => to_sfixed(1.0, 3, -23));
 
   -------------------------------------
   -- Data Input

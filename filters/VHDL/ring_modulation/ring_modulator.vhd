@@ -61,7 +61,7 @@ architecture rtl of ring_modulator is
   constant PI_NEG: signed(15 downto 0) := "1001101100010111";
   
   signal phase_increment: integer := 256;
-  signal ring_mod_on_off: std_logic := '1';
+  signal ring_mod_on_off: std_logic := '0';
 
   signal Cordic_Phase: signed(15 downto 0) := (others => '0');
 

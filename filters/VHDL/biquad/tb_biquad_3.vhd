@@ -33,6 +33,8 @@ library work;
 use work.wav2axi;
 use work.axi2wav;
 use work.axi4_audio_pkg.all;
+use work.axi4_mm_filter_pkg.all;
+
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
@@ -106,9 +108,9 @@ begin
         --g_file_name => "sine_sweep_10.wav",
         --g_file_name => "Heads_Will_Roll.wav",
         --g_file_name => "Waiting.wav",
-        g_file_name => "Waiting_2.wav",
+        --g_file_name => "Waiting_2.wav",
         --g_file_name => "Waiting_12.wav",
-        --g_file_name => "sine_sweep.wav",
+        g_file_name => "sine_sweep2.wav",
         g_channel => 0,
         g_start_del => 50
      )
@@ -130,6 +132,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID1_fwd,
          axi_in_bwd => wav_axi_bwd,
          axi_out_fwd => biquad_fwd,
@@ -143,6 +147,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID2_fwd,
          axi_in_bwd => biquad_bwd,
          axi_out_fwd => biquad_2_fwd,
@@ -156,6 +162,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID3_fwd,
          axi_in_bwd => biquad_2_bwd,
          axi_out_fwd => biquad_3_fwd,
@@ -169,6 +177,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID4_fwd,
          axi_in_bwd => biquad_3_bwd,
          axi_out_fwd => biquad_4_fwd,
@@ -182,6 +192,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID5_fwd,
          axi_in_bwd => biquad_4_bwd,
          axi_out_fwd => biquad_5_fwd,
@@ -195,6 +207,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID6_fwd,
          axi_in_bwd => biquad_5_bwd,
          axi_out_fwd => biquad_6_fwd,
@@ -208,6 +222,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID7_fwd,
          axi_in_bwd => biquad_6_bwd,
          axi_out_fwd => biquad_7_fwd,
@@ -221,6 +237,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_filter_inactive,
          axi_in_fwd => biquad_TID8_fwd,
          axi_in_bwd => biquad_7_bwd,
          axi_out_fwd => axi_wav_fwd,
@@ -277,9 +295,10 @@ begin
         --g_file_name => "sine_sweep_out_Band_shelf_2.wav",
         --g_file_name => "Heads_Will_Roll_Out_Low_Pass.wav",
         --g_file_name => "Waiting_Out_12.wav",
-        g_file_name => "Waiting_Out_2.wav",
+        --g_file_name => "Waiting_Out_2.wav",
         --g_file_name => "sine_sweep_10_out.wav",
         --g_file_name => "sine_sweep_out.wav",
+        g_file_name => "sine_sweep_out2.wav",
         g_channel => 0 
      )
      port map(

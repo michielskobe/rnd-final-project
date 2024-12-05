@@ -41,8 +41,8 @@ use work.axi4_mm_filter_pkg.all;
 entity wrapper_test is
     Port (
     -- clocking
-    clk : in std_logic;
-    axi_clk : in std_logic;
+    clk_audio : in std_logic;
+    clk_axi_mm : in std_logic;
 
     -- axi inputs
     axi_in_fwd : in t_axi4_audio_fwd;
@@ -59,55 +59,7 @@ architecture Behavioral of wrapper_test is
     ------------------------------------
     -- AXI streams
     ------------------------------------
-    signal biquad_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_2_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_2_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_3_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_3_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_4_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_4_bwd : t_axi4_audio_bwd := (TReady => '1');
-    
-    signal biquad_5_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_5_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_6_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_6_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_7_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_7_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_8_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_8_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_9_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_9_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal biquad_10_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal biquad_10_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal echo_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal echo_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal ring_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal ring_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal sat_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal sat_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal axi_wav_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal axi_wav_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal volume_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal volume_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal band_volume_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
-    signal band_volume_bwd : t_axi4_audio_bwd := (TReady => '1');
-
-    signal axi_in_mm, axi_in_mm2, axi_in_mm3, axi_in_mm4, axi_in_mm5, axi_in_mm6, axi_in_mm7, axi_in_mm8, axi_in_mm9, axi_in_mm10, axi_in_mm11 : t_axi4_mm_filter := (
+    signal axi_in_mm_band_low_1, axi_in_mm_band_low_2, axi_in_mm_band_high_1, axi_in_mm_band_high_2, axi_in_mm_low_1, axi_in_mm_low_2, axi_in_mm_high_1, axi_in_mm_high_2, axi_in_mm_low_pass, axi_in_mm_high_pass_1, axi_in_mm_high_pass_2 : t_axi4_mm_filter := (
         b0 => to_sfixed(1.0, 3, -23),
         b1 => to_sfixed(1.0, 3, -23),
         b2 => to_sfixed(1.0, 3, -23),
@@ -117,287 +69,331 @@ architecture Behavioral of wrapper_test is
         strobe => '0'
     );
 
-    signal axi_in_mm12 : t_axi4_mm_echo := axi4_mm_echo_inactive;
-    signal axi_in_mm13 : t_axi4_mm_ring_mod := axi4_mm_ring_mod_inactive;
-    signal axi_in_mm14 : t_axi4_mm_saturation := axi4_mm_saturation_inactive;
-    signal axi_in_mm15 : t_axi4_mm_volume := axi4_mm_volume_inactive;
-    signal axi_in_mm16 : t_axi4_mm_band_volume := axi4_mm_band_volume_inactive;
+    signal axi_in_mm_echo : t_axi4_mm_echo := axi4_mm_echo_inactive;
+    signal axi_in_mm_ring_mod : t_axi4_mm_ring_mod := axi4_mm_ring_mod_inactive;
+    signal axi_in_mm_saturation : t_axi4_mm_saturation := axi4_mm_saturation_inactive;
+    signal axi_in_mm_volume_reduction : t_axi4_mm_volume := axi4_mm_volume_inactive;
+    signal axi_in_mm_band_volume : t_axi4_mm_band_volume := axi4_mm_band_volume_inactive;
+
+    signal post_merger_fwd : t_axi4_audio_fwd;
+    signal post_merger_bwd : t_axi4_audio_bwd;
+
+    signal pre_mixer_fwd : t_axi4_audio_fwd;
+    signal pre_mixer_bwd : t_axi4_audio_bwd;
 
 begin
 
-    ------------------------------------
-    -- Volume
-    ------------------------------------
-
-    volume_inst: entity work.volume
-     generic map(
-        g_coefficient_width => 24,
-        g_chip_scope => "False"
-    )
-     port map(
-        clk => clk,
-        axi_in_mm => axi_in_mm15,
-        axi_in_fwd => axi_in_fwd,
-        axi_in_bwd => axi_in_bwd,
-        axi_out_fwd => volume_fwd,
-        axi_out_bwd => volume_bwd
-    );
+    post_merger_fwd <= axi_in_fwd;
+    axi_in_bwd <= post_merger_bwd;
 
     ------------------------------------
-    -- Band Shelf
+    -- Filters and Audio Effects
     ------------------------------------
+    b_filters_and_effects : block
+        -- Volume Reduction
+        signal volume_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal volume_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        -- Band Shelf
+        signal band_volume_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal band_volume_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal band_low_1_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal band_low_1_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal band_low_2_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal band_low_2_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal band_high_1_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal band_high_1_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal band_high_2_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal band_high_2_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        -- Low Shelf
+        signal low_1_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal low_1_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal low_2_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal low_2_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        -- High Shelf
+        signal high_1_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal high_1_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal high_2_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal high_2_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        -- Low Pass
+        signal low_pass_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal low_pass_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        -- High Pass
+        signal high_pass_1_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal high_pass_1_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal high_pass_2_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal high_pass_2_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        -- Echo
+        signal echo_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal echo_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        -- Saturation
+        signal saturation_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal saturation_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
 
-    band_volume_inst: entity work.band_volume
-     generic map(
-        g_coefficient_width => 25,
-        g_chip_scope => "False"
-    )
-     port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm16,
-        axi_in_fwd => volume_fwd,
-        axi_in_bwd => volume_bwd,
-        axi_out_fwd => band_volume_fwd,
-        axi_out_bwd => band_volume_bwd
-    );
+    begin
 
-    i_biquad: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm,
-        axi_in_fwd => band_volume_fwd,
-        axi_in_bwd => band_volume_bwd,
-        axi_out_fwd => biquad_fwd,
-        axi_out_bwd => biquad_bwd
-    );
+        ------------------------------------
+        -- Volume
+        ------------------------------------
 
-    i_biquad_2: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm2,
-        axi_in_fwd => biquad_fwd,
-        axi_in_bwd => biquad_bwd,
-        axi_out_fwd => biquad_2_fwd,
-        axi_out_bwd => biquad_2_bwd
-    );
+        i_volume_reduction: entity work.volume
+        generic map(
+            g_coefficient_width => 24,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_in_mm => axi_in_mm_volume_reduction,
+            axi_in_fwd => post_merger_fwd,
+            axi_in_bwd => post_merger_bwd,
+            axi_out_fwd => volume_fwd,
+            axi_out_bwd => volume_bwd
+        );
 
-    i_biquad_3: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm3,
-        axi_in_fwd => biquad_2_fwd,
-        axi_in_bwd => biquad_2_bwd,
-        axi_out_fwd => biquad_3_fwd,
-        axi_out_bwd => biquad_3_bwd
-    );
+        ------------------------------------
+        -- Band Shelf
+        ------------------------------------
 
-    i_biquad_4: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm4,
-        axi_in_fwd => biquad_3_fwd,
-        axi_in_bwd => biquad_3_bwd,
-        axi_out_fwd => biquad_4_fwd,
-        axi_out_bwd => biquad_4_bwd
-    );
+        i_band_volume: entity work.band_volume
+        generic map(
+            g_coefficient_width => 25,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_band_volume,
+            axi_in_fwd => volume_fwd,
+            axi_in_bwd => volume_bwd,
+            axi_out_fwd => band_volume_fwd,
+            axi_out_bwd => band_volume_bwd
+        );
 
-    ------------------------------------
-    -- Low Shelf
-    ------------------------------------
+        i_band_low_1: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_band_low_1,
+            axi_in_fwd => band_volume_fwd,
+            axi_in_bwd => band_volume_bwd,
+            axi_out_fwd => band_low_1_fwd,
+            axi_out_bwd => band_low_1_bwd
+        );
 
-    i_biquad_5: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm5,
-        axi_in_fwd => biquad_4_fwd,
-        axi_in_bwd => biquad_4_bwd,
-        axi_out_fwd => biquad_5_fwd,
-        axi_out_bwd => biquad_5_bwd
-    );
+        i_band_low_2: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_band_low_2,
+            axi_in_fwd => band_low_1_fwd,
+            axi_in_bwd => band_low_1_bwd,
+            axi_out_fwd => band_low_2_fwd,
+            axi_out_bwd => band_low_2_bwd
+        );
 
-    i_biquad_6: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm6,
-        axi_in_fwd => biquad_5_fwd,
-        axi_in_bwd => biquad_5_bwd,
-        axi_out_fwd => biquad_6_fwd,
-        axi_out_bwd => biquad_6_bwd
-    );
+        i_band_high_1: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_band_high_1,
+            axi_in_fwd => band_low_2_fwd,
+            axi_in_bwd => band_low_2_bwd,
+            axi_out_fwd => band_high_1_fwd,
+            axi_out_bwd => band_high_1_bwd
+        );
 
-    ------------------------------------
-    -- High Shelf
-    ------------------------------------
+        i_band_high_2: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_band_high_2,
+            axi_in_fwd => band_high_1_fwd,
+            axi_in_bwd => band_high_1_bwd,
+            axi_out_fwd => band_high_2_fwd,
+            axi_out_bwd => band_high_2_bwd
+        );
 
-    i_biquad_7: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm7,
-        axi_in_fwd => biquad_6_fwd,
-        axi_in_bwd => biquad_6_bwd,
-        axi_out_fwd => biquad_7_fwd,
-        axi_out_bwd => biquad_7_bwd
-    );
+        ------------------------------------
+        -- Low Shelf
+        ------------------------------------
 
-    i_biquad_8: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm8,
-        axi_in_fwd => biquad_7_fwd,
-        axi_in_bwd => biquad_7_bwd,
-        axi_out_fwd => biquad_8_fwd,
-        axi_out_bwd => biquad_8_bwd
-    );
+        i_low_1: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_low_1,
+            axi_in_fwd => band_high_2_fwd,
+            axi_in_bwd => band_high_2_bwd,
+            axi_out_fwd => low_1_fwd,
+            axi_out_bwd => low_1_bwd
+        );
 
-    ------------------------------------
-    -- Low Pass
-    ------------------------------------
+        i_low_2: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_low_2,
+            axi_in_fwd => low_1_fwd,
+            axi_in_bwd => low_1_bwd,
+            axi_out_fwd => low_2_fwd,
+            axi_out_bwd => low_2_bwd
+        );
 
-    i_biquad_9: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm9,
-        axi_in_fwd => biquad_8_fwd,
-        axi_in_bwd => biquad_8_bwd,
-        axi_out_fwd => biquad_9_fwd,
-        axi_out_bwd => biquad_9_bwd
-    );
+        ------------------------------------
+        -- High Shelf
+        ------------------------------------
 
-    ------------------------------------
-    -- High Pass
-    ------------------------------------
+        i_high_1: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_high_1,
+            axi_in_fwd => low_2_fwd,
+            axi_in_bwd => low_2_bwd,
+            axi_out_fwd => high_1_fwd,
+            axi_out_bwd => high_1_bwd
+        );
 
-    i_biquad_10: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm10,
-        axi_in_fwd => biquad_9_fwd,
-        axi_in_bwd => biquad_9_bwd,
-        axi_out_fwd => biquad_10_fwd,
-        axi_out_bwd => biquad_10_bwd
-    );
+        i_high_2: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_high_2,
+            axi_in_fwd => high_1_fwd,
+            axi_in_bwd => high_1_bwd,
+            axi_out_fwd => high_2_fwd,
+            axi_out_bwd => high_2_bwd
+        );
 
-    i_biquad_11: entity work.biquad_tdm
-    generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-    port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm11,
-        axi_in_fwd => biquad_10_fwd,
-        axi_in_bwd => biquad_10_bwd,
-        axi_out_fwd => echo_fwd,
-        axi_out_bwd => echo_bwd
-    );
+        ------------------------------------
+        -- Low Pass
+        ------------------------------------
 
-    ------------------------------------
-    -- Echo
-    ------------------------------------
+        i_low_pass: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_low_pass,
+            axi_in_fwd => high_2_fwd,
+            axi_in_bwd => high_2_bwd,
+            axi_out_fwd => low_pass_fwd,
+            axi_out_bwd => low_pass_bwd
+        );
 
-    echo_tdm_inst: entity work.echo_tdm
-     generic map(
-        g_coefficient_width => 24,
-        g_delay => 16384,
-        g_chip_scope => "False"
-    )
-     port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm12,
-        axi_in_fwd => echo_fwd,
-        axi_in_bwd => echo_bwd,
-        axi_out_fwd => ring_fwd,
-        axi_out_bwd => ring_bwd
-    );
+        ------------------------------------
+        -- High Pass
+        ------------------------------------
 
-    ------------------------------------
-    -- Ring Modulator
-    ------------------------------------
+        i_high_pass_1: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_high_pass_1,
+            axi_in_fwd => low_pass_fwd,
+            axi_in_bwd => low_pass_bwd,
+            axi_out_fwd => high_pass_1_fwd,
+            axi_out_bwd => high_pass_1_bwd
+        );
 
-    ring_modulator_inst: entity work.ring_modulator
-     generic map(
-        g_TID_count => 2,
-        g_chip_scope => "False"
-    )
-     port map(
-        clk => clk,
-        axi_in_mm => axi_in_mm13,
-        axi_in_fwd => ring_fwd,
-        axi_in_bwd => ring_bwd,
-        axi_out_fwd => sat_fwd,
-        axi_out_bwd => sat_bwd
-    );
+        i_high_pass_2: entity work.biquad_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_high_pass_2,
+            axi_in_fwd => high_pass_1_fwd,
+            axi_in_bwd => high_pass_1_bwd,
+            axi_out_fwd => high_pass_2_fwd,
+            axi_out_bwd => high_pass_2_bwd
+        );
 
-    ------------------------------------
-    -- Saturation
-    ------------------------------------
+        ------------------------------------
+        -- Echo
+        ------------------------------------
 
-    saturation_tdm_inst: entity work.saturation_tdm
-     generic map(
-        g_coefficient_width => 27,
-        g_chip_scope => "False"
-    )
-     port map(
-        clk => clk,
-        axi_clk => axi_clk,
-        axi_in_mm => axi_in_mm14,
-        axi_in_fwd => sat_fwd,
-        axi_in_bwd => sat_bwd,
-        axi_out_fwd => axi_out_fwd,
-        axi_out_bwd => axi_out_bwd
-    );
+        i_echo: entity work.echo_tdm
+        generic map(
+            g_coefficient_width => 24,
+            g_delay => 16384,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_echo,
+            axi_in_fwd => high_pass_2_fwd,
+            axi_in_bwd => high_pass_2_bwd,
+            axi_out_fwd => echo_fwd,
+            axi_out_bwd => echo_bwd
+        );
+
+        ------------------------------------
+        -- Saturation
+        ------------------------------------
+
+        i_saturation: entity work.saturation_tdm
+        generic map(
+            g_coefficient_width => 27,
+            g_chip_scope => "False"
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            axi_in_mm => axi_in_mm_saturation,
+            axi_in_fwd => echo_fwd,
+            axi_in_bwd => echo_bwd,
+            axi_out_fwd => saturation_fwd,
+            axi_out_bwd => saturation_bwd
+        );
+
+        pre_mixer_fwd <= saturation_fwd;
+        saturation_bwd <= pre_mixer_bwd;
+         
+    end block;
+
+    axi_out_fwd <= pre_mixer_fwd;
+    pre_mixer_bwd <= axi_out_bwd;
 
 end Behavioral;

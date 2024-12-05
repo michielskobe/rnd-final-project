@@ -33,6 +33,7 @@ library work;
 use work.wav2axi;
 use work.axi2wav;
 use work.axi4_audio_pkg.all;
+use work.axi4_mm_filter_pkg.all;
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
@@ -92,6 +93,8 @@ begin
      )
       port map(
          clk => clk,
+         axi_clk => '0',
+         axi_in_mm => axi4_mm_saturation_inactive,
          axi_in_fwd => wav_axi_fwd,
          axi_in_bwd => wav_axi_bwd,
          axi_out_fwd => axi_wav_fwd,

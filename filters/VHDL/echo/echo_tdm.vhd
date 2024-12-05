@@ -53,7 +53,7 @@ architecture rtl of echo_tdm is
   -- Memory init
   -------------------------------------
   type t_coefficient_array is array (0 to 2**c_ID_width) of sfixed(g_coefficient_width -1 downto 0);
-  signal coefficient_array : t_coefficient_array := (others => to_sfixed(0.5, 0, -23));
+  signal coefficient_array : t_coefficient_array := (others => to_sfixed(0.0, 0, -23));
 
   constant bram_size : natural := g_delay*2**c_ID_width;
   type t_data_array is array (0 to bram_size -1) of std_logic_vector(c_audio_width -1 downto 0);

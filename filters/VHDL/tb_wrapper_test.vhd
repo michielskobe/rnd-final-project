@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 11/22/2024
 -- Design Name: test bench biquad
--- Module Name: tb_ring_modulation - Behavioral
+-- Module Name: tb_wrapper_test - Behavioral
 -- Project Name: Blendinator
 -- Target Devices: 
 -- Tool Versions: 
@@ -34,16 +34,17 @@ use work.wav2axi;
 use work.axi2wav;
 use work.axi4_audio_pkg.all;
 use work.axi4_mm_filter_pkg.all;
+
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity tb_ring_modulation is
+entity tb_wrapper_test is
 --  Port ( );
-end tb_ring_modulation;
+end tb_wrapper_test;
 
-architecture Behavioral of tb_ring_modulation is
+architecture Behavioral of tb_wrapper_test is
     ------------------------------------
     -- Clock
     ------------------------------------
@@ -59,8 +60,6 @@ architecture Behavioral of tb_ring_modulation is
     signal axi_wav_fwd : t_axi4_audio_fwd := (TID => (others => '0'), TData => (others => '0'), TValid => '0', TLast =>'0');
     signal axi_wav_bwd : t_axi4_audio_bwd := (TReady => '1');
 
-    signal bp_period : time := 100000 ns;
-
 begin
 
     --clock
@@ -70,9 +69,16 @@ begin
      -- device under test
      i_dut: entity wav2axi
      generic map(
-        g_file_name => "sine_sweep.wav",
+        --g_file_name => "sine_sweep.wav",
+        --g_file_name => "sine_sweep_26.wav",
+        --g_file_name => "sine_sweep_10.wav",
+        --g_file_name => "Heads_Will_Roll.wav",
+        g_file_name => "Waiting.wav",
+        --g_file_name => "Waiting_2.wav",
+        --g_file_name => "Waiting_12.wav",
+        --g_file_name => "sine_sweep2.wav",
         g_channel => 0,
-        g_start_del => 10
+        g_start_del => 50
      )
      port map(
          -- input
@@ -83,16 +89,11 @@ begin
          axi_out_fwd => wav_axi_fwd,
          axi_out_bwd => wav_axi_bwd
      );
-
-     
-     ring_modulator_inst: entity work.ring_modulator
-      generic map(
-         g_TID_count => 2,
-         g_chip_scope => "False"
-     )
+ 
+     wrapper_test_inst: entity work.wrapper_test
       port map(
-         clk => clk,
-         axi_in_mm => axi4_mm_ring_mod_inactive,
+         clk_audio => clk,
+         clk_axi_mm => '0',
          axi_in_fwd => wav_axi_fwd,
          axi_in_bwd => wav_axi_bwd,
          axi_out_fwd => axi_wav_fwd,
@@ -100,9 +101,16 @@ begin
      );
 
      -- device under test
-     i_dut_2: entity axi2wav
+     i_dut_3: entity axi2wav
      generic map(
-        g_file_name => "sine_sweep_out_ring_mod3.wav",
+        --g_file_name => "sine_sweep_out_Band_shelf_2.wav",
+        --g_file_name => "Heads_Will_Roll_Out_Low_Pass.wav",
+        --g_file_name => "Waiting_Out_12.wav",
+        --g_file_name => "Waiting_Out_2.wav",
+        --g_file_name => "sine_sweep_10_out.wav",
+        --g_file_name => "sine_sweep_out.wav",
+        --g_file_name => "sine_sweep_out2.wav",
+        g_file_name => "Waiting_Out_6.wav",
         g_channel => 0 
      )
      port map(
@@ -115,5 +123,6 @@ begin
          axi_in_bwd => axi_wav_bwd
      );
 
+    
 
 end Behavioral;
