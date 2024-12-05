@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 11/22/2024
 -- Design Name: test bench biquad
--- Module Name: tb_wrapper_test - Behavioral
+-- Module Name: tb_filters_effects_wrapper - Behavioral
 -- Project Name: Blendinator
 -- Target Devices: 
 -- Tool Versions: 
@@ -40,11 +40,11 @@ use work.axi4_mm_filter_pkg.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity tb_wrapper_test is
+entity tb_filters_effects_wrapper is
 --  Port ( );
-end tb_wrapper_test;
+end tb_filters_effects_wrapper;
 
-architecture Behavioral of tb_wrapper_test is
+architecture Behavioral of tb_filters_effects_wrapper is
     ------------------------------------
     -- Clock
     ------------------------------------

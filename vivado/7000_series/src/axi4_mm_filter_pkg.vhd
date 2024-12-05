@@ -100,13 +100,11 @@ package axi4_mm_filter_pkg is
     type t_axi4_mm_ring_mod is record
         on_off : std_logic;
         phase_inc : integer;
-        strobe : std_logic;
     end record t_axi4_mm_ring_mod;
 
     constant axi4_mm_ring_mod_inactive : t_axi4_mm_ring_mod := (
         on_off => '0',
-        phase_inc => 256,
-        strobe => '0'
+        phase_inc => 256
     );
 
 

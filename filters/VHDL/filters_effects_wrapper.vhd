@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 11/22/2024
 -- Design Name: 
--- Module Name: 
+-- Module Name: filters_effects_wrapper
 -- Project Name: Blendinator
 -- Target Devices: 
 -- Tool Versions: 
@@ -38,7 +38,7 @@ use work.axi4_mm_filter_pkg.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wrapper_test is
+entity filters_effects_wrapper is
     Port (
     -- clocking
     clk_audio : in std_logic;
@@ -53,9 +53,9 @@ entity wrapper_test is
     axi_out_bwd : in t_axi4_audio_bwd
 
      );
-end wrapper_test;
+end filters_effects_wrapper;
 
-architecture Behavioral of wrapper_test is
+architecture Behavioral of filters_effects_wrapper is
     ------------------------------------
     -- AXI streams
     ------------------------------------
