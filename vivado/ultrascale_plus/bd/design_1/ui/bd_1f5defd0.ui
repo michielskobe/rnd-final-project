@@ -1,88 +1,102 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.993222",
-   "Default View_TopLeft":"986,681",
+   "Default View_ScaleFactor":"0.28959",
+   "Default View_TopLeft":"325,-197",
    "ExpandedHierarchyInLayout":"",
    "PinnedBlocks":"",
    "guistr":"# # String gsaved with Nlview 7.5.8 2022-09-21 7111 VDI=41 GEI=38 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port wifi_en_led -pg 1 -lvl 7 -x 2980 -y 70 -defaultsOSRD
-preplace port bt_en_led -pg 1 -lvl 7 -x 2980 -y 100 -defaultsOSRD
-preplace port fan_pwm -pg 1 -lvl 7 -x 2980 -y 320 -defaultsOSRD
-preplace port port-id_bt_ctsn -pg 1 -lvl 0 -x 0 -y 780 -defaultsOSRD
-preplace port port-id_bt_rtsn -pg 1 -lvl 7 -x 2980 -y 160 -defaultsOSRD
-preplace port port-id_ad_sdout -pg 1 -lvl 0 -x 0 -y 1000 -defaultsOSRD
-preplace port port-id_ad_mclk -pg 1 -lvl 7 -x 2980 -y 750 -defaultsOSRD
-preplace port port-id_ad_lrclk -pg 1 -lvl 7 -x 2980 -y 780 -defaultsOSRD
-preplace port port-id_ad_sclk -pg 1 -lvl 7 -x 2980 -y 810 -defaultsOSRD
-preplace port port-id_da_mclk -pg 1 -lvl 7 -x 2980 -y 960 -defaultsOSRD
-preplace port port-id_da_lrclk -pg 1 -lvl 7 -x 2980 -y 870 -defaultsOSRD
-preplace port port-id_da_sclk -pg 1 -lvl 7 -x 2980 -y 900 -defaultsOSRD
-preplace port port-id_da_sin -pg 1 -lvl 7 -x 2980 -y 930 -defaultsOSRD
-preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 4 -x 1840 -y 300 -defaultsOSRD
-preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 390 -y 680 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 6 -x 2820 -y 80 -defaultsOSRD
-preplace inst axi_gpio_1 -pg 1 -lvl 6 -x 2820 -y 320 -defaultsOSRD
-preplace inst ps8_0_axi_periph -pg 1 -lvl 5 -x 2450 -y 400 -defaultsOSRD
-preplace inst axi_intc_0 -pg 1 -lvl 6 -x 2820 -y 610 -defaultsOSRD
-preplace inst axi_dma_0 -pg 1 -lvl 2 -x 840 -y 290 -defaultsOSRD
-preplace inst axi_smc -pg 1 -lvl 3 -x 1260 -y 260 -defaultsOSRD
-preplace inst axis_data_fifo_0 -pg 1 -lvl 3 -x 1260 -y 530 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 3 -x 1260 -y 90 -defaultsOSRD
-preplace inst axi_lite_0 -pg 1 -lvl 6 -x 2820 -y 460 -defaultsOSRD
-preplace inst I2S_wrapper_0 -pg 1 -lvl 5 -x 2450 -y 1020 -defaultsOSRD
-preplace inst dma_splitter_wrapper_0 -pg 1 -lvl 3 -x 1260 -y 810 -defaultsOSRD
-preplace inst audio_fifo_wrapper_0 -pg 1 -lvl 4 -x 1840 -y 860 -defaultsOSRD
-preplace inst clk_wiz_0 -pg 1 -lvl 4 -x 1840 -y 520 -defaultsOSRD
-preplace inst system_ila_0 -pg 1 -lvl 5 -x 2450 -y 750 -defaultsOSRD
-preplace inst system_ila_1 -pg 1 -lvl 6 -x 2820 -y 1010 -defaultsOSRD
-preplace netloc I2S_wrapper_0_data_out 1 5 2 2690J 880 2950J
-preplace netloc I2S_wrapper_0_lrclk_r 1 5 2 2660J 780 NJ
-preplace netloc I2S_wrapper_0_lrclk_t 1 5 2 2630J 870 NJ
-preplace netloc I2S_wrapper_0_mclk_r 1 5 2 2600J 750 NJ
-preplace netloc I2S_wrapper_0_mclk_t 1 5 2 2700J 890 2940J
-preplace netloc I2S_wrapper_0_s_TReady_in 1 4 2 2230 140 2650
-preplace netloc I2S_wrapper_0_sclk_r 1 5 2 2610J 810 NJ
-preplace netloc I2S_wrapper_0_sclk_t 1 5 2 2680J 860 2960J
-preplace netloc audio_fifo_wrapper_0_s_TData_out 1 4 1 2150 850n
-preplace netloc audio_fifo_wrapper_0_s_TID_out 1 4 1 2160 830n
-preplace netloc audio_fifo_wrapper_0_s_TLast_out 1 4 1 2140 870n
-preplace netloc audio_fifo_wrapper_0_s_TReady_in 1 3 2 1500 680 2260
-preplace netloc audio_fifo_wrapper_0_s_TValid_out 1 4 2 2240 160 2640
-preplace netloc axi_dma_0_mm2s_introut 1 2 1 1010 80n
-preplace netloc axi_dma_0_s2mm_introut 1 2 1 1030 100n
-preplace netloc axis_data_fifo_0_m_axis_tdata 1 2 3 1060 670 1460 670 2270
-preplace netloc axis_data_fifo_0_m_axis_tlast 1 2 2 1090 680 1430
-preplace netloc axis_data_fifo_0_m_axis_tvalid 1 2 3 1080 650 1440 650 2280
-preplace netloc bt_ctsn_1 1 0 5 20J 570 NJ 570 1030J 630 NJ 630 2170
-preplace netloc clk_wiz_0_clk_out1 1 3 3 1540 1000 2200 130 2670
-preplace netloc data_in_0_1 1 0 5 NJ 1000 NJ 1000 NJ 1000 1430J 1110 NJ
-preplace netloc dma_splitter_wrapper_0_dma_ready 1 3 2 1450J 660 2250
-preplace netloc dma_splitter_wrapper_0_s_TData_out 1 3 2 1510 690 2210
-preplace netloc dma_splitter_wrapper_0_s_TID_out 1 3 2 1540 720 2180
-preplace netloc dma_splitter_wrapper_0_s_TLast_out 1 3 2 1520 700 2190
-preplace netloc dma_splitter_wrapper_0_s_TValid_out 1 3 2 1530 710 2170
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 5 670 420 1080 430 NJ 430 2300 120 2700
-preplace netloc xlconcat_0_dout 1 3 1 1500 90n
-preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 4 3 2210J 150 2680J 160 NJ
-preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 6 210 410 660 410 1070 350 1490 440 2290 110 2690
-preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 5 200 580 NJ 580 1010J 640 1470J 620 2140
-preplace netloc axi_dma_0_M_AXIS_MM2S 1 2 1 1020 270n
-preplace netloc axi_dma_0_M_AXI_MM2S 1 2 1 N 230
-preplace netloc axi_dma_0_M_AXI_S2MM 1 2 1 N 250
-preplace netloc axi_gpio_0_GPIO 1 6 1 NJ 70
-preplace netloc axi_gpio_0_GPIO2 1 6 1 2960J 90n
-preplace netloc axi_gpio_1_GPIO 1 6 1 NJ 320
-preplace netloc axi_smc_M00_AXI 1 3 1 N 260
-preplace netloc ps8_0_axi_periph_M00_AXI 1 5 1 2610 60n
-preplace netloc ps8_0_axi_periph_M01_AXI 1 5 1 2620 300n
-preplace netloc ps8_0_axi_periph_M02_AXI 1 5 1 2660 400n
-preplace netloc ps8_0_axi_periph_M03_AXI 1 1 5 670 170 NJ 170 NJ 170 NJ 170 2600
-preplace netloc ps8_0_axi_periph_M04_AXI 1 5 1 N 440
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 4 1 N 230
-preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 4 1 N 250
-levelinfo -pg 1 0 390 840 1260 1840 2450 2820 2980
-pagesize -pg 1 -db -bbox -sgen -120 -130 3110 1170
+preplace port wifi_en_led -pg 1 -lvl 7 -x 2900 -y 1040 -defaultsOSRD
+preplace port bt_en_led -pg 1 -lvl 7 -x 2900 -y 1070 -defaultsOSRD
+preplace port fan_pwm -pg 1 -lvl 7 -x 2900 -y 1210 -defaultsOSRD
+preplace port port-id_bt_ctsn -pg 1 -lvl 0 -x -10 -y 1370 -defaultsOSRD
+preplace port port-id_bt_rtsn -pg 1 -lvl 7 -x 2900 -y 1130 -defaultsOSRD
+preplace port port-id_ad_sdout -pg 1 -lvl 0 -x -10 -y 510 -defaultsOSRD
+preplace port port-id_ad_mclk -pg 1 -lvl 7 -x 2900 -y 430 -defaultsOSRD
+preplace port port-id_ad_lrclk -pg 1 -lvl 7 -x 2900 -y 460 -defaultsOSRD
+preplace port port-id_ad_sclk -pg 1 -lvl 7 -x 2900 -y 490 -defaultsOSRD
+preplace port port-id_da_mclk -pg 1 -lvl 7 -x 2900 -y 730 -defaultsOSRD
+preplace port port-id_da_lrclk -pg 1 -lvl 7 -x 2900 -y 700 -defaultsOSRD
+preplace port port-id_da_sclk -pg 1 -lvl 7 -x 2900 -y 670 -defaultsOSRD
+preplace port port-id_da_sin -pg 1 -lvl 7 -x 2900 -y 970 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 4 -x 1500 -y 1190 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 210 -y 1270 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 6 -x 2630 -y 1050 -defaultsOSRD
+preplace inst axi_gpio_1 -pg 1 -lvl 6 -x 2630 -y 1210 -defaultsOSRD
+preplace inst ps8_0_axi_periph -pg 1 -lvl 5 -x 2130 -y 1290 -defaultsOSRD
+preplace inst axi_intc_0 -pg 1 -lvl 6 -x 2630 -y 1500 -defaultsOSRD
+preplace inst axi_dma_0 -pg 1 -lvl 2 -x 590 -y 1180 -defaultsOSRD
+preplace inst axi_smc -pg 1 -lvl 3 -x 980 -y 1150 -defaultsOSRD
+preplace inst axis_data_fifo_0 -pg 1 -lvl 3 -x 980 -y 960 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 3 -x 980 -y 1290 -defaultsOSRD
+preplace inst axi_lite_0 -pg 1 -lvl 6 -x 2630 -y 1350 -defaultsOSRD
+preplace inst I2S_wrapper_0 -pg 1 -lvl 4 -x 1500 -y 670 -defaultsOSRD
+preplace inst dma_splitter_wrapper_0 -pg 1 -lvl 4 -x 1500 -y 940 -defaultsOSRD
+preplace inst audio_fifo_wrapper_0 -pg 1 -lvl 5 -x 2130 -y 610 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 590 -y 800 -defaultsOSRD
+preplace inst system_ila_1 -pg 1 -lvl 6 -x 2630 -y 850 -defaultsOSRD
+preplace inst audio_pipeline_wrapp_0 -pg 1 -lvl 6 -x 2630 -y 200 -defaultsOSRD
+preplace inst audio_fifo_wrapper_1 -pg 1 -lvl 5 -x 2130 -y 880 -defaultsOSRD
+preplace inst audio_fifo_wrapper_2 -pg 1 -lvl 3 -x 980 -y 650 -defaultsOSRD
+preplace netloc I2S_wrapper_0_data_out 1 4 3 1840J 780 2350 970 NJ
+preplace netloc I2S_wrapper_0_lrclk_r 1 4 3 1800J 450 NJ 450 2880J
+preplace netloc I2S_wrapper_0_lrclk_t 1 4 3 1930J 750 2410 700 NJ
+preplace netloc I2S_wrapper_0_mclk_r 1 4 3 1810J 460 NJ 460 2870J
+preplace netloc I2S_wrapper_0_mclk_t 1 4 3 1920J 770 2420 730 NJ
+preplace netloc I2S_wrapper_0_sclk_r 1 4 3 1820J 470 NJ 470 2860J
+preplace netloc I2S_wrapper_0_sclk_t 1 4 3 1880J 760 2400 670 NJ
+preplace netloc audio_fifo_wrapper_0_s_TData_out 1 5 1 2320 120n
+preplace netloc audio_fifo_wrapper_0_s_TID_out 1 5 1 2310 100n
+preplace netloc audio_fifo_wrapper_0_s_TLast_out 1 5 1 2340 140n
+preplace netloc audio_fifo_wrapper_0_s_TReady_in 1 4 1 1950 650n
+preplace netloc audio_fifo_wrapper_0_s_TValid_out 1 5 1 2350 160n
+preplace netloc audio_pipeline_wrapp_0_s_TReady_dma 1 5 1 2360 180n
+preplace netloc axi_dma_0_mm2s_introut 1 2 1 800 1220n
+preplace netloc axi_dma_0_s2mm_introut 1 2 1 790 1240n
+preplace netloc axis_data_fifo_0_m_axis_tdata 1 3 1 1200 940n
+preplace netloc axis_data_fifo_0_m_axis_tlast 1 3 1 1170 960n
+preplace netloc axis_data_fifo_0_m_axis_tvalid 1 3 1 1190 950n
+preplace netloc bt_ctsn_1 1 0 5 10J 1380 NJ 1380 NJ 1380 NJ 1380 1820
+preplace netloc clk_wiz_0_clk_out1 1 2 4 760 790 1170 520 1900 790 NJ
+preplace netloc data_in_0_1 1 0 4 NJ 510 NJ 510 NJ 510 1180J
+preplace netloc dma_splitter_wrapper_0_dma_ready 1 3 2 1160 1060 1800
+preplace netloc dma_splitter_wrapper_0_s_TData_out 1 4 1 1850 590n
+preplace netloc dma_splitter_wrapper_0_s_TID_out 1 4 1 1830 570n
+preplace netloc dma_splitter_wrapper_0_s_TLast_out 1 4 1 1910 610n
+preplace netloc dma_splitter_wrapper_0_s_TValid_out 1 4 1 1940 630n
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 5 420 1300 780 1360 NJ 1360 1950 1050 2330
+preplace netloc xlconcat_0_dout 1 3 1 1200 1230n
+preplace netloc zynq_ultra_ps_e_0_emio_uart0_rtsn 1 4 3 1880J 1060 2350J 1130 NJ
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 6 30 1370 410 880 770 860 1180 1320 1870 440 2370
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 5 20 1390 NJ 1390 NJ 1390 NJ 1390 1800
+preplace netloc audio_fifo_wrapper_2_s_TReady_in 1 2 5 760 390 NJ 390 NJ 390 2420J 400 2860
+preplace netloc audio_pipeline_wrapp_0_s_TID_out 1 2 5 780 410 NJ 410 NJ 410 2400J 420 2880
+preplace netloc audio_pipeline_wrapp_0_s_TData_out 1 2 5 770 400 NJ 400 NJ 400 2410J 410 2870
+preplace netloc audio_pipeline_wrapp_0_s_TLast_out 1 2 5 790 420 NJ 420 NJ 420 2390J 430 2850
+preplace netloc audio_pipeline_wrapp_0_s_TValid_out 1 2 5 800 430 NJ 430 NJ 430 2380J 440 2840
+preplace netloc audio_fifo_wrapper_2_s_TID_out 1 3 1 N 620
+preplace netloc audio_fifo_wrapper_2_s_TData_out 1 3 1 N 640
+preplace netloc audio_fifo_wrapper_2_s_TLast_out 1 3 1 N 660
+preplace netloc audio_fifo_wrapper_2_s_TValid_out 1 3 1 N 680
+preplace netloc I2S_wrapper_0_s_TReady_in 1 3 1 N 700
+preplace netloc I2S_wrapper_0_s_out 1 4 1 1890 600n
+preplace netloc audio_fifo_wrapper_1_s_out 1 5 1 2330 60n
+preplace netloc axi_dma_0_M_AXIS_MM2S 1 2 1 760 940n
+preplace netloc axi_dma_0_M_AXI_MM2S 1 2 1 N 1120
+preplace netloc axi_dma_0_M_AXI_S2MM 1 2 1 N 1140
+preplace netloc axi_gpio_0_GPIO 1 6 1 NJ 1040
+preplace netloc axi_gpio_0_GPIO2 1 6 1 2840J 1060n
+preplace netloc axi_gpio_1_GPIO 1 6 1 NJ 1210
+preplace netloc axi_smc_M00_AXI 1 3 1 N 1150
+preplace netloc ps8_0_axi_periph_M00_AXI 1 5 1 2400 1030n
+preplace netloc ps8_0_axi_periph_M01_AXI 1 5 1 2420 1190n
+preplace netloc ps8_0_axi_periph_M02_AXI 1 5 1 2320 1290n
+preplace netloc ps8_0_axi_periph_M03_AXI 1 1 5 420 870 760J 820 NJ 820 1800J 970 2310
+preplace netloc ps8_0_axi_periph_M04_AXI 1 5 1 N 1330
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 4 1 N 1120
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 4 1 N 1140
+levelinfo -pg 1 -10 210 590 980 1500 2130 2630 2900
+pagesize -pg 1 -db -bbox -sgen -120 0 3030 1590
 "
 }
 {

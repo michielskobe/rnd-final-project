@@ -3,6 +3,46 @@
 	"modules": {
 		"design_1": {
 			"proto_instances": {
+				"/I2S_wrapper_0/s_out": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"TDATA": { "actual": "s_TData_out[23:0]"},
+						"TID": { "actual": "s_TID_out[3:0]"},
+						"TLAST": { "actual": "s_TLast_out"},
+						"TREADY": { "actual": "s_TReady_out"},
+						"TVALID": { "actual": "s_TValid_out"}
+					}
+				},
+				"/audio_fifo_wrapper_1/s_in": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"TDATA": { "actual": "s_TData_in[23:0]"},
+						"TID": { "actual": "s_TID_in[3:0]"},
+						"TLAST": { "actual": "s_TLast_in"},
+						"TREADY": { "actual": "s_TReady_in"},
+						"TVALID": { "actual": "s_TValid_in"}
+					}
+				},
+				"/audio_fifo_wrapper_1/s_out": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"TDATA": { "actual": "s_TData_out[23:0]"},
+						"TID": { "actual": "s_TID_out[3:0]"},
+						"TLAST": { "actual": "s_TLast_out"},
+						"TREADY": { "actual": "s_TReady_out"},
+						"TVALID": { "actual": "s_TValid_out"}
+					}
+				},
+				"/audio_pipeline_wrapp_0/s_anal": {
+					"interface": "xilinx.com:interface:axis:1.0",
+					"ports": {
+						"TDATA": { "actual": "s_TData_anal[23:0]"},
+						"TID": { "actual": "s_TID_anal[3:0]"},
+						"TLAST": { "actual": "s_TLast_anal"},
+						"TREADY": { "actual": "s_TReady_anal"},
+						"TVALID": { "actual": "s_TValid_anal"}
+					}
+				},
 				"/axi_dma_0/M_AXIS_MM2S": {
 					"interface": "xilinx.com:interface:axis:1.0",
 					"ports": {
