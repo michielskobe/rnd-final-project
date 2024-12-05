@@ -40,10 +40,11 @@
       "dma_splitter_wrapper_0": "",
       "audio_fifo_wrapper_0": "",
       "clk_wiz_0": "",
-      "system_ila_1": "",
       "audio_pipeline_wrapp_0": "",
       "audio_fifo_wrapper_1": "",
-      "audio_fifo_wrapper_2": ""
+      "audio_fifo_wrapper_2": "",
+      "system_ila_0": "",
+      "xlconstant_0": ""
     },
     "interface_ports": {
       "wifi_en_led": {
@@ -5429,42 +5430,6 @@
           }
         }
       },
-      "system_ila_1": {
-        "vlnv": "xilinx.com:ip:system_ila:1.1",
-        "ip_revision": "15",
-        "xci_name": "design_1_system_ila_1_0",
-        "xci_path": "ip/design_1_system_ila_1_0/design_1_system_ila_1_0.xci",
-        "inst_hier_path": "system_ila_1",
-        "parameters": {
-          "C_DATA_DEPTH": {
-            "value": "32768"
-          },
-          "C_MON_TYPE": {
-            "value": "NATIVE"
-          },
-          "C_NUM_OF_PROBES": {
-            "value": "6"
-          },
-          "C_PROBE0_TYPE": {
-            "value": "0"
-          },
-          "C_PROBE1_TYPE": {
-            "value": "0"
-          },
-          "C_PROBE2_TYPE": {
-            "value": "0"
-          },
-          "C_PROBE3_TYPE": {
-            "value": "0"
-          },
-          "C_PROBE4_TYPE": {
-            "value": "0"
-          },
-          "C_PROBE5_TYPE": {
-            "value": "0"
-          }
-        }
-      },
       "audio_pipeline_wrapp_0": {
         "vlnv": "xilinx.com:module_ref:audio_pipeline_wrapper:1.0",
         "ip_revision": "1",
@@ -6199,6 +6164,74 @@
             }
           }
         }
+      },
+      "system_ila_0": {
+        "vlnv": "xilinx.com:ip:system_ila:1.1",
+        "ip_revision": "15",
+        "xci_name": "design_1_system_ila_0_1",
+        "xci_path": "ip/design_1_system_ila_0_1/design_1_system_ila_0_1.xci",
+        "inst_hier_path": "system_ila_0",
+        "parameters": {
+          "C_DATA_DEPTH": {
+            "value": "65536"
+          },
+          "C_MON_TYPE": {
+            "value": "INTERFACE"
+          },
+          "C_NUM_MONITOR_SLOTS": {
+            "value": "3"
+          },
+          "C_SLOT": {
+            "value": "2"
+          },
+          "C_SLOT_0_APC_EN": {
+            "value": "0"
+          },
+          "C_SLOT_0_AXI_DATA_SEL": {
+            "value": "1"
+          },
+          "C_SLOT_0_AXI_TRIG_SEL": {
+            "value": "1"
+          },
+          "C_SLOT_0_INTF_TYPE": {
+            "value": "xilinx.com:interface:axis_rtl:1.0"
+          },
+          "C_SLOT_1_INTF_TYPE": {
+            "value": "xilinx.com:interface:axis_rtl:1.0"
+          },
+          "C_SLOT_2_INTF_TYPE": {
+            "value": "xilinx.com:interface:axis_rtl:1.0"
+          }
+        },
+        "interface_ports": {
+          "SLOT_0_AXIS": {
+            "mode": "Monitor",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0"
+          },
+          "SLOT_1_AXIS": {
+            "mode": "Monitor",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0"
+          },
+          "SLOT_2_AXIS": {
+            "mode": "Monitor",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0"
+          }
+        }
+      },
+      "xlconstant_0": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "ip_revision": "8",
+        "xci_name": "design_1_xlconstant_0_0",
+        "xci_path": "ip/design_1_xlconstant_0_0/design_1_xlconstant_0_0.xci",
+        "inst_hier_path": "xlconstant_0",
+        "parameters": {
+          "CONST_VAL": {
+            "value": "0"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -6208,11 +6241,26 @@
           "I2S_wrapper_0/s_out"
         ]
       },
+      "audio_fifo_wrapper_0_s_out": {
+        "interface_ports": [
+          "audio_fifo_wrapper_0/s_out",
+          "system_ila_0/SLOT_2_AXIS"
+        ]
+      },
       "audio_fifo_wrapper_1_s_out": {
         "interface_ports": [
           "audio_fifo_wrapper_1/s_out",
-          "audio_pipeline_wrapp_0/s_anal"
-        ]
+          "audio_pipeline_wrapp_0/s_anal",
+          "system_ila_0/SLOT_0_AXIS"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "axi_dma_0_M_AXIS_MM2S": {
         "interface_ports": [
@@ -6303,17 +6351,8 @@
       "I2S_wrapper_0_data_out": {
         "ports": [
           "I2S_wrapper_0/data_out",
-          "da_sin",
-          "system_ila_1/probe1"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "da_sin"
+        ]
       },
       "I2S_wrapper_0_lrclk_r": {
         "ports": [
@@ -6324,17 +6363,8 @@
       "I2S_wrapper_0_lrclk_t": {
         "ports": [
           "I2S_wrapper_0/lrclk_t",
-          "da_lrclk",
-          "system_ila_1/probe2"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "da_lrclk"
+        ]
       },
       "I2S_wrapper_0_mclk_r": {
         "ports": [
@@ -6345,17 +6375,8 @@
       "I2S_wrapper_0_mclk_t": {
         "ports": [
           "I2S_wrapper_0/mclk_t",
-          "da_mclk",
-          "system_ila_1/probe3"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "da_mclk"
+        ]
       },
       "I2S_wrapper_0_s_TReady_in": {
         "ports": [
@@ -6372,8 +6393,13 @@
       "I2S_wrapper_0_sclk_t": {
         "ports": [
           "I2S_wrapper_0/sclk_t",
-          "da_sclk",
-          "system_ila_1/probe5"
+          "da_sclk"
+        ]
+      },
+      "audio_fifo_wrapper_0_s_TData_out": {
+        "ports": [
+          "audio_fifo_wrapper_0/s_TData_out",
+          "audio_pipeline_wrapp_0/s_TData_dma"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -6384,23 +6410,33 @@
           }
         }
       },
-      "audio_fifo_wrapper_0_s_TData_out": {
-        "ports": [
-          "audio_fifo_wrapper_0/s_TData_out",
-          "audio_pipeline_wrapp_0/s_TData_dma"
-        ]
-      },
       "audio_fifo_wrapper_0_s_TID_out": {
         "ports": [
           "audio_fifo_wrapper_0/s_TID_out",
           "audio_pipeline_wrapp_0/s_TID_dma"
-        ]
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_fifo_wrapper_0_s_TLast_out": {
         "ports": [
           "audio_fifo_wrapper_0/s_TLast_out",
           "audio_pipeline_wrapp_0/s_TLast_dma"
-        ]
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_fifo_wrapper_0_s_TReady_in": {
         "ports": [
@@ -6411,9 +6447,16 @@
       "audio_fifo_wrapper_0_s_TValid_out": {
         "ports": [
           "audio_fifo_wrapper_0/s_TValid_out",
-          "audio_pipeline_wrapp_0/s_TValid_dma",
-          "audio_pipeline_wrapp_0/dma_valid"
-        ]
+          "audio_pipeline_wrapp_0/s_TValid_dma"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_fifo_wrapper_2_s_TData_out": {
         "ports": [
@@ -6436,8 +6479,17 @@
       "audio_fifo_wrapper_2_s_TReady_in": {
         "ports": [
           "audio_fifo_wrapper_2/s_TReady_in",
-          "audio_pipeline_wrapp_0/s_TReady_out"
-        ]
+          "audio_pipeline_wrapp_0/s_TReady_out",
+          "system_ila_0/SLOT_1_AXIS_tready"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_fifo_wrapper_2_s_TValid_out": {
         "ports": [
@@ -6448,32 +6500,75 @@
       "audio_pipeline_wrapp_0_s_TData_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TData_out",
-          "audio_fifo_wrapper_2/s_TData_in"
-        ]
+          "audio_fifo_wrapper_2/s_TData_in",
+          "system_ila_0/SLOT_1_AXIS_tdata"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_pipeline_wrapp_0_s_TID_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TID_out",
           "audio_fifo_wrapper_2/s_TID_in"
-        ]
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_pipeline_wrapp_0_s_TLast_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TLast_out",
-          "audio_fifo_wrapper_2/s_TLast_in"
-        ]
+          "audio_fifo_wrapper_2/s_TLast_in",
+          "system_ila_0/SLOT_1_AXIS_tlast"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_pipeline_wrapp_0_s_TReady_dma": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TReady_dma",
           "audio_fifo_wrapper_0/s_TReady_out"
-        ]
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "audio_pipeline_wrapp_0_s_TValid_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TValid_out",
-          "audio_fifo_wrapper_2/s_TValid_in"
-        ]
+          "audio_fifo_wrapper_2/s_TValid_in",
+          "system_ila_0/SLOT_1_AXIS_tvalid"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "axi_dma_0_mm2s_introut": {
         "ports": [
@@ -6514,7 +6609,6 @@
       "clk_wiz_0_clk_out1": {
         "ports": [
           "clk_wiz_0/clk_out1",
-          "system_ila_1/clk",
           "I2S_wrapper_0/m_clk",
           "audio_fifo_wrapper_1/clk_in",
           "audio_fifo_wrapper_2/clk_out"
@@ -6582,6 +6676,12 @@
           "zynq_ultra_ps_e_0/pl_ps_irq0"
         ]
       },
+      "xlconstant_0_dout": {
+        "ports": [
+          "xlconstant_0/dout",
+          "audio_pipeline_wrapp_0/dma_valid"
+        ]
+      },
       "zynq_ultra_ps_e_0_emio_uart0_rtsn": {
         "ports": [
           "zynq_ultra_ps_e_0/emio_uart0_rtsn",
@@ -6615,13 +6715,14 @@
           "clk_wiz_0/clk_in1",
           "dma_splitter_wrapper_0/clk",
           "audio_fifo_wrapper_0/clk_in",
-          "audio_pipeline_wrapp_0/clk_in",
           "audio_fifo_wrapper_0/clk_out",
-          "audio_pipeline_wrapp_0/clk_audio",
-          "audio_pipeline_wrapp_0/clk_axi_mm",
           "audio_fifo_wrapper_1/clk_out",
+          "audio_fifo_wrapper_2/clk_in",
+          "audio_pipeline_wrapp_0/clk_in",
+          "audio_pipeline_wrapp_0/clk_audio",
           "audio_pipeline_wrapp_0/clk_out",
-          "audio_fifo_wrapper_2/clk_in"
+          "audio_pipeline_wrapp_0/clk_axi_mm",
+          "system_ila_0/clk"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {

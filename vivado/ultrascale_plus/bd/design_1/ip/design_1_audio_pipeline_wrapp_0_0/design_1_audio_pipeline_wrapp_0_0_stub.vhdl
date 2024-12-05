@@ -2,10 +2,10 @@
 -- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
--- Date        : Thu Dec  5 12:55:40 2024
+-- Date        : Thu Dec  5 12:55:38 2024
 -- Host        : fedora running 64-bit unknown
--- Command     : write_vhdl -force -mode synth_stub
---               /home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/bd/design_1/ip/design_1_audio_pipeline_wrapp_0_0/design_1_audio_pipeline_wrapp_0_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top design_1_audio_pipeline_wrapp_0_0 -prefix
+--               design_1_audio_pipeline_wrapp_0_0_ design_1_audio_pipeline_wrapp_0_0_stub.vhdl
 -- Design      : design_1_audio_pipeline_wrapp_0_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xczu3eg-sbva484-1-i
