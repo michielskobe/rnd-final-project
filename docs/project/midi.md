@@ -251,7 +251,7 @@ blendinator:~$ sudo devmem 0xa0040008 32
 blendinator:~$ sudo devmem 0xa004000c 32
 0x00803640
 ```
- ## Reloop BeatMix
+## Reloop BeatMix
 
  In our final project, we will use a Reloop BeatMix to send MIDI signals to control our signals. The MIDI port name of this device is `Reloop BeatMix:Reloop BeatMix MIDI 1 24:0`. Here you can find an overview of the Reloop BeatMix controls we use, the MIDI signals they send and how we will use them in our project:
 
