@@ -41,6 +41,7 @@ use work.channel_merger;
 use work.mixer_wrapper;
 use work.audio_pipeline;
 use work.audio_pipeline_no_effect;
+use work.axi4_mm_filter_pkg.all;
 
 entity tb_audio_pipeline is
 --  Port ( );
@@ -144,7 +145,28 @@ begin
         
     end process;
 
-    audio_pipeline_inst: entity work.audio_pipeline_no_effect
+    -- audio_pipeline_inst: entity work.audio_pipeline_no_effect
+    --  port map(
+    --     clk_in => clk,
+    --     clk_audio => clk,
+    --     clk_out => clk,
+    --     clk_axi_mm => axi_clk,
+    --     master_volume => STD_LOGIC_VECTOR(to_unsigned(1, 18)),
+    --     channel_volume_select => channel_volume_select,
+    --     channel_volume_value => STD_LOGIC_VECTOR(to_unsigned(1, 18)),
+    --     dma_valid => dma_valid,
+    --     anal_fwd => anal_fwd,
+    --     anal_bwd => anal_bwd,
+    --     dma_fwd => dma_fwd,
+    --     dma_bwd => dma_bwd,
+    --     audio_out_fwd => wav_fwd,
+    --     audio_out_bwd => wav_bwd
+    -- );
+
+    audio_pipeline_inst: entity work.audio_pipeline
+     generic map(
+        g_chip_scope => "False"
+    )
      port map(
         clk_in => clk,
         clk_audio => clk,
@@ -153,6 +175,23 @@ begin
         master_volume => STD_LOGIC_VECTOR(to_unsigned(1, 18)),
         channel_volume_select => channel_volume_select,
         channel_volume_value => STD_LOGIC_VECTOR(to_unsigned(1, 18)),
+        axi_in_mm_band_low_1 => axi4_mm_filter_inactive,
+        axi_in_mm_band_low_2=> axi4_mm_filter_inactive,
+        axi_in_mm_band_high_1=> axi4_mm_filter_inactive,
+        axi_in_mm_band_high_2=> axi4_mm_filter_inactive,
+        axi_in_mm_low_1=> axi4_mm_filter_inactive,
+        axi_in_mm_low_2=> axi4_mm_filter_inactive,
+        axi_in_mm_high_1=> axi4_mm_filter_inactive,
+        axi_in_mm_high_2=> axi4_mm_filter_inactive,
+        axi_in_mm_low_pass=> axi4_mm_filter_inactive,
+        axi_in_mm_high_pass_1=> axi4_mm_filter_inactive,
+        axi_in_mm_high_pass_2=> axi4_mm_filter_inactive,
+        axi_in_mm_echo => axi4_mm_echo_inactive,
+        axi_in_mm_ring_mod_anal => axi4_mm_ring_mod_inactive,
+        axi_in_mm_ring_mod_dma => axi4_mm_ring_mod_inactive,
+        axi_in_mm_saturation => axi4_mm_saturation_inactive,
+        axi_in_mm_volume_reduction => axi4_mm_volume_inactive,
+        axi_in_mm_band_volume => axi4_mm_band_volume_inactive,
         dma_valid => dma_valid,
         anal_fwd => anal_fwd,
         anal_bwd => anal_bwd,

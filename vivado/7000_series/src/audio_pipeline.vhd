@@ -177,59 +177,67 @@ begin
             axi_out_bwd => dma_buffered_bwd
         );
 
+        -- pre_ring_mod_fwd(0) <= anal_buffered_fwd;
+        -- pre_ring_mod_fwd(1) <= dma_buffered_fwd;
+        
+        -- anal_buffered_bwd <= pre_ring_mod_bwd(0);
+        -- dma_buffered_bwd <= pre_ring_mod_bwd(1);
+
         pre_merger_fwd(0) <= anal_buffered_fwd;
         pre_merger_fwd(1) <= dma_buffered_fwd;
         
         anal_buffered_bwd <= pre_merger_bwd(0);
         dma_buffered_bwd <= pre_merger_bwd(1);
+
+
     end block;
 
 
     ------------------------------------
     -- Ring Modulators
     ------------------------------------
-    b_ring_modulators : block 
-        signal ring_mod_anal_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
-        signal ring_mod_anal_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
-        signal ring_mod_dma_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
-        signal ring_mod_dma_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
-    begin
+    -- b_ring_modulators : block 
+    --     signal ring_mod_anal_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+    --     signal ring_mod_anal_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+    --     signal ring_mod_dma_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+    --     signal ring_mod_dma_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+    -- begin
 
-        i_ring_mod_anal: entity work.ring_modulator
-        generic map(
-            g_TID_count => 2,
-            g_chip_scope => g_chip_scope
-        )
-        port map(
-            clk => clk_audio,
-            axi_in_mm => axi_in_mm_ring_mod_anal,
-            axi_in_fwd => pre_ring_mod_fwd(0),
-            axi_in_bwd => pre_ring_mod_bwd(0),
-            axi_out_fwd => ring_mod_anal_fwd,
-            axi_out_bwd => ring_mod_anal_bwd
-        );
+    --     i_ring_mod_anal: entity work.ring_modulator
+    --     generic map(
+    --         g_TID_count => 2,
+    --         g_chip_scope => g_chip_scope
+    --     )
+    --     port map(
+    --         clk => clk_audio,
+    --         axi_in_mm => axi_in_mm_ring_mod_anal,
+    --         axi_in_fwd => pre_ring_mod_fwd(0),
+    --         axi_in_bwd => pre_ring_mod_bwd(0),
+    --         axi_out_fwd => ring_mod_anal_fwd,
+    --         axi_out_bwd => ring_mod_anal_bwd
+    --     );
 
-        i_ring_mod_dma: entity work.ring_modulator
-        generic map(
-            g_TID_count => 2,
-            g_chip_scope => g_chip_scope
-        )
-        port map(
-            clk => clk_audio,
-            axi_in_mm => axi_in_mm_ring_mod_dma,
-            axi_in_fwd => pre_ring_mod_fwd(1),
-            axi_in_bwd => pre_ring_mod_bwd(1),
-            axi_out_fwd => ring_mod_dma_fwd,
-            axi_out_bwd => ring_mod_dma_bwd
-        );
+    --     i_ring_mod_dma: entity work.ring_modulator
+    --     generic map(
+    --         g_TID_count => 2,
+    --         g_chip_scope => g_chip_scope
+    --     )
+    --     port map(
+    --         clk => clk_audio,
+    --         axi_in_mm => axi_in_mm_ring_mod_dma,
+    --         axi_in_fwd => pre_ring_mod_fwd(1),
+    --         axi_in_bwd => pre_ring_mod_bwd(1),
+    --         axi_out_fwd => ring_mod_dma_fwd,
+    --         axi_out_bwd => ring_mod_dma_bwd
+    --     );
 
-        pre_merger_fwd(0) <= ring_mod_anal_fwd;
-        pre_merger_fwd(1) <= ring_mod_dma_fwd;
+    --     pre_merger_fwd(0) <= ring_mod_anal_fwd;
+    --     pre_merger_fwd(1) <= ring_mod_dma_fwd;
         
-        ring_mod_anal_bwd <= pre_merger_bwd(0);
-        ring_mod_dma_bwd <= pre_merger_bwd(1);
+    --     ring_mod_anal_bwd <= pre_merger_bwd(0);
+    --     ring_mod_dma_bwd <= pre_merger_bwd(1);
 
-    end block;
+    -- end block;
 
     -------------------------------------
     -- Merging of anal and dma streams
@@ -308,40 +316,43 @@ begin
 
     begin
 
+        band_volume_fwd <= post_merger_fwd;
+        post_merger_bwd <= band_volume_bwd;
+
         ------------------------------------
         -- Volume
         ------------------------------------
 
-        i_volume_reduction: entity work.volume
-        generic map(
-            g_chip_scope => g_chip_scope
-        )
-        port map(
-            clk => clk_audio,
-            axi_in_mm => axi_in_mm_volume_reduction,
-            axi_in_fwd => post_merger_fwd,
-            axi_in_bwd => post_merger_bwd,
-            axi_out_fwd => volume_fwd,
-            axi_out_bwd => volume_bwd
-        );
+        -- i_volume_reduction: entity work.volume
+        -- generic map(
+        --     g_chip_scope => g_chip_scope
+        -- )
+        -- port map(
+        --     clk => clk_audio,
+        --     axi_in_mm => axi_in_mm_volume_reduction,
+        --     axi_in_fwd => post_merger_fwd,
+        --     axi_in_bwd => post_merger_bwd,
+        --     axi_out_fwd => volume_fwd,
+        --     axi_out_bwd => volume_bwd
+        -- );
 
-        ------------------------------------
-        -- Band Shelf
-        ------------------------------------
+        -- ------------------------------------
+        -- -- Band Shelf
+        -- ------------------------------------
 
-        i_band_volume: entity work.band_volume
-        generic map(
-            g_chip_scope => g_chip_scope
-        )
-        port map(
-            clk => clk_audio,
-            axi_clk => clk_axi_mm,
-            axi_in_mm => axi_in_mm_band_volume,
-            axi_in_fwd => volume_fwd,
-            axi_in_bwd => volume_bwd,
-            axi_out_fwd => band_volume_fwd,
-            axi_out_bwd => band_volume_bwd
-        );
+        -- i_band_volume: entity work.band_volume
+        -- generic map(
+        --     g_chip_scope => g_chip_scope
+        -- )
+        -- port map(
+        --     clk => clk_audio,
+        --     axi_clk => clk_axi_mm,
+        --     axi_in_mm => axi_in_mm_band_volume,
+        --     axi_in_fwd => volume_fwd,
+        --     axi_in_bwd => volume_bwd,
+        --     axi_out_fwd => band_volume_fwd,
+        --     axi_out_bwd => band_volume_bwd
+        -- );
 
         i_band_low_1: entity work.biquad_tdm
         generic map(
@@ -517,42 +528,45 @@ begin
         -- Echo
         ------------------------------------
 
-        i_echo: entity work.echo_tdm
-        generic map(
-            g_delay => 16384,
-            g_chip_scope => g_chip_scope
-        )
-        port map(
-            clk => clk_audio,
-            axi_clk => clk_axi_mm,
-            axi_in_mm => axi_in_mm_echo,
-            axi_in_fwd => high_pass_2_fwd,
-            axi_in_bwd => high_pass_2_bwd,
-            axi_out_fwd => echo_fwd,
-            axi_out_bwd => echo_bwd
-        );
+        -- i_echo: entity work.echo_tdm
+        -- generic map(
+        --     g_delay => 16384,
+        --     g_chip_scope => g_chip_scope
+        -- )
+        -- port map(
+        --     clk => clk_audio,
+        --     axi_clk => clk_axi_mm,
+        --     axi_in_mm => axi_in_mm_echo,
+        --     axi_in_fwd => high_pass_2_fwd,
+        --     axi_in_bwd => high_pass_2_bwd,
+        --     axi_out_fwd => echo_fwd,
+        --     axi_out_bwd => echo_bwd
+        -- );
 
-        ------------------------------------
-        -- Saturation
-        ------------------------------------
+        -- ------------------------------------
+        -- -- Saturation
+        -- ------------------------------------
 
-        i_saturation: entity work.saturation_tdm
-        generic map(
-            g_chip_scope => g_chip_scope
-        )
-        port map(
-            clk => clk_audio,
-            axi_clk => clk_axi_mm,
-            axi_in_mm => axi_in_mm_saturation,
-            axi_in_fwd => echo_fwd,
-            axi_in_bwd => echo_bwd,
-            axi_out_fwd => saturation_fwd,
-            axi_out_bwd => saturation_bwd
-        );
+        -- i_saturation: entity work.saturation_tdm
+        -- generic map(
+        --     g_chip_scope => g_chip_scope
+        -- )
+        -- port map(
+        --     clk => clk_audio,
+        --     axi_clk => clk_axi_mm,
+        --     axi_in_mm => axi_in_mm_saturation,
+        --     axi_in_fwd => echo_fwd,
+        --     axi_in_bwd => echo_bwd,
+        --     axi_out_fwd => saturation_fwd,
+        --     axi_out_bwd => saturation_bwd
+        -- );
 
-        pre_mixer_fwd <= saturation_fwd;
-        saturation_bwd <= pre_mixer_bwd;
+        -- pre_mixer_fwd <= saturation_fwd;
+        -- saturation_bwd <= pre_mixer_bwd;
          
+        pre_mixer_fwd <= high_pass_2_fwd;
+        high_pass_2_bwd <= pre_mixer_bwd;
+
     end block;
 
     -------------------------------------
@@ -606,18 +620,20 @@ begin
     -- Low Pass Filter
     -------------------------------------
 
-    low_pass_inst: entity work.low_pass
-     generic map(
-        g_chip_scope => g_chip_scope
-    )
-     port map(
-        clk => clk_audio,
-        axi_in_fwd => post_master_volume_fwd,
-        axi_in_bwd => post_master_volume_bwd,
-        axi_out_fwd => post_lp_filter_fwd,
-        axi_out_bwd => post_lp_filter_bwd
-    );
+    -- low_pass_inst: entity work.low_pass
+    --  generic map(
+    --     g_chip_scope => g_chip_scope
+    -- )
+    --  port map(
+    --     clk => clk_audio,
+    --     axi_in_fwd => post_master_volume_fwd,
+    --     axi_in_bwd => post_master_volume_bwd,
+    --     axi_out_fwd => post_lp_filter_fwd,
+    --     axi_out_bwd => post_lp_filter_bwd
+    -- );
 
+    post_lp_filter_fwd <= post_master_volume_fwd;
+    post_master_volume_bwd <= post_lp_filter_bwd;
 
     -------------------------------------
     -- output buffer

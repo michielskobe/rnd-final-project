@@ -94,7 +94,7 @@ architecture Behavioral of channel_mapper is
     signal post_calc : sfixed(c_audio_width downto 0);
     signal post_resize : sfixed(c_audio_width -1 downto 0);
 
-    signal prime_counter : integer range 0 to 3 := 0;
+    signal prime_counter : integer range 0 to 5 := 0;
 
 
     signal internal_fwd : t_axi4_audio_fwd;
@@ -153,7 +153,7 @@ begin
                 -- check if both busses are valid
                 if internal_valid = '1' and axi_in_bwd_bus(0).TReady = '1' then
                     prime_counter <= prime_counter + 1;
-                    if prime_counter >= 2 then
+                    if prime_counter >= 4 then
                         prime_counter <= prime_counter;
                     end if;
                 end if;
@@ -165,7 +165,7 @@ begin
     begin
         if dma_enable_sync_3 = '1' then
             -- check if both busses are valid
-            if  prime_counter >= 2 then
+            if  prime_counter >= 4 then
                 internal_fwd.TVALID <= internal_valid;
             else 
                 internal_fwd.TValid <= '0';
