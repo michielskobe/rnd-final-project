@@ -89,7 +89,7 @@ nav:
       - Mixer: project/hdl_mixer.md
       - Pipeline Overview: project/hdl_pipeline.md
    - Filters: 
-      - MATLAB/Simulink: project/matlab.md
+      - MATLAB & Simulink: project/matlab.md
       - HDL: project/hdl_filters.md
    - Qt:
       - Qt application: project/qt.md

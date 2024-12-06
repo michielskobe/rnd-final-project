@@ -1,4 +1,4 @@
-# MATLAB
+# MATLAB & Simulink
 
 In our digital mixer, we want to utilize various types of filters to control parameters such as the volume of specific frequency bands or to cut off part of the frequency spectrum. To create these filters, we used MATLAB, Simulink and the HDL Coder from MATLAB to generate VHDL code as a foundation for further development.
 
@@ -169,10 +169,18 @@ We also want to add some audio effects to the audio pipeline. The chosen effects
 
 ### Saturation
 
+The saturation audio effect is a type of signal processing that emulates the natural distortion and harmonic enhancement produced when an analog audio signal is pushed beyond its normal operating range. This effect occurs in analog devices such as tape recorders, tube amplifiers, or analog mixing consoles. In digital audio, saturation is used creatively to add warmth, color, and character to sound.It adds more aggressive harmonics and distortion, often used for a gritty sound.
+
 <img src="/img/saturation_simulink.png"/>
 
 ### Echo
 
+The echo audio effect is a sound processing technique that creates a repetition of the original sound after a delay, mimicking the natural phenomenon of sound reflecting off surfaces. Echo effects are widely used in music production, sound design, and audio engineering to add depth, space, and a sense of atmosphere to audio.
+
 <img src="/img/echo_simulink.png"/>
 
 The simulations for the saturation and echo effects can be found in the Git Repo.
+
+### Ring Modulation
+
+The ring modulation audio effect is a sound processing technique where two signals—typically referred to as the carrier and the modulator—are multiplied together, producing a new sound that consists of the sum and difference of their frequencies. This effect is widely used in music production, particularly in experimental and electronic music, as well as in sound design for its unique, metallic, and often inharmonic qualities.
