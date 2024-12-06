@@ -15,60 +15,44 @@ The following Python code was written to receive the MIDI messages:
 import rtmidi
 import time
 
-input_port_name = 'Your MIDI Device Name'  # Replace with your actual MIDI device name
-filename = "Your Message Destination File Name"  # Replace with the name of the file where messages will be logged
+port_name = 'Reloop BeatMix:Reloop BeatMix MIDI 1 24:0' # Replace with your actual MIDI device port name.
 
-def write_midi_input_to_file(message):
-    '''Function to write the received MIDI message to a given file'''
-    try:
-        with open(filename, "a") as file:
-            file.write(message + "\n")
-    except Exception as e:
-        print(f"Error writing to file: {e}")
-
-def listen_to_midi_input(port_name):
-    '''Function to open a MIDI input port and listen for messages'''
+def main():
     try:
         # Initialize the MIDI input
         midi_in = rtmidi.MidiIn()
 
         # List available ports and find the port index for the given name
         available_ports = midi_in.get_ports()
-        print(f"Available MIDI ports: {available_ports}")
 
         if port_name in available_ports:
             port_index = available_ports.index(port_name)
             midi_in.open_port(port_index)
-            print(f"Listening to MIDI input on: {port_name}")
-
             # Callback function for incoming messages
             def midi_callback(message, data):
-                msg = message[0]  # The MIDI message
-                msg_bin = ' '.join(f"{byte:#010b}" for byte in msg)  # Convert to binary string
-                print(f"MIDI Message: {msg}")
-                print(f"Binary MIDI Message: {msg_bin}")
-                write_midi_input_to_file(f"{msg_bin}")
+                print(f"{message[0]}", flush=True)
 
             # Set the callback function to process incoming messages
             midi_in.set_callback(midi_callback)
 
             # Keep the program running to listen for MIDI messages
             while True:
-                time.sleep(1)
-
+                time.sleep(0.01)
         else:
             print(f"Port '{port_name}' not found. Available ports: {available_ports}")
-
     except KeyboardInterrupt:
         print("Stopped listening.")
     except Exception as e:
-        print(f"Error opening MIDI port or processing message: {e}")
+        print(f"Error: {e}")
 
-# Start listening to the specified MIDI input port
-listen_to_midi_input(input_port_name)
+if __name__ == "__main__":
+    main()
+
 ```
 
-This Python script monitors the specified port, converting all incoming MIDI messages into their binary equivalents and writing them to a designated file. MIDI signals consist of 3 bytes of data. To view all available MIDI input ports, you can execute the following Python code:
+MIDI signals consist of 3 bytes of data: one status byte and two data bytes. This Python script monitors the specified port and prints the MIDI messages in their decimal form in the following format: *[`Status Byte`, `Data Byte 1`, `Data Byte 2`]*.
+
+To view all available MIDI input ports, you can execute the following Python code:
 
 ```python
 import rtmidi
@@ -85,7 +69,9 @@ for port in available_ports:
 
 ## Writing the MIDI signals to the AXI Lite in C
 
-The following C code reads the MIDI data received via the python-rtmidi library from the selected destination file. It converts the strings into 32-bit words and stores them in the mapped AXI Lite memory. For each MIDI signal, the memory offset is incremented by 4 bytes. When executing the code, the filename of the destination file must be provided as a parameter.
+During the development of the MIDI code, we initially stored MIDI signals in a binary format in a destination file of our choice. Each line of the file contained a MIDI message (e.g., 0b10010000 0b00110000 0b01000000). The following C code reads the MIDI data, received via the python-rtmidi library, from the specified destination file. It processes the strings into 32-bit words and writes them to the mapped AXI Lite memory. For each MIDI message, the memory offset is incremented by 4 bytes, ensuring that each message is written correctly in a different register and can be validated afterwards.
+
+This code is intended as a development prototype and will not be part of the final project, but will serve as a starting point of our C++ code. When executing the code, the destination file's filename must be provided as a parameter.
 
 ``` c
 #include <stdio.h>
@@ -221,7 +207,7 @@ int main(int argc, char *argv[]) {
 ```
 ## Testing the code
 
-To quickly test the functionality of the Python and C code, I connected my Samsung mobile phone to the Ultra96v2 and in **Settings** → **Developper options** → **Default USB configuration**, I set the default USB configuration to MIDI so I can use my device to send MIDI signals. I used a simple *MIDI Keyboard*-application to generate the MIDI signals.
+To quickly test the functionality of the Python and C code, we connected a Samsung mobile phone to the Ultra96v2 and in **Settings** → **Developper options** → **Default USB configuration**, we set the default USB configuration to MIDI so we are able to use the device to send MIDI signals. We used a simple *MIDI Keyboard*-application to generate the MIDI signals.
 
 ```bash
 blendinator:~$  python receive_midi_data.py 
@@ -265,3 +251,127 @@ blendinator:~$ sudo devmem 0xa0040008 32
 blendinator:~$ sudo devmem 0xa004000c 32
 0x00803640
 ```
+ ## Reloop BeatMix
+
+ In our final project, we will use a Reloop BeatMix to send MIDI signals to control our signals. The MIDI port name of this device is `Reloop BeatMix:Reloop BeatMix MIDI 1 24:0`. Here you can find an overview of the Reloop BeatMix controls we use, the MIDI signals they send and how we will use them in our project:
+
+ * **Left linefader:** [176, 55, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **55 (Controller Number):** Controller 55
+    * **`value` (Controller Value):** Specifies the state of Controller 55, ranging from 0 to 127
+    * **Use in project:** Volume control for analog signal
+
+ * **Right linefader:** [177, 71, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 2
+    * **55 (Controller Number):** Controller 71
+    * **`value` (Controller Value):** Specifies the state of Controller 71, ranging from 0 to 127
+    * **Use in project:** Volume control for DMA signal
+
+* **Left Effect Parameter 2 Dial (PARAM 2):** [176, 48, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **48 (Controller Number):** Controller 48
+    * **`value` (Controller Value):** Specifies the state of Controller 48, ranging from 0 to 127
+    * **Use in project:** Lowpass filter control for analog signal
+
+* **Left Filter Dial (FILTER):** [176, 49, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **49 (Controller Number):** Controller 49
+    * **`value` (Controller Value):** Specifies the state of Controller 49, ranging from 0 to 127
+    * **Use in project:** Highpass filter control for analog signal
+
+* **Right Filter Dial (FILTER):** [177, 64, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **64 (Controller Number):** Controller 64
+    * **`value` (Controller Value):** Specifies the state of Controller 64, ranging from 0 to 127
+    * **Use in project:** Lowpass filter control for DMA signal
+
+* **Right Effect Parameter 2 Dial (PARAM 2):** [177, 65, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **65 (Controller Number):** Controller 65
+    * **`value` (Controller Value):** Specifies the state of Controller 65, ranging from 0 to 127
+    * **Use in project:** Highpass filter control for DMA signal
+
+* **Left EQ Dial (HIGH):** [176, 51, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **51 (Controller Number):** Controller 51
+    * **`value` (Controller Value):** Specifies the state of Controller 51, ranging from 0 to 127
+    * **Use in project:** High Shelf filter control for analog signal
+
+* **Left EQ Dial (MID):** [176, 52, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **52 (Controller Number):** Controller 52
+    * **`value` (Controller Value):** Specifies the state of Controller 52, ranging from 0 to 127
+    * **Use in project:** Band Shelf filter control for analog signal
+
+* **Left EQ Dial (LOW):** [176, 53, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **53 (Controller Number):** Controller 53
+    * **`value` (Controller Value):** Specifies the state of Controller 53, ranging from 0 to 127
+    * **Use in project:** Low Shelf filter control for analog signal
+
+* **Left Loop Length Dial (LOOP < SIZE >):** [176, 18, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **18 (Controller Number):** Controller 18
+    * **`value` (Controller Value):** Specifies the state of Controller 18, with a value equal to 63 or 65, depending on the way we turn the dial.
+    * **Use in project:** Bandwidth control selection for analog shelving filters
+
+* **Left Gain Dial:** [176, 50, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **50 (Controller Number):** Controller 50
+    * **`value` (Controller Value):** Specifies the state of Controller 50, ranging from 0 to 127
+    * **Use in project:** Bandwith control for analog shelving filters, based on the bandwith selected with controller 18
+
+
+* **Right EQ Dial (HIGH):** [177, 67, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **67 (Controller Number):** Controller 67
+    * **`value` (Controller Value):** Specifies the state of Controller 67, ranging from 0 to 127
+    * **Use in project:** High Shelf filter control for DMA signal
+
+* **Right EQ Dial (MID):** [177, 68, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **68 (Controller Number):** Controller 68
+    * **`value` (Controller Value):** Specifies the state of Controller 68, ranging from 0 to 127
+    * **Use in project:** Band Shelf filter control for DMA signal
+
+* **Right EQ Dial (LOW):** [177, 69, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **69 (Controller Number):** Controller 69
+    * **`value` (Controller Value):** Specifies the state of Controller 69, ranging from 0 to 127
+    * **Use in project:** Low Shelf filter control for DMA signal
+
+* **Right Loop Length Dial (LOOP < SIZE >):** [177, 22, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **22 (Controller Number):** Controller 22
+    * **`value` (Controller Value):** Specifies the state of Controller 22, with a value equal to 63 or 65, depending on the way we turn the dial.
+    * **Use in project:** Bandwidth control selection for DMA shelving filters
+
+* **Right Gain Dial:** [177, 66, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **66 (Controller Number):** Controller 66
+    * **`value` (Controller Value):** Specifies the state of Controller 66, ranging from 0 to 127
+    * **Use in project:** Bandwith control for DMA shelving filters, based on the bandwith selected with controller 22
+
+* **Left Effect Change Dial (FX SEL):** [176, 16, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **16 (Controller Number):** Controller 16
+    * **`value` (Controller Value):** Specifies the state of Controller 16, with a value equal to 63 or 65, depending on the way we turn the dial.
+    * **Use in project:** Effect selection control for analog signal
+
+* **Left Pitch Fader:** [176, 54, `value`]
+    * **176 (Status Byte):** Control Change on MIDI Channel 1
+    * **54 (Controller Number):** Controller 54
+    * **`value` (Controller Value):** Specifies the state of Controller 54, ranging from 0 to 127
+    * **Use in project:** Effect control for analog signal based on the effect selected with controller 16
+
+* **Right Effect Change Dial (FX SEL):** [177, 20, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **20 (Controller Number):** Controller 20
+    * **`value` (Controller Value):** Specifies the state of Controller 20, with a value equal to 63 or 65, depending on the way we turn the dial.
+    * **Use in project:** Effect selection control for DMA signal
+
+* **Right Pitch Fader:** [177, 70, `value`]
+    * **177 (Status Byte):** Control Change on MIDI Channel 2
+    * **70 (Controller Number):** Controller 70
+    * **`value` (Controller Value):** Specifies the state of Controller 70, ranging from 0 to 127
+    * **Use in project:** Effect control for DMA signal based on the effect selected with controller 20
