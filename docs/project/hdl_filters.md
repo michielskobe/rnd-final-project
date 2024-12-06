@@ -177,4 +177,13 @@ The filters_effects_wrapper module contains the whole filter and audio effects p
 
 The audio signal first passes through a volume module that attentuates the volume of every source with (probably) -6dB.
 
-To be continued ...
+Then it passes through the band_volume module which is part of the band shelf filter. The band shelf filter contains 4 biquad_tdm modules, two of them act as a low shelf filter and the other two act as a high shelf filter. So, how does the band shelving filter work? If you for example want an attenuation of -10dB, you first pass the signal through the band_volume module which will lower the volume of the full bandwidth of the signal with -10dB, then the low and high shelving filters will amplify the low and high frequencies again with +10dB so there will not be any change in volume in those frequency ranges.
+
+This is what the complete band-shelf filter looks like:
+<img src="/img/band_shelf.png"/>
+
+Then the signal passes through the low and high shelving filters, which both use 2 biqued_tdm modules, to control the gain of the low and high frequency bandwidth.
+
+Then the signal will be modified by the low and high pass filters, which are made by respectivelly 1 and 2 biquad_tdm modules.
+
+After passing through all the filters, the signal will pass through the audio effects. It first passs through the echo_tdm and afterwards through the saturation_tdm.
