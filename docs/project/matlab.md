@@ -129,11 +129,11 @@ To calculate the High Shelf filter, follow the same procedure as for the Low She
 
 ### Band Shelf
 
-To create a Band Shelf filter, the input signal is first amplified or attenuated to the desired gain. Then, a Low Shelf filter is cascaded with a High Shelf filter to amplify or attenuate the low ans high frequency bands, matching it to the level of the original input signal.
+To create a Band Shelf filter, the input signal is first amplified or attenuated to the desired gain. Then, a Low Shelf filter is cascaded with a High Shelf filter to amplify or attenuate the low and high frequency bands, matching it to the level of the original input signal.
 
 ### MATLAB Simulations
 ```MATLAB
-%% Low Shelf 4de orde
+%% Low Shelf 4th order
 
 K = 0.01964;   % 100Hz Bandwidth
 V = -0.250106;    % -10dB
@@ -149,7 +149,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -172,7 +172,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -191,7 +191,7 @@ bp.PhaseVisible = "off";
 ```
 
 ``` MATLAB
-%% High Shelf 4de orde
+%% High Shelf 4th order
 
 K = 2.4142;     % 18kHz Bandwidth
 V = 0.154782;    % +5dB
@@ -207,7 +207,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -230,7 +230,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -249,7 +249,7 @@ bp.PhaseVisible = "off";
 ```
 
 ```MATLAB
-%% Band Shelf 8de orde
+%% Band Shelf 8th order
 
 K = 0.013091;   % 100Hz Bandwidth
 V = 1.11349; %+26dB
@@ -268,7 +268,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -291,7 +291,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -317,7 +317,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -340,7 +340,7 @@ b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
 b1 = 2*K^2*(V^2 + 2*V +1) -2
 b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
 
-% Normalisation
+% Normalization
 b0 = b0/a0
 b1 = b1/a0
 b2 = b2/a0
@@ -358,15 +358,11 @@ bp = bodeplot(bs8);
 bp.FrequencyUnit = "Hz";
 bp.PhaseVisible = "off";
 
-
-
-
 bs8 = bs8 * ap;
 bp = bodeplot(bs8);
 bp.FrequencyUnit = "Hz";
 bp.PhaseVisible = "off";
 
-% 0.549/0.5012 = 1.09537
 ```
 
 We did some MATLAB Simulations to verify whether the shelving filters work as intended.
@@ -388,9 +384,13 @@ So, we switched to the Direct Form 1 Digital Biquad Filter as shown in the image
 
     Because of the overflow issue, we also switched the Low and High pass filter to the Direct Form 1 Digital Biquad Filter structure. This ensures that all the filters we develop share the same structure, allowing us to implement a single, unified filter design in VHDL.
 
-Instead of calculating the filter coëfficients beforehand, we also added the formulas for calculating the coëfficients in Simulink.
+Rather than pre-calculating the filter coefficients, we incorporated the formulas for calculating them directly within Simulink. This approach allows us to convert the Simulink model into functional HDL code.
 
 <img src="/img/shelving_filter_coefficients.png"/>
+
+!!! info
+
+    However, calculating the coefficients for the required 8 biquad filters — 4 for the band shelf, 2 for the low shelf, and 2 for the high shelf — demands a significant number of DSP slices. The Ultra96-V2 lacks sufficient DSP slices to handle all these calculations, causing Vivado to use regular logic slices instead. This led to extremely high logic and net delays, exceeding 100 ns. To address this issue, we decided to offload the coefficient calculations to the Processing System (PS) instead of performing them on the Programmable Logic (PL).
 
 This was the result of simulating the Low Shelf filter with a bandwidth of 400Hz and a gain of +5dB when passing a sine wave of 100Hz and 400Hs through the filter.
 
