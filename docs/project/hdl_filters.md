@@ -169,9 +169,13 @@ the `on_off` signal is for enabling/disabling the ring modulator effect and the 
     
 When a new `on_off` or `phase_inc` is provided, the internal value is updated immediately.
 
+### low_pass
+
+This module implements a dedicated low-pass filter, essentially a specialized version of the `biquad_tdm` module with fixed filter coefficients. It applies a low-pass filter with a cutoff frequency of 23 kHz to all signals passing through it. Since the filter coefficients are hardcoded, there is no need for a connection to the Processing System (PS) to update the module.
+
 ## Wrapper
 
-The filters_effects_wrapper module contains the whole filter and audio effects pipeline (except for the ring modulation as this module is placed at another location in the whole audio processing pipeline). 
+The filters_effects_wrapper module contains the whole filter and audio effects pipeline (except for the `ring_modulator` and `low_pass` filter as these modules are placed at another location in the whole audio processing pipeline). 
 
 <img src="/img/filters_audio_effects.png"/>
 
