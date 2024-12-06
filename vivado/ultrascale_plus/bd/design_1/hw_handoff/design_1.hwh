@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Dec  5 23:18:30 2024" VIVADOVERSION="2023.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Dec  6 09:06:53 2024" VIVADOVERSION="2023.2">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="avnet.com:ultra96v2:part0:1.2" DEVICE="xczu3eg" NAME="design_1" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
@@ -286,6 +286,7 @@
         <PORT DIR="O" LEFT="23" NAME="s_TData_out" RIGHT="0" SIGIS="undef" SIGNAME="audio_fifo_wrapper_0_s_TData_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TData_dma"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_2_AXIS_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="3" NAME="s_TID_in" RIGHT="0" SIGIS="undef" SIGNAME="dma_splitter_wrapper_0_s_TID_out">
@@ -306,6 +307,7 @@
         <PORT DIR="O" NAME="s_TLast_out" SIGIS="undef" SIGNAME="audio_fifo_wrapper_0_s_TLast_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TLast_dma"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_2_AXIS_tlast"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="s_TReady_in" SIGIS="undef" SIGNAME="audio_fifo_wrapper_0_s_TReady_in">
@@ -326,6 +328,7 @@
         <PORT DIR="O" NAME="s_TValid_out" SIGIS="undef" SIGNAME="audio_fifo_wrapper_0_s_TValid_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TValid_dma"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_2_AXIS_tvalid"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -705,8 +708,8 @@
         </PORT>
         <PORT DIR="O" LEFT="23" NAME="s_TData_out" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TData_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TData_in"/>
             <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_1_AXIS_tdata"/>
+            <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TData_in"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="3" NAME="s_TID_anal" RIGHT="0" SIGIS="undef" SIGNAME="audio_fifo_wrapper_1_s_TID_out">
@@ -721,6 +724,7 @@
         </PORT>
         <PORT DIR="O" LEFT="3" NAME="s_TID_out" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TID_out">
           <CONNECTIONS>
+            <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_1_AXIS_tid"/>
             <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TID_in"/>
           </CONNECTIONS>
         </PORT>
@@ -736,8 +740,8 @@
         </PORT>
         <PORT DIR="O" NAME="s_TLast_out" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TLast_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TLast_in"/>
             <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_1_AXIS_tlast"/>
+            <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TLast_in"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="s_TReady_anal" SIGIS="undef" SIGNAME="audio_fifo_wrapper_1_s_TReady_out">
@@ -748,6 +752,7 @@
         <PORT DIR="O" NAME="s_TReady_dma" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TReady_dma">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_fifo_wrapper_0" PORT="s_TReady_out"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_2_AXIS_tready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_TReady_out" SIGIS="undef" SIGNAME="audio_fifo_wrapper_2_s_TReady_in">
@@ -767,8 +772,8 @@
         </PORT>
         <PORT DIR="O" NAME="s_TValid_out" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TValid_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TValid_in"/>
             <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_1_AXIS_tvalid"/>
+            <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TValid_in"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -10721,7 +10726,7 @@
         <PARAMETER NAME="C_PROBE9_TYPE" VALUE="0"/>
         <PARAMETER NAME="C_PROBE9_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_PROBE_WIDTH_PROPAGATION" VALUE="AUTO"/>
-        <PARAMETER NAME="C_SLOT" VALUE="2"/>
+        <PARAMETER NAME="C_SLOT" VALUE="1"/>
         <PARAMETER NAME="C_SLOT_0_APC_EN" VALUE="0"/>
         <PARAMETER NAME="C_SLOT_0_APC_MAX_AR_WAITS" VALUE="0"/>
         <PARAMETER NAME="C_SLOT_0_APC_MAX_AW_WAITS" VALUE="0"/>
@@ -11057,7 +11062,7 @@
         <PARAMETER NAME="C_SLOT_1_APC_STS_EN" VALUE="0"/>
         <PARAMETER NAME="C_SLOT_1_AXIS_TDATA_WIDTH" VALUE="AUTO"/>
         <PARAMETER NAME="C_SLOT_1_AXIS_TDEST_WIDTH" VALUE="AUTO"/>
-        <PARAMETER NAME="C_SLOT_1_AXIS_TID_WIDTH" VALUE="AUTO"/>
+        <PARAMETER NAME="C_SLOT_1_AXIS_TID_WIDTH" VALUE="2"/>
         <PARAMETER NAME="C_SLOT_1_AXIS_TUSER_WIDTH" VALUE="AUTO"/>
         <PARAMETER NAME="C_SLOT_1_AXI_ADDR_WIDTH" VALUE="AUTO"/>
         <PARAMETER NAME="C_SLOT_1_AXI_ARUSER_WIDTH" VALUE="1"/>
@@ -11478,6 +11483,11 @@
             <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TData_out"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" LEFT="1" NAME="SLOT_1_AXIS_tid" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TID_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TID_out"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" NAME="SLOT_1_AXIS_tlast" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TLast_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TLast_out"/>
@@ -11493,11 +11503,26 @@
             <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TValid_out"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="23" NAME="SLOT_2_AXIS_tdata" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="3" NAME="SLOT_2_AXIS_tid" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="I" NAME="SLOT_2_AXIS_tlast" SIGIS="undef"/>
-        <PORT DIR="I" NAME="SLOT_2_AXIS_tready" SIGIS="undef"/>
-        <PORT DIR="I" NAME="SLOT_2_AXIS_tvalid" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="31" NAME="SLOT_2_AXIS_tdata" RIGHT="0" SIGIS="undef" SIGNAME="audio_fifo_wrapper_0_s_TData_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="audio_fifo_wrapper_0" PORT="s_TData_out"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="SLOT_2_AXIS_tlast" SIGIS="undef" SIGNAME="audio_fifo_wrapper_0_s_TLast_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="audio_fifo_wrapper_0" PORT="s_TLast_out"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="SLOT_2_AXIS_tready" SIGIS="undef" SIGNAME="audio_pipeline_wrapp_0_s_TReady_dma">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="audio_pipeline_wrapp_0" PORT="s_TReady_dma"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="SLOT_2_AXIS_tvalid" SIGIS="undef" SIGNAME="audio_fifo_wrapper_0_s_TValid_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="audio_fifo_wrapper_0" PORT="s_TValid_out"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
@@ -11544,6 +11569,7 @@
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="SLOT_1_AXIS_tdata"/>
+            <PORTMAP LOGICAL="TID" PHYSICAL="SLOT_1_AXIS_tid"/>
             <PORTMAP LOGICAL="TLAST" PHYSICAL="SLOT_1_AXIS_tlast"/>
             <PORTMAP LOGICAL="TREADY" PHYSICAL="SLOT_1_AXIS_tready"/>
             <PORTMAP LOGICAL="TVALID" PHYSICAL="SLOT_1_AXIS_tvalid"/>
@@ -11553,19 +11579,18 @@
           <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
           <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
           <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="1"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="4"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="SLOT_2_AXIS_tdata"/>
-            <PORTMAP LOGICAL="TID" PHYSICAL="SLOT_2_AXIS_tid"/>
             <PORTMAP LOGICAL="TLAST" PHYSICAL="SLOT_2_AXIS_tlast"/>
             <PORTMAP LOGICAL="TREADY" PHYSICAL="SLOT_2_AXIS_tready"/>
             <PORTMAP LOGICAL="TVALID" PHYSICAL="SLOT_2_AXIS_tvalid"/>

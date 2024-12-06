@@ -2,7 +2,7 @@
 --Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
---Date        : Thu Dec  5 23:18:22 2024
+--Date        : Fri Dec  6 09:06:46 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -3236,16 +3236,16 @@ architecture STRUCTURE of design_1 is
     SLOT_0_AXIS_tlast : in STD_LOGIC;
     SLOT_0_AXIS_tvalid : in STD_LOGIC;
     SLOT_0_AXIS_tready : in STD_LOGIC;
-    resetn : in STD_LOGIC;
     SLOT_1_AXIS_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     SLOT_1_AXIS_tlast : in STD_LOGIC;
     SLOT_1_AXIS_tvalid : in STD_LOGIC;
     SLOT_1_AXIS_tready : in STD_LOGIC;
-    SLOT_2_AXIS_tid : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    SLOT_2_AXIS_tdata : in STD_LOGIC_VECTOR ( 23 downto 0 );
+    SLOT_2_AXIS_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     SLOT_2_AXIS_tlast : in STD_LOGIC;
     SLOT_2_AXIS_tvalid : in STD_LOGIC;
-    SLOT_2_AXIS_tready : in STD_LOGIC
+    SLOT_2_AXIS_tready : in STD_LOGIC;
+    resetn : in STD_LOGIC;
+    SLOT_1_AXIS_tid : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   end component design_1_system_ila_0_1;
   component design_1_xlconstant_0_0 is
@@ -3266,6 +3266,7 @@ architecture STRUCTURE of design_1 is
   signal I2S_wrapper_0_s_out_TVALID : STD_LOGIC;
   signal I2S_wrapper_0_sclk_r : STD_LOGIC;
   signal I2S_wrapper_0_sclk_t : STD_LOGIC;
+  signal Net : STD_LOGIC;
   signal audio_fifo_wrapper_0_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
   attribute DEBUG : string;
   attribute DEBUG of audio_fifo_wrapper_0_s_TData_out : signal is "true";
@@ -3305,25 +3306,14 @@ architecture STRUCTURE of design_1 is
   signal audio_fifo_wrapper_2_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
   signal audio_fifo_wrapper_2_s_TID_out : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal audio_fifo_wrapper_2_s_TLast_out : STD_LOGIC;
-  signal audio_fifo_wrapper_2_s_TReady_in : STD_LOGIC;
-  attribute DEBUG of audio_fifo_wrapper_2_s_TReady_in : signal is "true";
-  attribute MARK_DEBUG of audio_fifo_wrapper_2_s_TReady_in : signal is std.standard.true;
   signal audio_fifo_wrapper_2_s_TValid_out : STD_LOGIC;
   signal audio_pipeline_wrapp_0_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
-  attribute DEBUG of audio_pipeline_wrapp_0_s_TData_out : signal is "true";
-  attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TData_out : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TID_out : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute DEBUG of audio_pipeline_wrapp_0_s_TID_out : signal is "true";
-  attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TID_out : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TLast_out : STD_LOGIC;
-  attribute DEBUG of audio_pipeline_wrapp_0_s_TLast_out : signal is "true";
-  attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TLast_out : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TReady_dma : STD_LOGIC;
   attribute DEBUG of audio_pipeline_wrapp_0_s_TReady_dma : signal is "true";
   attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TReady_dma : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TValid_out : STD_LOGIC;
-  attribute DEBUG of audio_pipeline_wrapp_0_s_TValid_out : signal is "true";
-  attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TValid_out : signal is std.standard.true;
   signal axi_dma_0_M_AXIS_MM2S_TDATA : STD_LOGIC_VECTOR ( 127 downto 0 );
   signal axi_dma_0_M_AXIS_MM2S_TKEEP : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal axi_dma_0_M_AXIS_MM2S_TLAST : STD_LOGIC;
@@ -3673,7 +3663,7 @@ audio_fifo_wrapper_2: component design_1_audio_fifo_wrapper_2_0
       s_TID_out(3 downto 0) => audio_fifo_wrapper_2_s_TID_out(3 downto 0),
       s_TLast_in => audio_pipeline_wrapp_0_s_TLast_out,
       s_TLast_out => audio_fifo_wrapper_2_s_TLast_out,
-      s_TReady_in => audio_fifo_wrapper_2_s_TReady_in,
+      s_TReady_in => Net,
       s_TReady_out => I2S_wrapper_0_s_TReady_in,
       s_TValid_in => audio_pipeline_wrapp_0_s_TValid_out,
       s_TValid_out => audio_fifo_wrapper_2_s_TValid_out
@@ -3699,7 +3689,7 @@ audio_pipeline_wrapp_0: component design_1_audio_pipeline_wrapp_0_0
       s_TLast_out => audio_pipeline_wrapp_0_s_TLast_out,
       s_TReady_anal => audio_fifo_wrapper_1_s_out_TREADY,
       s_TReady_dma => audio_pipeline_wrapp_0_s_TReady_dma,
-      s_TReady_out => audio_fifo_wrapper_2_s_TReady_in,
+      s_TReady_out => Net,
       s_TValid_anal => audio_fifo_wrapper_1_s_out_TVALID,
       s_TValid_dma => audio_fifo_wrapper_0_s_TValid_out,
       s_TValid_out => audio_pipeline_wrapp_0_s_TValid_out
@@ -4173,14 +4163,15 @@ system_ila_0: component design_1_system_ila_0_1
       SLOT_0_AXIS_tvalid => audio_fifo_wrapper_1_s_out_TVALID,
       SLOT_1_AXIS_tdata(31 downto 24) => B"00000000",
       SLOT_1_AXIS_tdata(23 downto 0) => audio_pipeline_wrapp_0_s_TData_out(23 downto 0),
+      SLOT_1_AXIS_tid(1 downto 0) => audio_pipeline_wrapp_0_s_TID_out(1 downto 0),
       SLOT_1_AXIS_tlast => audio_pipeline_wrapp_0_s_TLast_out,
-      SLOT_1_AXIS_tready => audio_fifo_wrapper_2_s_TReady_in,
+      SLOT_1_AXIS_tready => Net,
       SLOT_1_AXIS_tvalid => audio_pipeline_wrapp_0_s_TValid_out,
-      SLOT_2_AXIS_tdata(23 downto 0) => B"000000000000000000000000",
-      SLOT_2_AXIS_tid(3 downto 0) => B"0000",
-      SLOT_2_AXIS_tlast => '0',
-      SLOT_2_AXIS_tready => '1',
-      SLOT_2_AXIS_tvalid => '0',
+      SLOT_2_AXIS_tdata(31 downto 24) => B"00000000",
+      SLOT_2_AXIS_tdata(23 downto 0) => audio_fifo_wrapper_0_s_TData_out(23 downto 0),
+      SLOT_2_AXIS_tlast => audio_fifo_wrapper_0_s_TLast_out,
+      SLOT_2_AXIS_tready => audio_pipeline_wrapp_0_s_TReady_dma,
+      SLOT_2_AXIS_tvalid => audio_fifo_wrapper_0_s_TValid_out,
       clk => zynq_ultra_ps_e_0_pl_clk0,
       resetn => '1'
     );

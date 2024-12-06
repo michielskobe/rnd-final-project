@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xEEED304185E003A",
+      "boundary_crc": "0x20FEE23CF21E1EA5",
       "design_src": "SBD",
       "device": "xczu3eg-sbva484-1-i",
       "name": "bd_36cd",
@@ -23,7 +23,7 @@
         "parameters": {
           "CLK_DOMAIN": {
             "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default"
+            "value_src": "default_prop"
           },
           "FREQ_HZ": {
             "value": "100000000",
@@ -82,7 +82,7 @@
         "parameters": {
           "CLK_DOMAIN": {
             "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default"
+            "value_src": "default_prop"
           },
           "FREQ_HZ": {
             "value": "100000000",
@@ -141,7 +141,7 @@
         "parameters": {
           "CLK_DOMAIN": {
             "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default"
+            "value_src": "default_prop"
           },
           "FREQ_HZ": {
             "value": "100000000",
@@ -152,7 +152,7 @@
             "value_src": "default"
           },
           "HAS_TLAST": {
-            "value": "1",
+            "value": "0",
             "value_src": "default"
           },
           "HAS_TREADY": {
@@ -176,7 +176,7 @@
             "value_src": "default"
           },
           "TDATA_NUM_BYTES": {
-            "value": "3",
+            "value": "1",
             "value_src": "default"
           },
           "TDEST_WIDTH": {
@@ -184,7 +184,7 @@
             "value_src": "default"
           },
           "TID_WIDTH": {
-            "value": "4",
+            "value": "0",
             "value_src": "default"
           },
           "TUSER_WIDTH": {
@@ -287,7 +287,7 @@
             "value": "0"
           },
           "C_PROBE10_WIDTH": {
-            "value": "4"
+            "value": "32"
           },
           "C_PROBE11_TYPE": {
             "value": "0"
@@ -341,7 +341,7 @@
             "value": "0"
           },
           "C_PROBE6_WIDTH": {
-            "value": "1"
+            "value": "2"
           },
           "C_PROBE7_TYPE": {
             "value": "0"
@@ -359,7 +359,7 @@
             "value": "0"
           },
           "C_PROBE9_WIDTH": {
-            "value": "24"
+            "value": "1"
           },
           "C_TRIGIN_EN": {
             "value": "false"
@@ -422,7 +422,7 @@
             "value": "0"
           },
           "C_SLOT_1_AXIS_TID_WIDTH": {
-            "value": "0"
+            "value": "2"
           },
           "C_SLOT_1_AXIS_TUSER_WIDTH": {
             "value": "0"
@@ -443,13 +443,13 @@
             "value": "FT"
           },
           "C_SLOT_2_AXIS_TDATA_WIDTH": {
-            "value": "24"
+            "value": "8"
           },
           "C_SLOT_2_AXIS_TDEST_WIDTH": {
             "value": "0"
           },
           "C_SLOT_2_AXIS_TID_WIDTH": {
-            "value": "4"
+            "value": "0"
           },
           "C_SLOT_2_AXIS_TUSER_WIDTH": {
             "value": "0"
@@ -536,33 +536,33 @@
           "ila_lib/probe5"
         ]
       },
+      "net_slot_1_axis_tid": {
+        "ports": [
+          "g_inst/m_slot_1_axis_tid",
+          "ila_lib/probe6"
+        ]
+      },
       "net_slot_1_axis_tlast": {
         "ports": [
           "g_inst/m_slot_1_axis_tlast",
-          "ila_lib/probe8"
+          "ila_lib/probe9"
         ]
       },
       "net_slot_1_axis_tready": {
         "ports": [
           "g_inst/m_slot_1_axis_tready",
-          "ila_lib/probe7"
+          "ila_lib/probe8"
         ]
       },
       "net_slot_1_axis_tvalid": {
         "ports": [
           "g_inst/m_slot_1_axis_tvalid",
-          "ila_lib/probe6"
+          "ila_lib/probe7"
         ]
       },
       "net_slot_2_axis_tdata": {
         "ports": [
           "g_inst/m_slot_2_axis_tdata",
-          "ila_lib/probe9"
-        ]
-      },
-      "net_slot_2_axis_tid": {
-        "ports": [
-          "g_inst/m_slot_2_axis_tid",
           "ila_lib/probe10"
         ]
       },
