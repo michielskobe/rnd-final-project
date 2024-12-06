@@ -64,7 +64,7 @@ ENTITY design_1_dma_splitter_wrapper_0_0 IS
     s_TValid_out : OUT STD_LOGIC;
     s_TLast_out : OUT STD_LOGIC;
     s_TData_out : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
-    s_TID_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s_TID_out : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_TReady_out : IN STD_LOGIC
   );
 END design_1_dma_splitter_wrapper_0_0;
@@ -86,7 +86,7 @@ ARCHITECTURE design_1_dma_splitter_wrapper_0_0_arch OF design_1_dma_splitter_wra
       s_TValid_out : OUT STD_LOGIC;
       s_TLast_out : OUT STD_LOGIC;
       s_TData_out : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
-      s_TID_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+      s_TID_out : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_TReady_out : IN STD_LOGIC
     );
   END COMPONENT dma_splitter_wrapper;
@@ -106,7 +106,7 @@ ARCHITECTURE design_1_dma_splitter_wrapper_0_0_arch OF design_1_dma_splitter_wra
   ATTRIBUTE X_INTERFACE_INFO OF s_TID_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TID";
   ATTRIBUTE X_INTERFACE_INFO OF s_TLast_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TLAST";
   ATTRIBUTE X_INTERFACE_INFO OF s_TReady_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TREADY";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_out: SIGNAL IS "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_out: SIGNAL IS "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 2, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, CLK_DOMAIN design_1_zynq_ultra_ps_e_0_0_pl_clk0, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_TValid_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TVALID";
 BEGIN
   U0 : dma_splitter_wrapper

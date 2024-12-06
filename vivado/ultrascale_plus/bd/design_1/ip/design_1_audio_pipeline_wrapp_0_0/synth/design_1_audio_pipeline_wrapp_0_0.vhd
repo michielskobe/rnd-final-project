@@ -60,23 +60,23 @@ ENTITY design_1_audio_pipeline_wrapp_0_0 IS
     clk_out : IN STD_LOGIC;
     clk_axi_mm : IN STD_LOGIC;
     master_volume : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
-    channel_volume_select : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    channel_volume_select : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     channel_volume_value : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
     dma_valid : IN STD_LOGIC;
     s_TValid_anal : IN STD_LOGIC;
     s_TLast_anal : IN STD_LOGIC;
     s_TData_anal : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
-    s_TID_anal : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s_TID_anal : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_TReady_anal : OUT STD_LOGIC;
     s_TValid_dma : IN STD_LOGIC;
     s_TLast_dma : IN STD_LOGIC;
     s_TData_dma : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
-    s_TID_dma : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s_TID_dma : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_TReady_dma : OUT STD_LOGIC;
     s_TValid_out : OUT STD_LOGIC;
     s_TLast_out : OUT STD_LOGIC;
     s_TData_out : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
-    s_TID_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s_TID_out : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_TReady_out : IN STD_LOGIC
   );
 END design_1_audio_pipeline_wrapp_0_0;
@@ -94,23 +94,23 @@ ARCHITECTURE design_1_audio_pipeline_wrapp_0_0_arch OF design_1_audio_pipeline_w
       clk_out : IN STD_LOGIC;
       clk_axi_mm : IN STD_LOGIC;
       master_volume : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
-      channel_volume_select : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+      channel_volume_select : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       channel_volume_value : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
       dma_valid : IN STD_LOGIC;
       s_TValid_anal : IN STD_LOGIC;
       s_TLast_anal : IN STD_LOGIC;
       s_TData_anal : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
-      s_TID_anal : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+      s_TID_anal : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_TReady_anal : OUT STD_LOGIC;
       s_TValid_dma : IN STD_LOGIC;
       s_TLast_dma : IN STD_LOGIC;
       s_TData_dma : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
-      s_TID_dma : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+      s_TID_dma : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_TReady_dma : OUT STD_LOGIC;
       s_TValid_out : OUT STD_LOGIC;
       s_TLast_out : OUT STD_LOGIC;
       s_TData_out : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
-      s_TID_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+      s_TID_out : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_TReady_out : IN STD_LOGIC
     );
   END COMPONENT audio_pipeline_wrapper;
@@ -136,11 +136,11 @@ ARCHITECTURE design_1_audio_pipeline_wrapp_0_0_arch OF design_1_audio_pipeline_w
   ATTRIBUTE X_INTERFACE_INFO OF s_TReady_anal: SIGNAL IS "xilinx.com:interface:axis:1.0 s_anal TREADY";
   ATTRIBUTE X_INTERFACE_INFO OF s_TReady_dma: SIGNAL IS "xilinx.com:interface:axis:1.0 s_dma TREADY";
   ATTRIBUTE X_INTERFACE_INFO OF s_TReady_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TREADY";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_anal: SIGNAL IS "XIL_INTERFACENAME s_anal, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_anal: SIGNAL IS "XIL_INTERFACENAME s_anal, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 2, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_TValid_anal: SIGNAL IS "xilinx.com:interface:axis:1.0 s_anal TVALID";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_dma: SIGNAL IS "XIL_INTERFACENAME s_dma, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_dma: SIGNAL IS "XIL_INTERFACENAME s_dma, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 2, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_TValid_dma: SIGNAL IS "xilinx.com:interface:axis:1.0 s_dma TVALID";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_out: SIGNAL IS "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_out: SIGNAL IS "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 2, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_TValid_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TVALID";
 BEGIN
   U0 : audio_pipeline_wrapper

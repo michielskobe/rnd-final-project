@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x20FEE23CF21E1EA5",
+      "boundary_crc": "0x1A40C16DE4A49CBF",
       "design_src": "SBD",
       "device": "xczu3eg-sbva484-1-i",
       "name": "bd_36cd",
@@ -23,7 +23,7 @@
         "parameters": {
           "CLK_DOMAIN": {
             "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default_prop"
+            "value_src": "default"
           },
           "FREQ_HZ": {
             "value": "100000000",
@@ -66,7 +66,7 @@
             "value_src": "default"
           },
           "TID_WIDTH": {
-            "value": "4",
+            "value": "2",
             "value_src": "default"
           },
           "TUSER_WIDTH": {
@@ -82,7 +82,7 @@
         "parameters": {
           "CLK_DOMAIN": {
             "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default_prop"
+            "value_src": "default"
           },
           "FREQ_HZ": {
             "value": "100000000",
@@ -141,7 +141,7 @@
         "parameters": {
           "CLK_DOMAIN": {
             "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default_prop"
+            "value_src": "default"
           },
           "FREQ_HZ": {
             "value": "100000000",
@@ -311,7 +311,7 @@
             "value": "0"
           },
           "C_PROBE1_WIDTH": {
-            "value": "4"
+            "value": "2"
           },
           "C_PROBE2_TYPE": {
             "value": "0"
@@ -395,7 +395,7 @@
             "value": "0"
           },
           "C_SLOT_0_AXIS_TID_WIDTH": {
-            "value": "4"
+            "value": "2"
           },
           "C_SLOT_0_AXIS_TUSER_WIDTH": {
             "value": "0"

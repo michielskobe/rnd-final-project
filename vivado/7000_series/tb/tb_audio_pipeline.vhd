@@ -40,6 +40,7 @@ use work.channel_mapper;
 use work.channel_merger;
 use work.mixer_wrapper;
 use work.audio_pipeline;
+use work.audio_pipeline_no_effect;
 
 entity tb_audio_pipeline is
 --  Port ( );
@@ -118,7 +119,7 @@ begin
     )
     port map(
         -- input
-        ratio => c_I2S_ratio, -- THIS SHOULD BE DIFFERENT => 256 to simulate constant and fast flow of data compared to anal 
+        ratio => 256,
         clk_in => clk,
         
         -- output
@@ -143,7 +144,7 @@ begin
         
     end process;
 
-    audio_pipeline_inst: entity work.audio_pipeline
+    audio_pipeline_inst: entity work.audio_pipeline_no_effect
      port map(
         clk_in => clk,
         clk_audio => clk,

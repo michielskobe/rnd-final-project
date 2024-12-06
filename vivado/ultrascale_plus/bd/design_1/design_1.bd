@@ -5,7 +5,7 @@
       "device": "xczu3eg-sbva484-1-i",
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
-      "synth_flow_mode": "Hierarchical",
+      "synth_flow_mode": "None",
       "tool_version": "2023.2",
       "validated": "true"
     },
@@ -43,8 +43,7 @@
       "audio_pipeline_wrapp_0": "",
       "audio_fifo_wrapper_1": "",
       "audio_fifo_wrapper_2": "",
-      "system_ila_0": "",
-      "xlconstant_0": ""
+      "system_ila_0": ""
     },
     "interface_ports": {
       "wifi_en_led": {
@@ -4843,7 +4842,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -4871,7 +4870,7 @@
               "TID": {
                 "physical_name": "s_TID_in",
                 "direction": "I",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -4908,7 +4907,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -4936,7 +4935,7 @@
               "TID": {
                 "physical_name": "s_TID_out",
                 "direction": "O",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5086,7 +5085,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5122,7 +5121,7 @@
               "TID": {
                 "physical_name": "s_TID_out",
                 "direction": "O",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5249,7 +5248,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5277,7 +5276,7 @@
               "TID": {
                 "physical_name": "s_TID_in",
                 "direction": "I",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5314,7 +5313,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5342,7 +5341,7 @@
               "TID": {
                 "physical_name": "s_TID_out",
                 "direction": "O",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5456,7 +5455,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5484,7 +5483,7 @@
               "TID": {
                 "physical_name": "s_TID_anal",
                 "direction": "I",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5521,7 +5520,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5549,7 +5548,7 @@
               "TID": {
                 "physical_name": "s_TID_dma",
                 "direction": "I",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5586,7 +5585,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5614,7 +5613,7 @@
               "TID": {
                 "physical_name": "s_TID_out",
                 "direction": "O",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5714,7 +5713,7 @@
           },
           "channel_volume_select": {
             "direction": "I",
-            "left": "3",
+            "left": "1",
             "right": "0"
           },
           "channel_volume_value": {
@@ -5792,7 +5791,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5820,7 +5819,7 @@
               "TID": {
                 "physical_name": "s_TID_in",
                 "direction": "I",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -5857,7 +5856,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -5885,7 +5884,7 @@
               "TID": {
                 "physical_name": "s_TID_out",
                 "direction": "O",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -6011,7 +6010,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -6039,7 +6038,7 @@
               "TID": {
                 "physical_name": "s_TID_in",
                 "direction": "I",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -6076,7 +6075,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -6104,7 +6103,7 @@
               "TID": {
                 "physical_name": "s_TID_out",
                 "direction": "O",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -6221,18 +6220,6 @@
             "mode": "Monitor",
             "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
             "vlnv": "xilinx.com:interface:axis_rtl:1.0"
-          }
-        }
-      },
-      "xlconstant_0": {
-        "vlnv": "xilinx.com:ip:xlconstant:1.1",
-        "ip_revision": "8",
-        "xci_name": "design_1_xlconstant_0_0",
-        "xci_path": "ip/design_1_xlconstant_0_0/design_1_xlconstant_0_0.xci",
-        "inst_hier_path": "xlconstant_0",
-        "parameters": {
-          "CONST_VAL": {
-            "value": "0"
           }
         }
       }
@@ -6396,15 +6383,15 @@
       "Net": {
         "ports": [
           "audio_fifo_wrapper_2/s_TReady_in",
-          "audio_pipeline_wrapp_0/s_TReady_out",
-          "system_ila_0/SLOT_1_AXIS_tready"
+          "system_ila_0/SLOT_1_AXIS_tready",
+          "audio_pipeline_wrapp_0/s_TReady_out"
         ]
       },
       "audio_fifo_wrapper_0_s_TData_out": {
         "ports": [
           "audio_fifo_wrapper_0/s_TData_out",
-          "audio_pipeline_wrapp_0/s_TData_dma",
-          "system_ila_0/SLOT_2_AXIS_tdata"
+          "system_ila_0/SLOT_2_AXIS_tdata",
+          "audio_pipeline_wrapp_0/s_TData_dma"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -6432,8 +6419,8 @@
       "audio_fifo_wrapper_0_s_TLast_out": {
         "ports": [
           "audio_fifo_wrapper_0/s_TLast_out",
-          "audio_pipeline_wrapp_0/s_TLast_dma",
-          "system_ila_0/SLOT_2_AXIS_tlast"
+          "system_ila_0/SLOT_2_AXIS_tlast",
+          "audio_pipeline_wrapp_0/s_TLast_dma"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -6453,8 +6440,9 @@
       "audio_fifo_wrapper_0_s_TValid_out": {
         "ports": [
           "audio_fifo_wrapper_0/s_TValid_out",
-          "audio_pipeline_wrapp_0/s_TValid_dma",
-          "system_ila_0/SLOT_2_AXIS_tvalid"
+          "system_ila_0/SLOT_2_AXIS_tvalid",
+          "audio_pipeline_wrapp_0/dma_valid",
+          "audio_pipeline_wrapp_0/s_TValid_dma"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -6513,8 +6501,8 @@
       "audio_pipeline_wrapp_0_s_TReady_dma": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TReady_dma",
-          "audio_fifo_wrapper_0/s_TReady_out",
-          "system_ila_0/SLOT_2_AXIS_tready"
+          "system_ila_0/SLOT_2_AXIS_tready",
+          "audio_fifo_wrapper_0/s_TReady_out"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -6571,8 +6559,8 @@
       "clk_wiz_0_clk_out1": {
         "ports": [
           "clk_wiz_0/clk_out1",
-          "I2S_wrapper_0/m_clk",
           "audio_fifo_wrapper_1/clk_in",
+          "I2S_wrapper_0/m_clk",
           "audio_fifo_wrapper_2/clk_out"
         ]
       },
@@ -6638,12 +6626,6 @@
           "zynq_ultra_ps_e_0/pl_ps_irq0"
         ]
       },
-      "xlconstant_0_dout": {
-        "ports": [
-          "xlconstant_0/dout",
-          "audio_pipeline_wrapp_0/dma_valid"
-        ]
-      },
       "zynq_ultra_ps_e_0_emio_uart0_rtsn": {
         "ports": [
           "zynq_ultra_ps_e_0/emio_uart0_rtsn",
@@ -6675,16 +6657,16 @@
           "zynq_ultra_ps_e_0/maxihpm1_fpd_aclk",
           "zynq_ultra_ps_e_0/saxihp0_fpd_aclk",
           "clk_wiz_0/clk_in1",
-          "dma_splitter_wrapper_0/clk",
+          "system_ila_0/clk",
           "audio_fifo_wrapper_0/clk_in",
           "audio_fifo_wrapper_0/clk_out",
-          "audio_fifo_wrapper_1/clk_out",
-          "audio_fifo_wrapper_2/clk_in",
           "audio_pipeline_wrapp_0/clk_in",
           "audio_pipeline_wrapp_0/clk_audio",
           "audio_pipeline_wrapp_0/clk_out",
           "audio_pipeline_wrapp_0/clk_axi_mm",
-          "system_ila_0/clk"
+          "audio_fifo_wrapper_1/clk_out",
+          "audio_fifo_wrapper_2/clk_in",
+          "dma_splitter_wrapper_0/clk"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Dec  6 09:06:53 2024" VIVADOVERSION="2023.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Dec  6 11:02:21 2024" VIVADOVERSION="2023.2">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="avnet.com:ultra96v2:part0:1.2" DEVICE="xczu3eg" NAME="bd_36cd" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
@@ -9,7 +9,7 @@
         <CONNECTION INSTANCE="g_inst" PORT="slot_0_axis_tdata"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" LEFT="3" NAME="SLOT_0_AXIS_tid" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_slot_0_axis_tid">
+    <PORT DIR="I" LEFT="1" NAME="SLOT_0_AXIS_tid" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_slot_0_axis_tid">
       <CONNECTIONS>
         <CONNECTION INSTANCE="g_inst" PORT="slot_0_axis_tid"/>
       </CONNECTIONS>
@@ -100,7 +100,7 @@
       <PARAMETER NAME="PHASE" VALUE="0.0"/>
       <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
       <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-      <PARAMETER NAME="TID_WIDTH" VALUE="4"/>
+      <PARAMETER NAME="TID_WIDTH" VALUE="2"/>
       <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
       <PORTMAPS>
         <PORTMAP LOGICAL="TDATA" PHYSICAL="SLOT_0_AXIS_tdata"/>
@@ -910,7 +910,7 @@
         <PARAMETER NAME="C_PROBE9_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_SLOT_0_AXIS_TDATA_WIDTH" VALUE="24"/>
         <PARAMETER NAME="C_SLOT_0_AXIS_TDEST_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="C_SLOT_0_AXIS_TID_WIDTH" VALUE="4"/>
+        <PARAMETER NAME="C_SLOT_0_AXIS_TID_WIDTH" VALUE="2"/>
         <PARAMETER NAME="C_SLOT_0_AXIS_TUSER_WIDTH" VALUE="0"/>
         <PARAMETER NAME="C_SLOT_0_AXI_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_SLOT_0_AXI_ARUSER_WIDTH" VALUE="1"/>
@@ -1521,7 +1521,7 @@
             <CONNECTION INSTANCE="ila_lib" PORT="probe0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="m_slot_0_axis_tid" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_m_slot_0_axis_tid">
+        <PORT DIR="O" LEFT="1" NAME="m_slot_0_axis_tid" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_m_slot_0_axis_tid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ila_lib" PORT="probe1"/>
           </CONNECTIONS>
@@ -1591,7 +1591,7 @@
             <CONNECTION INSTANCE="bd_36cd_imp" PORT="SLOT_0_AXIS_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="3" NAME="slot_0_axis_tid" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_slot_0_axis_tid">
+        <PORT DIR="I" LEFT="1" NAME="slot_0_axis_tid" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_slot_0_axis_tid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="bd_36cd_imp" PORT="SLOT_0_AXIS_tid"/>
           </CONNECTIONS>
@@ -1670,7 +1670,7 @@
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="4"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="2"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="slot_0_axis_tdata"/>
@@ -1735,7 +1735,7 @@
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="4"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="2"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="m_slot_0_axis_tdata"/>
@@ -2231,7 +2231,7 @@
         <PARAMETER NAME="C_PROBE19_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_PROBE1_MU_CNT" VALUE="1"/>
         <PARAMETER NAME="C_PROBE1_TYPE" VALUE="0"/>
-        <PARAMETER NAME="C_PROBE1_WIDTH" VALUE="4"/>
+        <PARAMETER NAME="C_PROBE1_WIDTH" VALUE="2"/>
         <PARAMETER NAME="C_PROBE200_MU_CNT" VALUE="1"/>
         <PARAMETER NAME="C_PROBE200_TYPE" VALUE="0"/>
         <PARAMETER NAME="C_PROBE200_WIDTH" VALUE="1"/>
@@ -4940,7 +4940,7 @@
             <CONNECTION INSTANCE="g_inst" PORT="m_slot_0_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="3" NAME="probe1" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_m_slot_0_axis_tid">
+        <PORT DIR="I" LEFT="1" NAME="probe1" RIGHT="0" SIGIS="undef" SIGNAME="g_inst_m_slot_0_axis_tid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="g_inst" PORT="m_slot_0_axis_tid"/>
           </CONNECTIONS>

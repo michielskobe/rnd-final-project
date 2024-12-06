@@ -78,7 +78,7 @@ architecture Behavioral of dma_splitter_wrapper is
     signal axi_fwd_out : t_axi4_audio_fwd;
     signal axi_bwd_out : t_axi4_audio_bwd;
 
-    signal g_channel_offset : STD_LOGIC_VECTOR(c_ID_width-1 downto 0) := (others => '0');
+    signal g_channel_offset : STD_LOGIC_VECTOR(c_ID_width-1 downto 0) := (0 => '0', 1 => '1');
 
 begin
 

@@ -12,7 +12,7 @@ use UNISIM.VCOMPONENTS.ALL;
 entity bd_36cd_wrapper is
   port (
     SLOT_0_AXIS_tdata : in STD_LOGIC_VECTOR ( 23 downto 0 );
-    SLOT_0_AXIS_tid : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    SLOT_0_AXIS_tid : in STD_LOGIC_VECTOR ( 1 downto 0 );
     SLOT_0_AXIS_tlast : in STD_LOGIC;
     SLOT_0_AXIS_tready : in STD_LOGIC;
     SLOT_0_AXIS_tvalid : in STD_LOGIC;
@@ -36,7 +36,7 @@ architecture STRUCTURE of bd_36cd_wrapper is
     clk : in STD_LOGIC;
     resetn : in STD_LOGIC;
     SLOT_0_AXIS_tdata : in STD_LOGIC_VECTOR ( 23 downto 0 );
-    SLOT_0_AXIS_tid : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    SLOT_0_AXIS_tid : in STD_LOGIC_VECTOR ( 1 downto 0 );
     SLOT_0_AXIS_tlast : in STD_LOGIC;
     SLOT_0_AXIS_tready : in STD_LOGIC;
     SLOT_0_AXIS_tvalid : in STD_LOGIC;
@@ -55,7 +55,7 @@ begin
 bd_36cd_i: component bd_36cd
      port map (
       SLOT_0_AXIS_tdata(23 downto 0) => SLOT_0_AXIS_tdata(23 downto 0),
-      SLOT_0_AXIS_tid(3 downto 0) => SLOT_0_AXIS_tid(3 downto 0),
+      SLOT_0_AXIS_tid(1 downto 0) => SLOT_0_AXIS_tid(1 downto 0),
       SLOT_0_AXIS_tlast => SLOT_0_AXIS_tlast,
       SLOT_0_AXIS_tready => SLOT_0_AXIS_tready,
       SLOT_0_AXIS_tvalid => SLOT_0_AXIS_tvalid,
