@@ -17,3 +17,11 @@ The wrapper ties all modules together so that we have a singular module which ca
 ## Schematic
 
 <img src="/img/I2S_RND.png"/>
+
+## Troubles
+
+We noticed that sometimes, the audio processed by these modules would sound very distorted. The troubling thing was that this behaviour would be an issue on one FPGA bitstream, while being fine on another. After talking to some people about this issue, we decided to take another look at the timing of our module, especially the clocks and data sent to the external chip. We were tipped of that the problem should be here, because of the variance between FPGA bitstreams. It turns out that the timing in the FPGA itself can differ a bit based on routing. 
+
+We tested this theory by using an oscilloscope and chipscope. Unfortunately, there are no photos or screenshots of these trying times. However, we discovered that delaying our serial and word clock by one master clock cycle solved our issue. The visual representation of the fix implemented can be seen on the figure below. The first timing diagram shows our original situation, while the second shows the fixed version. Keep in mind that we follow the standard I2S protocol. 
+
+<img src="/img/I2S_Timing.png"/>
