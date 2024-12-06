@@ -132,6 +132,243 @@ To calculate the High Shelf filter, follow the same procedure as for the Low She
 To create a Band Shelf filter, the input signal is first amplified or attenuated to the desired gain. Then, a Low Shelf filter is cascaded with a High Shelf filter to amplify or attenuate the low ans high frequency bands, matching it to the level of the original input signal.
 
 ### MATLAB Simulations
+```MATLAB
+%% Low Shelf 4de orde
+
+K = 0.01964;   % 100Hz Bandwidth
+V = -0.250106;    % -10dB
+
+% Filter 1
+Cm = 0.382683;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+ls1 = (b0 + b1*z^(-1) + b2*z^(-2))/(a0 + a1*z^(-1) + a2*z^(-2))
+
+% Filter 2
+Cm = 0.92388;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+ls2 = (b0 + b1*z^(-1) + b2*z^(-2))/(a0 + a1*z^(-1) + a2*z^(-2))
+
+ls4 = ls1 * ls2
+bp = bodeplot(ls4);
+bp.FrequencyUnit = "Hz";
+bp.PhaseVisible = "off";
+```
+
+``` MATLAB
+%% High Shelf 4de orde
+
+K = 2.4142;     % 18kHz Bandwidth
+V = 0.154782;    % +5dB
+
+% Filter 1
+Cm = 0.382683;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+hs1 = (b0 + b1*(-z)^(-1) + b2*(-z)^(-2))/(a0 + a1*(-z)^(-1) + a2*(-z)^(-2))
+
+% Filter 2
+Cm = 0.92388;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+hs2 = (b0 + b1*(-z)^(-1) + b2*(-z)^(-2))/(a0 + a1*(-z)^(-1) + a2*(-z)^(-2))
+
+hs4 = hs1 * hs2
+bp = bodeplot(hs4);
+bp.FrequencyUnit = "Hz";
+bp.PhaseVisible = "off";
+```
+
+```MATLAB
+%% Band Shelf 8de orde
+
+K = 0.013091;   % 100Hz Bandwidth
+V = 1.11349; %+26dB
+
+% Volume
+ap = 0.0501*z^(0); %-26dB
+
+% Filter 1 (Low Shelf)
+Cm = 0.382683;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+bs1 = (b0 + b1*z^(-1) + b2*z^(-2))/(a0 + a1*z^(-1) + a2*z^(-2))
+
+% Filter 2 (Low Shelf)
+Cm = 0.92388;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+bs2 = (b0 + b1*z^(-1) + b2*z^(-2))/(a0 + a1*z^(-1) + a2*z^(-2))
+
+
+K = 2.4142;     % 18kHz Bandwidth
+
+% Filter 3 (High Shelf)
+Cm = 0.382683;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+bs3 = (b0 + b1*(-z)^(-1) + b2*(-z)^(-2))/(a0 + a1*(-z)^(-1) + a2*(-z)^(-2))
+
+% Filter 4 (High Shelf)
+Cm = 0.92388;
+
+% Filter coëfficients
+a0 = 1 + 2*K*Cm + K^2
+a1 = 2*K^2 - 2
+a2 = 1 - 2*K*Cm + K^2
+b0 = K^2*(V^2 + 2*V +1) + 2*K*Cm*(V+1) + 1
+b1 = 2*K^2*(V^2 + 2*V +1) -2
+b2 = K^2*(V^2 + 2*V +1) - 2*K*Cm*(V+1) + 1
+
+% Normalisation
+b0 = b0/a0
+b1 = b1/a0
+b2 = b2/a0
+a1 = a1/a0
+a2 = a2/a0
+a0 = a0/a0
+
+ts = 1/48000;
+z = tf('z',ts);
+bs4 = (b0 + b1*(-z)^(-1) + b2*(-z)^(-2))/(a0 + a1*(-z)^(-1) + a2*(-z)^(-2))
+
+
+bs8 = bs1 * bs2 * bs3 * bs4
+bp = bodeplot(bs8);
+bp.FrequencyUnit = "Hz";
+bp.PhaseVisible = "off";
+
+
+
+
+bs8 = bs8 * ap;
+bp = bodeplot(bs8);
+bp.FrequencyUnit = "Hz";
+bp.PhaseVisible = "off";
+
+% 0.549/0.5012 = 1.09537
+```
+
 We did some MATLAB Simulations to verify whether the shelving filters work as intended.
 
 <img src="/img/shelving_filter.png"/>
