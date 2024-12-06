@@ -120,6 +120,15 @@ architecture Behavioral of audio_pipeline is
     signal pre_ring_mod_fwd : t_axi4_audio_fwd_bus(1 downto 0);
     signal pre_ring_mod_bwd : t_axi4_audio_bwd_bus(1 downto 0);
 
+    -------------------------------------
+    -- Chip Scope
+    -------------------------------------
+    attribute MARK_DEBUG : string;
+
+    -- attribute MARK_DEBUG of post_merger_fwd : signal is g_chip_scope;
+    -- attribute MARK_DEBUG of post_merger_bwd : signal is g_chip_scope;
+
+
 begin
 
     -------------------------------------
@@ -193,14 +202,25 @@ begin
     end block;
 
 
-    ------------------------------------
-    -- Ring Modulators
-    ------------------------------------
+    -- ------------------------------------
+    -- -- Ring Modulators
+    -- ------------------------------------
     -- b_ring_modulators : block 
     --     signal ring_mod_anal_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
     --     signal ring_mod_anal_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
     --     signal ring_mod_dma_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
     --     signal ring_mod_dma_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+
+    --     -------------------------------------
+    --     -- Chip Scope
+    --     -------------------------------------
+    --     attribute MARK_DEBUG : string;
+
+    --     attribute MARK_DEBUG of ring_mod_anal_fwd : signal is g_chip_scope;
+    --     attribute MARK_DEBUG of ring_mod_anal_bwd : signal is g_chip_scope;
+    --     attribute MARK_DEBUG of ring_mod_dma_fwd : signal is g_chip_scope;
+    --     attribute MARK_DEBUG of ring_mod_dma_bwd : signal is g_chip_scope;
+
     -- begin
 
     --     i_ring_mod_anal: entity work.ring_modulator
@@ -314,6 +334,23 @@ begin
         signal saturation_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
         signal saturation_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
 
+        -------------------------------------
+        -- Chip Scope
+        -------------------------------------
+        attribute MARK_DEBUG : string;
+
+        attribute MARK_DEBUG of volume_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of volume_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of band_volume_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of band_volume_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of band_low_1_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of band_low_1_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of high_pass_2_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of high_pass_2_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of echo_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of echo_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of saturation_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of saturation_bwd : signal is g_chip_scope;
     begin
 
         band_volume_fwd <= post_merger_fwd;
@@ -524,10 +561,10 @@ begin
             axi_out_bwd => high_pass_2_bwd
         );
 
-        ------------------------------------
-        -- Echo
-        ------------------------------------
-
+        -- ------------------------------------
+        -- -- Echo
+        -- ------------------------------------
+        --
         -- i_echo: entity work.echo_tdm
         -- generic map(
         --     g_delay => 16384,
