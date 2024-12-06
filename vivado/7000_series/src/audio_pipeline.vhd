@@ -33,7 +33,7 @@ use work.axi4_mm_filter_pkg.all;
 
 entity audio_pipeline is
     generic (
-        g_chip_scope : string := "false"
+        g_chip_scope : string := "False"
     );
     Port (
         --clocking
@@ -122,17 +122,35 @@ architecture Behavioral of audio_pipeline is
 
 begin
 
-    -- TODO: traffic shaping (ensure there is no flood of DMA data compared to anal data)
-
     -------------------------------------
     -- Input buffering + CDC (clk_in to clk_audio)
     -------------------------------------
     b_input_buffering : block
         signal anal_buffered_fwd : t_axi4_audio_fwd;
         signal anal_buffered_bwd : t_axi4_audio_bwd;
+
         signal dma_buffered_fwd : t_axi4_audio_fwd;
         signal dma_buffered_bwd : t_axi4_audio_bwd;
+
+        signal anal_shaped_fwd: t_axi4_audio_fwd;
+        signal anal_shaped_bwd: t_axi4_audio_bwd;
+
+        signal dma_shaped_fwd: t_axi4_audio_fwd;
+        signal dma_shaped_bwd: t_axi4_audio_bwd;
     begin
+        trafic_shaper_inst: entity work.trafic_shaper
+         port map(
+            clk => clk_in,
+            anal_fwd => anal_fwd,
+            anal_bwd => anal_bwd,
+            dma_fwd => dma_fwd,
+            dma_bwd => dma_bwd,
+            anal_out_fwd => anal_shaped_fwd,
+            anal_out_bwd => anal_shaped_bwd,
+            dma_out_fwd => dma_shaped_fwd,
+            dma_out_bwd => dma_shaped_bwd
+        );
+
         audio_fifo_anal_input: entity work.audio_fifo
          generic map(
             g_fifo_depth => c_input_fifo_depth
@@ -140,8 +158,8 @@ begin
          port map(
             clk_in => clk_in,
             clk_out => clk_audio,
-            axi_in_fwd => anal_fwd,
-            axi_in_bwd => anal_bwd,
+            axi_in_fwd => anal_shaped_fwd,
+            axi_in_bwd => anal_shaped_bwd,
             axi_out_fwd => anal_buffered_fwd,
             axi_out_bwd => anal_buffered_bwd 
         );
@@ -153,17 +171,17 @@ begin
          port map(
             clk_in => clk_in,
             clk_out => clk_audio,
-            axi_in_fwd => dma_fwd,
-            axi_in_bwd => dma_bwd,
+            axi_in_fwd => dma_shaped_fwd,
+            axi_in_bwd => dma_shaped_bwd,
             axi_out_fwd => dma_buffered_fwd,
             axi_out_bwd => dma_buffered_bwd
         );
 
-        pre_ring_mod_fwd(0) <= anal_buffered_fwd;
-        pre_ring_mod_fwd(1) <= dma_buffered_fwd;
+        pre_merger_fwd(0) <= anal_buffered_fwd;
+        pre_merger_fwd(1) <= dma_buffered_fwd;
         
-        anal_buffered_bwd <= pre_ring_mod_bwd(0);
-        dma_buffered_bwd <= pre_ring_mod_bwd(1);
+        anal_buffered_bwd <= pre_merger_bwd(0);
+        dma_buffered_bwd <= pre_merger_bwd(1);
     end block;
 
 
@@ -180,7 +198,7 @@ begin
         i_ring_mod_anal: entity work.ring_modulator
         generic map(
             g_TID_count => 2,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -194,7 +212,7 @@ begin
         i_ring_mod_dma: entity work.ring_modulator
         generic map(
             g_TID_count => 2,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -296,8 +314,7 @@ begin
 
         i_volume_reduction: entity work.volume
         generic map(
-            g_coefficient_width => 24,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -314,8 +331,7 @@ begin
 
         i_band_volume: entity work.band_volume
         generic map(
-            g_coefficient_width => 25,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -329,8 +345,7 @@ begin
 
         i_band_low_1: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -344,8 +359,7 @@ begin
 
         i_band_low_2: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -359,8 +373,7 @@ begin
 
         i_band_high_1: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -374,8 +387,7 @@ begin
 
         i_band_high_2: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -393,8 +405,7 @@ begin
 
         i_low_1: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -408,8 +419,7 @@ begin
 
         i_low_2: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -427,8 +437,7 @@ begin
 
         i_high_1: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -442,8 +451,7 @@ begin
 
         i_high_2: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -461,8 +469,7 @@ begin
 
         i_low_pass: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -480,8 +487,7 @@ begin
 
         i_high_pass_1: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -495,8 +501,7 @@ begin
 
         i_high_pass_2: entity work.biquad_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -514,9 +519,8 @@ begin
 
         i_echo: entity work.echo_tdm
         generic map(
-            g_coefficient_width => 24,
             g_delay => 16384,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -534,8 +538,7 @@ begin
 
         i_saturation: entity work.saturation_tdm
         generic map(
-            g_coefficient_width => 27,
-            g_chip_scope => "False"
+            g_chip_scope => g_chip_scope
         )
         port map(
             clk => clk_audio,
@@ -599,9 +602,21 @@ begin
         );
     end block;
 
-    --TODO: Add lp filter to remove transition effects introduced by the pipeline
-    post_lp_filter_fwd <= post_master_volume_fwd;
-    post_master_volume_bwd <= post_lp_filter_bwd;
+    -------------------------------------
+    -- Low Pass Filter
+    -------------------------------------
+
+    low_pass_inst: entity work.low_pass
+     generic map(
+        g_chip_scope => g_chip_scope
+    )
+     port map(
+        clk => clk_audio,
+        axi_in_fwd => post_master_volume_fwd,
+        axi_in_bwd => post_master_volume_bwd,
+        axi_out_fwd => post_lp_filter_fwd,
+        axi_out_bwd => post_lp_filter_bwd
+    );
 
 
     -------------------------------------
