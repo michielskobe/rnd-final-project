@@ -159,7 +159,24 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                             analogHighBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
                         }
-                        // TODO: calculate shelving filter coefficients
+                        QRegularExpression bandwidthRegex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch lowerMatch = bandwidthRegex.match(analogLowBandwidthValueLabel->text());
+                        QRegularExpressionMatch higherMatch = bandwidthRegex.match(analogHighBandwidthValueLabel->text());
+                        float lowerBandwidth = lowerMatch.captured(1).toFloat();
+                        float higherBandwidth = higherMatch.captured(1).toFloat();
+                        QRegularExpression gainRegex(R"((-?\d+)(?=dB))");
+                        QRegularExpressionMatch highGainMatch = gainRegex.match(analogHighValueLabel->text());
+                        QRegularExpressionMatch midGainMatch = gainRegex.match(analogMidValueLabel->text());
+                        QRegularExpressionMatch lowGainMatch = gainRegex.match(analogLowValueLabel->text());
+                        int highGain = highGainMatch.captured(1).toInt();
+                        int midGain = midGainMatch.captured(1).toInt();
+                        int lowGain = lowGainMatch.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients lowShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, lowGain);
+                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, midGain);
+                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, midGain);
+                        ShelvingCoefficients highShelftFilterCoefficients = calculateHighShelfFilter(higherBandwidth, highGain);
                         break;
                     }
                     case 51: { // High Shelf filter control
@@ -283,7 +300,24 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                             dmaHighBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
                         }
-                        // TODO: calculate shelving filter coefficients
+                        QRegularExpression bandwidthRegex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch lowerMatch = bandwidthRegex.match(dmaLowBandwidthValueLabel->text());
+                        QRegularExpressionMatch higherMatch = bandwidthRegex.match(dmaHighBandwidthValueLabel->text());
+                        float lowerBandwidth = lowerMatch.captured(1).toFloat();
+                        float higherBandwidth = higherMatch.captured(1).toFloat();
+                        QRegularExpression gainRegex(R"((-?\d+)(?=dB))");
+                        QRegularExpressionMatch highGainMatch = gainRegex.match(dmaHighValueLabel->text());
+                        QRegularExpressionMatch midGainMatch = gainRegex.match(dmaMidValueLabel->text());
+                        QRegularExpressionMatch lowGainMatch = gainRegex.match(dmaLowValueLabel->text());
+                        int highGain = highGainMatch.captured(1).toInt();
+                        int midGain = midGainMatch.captured(1).toInt();
+                        int lowGain = lowGainMatch.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients lowShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, lowGain);
+                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, midGain);
+                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, midGain);
+                        ShelvingCoefficients highShelftFilterCoefficients = calculateHighShelfFilter(higherBandwidth, highGain);
                         break;
                     }
                     case 67: { // High Shelf filter control
