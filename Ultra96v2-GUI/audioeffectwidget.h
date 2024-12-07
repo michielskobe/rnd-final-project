@@ -98,7 +98,7 @@ private:
     ShelvingCoefficients calculateLowShelfFilter(int bandwidth, int dBgain);
 
     // Helper functions to simplify layout creation
-    QLabel* createCustomValueLabel(int defaultValue, const QString& unit);
+    QLabel* createCustomValueLabel(const QString& defaultValue);
     QVBoxLayout* createSectionLayout(QLabel* high, QLabel* mid, QLabel* low,
         QLabel* highPass, QLabel* lowPass, QLabel* volume,
         QLabel* saturation, QLabel* echo, QLabel* ringMod,

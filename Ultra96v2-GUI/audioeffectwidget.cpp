@@ -4,30 +4,30 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     : QWidget(parent), midiProcess(new QProcess(this)), analogHighpassFilterProcess(new QProcess(this)), analogLowpassFilterProcess(new QProcess(this)), dmaHighpassFilterProcess(new QProcess(this)), dmaLowpassFilterProcess(new QProcess(this))
 {
     // Initialize Analog Section Widgets
-    analogHighValueLabel = createCustomValueLabel(0, "dB");
-    analogMidValueLabel = createCustomValueLabel(0, "dB");
-    analogLowValueLabel = createCustomValueLabel(0, "dB");
-    analogHighBandwidthValueLabel = createCustomValueLabel(2000, "Hz");
-    analogLowBandwidthValueLabel = createCustomValueLabel(200, "Hz");
-    analogHighpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
-    analogLowpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
-    analogSaturationValueLabel = createCustomValueLabel(0, "");
-    analogEchoValueLabel = createCustomValueLabel(0, "");
-    analogRingModulationValueLabel = createCustomValueLabel(0, "");
-    analogVolumeValueLabel = createCustomValueLabel(0, "%");
+    analogHighValueLabel = createCustomValueLabel("0dB");
+    analogMidValueLabel = createCustomValueLabel("0dB");
+    analogLowValueLabel = createCustomValueLabel("0dB");
+    analogHighBandwidthValueLabel = createCustomValueLabel("2000Hz");
+    analogLowBandwidthValueLabel = createCustomValueLabel("200Hz");
+    analogHighpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
+    analogLowpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
+    analogSaturationValueLabel = createCustomValueLabel("1");
+    analogEchoValueLabel = createCustomValueLabel("0");
+    analogRingModulationValueLabel = createCustomValueLabel("OFF");
+    analogVolumeValueLabel = createCustomValueLabel("0%");
 
     // Initialize DMA Section Widgets
-    dmaHighValueLabel = createCustomValueLabel(0, "dB");
-    dmaMidValueLabel = createCustomValueLabel(0, "dB");
-    dmaLowValueLabel = createCustomValueLabel(0, "dB");
-    dmaHighBandwidthValueLabel = createCustomValueLabel(2000, "Hz");
-    dmaLowBandwidthValueLabel = createCustomValueLabel(200, "Hz");
-    dmaHighpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
-    dmaLowpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
-    dmaSaturationValueLabel = createCustomValueLabel(0, "");
-    dmaEchoValueLabel = createCustomValueLabel(0, "");
-    dmaRingModulationValueLabel = createCustomValueLabel(0, "");
-    dmaVolumeValueLabel = createCustomValueLabel(0, "%");
+    dmaHighValueLabel = createCustomValueLabel("0dB");
+    dmaMidValueLabel = createCustomValueLabel("0dB");
+    dmaLowValueLabel = createCustomValueLabel("0dB");
+    dmaHighBandwidthValueLabel = createCustomValueLabel("2000Hz");
+    dmaLowBandwidthValueLabel = createCustomValueLabel("200Hz");
+    dmaHighpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
+    dmaLowpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
+    dmaSaturationValueLabel = createCustomValueLabel("1");
+    dmaEchoValueLabel = createCustomValueLabel("0");
+    dmaRingModulationValueLabel = createCustomValueLabel("OFF");
+    dmaVolumeValueLabel = createCustomValueLabel("0%");
 
     // Set default select effect
     selectedAudioEffect = NO_EFFECT;
@@ -151,7 +151,6 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             int frequencyValue = LOW_BANDWIDTH_LOWER_BOUND + normalizedValue * (LOW_BANDWIDTH_UPPER_BOUND - LOW_BANDWIDTH_LOWER_BOUND);
 
                             analogLowBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
-
                         }
                         else if (selectedAnalogBandwidth == ANALOG_HIGH_BANDWIDTH) {
                             // Normalize and map MIDI value to correct frequency
@@ -160,6 +159,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                             analogHighBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
                         }
+                        // TODO: calculate shelving filter coefficients
                         break;
                     }
                     case 51: { // High Shelf filter control
@@ -283,6 +283,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                             dmaHighBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
                         }
+                        // TODO: calculate shelving filter coefficients
                         break;
                     }
                     case 67: { // High Shelf filter control
@@ -490,11 +491,13 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         case ANALOG_RING_MODULATION: {
                             // Map MIDI value to correct value
                             int ringModulationValue = RING_MODULATION_OFF;
+                            QString ringModulationString = "OFF";
                             if (valueByte > 64){
                                 ringModulationValue = RING_MODULATION_ON;
+                                ringModulationString = "ON";
                             }
 
-                            analogRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+                            analogRingModulationValueLabel->setText(QString("%1").arg(ringModulationString));
                             break;
                         }
                         case DMA_SATURATION: {
@@ -516,11 +519,13 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         case DMA_RING_MODULATION: {
                             // Map MIDI value to correct value
                             int ringModulationValue = RING_MODULATION_OFF;
+                            QString ringModulationString = "OFF";
                             if (valueByte > 64){
                                 ringModulationValue = RING_MODULATION_ON;
+                                ringModulationString = "ON";
                             }
 
-                            dmaRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+                            dmaRingModulationValueLabel->setText(QString("%1").arg(ringModulationString));
                             break;
                         }
                         default: {
@@ -722,8 +727,8 @@ int AudioEffectWidget::writeToAxi(volatile uint32_t *axi_addr, uint32_t val) {
     return EXIT_SUCCESS;
 }
 
-QLabel* AudioEffectWidget::createCustomValueLabel(int defaultValue, const QString& unit) {
-    QLabel* label = new QLabel(QString::number(defaultValue) + unit, this);
+QLabel* AudioEffectWidget::createCustomValueLabel(const QString& defaultValue) {
+    QLabel* label = new QLabel(defaultValue, this);
     label->setAlignment(Qt::AlignCenter);
     label->setStyleSheet("font-size: 14px; font-weight: bold;");
     return label;
@@ -766,17 +771,18 @@ QVBoxLayout* AudioEffectWidget::createSectionLayout(
 
     // Top Layout: Dials and bandwidth
     QHBoxLayout* topLayout = new QHBoxLayout;
-    topLayout->addLayout(createVerticalLayout("High", high));
-    topLayout->addLayout(createVerticalLayout("Mid", mid));
     topLayout->addLayout(createVerticalLayout("Low", low));
-    topLayout->addLayout(createVerticalLayout("High bandwidth", highBandwidth));
+    topLayout->addLayout(createVerticalLayout("Mid", mid));
+    topLayout->addLayout(createVerticalLayout("High", high));
     topLayout->addLayout(createVerticalLayout("Low bandwidth", lowBandwidth));
+    topLayout->addLayout(createVerticalLayout("High bandwidth", highBandwidth));
+
     topLayout->setSpacing(20);
 
     // Middle Layout: Filters and Volume
     QHBoxLayout* middleLayout = new QHBoxLayout;
-    middleLayout->addLayout(createVerticalLayout("High Pass", highPass));
     middleLayout->addLayout(createVerticalLayout("Low Pass", lowPass));
+    middleLayout->addLayout(createVerticalLayout("High Pass", highPass));
     middleLayout->addLayout(createVerticalLayout("Volume", volume));
     middleLayout->setSpacing(20);
 

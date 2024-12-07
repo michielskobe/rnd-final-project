@@ -2,7 +2,7 @@ import rtmidi
 import time
 
 # port_name = 'SAMSUNG_Android:SAMSUNG_Android MIDI 1 24:0'  # Replace with your actual MIDI device name
-port_name = 'Reloop BeatMix:Reloop BeatMix MIDI 1 24:0'
+port_name = 'Reloop BeatMix:Reloop BeatMix MIDI 1 16:0'
 
 def main():
     try:
