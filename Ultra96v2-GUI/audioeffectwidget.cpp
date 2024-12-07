@@ -13,7 +13,7 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     analogLowpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
     analogSaturationValueLabel = createCustomValueLabel("1");
     analogEchoValueLabel = createCustomValueLabel("0");
-    analogRingModulationValueLabel = createCustomValueLabel("OFF");
+    analogRingModulationValueLabel = createCustomValueLabel("1");
     analogVolumeValueLabel = createCustomValueLabel("0%");
 
     // Initialize DMA Section Widgets
@@ -26,7 +26,7 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     dmaLowpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
     dmaSaturationValueLabel = createCustomValueLabel("1");
     dmaEchoValueLabel = createCustomValueLabel("0");
-    dmaRingModulationValueLabel = createCustomValueLabel("OFF");
+    dmaRingModulationValueLabel = createCustomValueLabel("1");
     dmaVolumeValueLabel = createCustomValueLabel("0%");
 
     // Set default select effect
@@ -523,15 +523,11 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             break;
                         }
                         case ANALOG_RING_MODULATION: {
-                            // Map MIDI value to correct value
-                            int ringModulationValue = RING_MODULATION_OFF;
-                            QString ringModulationString = "OFF";
-                            if (valueByte > 64){
-                                ringModulationValue = RING_MODULATION_ON;
-                                ringModulationString = "ON";
-                            }
+                            // Normalize and map MIDI value to correct value
+                            float normalizedValue = valueByte / 127.0f;
+                            int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
 
-                            analogRingModulationValueLabel->setText(QString("%1").arg(ringModulationString));
+                            analogRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
                             break;
                         }
                         case DMA_SATURATION: {
@@ -551,15 +547,11 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             break;
                         }
                         case DMA_RING_MODULATION: {
-                            // Map MIDI value to correct value
-                            int ringModulationValue = RING_MODULATION_OFF;
-                            QString ringModulationString = "OFF";
-                            if (valueByte > 64){
-                                ringModulationValue = RING_MODULATION_ON;
-                                ringModulationString = "ON";
-                            }
+                            // Normalize and map MIDI value to correct value
+                            float normalizedValue = valueByte / 127.0f;
+                            int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
 
-                            dmaRingModulationValueLabel->setText(QString("%1").arg(ringModulationString));
+                            dmaRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
                             break;
                         }
                         default: {
@@ -805,9 +797,9 @@ QVBoxLayout* AudioEffectWidget::createSectionLayout(
 
     // Top Layout: Dials and bandwidth
     QHBoxLayout* topLayout = new QHBoxLayout;
-    topLayout->addLayout(createVerticalLayout("Low", low));
-    topLayout->addLayout(createVerticalLayout("Mid", mid));
-    topLayout->addLayout(createVerticalLayout("High", high));
+    topLayout->addLayout(createVerticalLayout("Low Shelf", low));
+    topLayout->addLayout(createVerticalLayout("Band Shelf", mid));
+    topLayout->addLayout(createVerticalLayout("High Shelf", high));
     topLayout->addLayout(createVerticalLayout("Low bandwidth", lowBandwidth));
     topLayout->addLayout(createVerticalLayout("High bandwidth", highBandwidth));
 
@@ -822,9 +814,9 @@ QVBoxLayout* AudioEffectWidget::createSectionLayout(
 
     // Bottom Layout: Effects
     QHBoxLayout* bottomLayout = new QHBoxLayout;
-    bottomLayout->addLayout(createVerticalLayout("Saturation", saturation));
-    bottomLayout->addLayout(createVerticalLayout("Echo", echo));
-    bottomLayout->addLayout(createVerticalLayout("Ring Modulation", ringMod));
+    bottomLayout->addLayout(createVerticalLayout("Saturation Effect", saturation));
+    bottomLayout->addLayout(createVerticalLayout("Echo Effect", echo));
+    bottomLayout->addLayout(createVerticalLayout("Ring Modulation Effect", ringMod));
     bottomLayout->setSpacing(20);
 
     // Combine all layouts into the section layout
