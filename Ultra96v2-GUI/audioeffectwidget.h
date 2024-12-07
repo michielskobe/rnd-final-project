@@ -2,8 +2,8 @@
 #define AUDIOEFFECTWIDGET_H
 
 #include <QWidget>
-#include <QDial>
-#include <QSlider>
+#include <QLabel>
+#include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -17,9 +17,62 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <cmath>
 
+#define FREQUENCY_FILTER_LOWER_BOUND 200
+#define FREQUENCY_FILTER_UPPER_BOUND 20000
+#define SATURATION_LOWER_BOUND 1
+#define SATURATION_UPPER_BOUND 50
+#define ECHO_LOWER_BOUND 0
+#define ECHO_UPPER_BOUND 0.8
+#define RING_MODULATION_OFF 0
+#define RING_MODULATION_ON 1
+#define LOW_BANDWIDTH_LOWER_BOUND 0
+#define LOW_BANDWIDTH_UPPER_BOUND 1000
+#define HIGH_BANDWIDTH_LOWER_BOUND 1000
+#define HIGH_BANDWIDTH_UPPER_BOUND 10000
 #define AXI_BASE_ADDR 0xA0040000
 #define MMAP_SIZE 0x10000
+
+struct ShelvingCoefficients {
+    float a1_1;
+    float a2_1;
+    float b0_1;
+    float b1_1;
+    float b2_1;
+    float a1_2;
+    float a2_2;
+    float b0_2;
+    float b1_2;
+    float b2_2;
+
+    // Constructor
+    ShelvingCoefficients(float a1_1_val, float a2_1_val, float b0_1_val,
+                         float b1_1_val, float b2_1_val, float a1_2_val,
+                         float a2_2_val, float b0_2_val, float b1_2_val,
+                         float b2_2_val)
+        : a1_1(a1_1_val), a2_1(a2_1_val), b0_1(b0_1_val), b1_1(b1_1_val),
+        b2_1(b2_1_val), a1_2(a1_2_val), a2_2(a2_2_val), b0_2(b0_2_val),
+        b1_2(b1_2_val), b2_2(b2_2_val)
+    {}
+};
+
+enum AudioEffect {
+    ANALOG_SATURATION,
+    ANALOG_ECHO,
+    ANALOG_RING_MODULATION,
+    DMA_SATURATION,
+    DMA_ECHO,
+    DMA_RING_MODULATION,
+    NO_EFFECT
+};
+
+enum FilterBandwith {
+    ANALOG_LOW_BANDWIDTH,
+    ANALOG_HIGH_BANDWIDTH,
+    DMA_LOW_BANDWIDTH,
+    DMA_HIGH_BANDWIDTH
+};
 
 class AudioEffectWidget : public QWidget
 {
@@ -30,10 +83,6 @@ public:
     ~AudioEffectWidget();
 
 private slots:
-    void onAnalogHighpassDialChanged(int frequency);    // TODO: remove later on
-    void onAnalogLowpassDialChanged(int frequency);     // TODO: remove later on
-    void onDmaHighpassDialChanged(int frequency);       // TODO: remove later on
-    void onDmaLowpassDialChanged(int frequency);        // TODO: remove later on
     void handleMidiProcessOutput();
     void handleAnalogHighpassFilterProcess();
     void handleAnalogLowpassFilterProcess();
@@ -42,39 +91,46 @@ private slots:
 
 private:
     int writeToAxi(volatile uint32_t *base_addr, uint32_t val);
+
     QProcess* startPythonProcess(QString pythonScript);
 
+    ShelvingCoefficients calculateHighShelfFilter(int bandwidth, int dBgain);
+    ShelvingCoefficients calculateLowShelfFilter(int bandwidth, int dBgain);
+
     // Helper functions to simplify layout creation
-    QVBoxLayout* createSectionLayout(QDial* high, QDial* mid, QDial* low, QDial* highPass, QDial* lowPass, QSlider* volume, QDial* saturation, QDial* echo, QDial* ringMod, const QString& sectionTitle, QWidget* parent, bool mirrored);
+    QLabel* createCustomValueLabel(int defaultValue, const QString& unit);
+    QVBoxLayout* createSectionLayout(QLabel* high, QLabel* mid, QLabel* low,
+        QLabel* highPass, QLabel* lowPass, QLabel* volume,
+        QLabel* saturation, QLabel* echo, QLabel* ringMod,
+        QLabel* highBandwidth, QLabel* lowBandwidth,
+        const QString& sectionTitle, QWidget* parent);
     QVBoxLayout* createLabelAndWidget(const QString& labelText, QWidget* widget, QWidget* parent);
 
-    // Helper function to simplify QDial creation
-    QDial* createCustomQDial(int rangeMin, int rangeMax, bool wrapping, bool visibleNotches, bool tracking);
-
-    // Helper function to simplify QSlider creation
-    QSlider* createCustomQSlider(Qt::Orientation orientation, int rangeMin, int rangeMax, QSlider::TickPosition tickPosition);
-
     // Analog Section Widgets
-    QDial *analogHighDial;
-    QDial *analogMidDial;
-    QDial *analogLowDial;
-    QDial *analogHighpassDial;
-    QDial *analogLowpassDial;
-    QSlider *analogVolumeSlider;
-    QDial *analogSaturationDial;
-    QDial *analogEchoDial;
-    QDial *analogRingMdulationDial;
+    QLabel* analogHighValueLabel;
+    QLabel* analogMidValueLabel;
+    QLabel* analogLowValueLabel;
+    QLabel* analogHighBandwidthValueLabel;
+    QLabel* analogLowBandwidthValueLabel;
+    QLabel* analogHighpassValueLabel;
+    QLabel* analogLowpassValueLabel;
+    QLabel* analogSaturationValueLabel;
+    QLabel* analogEchoValueLabel;
+    QLabel* analogRingModulationValueLabel;
+    QLabel* analogVolumeValueLabel;
 
     // DMA Section Widgets
-    QDial *dmaHighDial;
-    QDial *dmaMidDial;
-    QDial *dmaLowDial;
-    QDial *dmaHighpassDial;
-    QDial *dmaLowpassDial;
-    QSlider *dmaVolumeSlider;
-    QDial *dmaSaturationDial;
-    QDial *dmaEchoDial;
-    QDial *dmaRingMdulationDial;
+    QLabel* dmaHighValueLabel;
+    QLabel* dmaMidValueLabel;
+    QLabel* dmaLowValueLabel;
+    QLabel* dmaHighBandwidthValueLabel;
+    QLabel* dmaLowBandwidthValueLabel;
+    QLabel* dmaHighpassValueLabel;
+    QLabel* dmaLowpassValueLabel;
+    QLabel* dmaSaturationValueLabel;
+    QLabel* dmaEchoValueLabel;
+    QLabel* dmaRingModulationValueLabel;
+    QLabel* dmaVolumeValueLabel;
 
     // QProcess to run Python processes
     QProcess *midiProcess;
@@ -82,6 +138,10 @@ private:
     QProcess *analogLowpassFilterProcess;
     QProcess *dmaHighpassFilterProcess;
     QProcess *dmaLowpassFilterProcess;
+
+    AudioEffect selectedAudioEffect;
+    FilterBandwith selectedAnalogBandwidth;
+    FilterBandwith selectedDmaBandwidth;
 };
 
 #endif // AUDIOEFFECTWIDGET_H

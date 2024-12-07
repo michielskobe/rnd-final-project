@@ -4,32 +4,37 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     : QWidget(parent), midiProcess(new QProcess(this)), analogHighpassFilterProcess(new QProcess(this)), analogLowpassFilterProcess(new QProcess(this)), dmaHighpassFilterProcess(new QProcess(this)), dmaLowpassFilterProcess(new QProcess(this))
 {
     // Initialize Analog Section Widgets
-    analogHighDial = createCustomQDial(-26,6,false,true, false);
-    analogMidDial = createCustomQDial(-26,6,false,true, false);
-    analogLowDial = createCustomQDial(-26,6,false,true, false);
-    analogHighpassDial = createCustomQDial(200,20000,false,true, true);
-    analogLowpassDial = createCustomQDial(200,20000,false,true, true);
-    analogSaturationDial = createCustomQDial(1,50,false,true, false);
-    analogEchoDial= createCustomQDial(0,1,false,true, false);
-    analogRingMdulationDial= createCustomQDial(0,100,false,true, false);
-    analogVolumeSlider = createCustomQSlider(Qt::Vertical, 0, 1, QSlider::TicksRight);
+    analogHighValueLabel = createCustomValueLabel(0, "dB");
+    analogMidValueLabel = createCustomValueLabel(0, "dB");
+    analogLowValueLabel = createCustomValueLabel(0, "dB");
+    analogHighBandwidthValueLabel = createCustomValueLabel(2000, "Hz");
+    analogLowBandwidthValueLabel = createCustomValueLabel(200, "Hz");
+    analogHighpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
+    analogLowpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
+    analogSaturationValueLabel = createCustomValueLabel(0, "");
+    analogEchoValueLabel = createCustomValueLabel(0, "");
+    analogRingModulationValueLabel = createCustomValueLabel(0, "");
+    analogVolumeValueLabel = createCustomValueLabel(0, "%");
 
     // Initialize DMA Section Widgets
-    dmaHighDial = createCustomQDial(-26,6,false,true, false);
-    dmaMidDial = createCustomQDial(-26,6,false,true, false);
-    dmaLowDial = createCustomQDial(-26,6,false,true, false);
-    dmaHighpassDial = createCustomQDial(200,20000,false,true, false);
-    dmaLowpassDial = createCustomQDial(200,20000,false,true, false);
-    dmaSaturationDial = createCustomQDial(1,50,false,true, false);
-    dmaEchoDial= createCustomQDial(0,1,false,true, false);
-    dmaRingMdulationDial= createCustomQDial(0,100,false,true, false);
-    dmaVolumeSlider = createCustomQSlider(Qt::Vertical, 0, 1, QSlider::TicksRight);
+    dmaHighValueLabel = createCustomValueLabel(0, "dB");
+    dmaMidValueLabel = createCustomValueLabel(0, "dB");
+    dmaLowValueLabel = createCustomValueLabel(0, "dB");
+    dmaHighBandwidthValueLabel = createCustomValueLabel(2000, "Hz");
+    dmaLowBandwidthValueLabel = createCustomValueLabel(200, "Hz");
+    dmaHighpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
+    dmaLowpassValueLabel = createCustomValueLabel(FREQUENCY_FILTER_LOWER_BOUND, "Hz");
+    dmaSaturationValueLabel = createCustomValueLabel(0, "");
+    dmaEchoValueLabel = createCustomValueLabel(0, "");
+    dmaRingModulationValueLabel = createCustomValueLabel(0, "");
+    dmaVolumeValueLabel = createCustomValueLabel(0, "%");
 
-    // Connect the dials to the respective slots
-    connect(analogHighpassDial, SIGNAL(valueChanged(int)), this, SLOT(onAnalogHighpassDialChanged(int)));   // TODO: remove later on
-    connect(analogLowpassDial, SIGNAL(valueChanged(int)), this, SLOT(onAnalogLowpassDialChanged(int)));     // TODO: remove later on
-    connect(dmaHighpassDial, SIGNAL(valueChanged(int)), this, SLOT(onDmaHighpassDialChanged(int)));         // TODO: remove later on
-    connect(dmaLowpassDial, SIGNAL(valueChanged(int)), this, SLOT(onDmaLowpassDialChanged(int)));           // TODO: remove later on
+    // Set default select effect
+    selectedAudioEffect = NO_EFFECT;
+    selectedAnalogBandwidth = ANALOG_LOW_BANDWIDTH;
+    analogLowBandwidthValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+    selectedDmaBandwidth = DMA_LOW_BANDWIDTH;
+    dmaLowBandwidthValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
 
     // Start Python processes
     midiProcess = startPythonProcess("receive_midi_data.py");
@@ -47,28 +52,41 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     dmaLowpassFilterProcess = startPythonProcess("filter_process.py");
     connect(dmaLowpassFilterProcess, &QProcess::readyReadStandardOutput, this, &AudioEffectWidget::handleDmaLowpassFilterProcess);
 
+
     // Create Analog Section Layout
-    QVBoxLayout* analogLayout = createSectionLayout(analogHighDial, analogMidDial, analogLowDial, analogHighpassDial, analogLowpassDial, analogVolumeSlider, analogSaturationDial, analogEchoDial, analogRingMdulationDial, "Analog Input Source", this, false);
+    QVBoxLayout* analogLayout = createSectionLayout(
+        analogHighValueLabel, analogMidValueLabel, analogLowValueLabel,
+        analogHighpassValueLabel, analogLowpassValueLabel, analogVolumeValueLabel,
+        analogSaturationValueLabel, analogEchoValueLabel, analogRingModulationValueLabel,
+        analogHighBandwidthValueLabel, analogLowBandwidthValueLabel,
+        "Analog Input Source", this
+        );
 
-    // Create DMA Section Layout (Mirrored)
-    QVBoxLayout* dmaLayout = createSectionLayout(dmaHighDial, dmaMidDial, dmaLowDial, dmaHighpassDial, dmaLowpassDial, dmaVolumeSlider, dmaSaturationDial, dmaEchoDial, dmaRingMdulationDial, "DMA Input Source ", this, true);
+    // Create DMA Section Layout
+    QVBoxLayout* dmaLayout = createSectionLayout(
+        dmaHighValueLabel, dmaMidValueLabel, dmaLowValueLabel,
+        dmaHighpassValueLabel, dmaLowpassValueLabel, dmaVolumeValueLabel,
+        dmaSaturationValueLabel, dmaEchoValueLabel, dmaRingModulationValueLabel,
+        dmaHighBandwidthValueLabel, dmaLowBandwidthValueLabel,
+        "DMA Input Source", this
+        );
 
-    // Create a separator between Analog and DMA
+    // Create Separator
     QFrame* separator = new QFrame(this);
     separator->setFrameShape(QFrame::VLine);
     separator->setFrameShadow(QFrame::Sunken);
     separator->setLineWidth(3);
-    separator->setStyleSheet("background-color: #9e9e9e");
+    separator->setStyleSheet("background-color: #9e9e9e; margin: 0 10px;");
 
-    // Combine Analog and DMA sections into main layout
-    QHBoxLayout* mainLayout = new QHBoxLayout(this);
+    // Combine Sections into Main Horizontal Layout
+    QHBoxLayout* mainLayout = new QHBoxLayout;
     mainLayout->addLayout(analogLayout);
     mainLayout->addWidget(separator);
     mainLayout->addLayout(dmaLayout);
-    mainLayout->setSpacing(20);
-    mainLayout->setContentsMargins(10, 10, 10, 10);
+    mainLayout->setContentsMargins(20, 0, 20, 20);
 
     setLayout(mainLayout);
+    setMinimumSize(1000, 400);
 }
 
 AudioEffectWidget::~AudioEffectWidget()
@@ -78,30 +96,6 @@ AudioEffectWidget::~AudioEffectWidget()
     analogLowpassFilterProcess->terminate();
     dmaHighpassFilterProcess->terminate();
     dmaLowpassFilterProcess->terminate();
-}
-
-void AudioEffectWidget::onAnalogHighpassDialChanged(int frequency)          // TODO: remove later on
-{
-    QString input = "highpass 4 " + QString::number(frequency);
-    analogHighpassFilterProcess->write(input.toUtf8() + '\n');
-}
-
-void AudioEffectWidget::onAnalogLowpassDialChanged(int frequency)           // TODO: remove later on
-{
-    QString input = "lowpass 2 " + QString::number(frequency);
-    analogLowpassFilterProcess->write(input.toUtf8() + '\n');
-}
-
-void AudioEffectWidget::onDmaHighpassDialChanged(int frequency)             // TODO: remove later on
-{
-    QString input = "highpass 4 " + QString::number(frequency);
-    dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
-}
-
-void AudioEffectWidget::onDmaLowpassDialChanged(int frequency)              // TODO: remove later on
-{
-    QString input = "lowpass 2 " + QString::number(frequency);
-    dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
 }
 
 QProcess* AudioEffectWidget::startPythonProcess(QString pythonScript){
@@ -120,110 +114,484 @@ void AudioEffectWidget::handleMidiProcessOutput() {
     QRegularExpression regex(R"(\[(\d+), (\d+), (\d+)\])");
     QRegularExpressionMatch match = regex.match(output);
     if (match.hasMatch()) {
-        int first_midi = match.captured(1).toInt();
-        int second_midi = match.captured(2).toInt();
-        int third_midi = match.captured(3).toInt();
+        int statusByte = match.captured(1).toInt();
+        int controllerByte = match.captured(2).toInt();
+        int valueByte = match.captured(3).toInt();
+        switch (statusByte) {
+            case 176: { // Control for analog sigal
+                switch (controllerByte) {
+                    case 48: { // Lowpass filter control
+                        // Normalize and map MIDI value to correct frequency
+                        float normalizedValue = valueByte / 127.0f;
+                        int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
-        switch (second_midi) {
-            case 48: {
-                // analogHighDial
-                std::cout << output.toStdString() << std::endl;                 // TODO: write high shelf parameter to axi
-                break;
+                        // Calculate filter parameters
+                        QString input = "lowpass 2 " + QString::number(frequencyValue);
+                        analogLowpassFilterProcess->write(input.toUtf8() + '\n');
+
+                        analogLowpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+                        break;
+                    }
+                    case 49: { // Highpass filter control
+                        // Normalize and map MIDI value to correct frequency
+                        float normalizedValue = valueByte / 127.0f;
+                        int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
+
+                        // Calculate filter parameters
+                        QString input = "highpass 4 " + QString::number(frequencyValue);
+                        analogHighpassFilterProcess->write(input.toUtf8() + '\n');
+
+                        analogHighpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+                        break;
+                    }
+                    case 50: { // Bandwidth control
+                        if (selectedAnalogBandwidth == ANALOG_LOW_BANDWIDTH) {
+                            // Normalize and map MIDI value to correct frequency
+                            float normalizedValue = valueByte / 127.0f;
+                            int frequencyValue = LOW_BANDWIDTH_LOWER_BOUND + normalizedValue * (LOW_BANDWIDTH_UPPER_BOUND - LOW_BANDWIDTH_LOWER_BOUND);
+
+                            analogLowBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+
+                        }
+                        else if (selectedAnalogBandwidth == ANALOG_HIGH_BANDWIDTH) {
+                            // Normalize and map MIDI value to correct frequency
+                            float normalizedValue = valueByte / 127.0f;
+                            int frequencyValue = HIGH_BANDWIDTH_LOWER_BOUND + normalizedValue * (HIGH_BANDWIDTH_UPPER_BOUND - HIGH_BANDWIDTH_LOWER_BOUND);
+
+                            analogHighBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+                        }
+                        break;
+                    }
+                    case 51: { // High Shelf filter control
+                        // Normalize and map gain to dB value
+                        float gain = 0;
+                        if (valueByte >= 64) {
+                            // Map values above or equal to 64 to the range [0, 6]
+                            gain = 0 + ((valueByte - 64) / float(127 - 64)) * (6 - 0);
+                        } else {
+                            // Map values below 64 to the range [-26, 0]
+                            gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
+                        }
+                        analogHighValueLabel->setText(QString("%1dB").arg(round(gain)));
+
+                        // Get higher filter bandwidth value
+                        QRegularExpression regex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch match = regex.match(analogHighBandwidthValueLabel->text());
+                        float bandwidth = match.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients coefficients = calculateHighShelfFilter(bandwidth, gain);
+                        break;
+                    }
+                    case 52: { // Band Shelf filter control
+                        // Normalize and map gain to dB value
+                        float gain = 0;
+                        if (valueByte >= 64) {
+                            // Map values above or equal to 64 to the range [0, 6]
+                            gain = 0 + ((valueByte - 64) / float(127 - 64)) * (6 - 0);
+                        } else {
+                            // Map values below 64 to the range [-26, 0]
+                            gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
+                        }
+                        analogMidValueLabel->setText(QString("%1dB").arg(round(gain)));
+
+                        // Get lower and higher bandwidth value
+                        QRegularExpression regex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch lowerMatch = regex.match(analogLowBandwidthValueLabel->text());
+                        QRegularExpressionMatch higherMatch = regex.match(analogHighBandwidthValueLabel->text());
+                        float lowerBandwidth = lowerMatch.captured(1).toInt();
+                        float higherBandwidth = higherMatch.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients lowerFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
+                        ShelvingCoefficients higherFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+                        break;
+                    }
+                    case 53: { // Low Shelf filter control
+                        // Normalize and map gain to dB value
+                        float gain = 0;
+                        if (valueByte >= 64) {
+                            // Map values above or equal to 64 to the range [0, 6]
+                            gain = 0 + ((valueByte - 64) / float(127 - 64)) * (6 - 0);
+                        } else {
+                            // Map values below 64 to the range [-26, 0]
+                            gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
+                        }
+                        analogLowValueLabel->setText(QString("%1dB").arg(round(gain)));
+
+                        // Get lower filter bandwidth value
+                        QRegularExpression regex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch match = regex.match(analogLowBandwidthValueLabel->text());
+                        float bandwidth = match.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients coefficients = calculateLowShelfFilter(bandwidth, gain);
+                        break;
+                    }
+                    case 55: { // Volume control
+                        // Normalize volume
+                        float volumeValue = valueByte / 127.0f;
+
+                        analogVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
+                        break;
+                    }
+                    default : {
+                        break;
+                    }
+                }
             }
-            case 49: {
-                // analogMidDial
-                std::cout << output.toStdString() << std::endl;                 // TODO: write band shelf parameter to axi
-                break;
+            break;
+            case 177: { // Control for DMA signal
+                switch(controllerByte) {
+                    case 64: { // Lowpass filter control
+                        // Normalize and map MIDI value to correct frequency
+                        float normalizedValue = valueByte / 127.0f;
+                        int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
+
+                        // Calculate filter parameters
+                        QString input = "lowpass 2 " + QString::number(frequencyValue);
+                        dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
+
+                        dmaLowpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+                        break;
+                    }
+                    case 65: { // Highpass filter control
+                        // Normalize and map MIDI value to correct frequency
+                        float normalizedValue = valueByte / 127.0f;
+                        int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
+
+                        // Calculate filter parameters
+                        QString input = "highpass 4 " + QString::number(frequencyValue);
+                        dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
+
+                        dmaHighpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+                        break;
+                    }
+                    case 66: { // Bandwidth control
+                        if (selectedDmaBandwidth == DMA_LOW_BANDWIDTH) {
+                            // Normalize and map MIDI value to correct frequency
+                            float normalizedValue = valueByte / 127.0f;
+                            int frequencyValue = LOW_BANDWIDTH_LOWER_BOUND + normalizedValue * (LOW_BANDWIDTH_UPPER_BOUND - LOW_BANDWIDTH_LOWER_BOUND);
+
+                            dmaLowBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+
+                        }
+                        else if (selectedDmaBandwidth == DMA_HIGH_BANDWIDTH) {
+                            // Normalize and map MIDI value to correct frequency
+                            float normalizedValue = valueByte / 127.0f;
+                            int frequencyValue = HIGH_BANDWIDTH_LOWER_BOUND + normalizedValue * (HIGH_BANDWIDTH_UPPER_BOUND - HIGH_BANDWIDTH_LOWER_BOUND);
+
+                            dmaHighBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
+                        }
+                        break;
+                    }
+                    case 67: { // High Shelf filter control
+                        // Normalize and map gain to dB value
+                        float gain = 0;
+                        if (valueByte >= 64) {
+                            // Map values above or equal to 64 to the range [0, 6]
+                            gain = 0 + ((valueByte - 64) / float(127 - 64)) * (6 - 0);
+                        } else {
+                            // Map values below 64 to the range [-26, 0]
+                            gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
+                        }
+                        dmaHighValueLabel->setText(QString("%1dB").arg(round(gain)));
+
+                        // Get higher filter bandwidth value
+                        QRegularExpression regex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch match = regex.match(dmaHighBandwidthValueLabel->text());
+                        float bandwidth = match.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients coefficients = calculateHighShelfFilter(bandwidth, gain);
+                        break;
+                    }
+                    case 68: { // Band Shelf filter control
+                        float gain = 0;
+                        if (valueByte >= 64) {
+                            // Map values above or equal to 64 to the range [0, 6]
+                            gain = 0 + ((valueByte - 64) / float(127 - 64)) * (6 - 0);
+                        } else {
+                            // Map values below 64 to the range [-26, 0]
+                            gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
+                        }
+                        dmaMidValueLabel->setText(QString("%1dB").arg(round(gain)));
+
+                        // Get lower and higher bandwidth value
+                        QRegularExpression regex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch lowerMatch = regex.match(dmaLowBandwidthValueLabel->text());
+                        QRegularExpressionMatch higherMatch = regex.match(dmaHighBandwidthValueLabel->text());
+                        float lowerBandwidth = lowerMatch.captured(1).toInt();
+                        float higherBandwidth = higherMatch.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients lowerFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
+                        ShelvingCoefficients higherFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+                        break;
+                    }
+                    case 69: { // Low Shelf filter control
+                        float gain = 0;
+                        if (valueByte >= 64) {
+                            // Map values above or equal to 64 to the range [0, 6]
+                            gain = 0 + ((valueByte - 64) / float(127 - 64)) * (6 - 0);
+                        } else {
+                            // Map values below 64 to the range [-26, 0]
+                            gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
+                        }
+                        dmaLowValueLabel->setText(QString("%1dB").arg(round(gain)));
+
+                        // Get lower filter bandwidth value
+                        QRegularExpression regex(R"((\d+)(?=Hz))");
+                        QRegularExpressionMatch match = regex.match(dmaLowBandwidthValueLabel->text());
+                        float bandwidth = match.captured(1).toInt();
+
+                        // Calculate filter coefficients
+                        ShelvingCoefficients coefficients = calculateLowShelfFilter(bandwidth, gain);
+                        break;
+                    }
+                    case 71: { // Volume control
+                        float volumeValue = valueByte / 127.0f;
+
+                        dmaVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
             }
-            case 50: {
-                // analogLowDial
-                std::cout << output.toStdString() << std::endl;                 // TODO: write low shelf parameter to axi
-                break;
+            break;
+            case 144: { // Control for effects on analog signal
+                switch(controllerByte) {
+                    case 41: { // Enable saturation modification
+                        selectedAudioEffect = ANALOG_SATURATION;
+                        analogSaturationValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                        analogEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        break;
+                    }
+                    case 42: { // Enable echo modification
+                        selectedAudioEffect = ANALOG_ECHO;
+                        analogSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogEchoValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                        analogRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        break;
+                    }
+                    case 43: { // Enable ring modulation modification
+                        selectedAudioEffect = ANALOG_RING_MODULATION;
+                        analogSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogRingModulationValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                        dmaSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        break;
+                    }
+                    case 49: { // Toggle bandwidth selection
+                        if (valueByte){
+                            if (selectedAnalogBandwidth == ANALOG_LOW_BANDWIDTH){
+                                selectedAnalogBandwidth = ANALOG_HIGH_BANDWIDTH;
+                                analogLowBandwidthValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                                analogHighBandwidthValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                            }
+                            else {
+                                selectedAnalogBandwidth = ANALOG_LOW_BANDWIDTH;
+                                analogLowBandwidthValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                                analogHighBandwidthValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                            }
+                        }
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
             }
-            case 51: {
-                // analogHighpassDial
-                QString input = "highpass 4 " + QString::number(third_midi);    // TODO: check if third_midi is frequency?
-                analogHighpassFilterProcess->write(input.toUtf8() + '\n');
-                break;
+            break;
+            case 145: { // Control for effects on DMA signal
+                switch(controllerByte) {
+                    case 41: { // Enable saturation modification
+                        selectedAudioEffect = DMA_SATURATION;
+                        analogSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaSaturationValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                        dmaEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        break;
+                    }
+                    case 42: { // Enable echo modification
+                        selectedAudioEffect = DMA_ECHO;
+                        analogSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaEchoValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                        dmaRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        break;
+                    }
+                    case 43: { // Enable ring modulation modification
+                        selectedAudioEffect = DMA_RING_MODULATION;
+                        analogSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        analogRingModulationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaSaturationValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaEchoValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                        dmaRingModulationValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                        break;
+                    }
+                    case 49: { // Toggle bandwidth selection
+                        if (valueByte){
+                            if (selectedDmaBandwidth == DMA_LOW_BANDWIDTH){
+                                selectedDmaBandwidth = DMA_HIGH_BANDWIDTH;
+                                dmaLowBandwidthValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                                dmaHighBandwidthValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+
+                            }
+                            else {
+                                selectedDmaBandwidth = DMA_LOW_BANDWIDTH;
+                                dmaLowBandwidthValueLabel->setStyleSheet("color: red; font-size: 14px; font-weight: bold;");
+                                dmaHighBandwidthValueLabel->setStyleSheet("color: black; font-size: 14px; font-weight: bold;");
+                            }
+                        }
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
             }
-            case 52: {
-                // analogLowpassDial
-                QString input = "lowpass 2 " + QString::number(third_midi);     // TODO: check if third_midi is frequency?
-                analogLowpassFilterProcess->write(input.toUtf8() + '\n');
-                break;
+            break;
+            case 180: { // Control for selected effect value
+                if (controllerByte == 83){
+                    switch (selectedAudioEffect) {
+                        case ANALOG_SATURATION: {
+                            // Normalize and map MIDI value to correct value
+                            float normalizedValue = valueByte / 127.0f;
+                            int saturationValue = SATURATION_LOWER_BOUND + normalizedValue * (SATURATION_UPPER_BOUND - SATURATION_LOWER_BOUND);
+
+                            analogSaturationValueLabel->setText(QString("%1").arg(round(saturationValue)));
+                            break;
+                        }
+                        case ANALOG_ECHO: {
+                            // Normalize and map MIDI value to correct value
+                            float normalizedValue = valueByte / 127.0f;
+                            double echoValue = ECHO_LOWER_BOUND + normalizedValue * (ECHO_UPPER_BOUND - ECHO_LOWER_BOUND);
+
+                            analogEchoValueLabel->setText(QString("%1").arg(round(echoValue*100)/100));
+                            break;
+                        }
+                        case ANALOG_RING_MODULATION: {
+                            // Map MIDI value to correct value
+                            int ringModulationValue = RING_MODULATION_OFF;
+                            if (valueByte > 64){
+                                ringModulationValue = RING_MODULATION_ON;
+                            }
+
+                            analogRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+                            break;
+                        }
+                        case DMA_SATURATION: {
+                            // Normalize and map MIDI value to correct value
+                            float normalizedValue = valueByte / 127.0f;
+                            int saturationValue = SATURATION_LOWER_BOUND + normalizedValue * (SATURATION_UPPER_BOUND - SATURATION_LOWER_BOUND);
+
+                            dmaSaturationValueLabel->setText(QString("%1").arg(round(saturationValue)));
+                            break;
+                        }
+                        case DMA_ECHO: {
+                            // Normalize and map MIDI value to correct value
+                            float normalizedValue = valueByte / 127.0f;
+                            double echoValue = ECHO_LOWER_BOUND + normalizedValue * (ECHO_UPPER_BOUND - ECHO_LOWER_BOUND);
+
+                            dmaEchoValueLabel->setText(QString("%1").arg(round(echoValue*100)/100));
+                            break;
+                        }
+                        case DMA_RING_MODULATION: {
+                            // Map MIDI value to correct value
+                            int ringModulationValue = RING_MODULATION_OFF;
+                            if (valueByte > 64){
+                                ringModulationValue = RING_MODULATION_ON;
+                            }
+
+                            dmaRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
+                    }
+                }
             }
-            case 53: {
-                // analogVolumeSlider
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
-            case 54: {
-                // analogSaturationDial
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
-            case 55: {
-                // analogEchoDial
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
-            case 56: {
-                // analogRingMdulationDial
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
-            case 57: {
-                // dmaHighDial
-                std::cout << output.toStdString() << std::endl;                 // TODO: write high shelf parameter to axi
-                break;
-            }
-            case 58: {
-                // dmaMidDial
-                std::cout << output.toStdString() << std::endl;                 // TODO: write band shelf parameter to axi
-                break;
-            }
-            case 59: {
-                // dmaLowDial
-                std::cout << output.toStdString() << std::endl;                 // TODO: write low shelf parameter to axi
-                break;
-            }
-            case 60: {
-                // dmaHighpassDial
-                QString input = "highpass 4 " + QString::number(third_midi);    // TODO: check if third_midi is frequency?
-                dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
-                break;
-            }
-            case 14: {
-                // dmaLowpassDial
-                QString input = "lowpass 2 " + QString::number(third_midi);     // TODO: check if third_midi is frequency?
-                dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
-                break;
-            }
-            case 15: {
-                // dmaVolumeSlider
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
-            case 16: {
-                // dmaSaturationDial
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
-            case 17: {
-                // dmaEchoDial
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
-            case 18: {
-                // dmaRingMdulationDial
-                //writeToAxi(axi_addr, val);                                    // TODO: implement correct write function
-                break;
-            }
+            break;
             default: {
                 break;
             }
         }
     }
+}
+
+ShelvingCoefficients AudioEffectWidget::calculateHighShelfFilter(int bandwidth, int dBgain) {
+    // Calculate parameters
+    float c_1 = 0.382683f;
+    float c_2 = 0.92388f;
+    float gain = pow(10, dBgain / 20.0f);
+    float V = pow(gain, 0.25)-1;
+    float K = tan(bandwidth*M_PI/48000);
+
+    // Calculate coefficients
+    float a0_1 = K*K + 2*K*c_1 + 1;
+    float a1_1 = -(2*K*K - 2)/a0_1;
+    float a2_1 = (K*K - 2*K*c_1 + 1)/a0_1;
+    float b0_1 = (K*K*(V*V + 2*V + 1) + 2*K*c_1*(V+1) + 1)/a0_1;
+    float b1_1 = -(2*K*K*(V*V + 2*V + 1) -2)/a0_1;
+    float b2_1 = (K*K*(V*V + 2*V + 1) - 2*K*c_1*(V+1) + 1)/a0_1;
+
+    float a0_2 = K*K + 2*K*c_2 + 1;
+    float a1_2 = -(2*K*K - 2)/a0_2;
+    float a2_2 = (K*K - 2*K*c_2 + 1)/a0_2;
+    float b0_2 = (K*K*(V*V + 2*V + 1) + 2*K*c_2*(V+1) + 1)/a0_2;
+    float b1_2 = -(2*K*K*(V*V + 2*V + 1) -2)/a0_2;
+    float b2_2 = (K*K*(V*V + 2*V + 1) - 2*K*c_2*(V+1) + 1)/a0_2;
+
+    ShelvingCoefficients coefficients(a1_1, a2_1, b0_1, b1_1, b2_1,
+                                      a1_2, a2_2, b0_2, b1_2, b2_2);
+    return coefficients;
+
+}
+
+ShelvingCoefficients AudioEffectWidget::calculateLowShelfFilter(int bandwidth, int dBgain){
+    // Calculate parameters
+    float c_1 = 0.382683f;
+    float c_2 = 0.92388f;
+    float gain = pow(10, dBgain / 20.0f);
+    float V = pow(gain, 0.25)-1;
+    float K = tan(bandwidth*M_PI/48000);
+
+    // Calculate coefficients
+    float a0_1 = K*K + 2*K*c_1 + 1;
+    float a1_1 = (2*K*K - 2)/a0_1;
+    float a2_1 = (K*K - 2*K*c_1 + 1)/a0_1;
+    float b0_1 = (K*K*(V*V + 2*V + 1) + 2*K*c_1*(V+1) + 1)/a0_1;
+    float b1_1 = (2*K*K*(V*V + 2*V + 1) -2)/a0_1;
+    float b2_1 = (K*K*(V*V + 2*V + 1) - 2*K*c_1*(V+1) + 1)/a0_1;
+
+    float a0_2 = K*K + 2*K*c_2 + 1;
+    float a1_2 = (2*K*K - 2)/a0_2;
+    float a2_2 = (K*K - 2*K*c_2 + 1)/a0_2;
+    float b0_2 = (K*K*(V*V + 2*V + 1) + 2*K*c_2*(V+1) + 1)/a0_2;
+    float b1_2 = (2*K*K*(V*V + 2*V + 1) -2)/a0_2;
+    float b2_2 = (K*K*(V*V + 2*V + 1) - 2*K*c_2*(V+1) + 1)/a0_2;
+
+    ShelvingCoefficients coefficients(a1_1, a2_1, b0_1, b1_1, b2_1, a1_2, a2_2, b0_2, b1_2, b2_2);
+    return coefficients;
+
 }
 
 void AudioEffectWidget::handleAnalogHighpassFilterProcess() {
@@ -232,14 +600,14 @@ void AudioEffectWidget::handleAnalogHighpassFilterProcess() {
     QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\s*\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
     QRegularExpressionMatch match = regex.match(output);
     if (match.hasMatch()) {
-        float first_b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float first_b0 = match.captured(1).toFloat();
         float first_b1 = match.captured(2).toFloat();
         float first_b2 = match.captured(3).toFloat();
         float first_a0 = match.captured(4).toFloat();
         float first_a1 = match.captured(5).toFloat();
         float first_a2 = match.captured(6).toFloat();
 
-        float second_b0 = match.captured(7).toFloat();                                 // TODO: cast to fixed point
+        float second_b0 = match.captured(7).toFloat();
         float second_b1 = match.captured(8).toFloat();
         float second_b2 = match.captured(9).toFloat();
         float second_a0 = match.captured(10).toFloat();
@@ -248,7 +616,6 @@ void AudioEffectWidget::handleAnalogHighpassFilterProcess() {
 
         std::cout << "First filter: a0: " << first_a0 << " a1: " << first_a1 << " a2: " << first_a2 << " b0: " << first_b0 << " b1: " << first_b1 << " b2: " << first_b2 << std::endl;
         std::cout << "Second filter: a0: " << second_a0 << " a1: " << second_a1 << " a2: " << second_a2 << " b0: " << second_b0 << " b1: " << second_b1 << " b2: " << second_b2 << std::endl;
-        //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
     }
     else {
         std::cout << "No match found!" << std::endl;
@@ -261,7 +628,7 @@ void AudioEffectWidget::handleAnalogLowpassFilterProcess() {
     QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
     QRegularExpressionMatch match = regex.match(output);
     if (match.hasMatch()) {
-        float b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float b0 = match.captured(1).toFloat();
         float b1 = match.captured(2).toFloat();
         float b2 = match.captured(3).toFloat();
         float a0 = match.captured(4).toFloat();
@@ -269,7 +636,6 @@ void AudioEffectWidget::handleAnalogLowpassFilterProcess() {
         float a2 = match.captured(6).toFloat();
 
         std::cout << "a0: " << a0 << " a1: " << a1 << " a2: " << a2 << " b0: " << b0 << " b1: " << b1 << " b2: " << b2 << std::endl;
-         //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
     }
     else {
         std::cout << "No match found!" << std::endl;
@@ -282,14 +648,14 @@ void AudioEffectWidget::handleDmaHighpassFilterProcess() {
     QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\s*\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
     QRegularExpressionMatch match = regex.match(output);
     if (match.hasMatch()) {
-        float first_b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float first_b0 = match.captured(1).toFloat();
         float first_b1 = match.captured(2).toFloat();
         float first_b2 = match.captured(3).toFloat();
         float first_a0 = match.captured(4).toFloat();
         float first_a1 = match.captured(5).toFloat();
         float first_a2 = match.captured(6).toFloat();
 
-        float second_b0 = match.captured(7).toFloat();                                 // TODO: cast to fixed point
+        float second_b0 = match.captured(7).toFloat();
         float second_b1 = match.captured(8).toFloat();
         float second_b2 = match.captured(9).toFloat();
         float second_a0 = match.captured(10).toFloat();
@@ -298,7 +664,6 @@ void AudioEffectWidget::handleDmaHighpassFilterProcess() {
 
         std::cout << "First filter: a0: " << first_a0 << " a1: " << first_a1 << " a2: " << first_a2 << " b0: " << first_b0 << " b1: " << first_b1 << " b2: " << first_b2 << std::endl;
         std::cout << "Second filter: a0: " << second_a0 << " a1: " << second_a1 << " a2: " << second_a2 << " b0: " << second_b0 << " b1: " << second_b1 << " b2: " << second_b2 << std::endl;
-        //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
     }
     else {
         std::cout << "No match found!" << std::endl;
@@ -311,7 +676,7 @@ void AudioEffectWidget::handleDmaLowpassFilterProcess() {
     QRegularExpression regex(R"(\[\[\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*(-?\d*\.?\d*(?:[eE][+-]?\d*)?)\s*\]\])");
     QRegularExpressionMatch match = regex.match(output);
     if (match.hasMatch()) {
-        float b0 = match.captured(1).toFloat();                                 // TODO: cast to fixed point
+        float b0 = match.captured(1).toFloat();
         float b1 = match.captured(2).toFloat();
         float b2 = match.captured(3).toFloat();
         float a0 = match.captured(4).toFloat();
@@ -319,7 +684,6 @@ void AudioEffectWidget::handleDmaLowpassFilterProcess() {
         float a2 = match.captured(6).toFloat();
 
         std::cout << "a0: " << a0 << " a1: " << a1 << " a2: " << a2 << " b0: " << b0 << " b1: " << b1 << " b2: " << b2 << std::endl;
-        //writeToAxi(axi_addr, val);                                           // TODO: implement correct write function
     }
     else {
         std::cout << "No match found!" << std::endl;
@@ -358,22 +722,11 @@ int AudioEffectWidget::writeToAxi(volatile uint32_t *axi_addr, uint32_t val) {
     return EXIT_SUCCESS;
 }
 
-
-QDial* AudioEffectWidget::createCustomQDial(int rangeMin, int rangeMax, bool wrapping, bool visibleNotches, bool tracking){
-    QDial* qDial = new QDial(this);
-    qDial->setRange(rangeMin, rangeMax);
-    qDial->setWrapping(wrapping);
-    qDial->setNotchesVisible(visibleNotches);
-    qDial->setTracking(tracking);
-    return qDial;
-
-}
-
-QSlider* AudioEffectWidget::createCustomQSlider(Qt::Orientation orientation, int rangeMin, int rangeMax, QSlider::TickPosition tickPosition){
-    QSlider* slider = new QSlider(orientation, this);
-    slider->setRange(rangeMin, rangeMax);
-    slider->setTickPosition(tickPosition);
-    return slider;
+QLabel* AudioEffectWidget::createCustomValueLabel(int defaultValue, const QString& unit) {
+    QLabel* label = new QLabel(QString::number(defaultValue) + unit, this);
+    label->setAlignment(Qt::AlignCenter);
+    label->setStyleSheet("font-size: 14px; font-weight: bold;");
+    return label;
 }
 
 QVBoxLayout* AudioEffectWidget::createLabelAndWidget(const QString& labelText, QWidget* widget, QWidget* parent)
@@ -387,54 +740,62 @@ QVBoxLayout* AudioEffectWidget::createLabelAndWidget(const QString& labelText, Q
 }
 
 QVBoxLayout* AudioEffectWidget::createSectionLayout(
-    QDial* high, QDial* mid, QDial* low, QDial* highPass, QDial* lowPass,
-    QSlider* volume, QDial* saturation, QDial* echo, QDial* ringMod,
-    const QString& sectionTitle, QWidget* parent, bool mirrored)
+    QLabel* high, QLabel* mid, QLabel* low,
+    QLabel* highPass, QLabel* lowPass, QLabel* volume,
+    QLabel* saturation, QLabel* echo, QLabel* ringMod,
+    QLabel* highBandwidth, QLabel* lowBandwidth,
+    const QString& sectionTitle, QWidget* parent)
 {
-    // Section Title Label (Centered)
+    // Create Section Title
     QLabel* sectionLabel = new QLabel(sectionTitle, parent);
     sectionLabel->setAlignment(Qt::AlignCenter);
-    sectionLabel->setStyleSheet("font-weight: bold; font-size: 14px;");
+    sectionLabel->setStyleSheet("font-weight: bold; font-size: 16px; margin: 10px;");
 
-    // Create layouts for each section
-    QVBoxLayout* dialsLayout = new QVBoxLayout;
-    dialsLayout->addLayout(createLabelAndWidget("High", high, parent));
-    dialsLayout->addLayout(createLabelAndWidget("Mid", mid, parent));
-    dialsLayout->addLayout(createLabelAndWidget("Low", low, parent));
+    // Helper to create vertical label + value layout
+    auto createVerticalLayout = [&](const QString& text, QLabel* value) {
+        QVBoxLayout* layout = new QVBoxLayout;
+        QLabel* label = new QLabel(text, parent);
+        label->setAlignment(Qt::AlignCenter);
+        label->setStyleSheet("font-size: 12px; color: gray;");
+        layout->addWidget(label);
+        layout->addWidget(value);
+        layout->setSpacing(5);
+        layout->setAlignment(Qt::AlignCenter);
+        return layout;
+    };
 
-    QVBoxLayout* filtersLayout = new QVBoxLayout;
-    filtersLayout->addLayout(createLabelAndWidget("High Pass", highPass, parent));
-    filtersLayout->addLayout(createLabelAndWidget("Low Pass", lowPass, parent));
-
-    QVBoxLayout* volumeLayout = new QVBoxLayout;
-    volumeLayout->addLayout(createLabelAndWidget("Volume", volume, parent));
-
-    // Arrange top layout
+    // Top Layout: Dials and bandwidth
     QHBoxLayout* topLayout = new QHBoxLayout;
-    if (mirrored) {
-        topLayout->addLayout(volumeLayout);
-        topLayout->addLayout(filtersLayout);
-        topLayout->addLayout(dialsLayout);
-    } else {
-        topLayout->addLayout(dialsLayout);
-        topLayout->addLayout(filtersLayout);
-        topLayout->addLayout(volumeLayout);
-    }
+    topLayout->addLayout(createVerticalLayout("High", high));
+    topLayout->addLayout(createVerticalLayout("Mid", mid));
+    topLayout->addLayout(createVerticalLayout("Low", low));
+    topLayout->addLayout(createVerticalLayout("High bandwidth", highBandwidth));
+    topLayout->addLayout(createVerticalLayout("Low bandwidth", lowBandwidth));
+    topLayout->setSpacing(20);
 
-    // Create bottom layout for sliders
+    // Middle Layout: Filters and Volume
+    QHBoxLayout* middleLayout = new QHBoxLayout;
+    middleLayout->addLayout(createVerticalLayout("High Pass", highPass));
+    middleLayout->addLayout(createVerticalLayout("Low Pass", lowPass));
+    middleLayout->addLayout(createVerticalLayout("Volume", volume));
+    middleLayout->setSpacing(20);
+
+    // Bottom Layout: Effects
     QHBoxLayout* bottomLayout = new QHBoxLayout;
-    bottomLayout->addLayout(createLabelAndWidget("Saturation", saturation, parent));
-    bottomLayout->addLayout(createLabelAndWidget("Echo", echo, parent));
-    bottomLayout->addLayout(createLabelAndWidget("Ring Modulation", ringMod, parent));
+    bottomLayout->addLayout(createVerticalLayout("Saturation", saturation));
+    bottomLayout->addLayout(createVerticalLayout("Echo", echo));
+    bottomLayout->addLayout(createVerticalLayout("Ring Modulation", ringMod));
+    bottomLayout->setSpacing(20);
 
-    // Combine layouts into section layout
+    // Combine all layouts into the section layout
     QVBoxLayout* sectionLayout = new QVBoxLayout;
     sectionLayout->addWidget(sectionLabel);  // Add Section Title
     sectionLayout->addLayout(topLayout);
+    sectionLayout->addLayout(middleLayout);
     sectionLayout->addLayout(bottomLayout);
-
-    sectionLayout->setSpacing(10);
-    sectionLayout->setContentsMargins(10, 10, 10, 10);
+    sectionLayout->setSpacing(15);
+    sectionLayout->setContentsMargins(20, 20, 20, 20);
 
     return sectionLayout;
 }
+
