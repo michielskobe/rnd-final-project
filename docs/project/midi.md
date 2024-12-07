@@ -309,17 +309,17 @@ blendinator:~$ sudo devmem 0xa004000c 32
     * **`value` (Controller Value):** Specifies the state of Controller 53, ranging from 0 to 127
     * **Use in project:** Low Shelf filter control for analog signal
 
-* **Left Loop Length Dial (LOOP < SIZE >):** [176, 18, `value`]
-    * **176 (Status Byte):** Control Change on MIDI Channel 1
-    * **18 (Controller Number):** Controller 18
-    * **`value` (Controller Value):** Specifies the state of Controller 18, with a value equal to 63 or 65, depending on the way we turn the dial.
+* **Left Loop Length Dial (LOOP < SIZE >):** [144, 49, `value`]
+    * **144 (Status Byte):** Note On message on MIDI Channel 1
+    * **49 (Note Number):** Note 49
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
     * **Use in project:** Bandwidth control selection for analog shelving filters
 
 * **Left Gain Dial:** [176, 50, `value`]
     * **176 (Status Byte):** Control Change on MIDI Channel 1
     * **50 (Controller Number):** Controller 50
     * **`value` (Controller Value):** Specifies the state of Controller 50, ranging from 0 to 127
-    * **Use in project:** Bandwith control for analog shelving filters, based on the bandwith selected with controller 18
+    * **Use in project:** Bandwith control for analog shelving filters, based on the bandwith selected with Note 49 on Channel 1
 
 
 * **Right EQ Dial (HIGH):** [177, 67, `value`]
@@ -340,38 +340,60 @@ blendinator:~$ sudo devmem 0xa004000c 32
     * **`value` (Controller Value):** Specifies the state of Controller 69, ranging from 0 to 127
     * **Use in project:** Low Shelf filter control for DMA signal
 
-* **Right Loop Length Dial (LOOP < SIZE >):** [177, 22, `value`]
-    * **177 (Status Byte):** Control Change on MIDI Channel 2
-    * **22 (Controller Number):** Controller 22
-    * **`value` (Controller Value):** Specifies the state of Controller 22, with a value equal to 63 or 65, depending on the way we turn the dial.
-    * **Use in project:** Bandwidth control selection for DMA shelving filters
+* **Right Loop Length Dial (LOOP < SIZE >):** [145, 49, `value`]
+    * **145 (Status Byte):** Note On message on MIDI Channel 2
+    * **49 (Note Number):** Note 49
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
+    * **Use in project:** Bandwidth control selection for dma shelving filters
 
 * **Right Gain Dial:** [177, 66, `value`]
     * **177 (Status Byte):** Control Change on MIDI Channel 2
     * **66 (Controller Number):** Controller 66
     * **`value` (Controller Value):** Specifies the state of Controller 66, ranging from 0 to 127
-    * **Use in project:** Bandwith control for DMA shelving filters, based on the bandwith selected with controller 22
+    * **Use in project:** Bandwith control for DMA shelving filters, based on the bandwith selected with Note 49 on Channel 2
 
-* **Left Effect Change Dial (FX SEL):** [176, 16, `value`]
-    * **176 (Status Byte):** Control Change on MIDI Channel 1
-    * **16 (Controller Number):** Controller 16
-    * **`value` (Controller Value):** Specifies the state of Controller 16, with a value equal to 63 or 65, depending on the way we turn the dial.
-    * **Use in project:** Effect selection control for analog signal
+* **Left Hot Cue Button 1:** [144, 41, `value`]
+    * **144 (Status Byte):** Note On message on MIDI Channel 1
+    * **41 (Note Number):** Note 41
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
+    * **Use in project:** Saturation effect control selection for analog signal
 
-* **Left Pitch Fader:** [176, 54, `value`]
-    * **176 (Status Byte):** Control Change on MIDI Channel 1
-    * **54 (Controller Number):** Controller 54
-    * **`value` (Controller Value):** Specifies the state of Controller 54, ranging from 0 to 127
-    * **Use in project:** Effect control for analog signal based on the effect selected with controller 16
+* **Left Hot Cue Button 2:** [144, 42, `value`]
+    * **144 (Status Byte):** Note On message on MIDI Channel 1
+    * **42 (Note Number):** Note 42
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
+    * **Use in project:** Echo effect control selection for analog signal
 
-* **Right Effect Change Dial (FX SEL):** [177, 20, `value`]
-    * **177 (Status Byte):** Control Change on MIDI Channel 2
-    * **20 (Controller Number):** Controller 20
-    * **`value` (Controller Value):** Specifies the state of Controller 20, with a value equal to 63 or 65, depending on the way we turn the dial.
-    * **Use in project:** Effect selection control for DMA signal
+* **Left Hot Cue Button 3:** [144, 43, `value`]
+    * **144 (Status Byte):** Note On message on MIDI Channel 1
+    * **43 (Note Number):** Note 43
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
+    * **Use in project:** Ring modulation effect control selection for analog signal
 
-* **Right Pitch Fader:** [177, 70, `value`]
-    * **177 (Status Byte):** Control Change on MIDI Channel 2
-    * **70 (Controller Number):** Controller 70
-    * **`value` (Controller Value):** Specifies the state of Controller 70, ranging from 0 to 127
-    * **Use in project:** Effect control for DMA signal based on the effect selected with controller 20
+* **Right Hot Cue Button 1:** [145, 41, `value`]
+    * **145 (Status Byte):** Note On message on MIDI Channel 2
+    * **41 (Note Number):** Note 41
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
+    * **Use in project:** Saturation effect control selection for dma signal
+
+* **Right Hot Cue Button 2:** [145, 42, `value`]
+    * **145 (Status Byte):** Note On message on MIDI Channel 2
+    * **42 (Note Number):** Note 42
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
+    * **Use in project:** Echo effect control selection for dma signal
+
+* **Right Hot Cue Button 3:** [145, 43, `value`]
+    * **145 (Status Byte):** Note On message on MIDI Channel 2
+    * **43 (Note Number):** Note 43
+    * **`value` (Velocity):** Specifies the velocity of the note, with a value equal to 0 or 127, depending on depending on whether the dial is pressed or released
+    * **Use in project:** Ring modulation effect control selection for dma signal
+
+* **Horizontal Crossfader:** [180, 83, `value`]
+    * **180 (Status Byte):** Control Change on MIDI Channel 5
+    * **83 (Controller Number):** Controller 83
+    * **`value` (Controller Value):** Specifies the state of Controller 83, ranging from 0 to 127
+    * **Use in project:** Effect control based on the effect selected with the Hot Cue Buttons
+
+This gives us the following mapping on the Reloop BeatMix controller:
+
+<img src="/img/reloop-beatmix.png"/>
