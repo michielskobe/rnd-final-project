@@ -339,18 +339,18 @@ begin
         -------------------------------------
         attribute MARK_DEBUG : string;
 
-        attribute MARK_DEBUG of volume_fwd : signal is g_chip_scope;
-        attribute MARK_DEBUG of volume_bwd : signal is g_chip_scope;
+        -- attribute MARK_DEBUG of volume_fwd : signal is g_chip_scope;
+        -- attribute MARK_DEBUG of volume_bwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_volume_fwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_volume_bwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_low_1_fwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_low_1_bwd : signal is g_chip_scope;
         attribute MARK_DEBUG of high_pass_2_fwd : signal is g_chip_scope;
         attribute MARK_DEBUG of high_pass_2_bwd : signal is g_chip_scope;
-        attribute MARK_DEBUG of echo_fwd : signal is g_chip_scope;
-        attribute MARK_DEBUG of echo_bwd : signal is g_chip_scope;
-        attribute MARK_DEBUG of saturation_fwd : signal is g_chip_scope;
-        attribute MARK_DEBUG of saturation_bwd : signal is g_chip_scope;
+        -- attribute MARK_DEBUG of echo_fwd : signal is g_chip_scope;
+        -- attribute MARK_DEBUG of echo_bwd : signal is g_chip_scope;
+        -- attribute MARK_DEBUG of saturation_fwd : signal is g_chip_scope;
+        -- attribute MARK_DEBUG of saturation_bwd : signal is g_chip_scope;
     begin
 
         band_volume_fwd <= post_merger_fwd;
@@ -407,7 +407,7 @@ begin
 
         i_band_low_2: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -421,7 +421,7 @@ begin
 
         i_band_high_1: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -435,7 +435,7 @@ begin
 
         i_band_high_2: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -453,7 +453,7 @@ begin
 
         i_low_1: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -467,7 +467,7 @@ begin
 
         i_low_2: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -485,7 +485,7 @@ begin
 
         i_high_1: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -499,7 +499,7 @@ begin
 
         i_high_2: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -517,7 +517,7 @@ begin
 
         i_low_pass: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -535,7 +535,7 @@ begin
 
         i_high_pass_1: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,
@@ -549,7 +549,7 @@ begin
 
         i_high_pass_2: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+            g_chip_scope => "False"
         )
         port map(
             clk => clk_audio,

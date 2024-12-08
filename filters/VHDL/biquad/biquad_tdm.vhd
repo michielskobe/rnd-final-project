@@ -192,6 +192,30 @@ architecture rtl of biquad_tdm is
   -------------------------------------
   signal pipe_startup : integer range 0 to 4 := 4;
 
+  -------------------------------------
+  -- Chip Scope
+  -------------------------------------
+  attribute MARK_DEBUG : string;
+
+  attribute MARK_DEBUG of TData_stage_1 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TData_stage_2 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TData_stage_3 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TData_stage_4 : signal is g_chip_scope;
+
+  attribute MARK_DEBUG of TID_stage_1 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_stage_2 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_stage_3 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_stage_3_prev : signal is g_chip_scope;
+
+  attribute MARK_DEBUG of Prev_Delay_X_1 : signal is g_chip_scope;
+  attribute MARK_DEBUG of Prev_Delay_X_2 : signal is g_chip_scope;
+  attribute MARK_DEBUG of Prev_Delay_Y_1 : signal is g_chip_scope;
+  attribute MARK_DEBUG of Prev_Delay_Y_2 : signal is g_chip_scope;
+
+  attribute MARK_DEBUG of Delay_X_1_muxed : signal is g_chip_scope;
+  attribute MARK_DEBUG of Delay_X_2_muxed : signal is g_chip_scope;
+  attribute MARK_DEBUG of Delay_Y_1_muxed : signal is g_chip_scope;
+  attribute MARK_DEBUG of Delay_Y_2_muxed : signal is g_chip_scope;
    
 BEGIN
 
