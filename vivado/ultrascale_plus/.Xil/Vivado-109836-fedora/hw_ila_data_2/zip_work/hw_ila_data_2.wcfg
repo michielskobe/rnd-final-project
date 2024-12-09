@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/debber/Documents/__KuLeuven/GroepT/Fase4/semester1/rnd/team-e/vivado/ultrascale_plus/viv_usp_rnd/viv_usp_rnd.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wdb" id="1">
+         <top_modules>
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0"></ZoomStartTime>
+      <ZoomEndTime time="2,049"></ZoomEndTime>
+      <Cursor1Time time="0"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="525"></NameColumnWidth>
+      <ValueColumnWidth column_width="59"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="16" />
+   <wave_markers>
+   </wave_markers>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_X_1_muxed">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_X_1_muxed[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Delay_X_1_muxed[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_3">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_3[23:0]</obj_property>
+      <obj_property name="ObjectShortName">TData_stage_3[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_2">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_2[23:0]</obj_property>
+      <obj_property name="ObjectShortName">TData_stage_2[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_1">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_1[23:0]</obj_property>
+      <obj_property name="ObjectShortName">TData_stage_1[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_4">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TData_stage_4[23:0]</obj_property>
+      <obj_property name="ObjectShortName">TData_stage_4[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_Y_1">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_Y_1[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Prev_Delay_Y_1[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_3">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_3[1:0]</obj_property>
+      <obj_property name="ObjectShortName">TID_stage_3[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_3_prev">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_3_prev[1:0]</obj_property>
+      <obj_property name="ObjectShortName">TID_stage_3_prev[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_2">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_2[1:0]</obj_property>
+      <obj_property name="ObjectShortName">TID_stage_2[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_1">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/TID_stage_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">TID_stage_1[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_X_2">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_X_2[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Prev_Delay_X_2[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_X_1">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_X_1[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Prev_Delay_X_1[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_Y_2">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Prev_Delay_Y_2[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Prev_Delay_Y_2[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_Y_2_muxed">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_Y_2_muxed[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Delay_Y_2_muxed[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_Y_1_muxed">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_Y_1_muxed[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Delay_Y_1_muxed[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_X_2_muxed">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">design_1_i/audio_pipeline_wrapp_0/U0/audio_pipeline_inst/b_filters_and_effects.i_band_low_1/Delay_X_2_muxed[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Delay_X_2_muxed[23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+</wave_config>

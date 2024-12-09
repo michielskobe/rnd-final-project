@@ -10,19 +10,20 @@
       "component_parameters": {
         "g_clock_div_sclk": [ { "value": "4", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "g_clock_div_lrclk": [ { "value": "64", "resolve_type": "user", "format": "long", "usage": "all" } ],
-        "g_chip_scope": [ { "value": "True", "resolve_type": "user", "usage": "all" } ],
+        "g_chip_scope": [ { "value": "false", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "Component_Name": [ { "value": "design_1_I2S_wrapper_0_0", "resolve_type": "user", "usage": "all" } ]
       },
       "model_parameters": {
         "g_clock_div_sclk": [ { "value": "4", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "g_clock_div_lrclk": [ { "value": "64", "resolve_type": "generated", "format": "long", "usage": "all" } ],
-        "g_chip_scope": [ { "value": "True", "resolve_type": "generated", "usage": "all" } ]
+        "g_chip_scope": [ { "value": "false", "resolve_type": "generated", "usage": "all" } ]
       },
       "project_parameters": {
         "ARCHITECTURE": [ { "value": "zynquplus" } ],
         "BASE_BOARD_PART": [ { "value": "avnet.com:ultra96v2:part0:1.2" } ],
         "BOARD_CONNECTIONS": [ { "value": "" } ],
         "DEVICE": [ { "value": "xczu3eg" } ],
+        "NEXTGEN_VERSAL": [ { "value": "0" } ],
         "PACKAGE": [ { "value": "sbva484" } ],
         "PREFHDL": [ { "value": "VHDL" } ],
         "SILICON_REVISION": [ { "value": "" } ],
@@ -39,7 +40,7 @@
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
         "SWVERSION": [ { "value": "2023.2" } ],
-        "SYNTHESISFLOW": [ { "value": "GLOBAL" } ]
+        "SYNTHESISFLOW": [ { "value": "OOC_HIERARCHICAL" } ]
       }
     },
     "boundary": {
@@ -158,7 +159,7 @@
           "mode": "slave",
           "parameters": {
             "ASSOCIATED_RESET": [ { "value": "m_rst", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
-            "FREQ_HZ": [ { "value": "12287988", "value_src": "ip_propagated", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_HZ": [ { "value": "12288786", "value_src": "ip_propagated", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "PHASE": [ { "value": "0.0", "value_src": "ip_propagated", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
             "CLK_DOMAIN": [ { "value": "design_1_clk_wiz_0_0_clk_out1", "value_src": "default_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],

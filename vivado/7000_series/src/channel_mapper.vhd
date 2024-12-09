@@ -170,6 +170,8 @@ begin
             else 
                 internal_fwd.TValid <= '0';
             end if;
+        else 
+            internal_fwd.TValid <= '0';
         end if;
         
     end process;

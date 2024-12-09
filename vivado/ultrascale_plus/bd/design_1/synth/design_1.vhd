@@ -2,7 +2,7 @@
 --Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
---Date        : Fri Dec  6 11:02:13 2024
+--Date        : Mon Dec  9 23:48:26 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -2689,7 +2689,7 @@ entity design_1 is
     wifi_en_led_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=31,numReposBlks=23,numNonXlnxBlks=1,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=6,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=8,da_board_cnt=2,da_clkrst_cnt=2,da_zynq_ultra_ps_e_cnt=2,synth_mode=None}";
+  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=31,numReposBlks=23,numNonXlnxBlks=1,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=6,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=8,da_board_cnt=2,da_clkrst_cnt=2,da_zynq_ultra_ps_e_cnt=2,synth_mode=Hierarchical}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of design_1 : entity is "design_1.hwdef";
 end design_1;
@@ -3166,6 +3166,7 @@ architecture STRUCTURE of design_1 is
     reset : in STD_LOGIC;
     clk_in1 : in STD_LOGIC;
     clk_out1 : out STD_LOGIC;
+    clk_out2 : out STD_LOGIC;
     locked : out STD_LOGIC
   );
   end component design_1_clk_wiz_0_0;
@@ -3178,6 +3179,7 @@ architecture STRUCTURE of design_1 is
     master_volume : in STD_LOGIC_VECTOR ( 17 downto 0 );
     channel_volume_select : in STD_LOGIC_VECTOR ( 1 downto 0 );
     channel_volume_value : in STD_LOGIC_VECTOR ( 17 downto 0 );
+    rst : in STD_LOGIC;
     dma_valid : in STD_LOGIC;
     s_TValid_anal : in STD_LOGIC;
     s_TLast_anal : in STD_LOGIC;
@@ -3556,6 +3558,7 @@ architecture STRUCTURE of design_1 is
   signal zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WVALID : STD_LOGIC;
   signal zynq_ultra_ps_e_0_emio_uart0_rtsn : STD_LOGIC;
   signal zynq_ultra_ps_e_0_pl_clk0 : STD_LOGIC;
+  signal zynq_ultra_ps_e_0_pl_clk1 : STD_LOGIC;
   signal zynq_ultra_ps_e_0_pl_resetn0 : STD_LOGIC;
   signal NLW_axi_dma_0_mm2s_prmry_reset_out_n_UNCONNECTED : STD_LOGIC;
   signal NLW_axi_dma_0_s2mm_prmry_reset_out_n_UNCONNECTED : STD_LOGIC;
@@ -3672,6 +3675,7 @@ audio_pipeline_wrapp_0: component design_1_audio_pipeline_wrapp_0_0
       clk_out => zynq_ultra_ps_e_0_pl_clk0,
       dma_valid => audio_fifo_wrapper_0_s_TValid_out,
       master_volume(17 downto 0) => B"000000000000000000",
+      rst => '0',
       s_TData_anal(23 downto 0) => audio_fifo_wrapper_1_s_out_TDATA(23 downto 0),
       s_TData_dma(23 downto 0) => audio_fifo_wrapper_0_s_TData_out(23 downto 0),
       s_TData_out(23 downto 0) => audio_pipeline_wrapp_0_s_TData_out(23 downto 0),
@@ -3937,8 +3941,9 @@ axis_data_fifo_0: component design_1_axis_data_fifo_0_0
     );
 clk_wiz_0: component design_1_clk_wiz_0_0
      port map (
-      clk_in1 => zynq_ultra_ps_e_0_pl_clk0,
+      clk_in1 => zynq_ultra_ps_e_0_pl_clk1,
       clk_out1 => clk_wiz_0_clk_out1,
+      clk_out2 => zynq_ultra_ps_e_0_pl_clk0,
       locked => NLW_clk_wiz_0_locked_UNCONNECTED,
       reset => '0'
     );
@@ -4266,7 +4271,7 @@ zynq_ultra_ps_e_0: component design_1_zynq_ultra_ps_e_0_0
       maxigp1_wvalid => zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WVALID,
       maxihpm0_fpd_aclk => zynq_ultra_ps_e_0_pl_clk0,
       maxihpm1_fpd_aclk => zynq_ultra_ps_e_0_pl_clk0,
-      pl_clk0 => zynq_ultra_ps_e_0_pl_clk0,
+      pl_clk0 => zynq_ultra_ps_e_0_pl_clk1,
       pl_ps_irq0(1 downto 0) => xlconcat_0_dout(1 downto 0),
       pl_resetn0 => zynq_ultra_ps_e_0_pl_resetn0,
       saxigp2_araddr(48 downto 0) => axi_smc_M00_AXI_ARADDR(48 downto 0),

@@ -22,7 +22,7 @@
         "vlnv": "xilinx.com:interface:axis_rtl:1.0",
         "parameters": {
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
+            "value": "design_1_clk_wiz_0_0_clk_out1",
             "value_src": "default"
           },
           "FREQ_HZ": {
@@ -81,7 +81,7 @@
         "vlnv": "xilinx.com:interface:axis_rtl:1.0",
         "parameters": {
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
+            "value": "design_1_clk_wiz_0_0_clk_out1",
             "value_src": "default"
           },
           "FREQ_HZ": {
@@ -140,7 +140,7 @@
         "vlnv": "xilinx.com:interface:axis_rtl:1.0",
         "parameters": {
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
+            "value": "design_1_clk_wiz_0_0_clk_out1",
             "value_src": "default"
           },
           "FREQ_HZ": {
@@ -206,7 +206,7 @@
             "value": "resetn"
           },
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
+            "value": "design_1_clk_wiz_0_0_clk_out1",
             "value_src": "default_prop"
           },
           "FREQ_HZ": {
@@ -260,7 +260,7 @@
             "value": "FALSE"
           },
           "C_DATA_DEPTH": {
-            "value": "65536"
+            "value": "32768"
           },
           "C_EN_STRG_QUAL": {
             "value": "0"

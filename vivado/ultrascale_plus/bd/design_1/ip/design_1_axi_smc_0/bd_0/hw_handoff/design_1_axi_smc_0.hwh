@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Dec  6 11:02:17 2024" VIVADOVERSION="2023.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Dec  9 23:48:30 2024" VIVADOVERSION="2023.2">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="avnet.com:ultra96v2:part0:1.2" DEVICE="xczu3eg" NAME="bd_afc3" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
@@ -387,7 +387,7 @@
       <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
       <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
       <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-      <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+      <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
       <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
       <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
       <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -439,7 +439,7 @@
       <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
       <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
       <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-      <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+      <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
       <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
       <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
       <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -494,7 +494,7 @@
       <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
       <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
       <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-      <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+      <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
       <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
       <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
       <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -1353,7 +1353,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -1426,7 +1426,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -1911,7 +1911,7 @@
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="m00_nodes_m00_aw_node_M_AXIS_ARB" NAME="M_AXIS_ARB" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
@@ -2555,7 +2555,7 @@
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="m00_nodes_m00_aw_node_M_AXIS_ARB" NAME="S_AXIS_ARB" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
@@ -2993,7 +2993,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -3273,7 +3273,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -5615,7 +5615,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -5665,7 +5665,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -7257,7 +7257,7 @@
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BRIDGES" VALUE="M_AXI"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -7310,7 +7310,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -7602,7 +7602,7 @@
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BRIDGES" VALUE="M_AXI"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -7654,7 +7654,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
@@ -8374,7 +8374,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -10755,7 +10755,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -10808,7 +10808,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -12444,7 +12444,7 @@
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BRIDGES" VALUE="M_AXI"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -12501,7 +12501,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -12837,7 +12837,7 @@
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BRIDGES" VALUE="M_AXI"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -12893,7 +12893,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="1024"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="1024"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_zynq_ultra_ps_e_0_0_pl_clk0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_1_clk_wiz_0_0_clk_out1"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="128"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>

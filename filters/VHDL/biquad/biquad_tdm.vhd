@@ -19,7 +19,7 @@ use work.axi4_mm_filter_pkg.all;
 entity biquad_tdm is
   generic (
         g_coefficient_width : integer := 27;
-        g_chip_scope : string := "False"
+        g_chip_scope : string := "true"
     );
   port( 
     -- clocking
@@ -42,7 +42,7 @@ entity biquad_tdm is
 end biquad_tdm;
 
 
-architecture rtl of biquad_tdm is
+architecture RTL of biquad_tdm is
 
   -------------------------------------
   -- Memory init

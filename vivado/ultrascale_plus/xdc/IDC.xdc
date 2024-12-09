@@ -1,6 +1,4 @@
-#######################################################################################################################
-# RND IDC interconnect constraint file for AVNET Ultra96 V2
-# Eng: Robbe Decapmaker <debber@dcpm.be>
+####################################################################################################################### # RND IDC interconnect constraint file for AVNET Ultra96 V2 # Eng: Robbe Decapmaker <debber@dcpm.be>
 # Date: 24-10-2024
 #
 # This file describes the constraints needed to use the IDC pcb's properly on the Ultra96 V2 board.
@@ -10,7 +8,7 @@
 
 # ----------------------------------------------------------------------------
 # Low-speed expansion connector
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------
 # Bank 26
 set_property -dict { PACKAGE_PIN D7 IOSTANDARD LVCMOS18 SLEW SLOW DRIVE 4 }  [get_ports {HD_GPIO_0              }];  # "D7.HD_GPIO_0"
 set_property -dict { PACKAGE_PIN F8 IOSTANDARD LVCMOS18 SLEW SLOW DRIVE 4 }  [get_ports {da_mclk              }];  # "F8.HD_GPIO_1"

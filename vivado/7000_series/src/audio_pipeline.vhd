@@ -33,7 +33,7 @@ use work.axi4_mm_filter_pkg.all;
 
 entity audio_pipeline is
     generic (
-        g_chip_scope : string := "False"
+        g_chip_scope : string := "true"
     );
     Port (
         --clocking
@@ -76,7 +76,7 @@ entity audio_pipeline is
         dma_fwd: in t_axi4_audio_fwd;
         dma_bwd: out t_axi4_audio_bwd;
 
-        -- audio output
+        -- audio output (very nice)
         audio_out_fwd: out t_axi4_audio_fwd;
         audio_out_bwd: in t_axi4_audio_bwd
     );
@@ -103,6 +103,9 @@ architecture Behavioral of audio_pipeline is
     signal pre_merger_fwd : t_axi4_audio_fwd_bus(1 downto 0);
     signal pre_merger_bwd : t_axi4_audio_bwd_bus(1 downto 0);
 
+    signal ugh_merger_fwd : t_axi4_audio_fwd;
+    signal ugh_merger_bwd : t_axi4_audio_bwd;
+
     signal post_merger_fwd : t_axi4_audio_fwd;
     signal post_merger_bwd : t_axi4_audio_bwd;
 
@@ -126,8 +129,8 @@ architecture Behavioral of audio_pipeline is
     -------------------------------------
     attribute MARK_DEBUG : string;
 
-    -- attribute MARK_DEBUG of post_merger_fwd : signal is g_chip_scope;
-    -- attribute MARK_DEBUG of post_merger_bwd : signal is g_chip_scope;
+    attribute MARK_DEBUG of post_merger_fwd : signal is g_chip_scope;
+    attribute MARK_DEBUG of post_merger_bwd : signal is g_chip_scope;
 
 
 begin
@@ -187,19 +190,11 @@ begin
             axi_out_bwd => dma_buffered_bwd
         );
 
-        -- pre_ring_mod_fwd(0) <= anal_buffered_fwd;
-        -- pre_ring_mod_fwd(1) <= dma_buffered_fwd;
-        
-        -- anal_buffered_bwd <= pre_ring_mod_bwd(0);
-        -- dma_buffered_bwd <= pre_ring_mod_bwd(1);
-
         pre_merger_fwd(0) <= anal_buffered_fwd;
         pre_merger_fwd(1) <= dma_buffered_fwd;
         
         anal_buffered_bwd <= pre_merger_bwd(0);
         dma_buffered_bwd <= pre_merger_bwd(1);
-
-
     end block;
 
 
@@ -287,8 +282,22 @@ begin
         clk_axi_mm => clk_axi_mm,
         axi_in_fwd_bus => pre_merger_fwd,
         axi_in_bwd_bus => pre_merger_bwd,
-        axi_out_fwd => post_merger_fwd,
-        axi_out_bwd => post_merger_bwd 
+        axi_out_fwd => ugh_merger_fwd,
+        axi_out_bwd => ugh_merger_bwd 
+    );
+
+    startup_fixer_inst: entity work.startup_fixer
+     generic map(
+        g_startup_delay => 1001 
+    )
+     port map(
+        clk => clk_audio,
+        src_fwd => ugh_merger_fwd,
+        src_bwd => ugh_merger_bwd,
+        -- src_fwd => pre_merger_fwd(0),
+        -- src_bwd => pre_merger_bwd(0),
+        sink_fwd => post_merger_fwd,
+        sink_bwd => post_merger_bwd 
     );
 
     
@@ -394,7 +403,8 @@ begin
 
         i_band_low_1: entity work.biquad_tdm
         generic map(
-            g_chip_scope => g_chip_scope
+
+            g_chip_scope => "true"
         )
         port map(
             clk => clk_audio,

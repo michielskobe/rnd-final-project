@@ -79,8 +79,8 @@
             "value_src": "const_prop"
           },
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default_prop"
+            "value": "design_1_clk_wiz_0_0_clk_out1",
+            "value_src": "ip_prop"
           },
           "DATA_WIDTH": {
             "value": "128",
@@ -88,7 +88,7 @@
           },
           "FREQ_HZ": {
             "value": "100000000",
-            "value_src": "user_prop"
+            "value_src": "ip_prop"
           },
           "HAS_BRESP": {
             "value": "0",
@@ -154,7 +154,7 @@
           },
           "PHASE": {
             "value": "0.0",
-            "value_src": "default"
+            "value_src": "ip_prop"
           },
           "PROTOCOL": {
             "value": "AXI4",
@@ -214,8 +214,8 @@
             "value_src": "const_prop"
           },
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default_prop"
+            "value": "design_1_clk_wiz_0_0_clk_out1",
+            "value_src": "ip_prop"
           },
           "DATA_WIDTH": {
             "value": "128",
@@ -223,7 +223,7 @@
           },
           "FREQ_HZ": {
             "value": "100000000",
-            "value_src": "user_prop"
+            "value_src": "ip_prop"
           },
           "HAS_BRESP": {
             "value": "1",
@@ -289,7 +289,7 @@
           },
           "PHASE": {
             "value": "0.0",
-            "value_src": "default"
+            "value_src": "ip_prop"
           },
           "PROTOCOL": {
             "value": "AXI4",
@@ -349,8 +349,8 @@
             "value_src": "default"
           },
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default_prop"
+            "value": "design_1_clk_wiz_0_0_clk_out1",
+            "value_src": "ip_prop"
           },
           "DATA_WIDTH": {
             "value": "128",
@@ -358,7 +358,7 @@
           },
           "FREQ_HZ": {
             "value": "100000000",
-            "value_src": "user_prop"
+            "value_src": "ip_prop"
           },
           "HAS_BRESP": {
             "value": "1",
@@ -421,7 +421,7 @@
           },
           "PHASE": {
             "value": "0.0",
-            "value_src": "default"
+            "value_src": "ip_prop"
           },
           "PROTOCOL": {
             "value": "AXI4",
@@ -465,12 +465,12 @@
             "value_src": "constant"
           },
           "CLK_DOMAIN": {
-            "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-            "value_src": "default_prop"
+            "value": "design_1_clk_wiz_0_0_clk_out1",
+            "value_src": "ip_prop"
           },
           "FREQ_HZ": {
             "value": "100000000",
-            "value_src": "user_prop"
+            "value_src": "ip_prop"
           },
           "FREQ_TOLERANCE_HZ": {
             "value": "0",
@@ -482,7 +482,7 @@
           },
           "PHASE": {
             "value": "0.0",
-            "value_src": "default"
+            "value_src": "ip_prop"
           }
         }
       },

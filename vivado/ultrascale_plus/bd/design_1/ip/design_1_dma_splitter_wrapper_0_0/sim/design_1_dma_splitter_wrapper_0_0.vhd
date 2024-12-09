@@ -103,7 +103,7 @@ ARCHITECTURE design_1_dma_splitter_wrapper_0_0_arch OF design_1_dma_splitter_wra
 BEGIN
   U0 : dma_splitter_wrapper
     GENERIC MAP (
-      g_chip_scope => "true"
+      g_chip_scope => "False"
     )
     PORT MAP (
       clk => clk,

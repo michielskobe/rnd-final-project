@@ -95,7 +95,7 @@ ARCHITECTURE design_1_dma_splitter_wrapper_0_0_arch OF design_1_dma_splitter_wra
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF design_1_dma_splitter_wrapper_0_0_arch : ARCHITECTURE IS "design_1_dma_splitter_wrapper_0_0,dma_splitter_wrapper,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF design_1_dma_splitter_wrapper_0_0_arch: ARCHITECTURE IS "design_1_dma_splitter_wrapper_0_0,dma_splitter_wrapper,{x_ipProduct=Vivado 2023.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=dma_splitter_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,g_chip_scope=true}";
+  ATTRIBUTE CORE_GENERATION_INFO OF design_1_dma_splitter_wrapper_0_0_arch: ARCHITECTURE IS "design_1_dma_splitter_wrapper_0_0,dma_splitter_wrapper,{x_ipProduct=Vivado 2023.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=dma_splitter_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,g_chip_scope=False}";
   ATTRIBUTE IP_DEFINITION_SOURCE : STRING;
   ATTRIBUTE IP_DEFINITION_SOURCE OF design_1_dma_splitter_wrapper_0_0_arch: ARCHITECTURE IS "module_ref";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
@@ -111,7 +111,7 @@ ARCHITECTURE design_1_dma_splitter_wrapper_0_0_arch OF design_1_dma_splitter_wra
 BEGIN
   U0 : dma_splitter_wrapper
     GENERIC MAP (
-      g_chip_scope => "true"
+      g_chip_scope => "False"
     )
     PORT MAP (
       clk => clk,

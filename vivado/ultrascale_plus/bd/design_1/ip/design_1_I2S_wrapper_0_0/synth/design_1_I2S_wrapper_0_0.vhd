@@ -115,12 +115,12 @@ ARCHITECTURE design_1_I2S_wrapper_0_0_arch OF design_1_I2S_wrapper_0_0 IS
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF design_1_I2S_wrapper_0_0_arch : ARCHITECTURE IS "design_1_I2S_wrapper_0_0,I2S_wrapper,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF design_1_I2S_wrapper_0_0_arch: ARCHITECTURE IS "design_1_I2S_wrapper_0_0,I2S_wrapper,{x_ipProduct=Vivado 2023.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=I2S_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,g_clock_div_sclk=4,g_clock_div_lrclk=64,g_chip_scope=True}";
+  ATTRIBUTE CORE_GENERATION_INFO OF design_1_I2S_wrapper_0_0_arch: ARCHITECTURE IS "design_1_I2S_wrapper_0_0,I2S_wrapper,{x_ipProduct=Vivado 2023.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=I2S_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,g_clock_div_sclk=4,g_clock_div_lrclk=64,g_chip_scope=false}";
   ATTRIBUTE IP_DEFINITION_SOURCE : STRING;
   ATTRIBUTE IP_DEFINITION_SOURCE OF design_1_I2S_wrapper_0_0_arch: ARCHITECTURE IS "module_ref";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_clk: SIGNAL IS "XIL_INTERFACENAME m_clk, ASSOCIATED_RESET m_rst, FREQ_HZ 12287988, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_clk: SIGNAL IS "XIL_INTERFACENAME m_clk, ASSOCIATED_RESET m_rst, FREQ_HZ 12288786, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF m_clk: SIGNAL IS "xilinx.com:signal:clock:1.0 m_clk CLK";
   ATTRIBUTE X_INTERFACE_PARAMETER OF m_rst: SIGNAL IS "XIL_INTERFACENAME m_rst, POLARITY ACTIVE_LOW, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF m_rst: SIGNAL IS "xilinx.com:signal:reset:1.0 m_rst RST";
@@ -141,7 +141,7 @@ BEGIN
     GENERIC MAP (
       g_clock_div_sclk => 4,
       g_clock_div_lrclk => 64,
-      g_chip_scope => "True"
+      g_chip_scope => "false"
     )
     PORT MAP (
       m_clk => m_clk,

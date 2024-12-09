@@ -5,7 +5,7 @@
       "device": "xczu3eg-sbva484-1-i",
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
-      "synth_flow_mode": "None",
+      "synth_flow_mode": "Hierarchical",
       "tool_version": "2023.2",
       "validated": "true"
     },
@@ -3006,12 +3006,12 @@
           },
           "PSU__PROTECTION__FPD_SEGMENTS": {
             "value": [
-              "SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |",
-              " SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | ",
-              "SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | ",
-              "SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | ",
-              "SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure",
-              "Subsystem"
+              "SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU",
+              "Firmware   |    SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;",
+              "subsystemId:PMU Firmware   |    SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure;",
+              "WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD610000; SIZE:512; UNIT:KB;",
+              "RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |    SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |   SA:0xFD1A0000 ; SIZE:1280;",
+              "UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem"
             ]
           },
           "PSU__PROTECTION__LPD_SEGMENTS": {
@@ -4783,6 +4783,11 @@
         "xci_name": "design_1_I2S_wrapper_0_0",
         "xci_path": "ip/design_1_I2S_wrapper_0_0/design_1_I2S_wrapper_0_0.xci",
         "inst_hier_path": "I2S_wrapper_0",
+        "parameters": {
+          "g_chip_scope": {
+            "value": "false"
+          }
+        },
         "reference_info": {
           "ref_type": "hdl",
           "ref_name": "I2S_wrapper",
@@ -4969,7 +4974,7 @@
                 "value_src": "constant"
               },
               "FREQ_HZ": {
-                "value": "12287988",
+                "value": "12288786",
                 "value_src": "ip_prop"
               },
               "PHASE": {
@@ -5018,6 +5023,11 @@
         "xci_name": "design_1_dma_splitter_wrapper_0_0",
         "xci_path": "ip/design_1_dma_splitter_wrapper_0_0/design_1_dma_splitter_wrapper_0_0.xci",
         "inst_hier_path": "dma_splitter_wrapper_0",
+        "parameters": {
+          "g_chip_scope": {
+            "value": "False"
+          }
+        },
         "reference_info": {
           "ref_type": "hdl",
           "ref_name": "dma_splitter_wrapper",
@@ -5063,11 +5073,15 @@
               },
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -5110,11 +5124,15 @@
               },
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             },
             "port_maps": {
@@ -5156,11 +5174,15 @@
               },
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -5371,15 +5393,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -5388,15 +5410,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           }
@@ -5410,22 +5432,37 @@
         "inst_hier_path": "clk_wiz_0",
         "parameters": {
           "CLKOUT1_JITTER": {
-            "value": "401.141"
+            "value": "201.426"
           },
           "CLKOUT1_PHASE_ERROR": {
-            "value": "474.126"
+            "value": "98.575"
           },
           "CLKOUT1_REQUESTED_OUT_FREQ": {
             "value": "12.2880"
           },
+          "CLKOUT2_JITTER": {
+            "value": "130.958"
+          },
+          "CLKOUT2_PHASE_ERROR": {
+            "value": "98.575"
+          },
+          "CLKOUT2_USED": {
+            "value": "true"
+          },
           "MMCM_CLKFBOUT_MULT_F": {
-            "value": "88.750"
+            "value": "10.000"
           },
           "MMCM_CLKOUT0_DIVIDE_F": {
-            "value": "80.250"
+            "value": "81.375"
+          },
+          "MMCM_CLKOUT1_DIVIDE": {
+            "value": "10"
           },
           "MMCM_DIVCLK_DIVIDE": {
-            "value": "9"
+            "value": "1"
+          },
+          "NUM_OUT_CLKS": {
+            "value": "2"
           }
         }
       },
@@ -5435,6 +5472,11 @@
         "xci_name": "design_1_audio_pipeline_wrapp_0_0",
         "xci_path": "ip/design_1_audio_pipeline_wrapp_0_0/design_1_audio_pipeline_wrapp_0_0.xci",
         "inst_hier_path": "audio_pipeline_wrapp_0",
+        "parameters": {
+          "g_chip_scope": {
+            "value": "false"
+          }
+        },
         "reference_info": {
           "ref_type": "hdl",
           "ref_name": "audio_pipeline_wrapper",
@@ -5643,15 +5685,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -5660,15 +5702,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -5677,15 +5719,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -5694,15 +5736,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -5720,6 +5762,10 @@
             "direction": "I",
             "left": "17",
             "right": "0"
+          },
+          "rst": {
+            "type": "rst",
+            "direction": "I"
           },
           "dma_valid": {
             "direction": "I"
@@ -5913,7 +5959,7 @@
             "direction": "I",
             "parameters": {
               "FREQ_HZ": {
-                "value": "12287988",
+                "value": "12288786",
                 "value_src": "ip_prop"
               },
               "PHASE": {
@@ -5931,15 +5977,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           }
@@ -6133,15 +6179,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "100000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_zynq_ultra_ps_e_0_0_pl_clk0",
-                "value_src": "default_prop"
+                "value": "design_1_clk_wiz_0_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -6149,7 +6195,7 @@
             "direction": "I",
             "parameters": {
               "FREQ_HZ": {
-                "value": "12287988",
+                "value": "12288786",
                 "value_src": "ip_prop"
               },
               "PHASE": {
@@ -6172,7 +6218,7 @@
         "inst_hier_path": "system_ila_0",
         "parameters": {
           "C_DATA_DEPTH": {
-            "value": "65536"
+            "value": "32768"
           },
           "C_MON_TYPE": {
             "value": "INTERFACE"
@@ -6480,29 +6526,29 @@
       "audio_pipeline_wrapp_0_s_TData_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TData_out",
-          "system_ila_0/SLOT_1_AXIS_tdata",
-          "audio_fifo_wrapper_2/s_TData_in"
+          "audio_fifo_wrapper_2/s_TData_in",
+          "system_ila_0/SLOT_1_AXIS_tdata"
         ]
       },
       "audio_pipeline_wrapp_0_s_TID_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TID_out",
-          "system_ila_0/SLOT_1_AXIS_tid",
-          "audio_fifo_wrapper_2/s_TID_in"
+          "audio_fifo_wrapper_2/s_TID_in",
+          "system_ila_0/SLOT_1_AXIS_tid"
         ]
       },
       "audio_pipeline_wrapp_0_s_TLast_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TLast_out",
-          "system_ila_0/SLOT_1_AXIS_tlast",
-          "audio_fifo_wrapper_2/s_TLast_in"
+          "audio_fifo_wrapper_2/s_TLast_in",
+          "system_ila_0/SLOT_1_AXIS_tlast"
         ]
       },
       "audio_pipeline_wrapp_0_s_TReady_dma": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TReady_dma",
-          "system_ila_0/SLOT_2_AXIS_tready",
-          "audio_fifo_wrapper_0/s_TReady_out"
+          "audio_fifo_wrapper_0/s_TReady_out",
+          "system_ila_0/SLOT_2_AXIS_tready"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -6516,8 +6562,8 @@
       "audio_pipeline_wrapp_0_s_TValid_out": {
         "ports": [
           "audio_pipeline_wrapp_0/s_TValid_out",
-          "system_ila_0/SLOT_1_AXIS_tvalid",
-          "audio_fifo_wrapper_2/s_TValid_in"
+          "audio_fifo_wrapper_2/s_TValid_in",
+          "system_ila_0/SLOT_1_AXIS_tvalid"
         ]
       },
       "axi_dma_0_mm2s_introut": {
@@ -6560,8 +6606,8 @@
         "ports": [
           "clk_wiz_0/clk_out1",
           "audio_fifo_wrapper_1/clk_in",
-          "I2S_wrapper_0/m_clk",
-          "audio_fifo_wrapper_2/clk_out"
+          "audio_fifo_wrapper_2/clk_out",
+          "I2S_wrapper_0/m_clk"
         ]
       },
       "data_in_0_1": {
@@ -6612,9 +6658,9 @@
           "axis_data_fifo_0/s_axis_aresetn",
           "ps8_0_axi_periph/ARESETN",
           "ps8_0_axi_periph/S00_ARESETN",
+          "ps8_0_axi_periph/S01_ARESETN",
           "ps8_0_axi_periph/M00_ARESETN",
           "ps8_0_axi_periph/M01_ARESETN",
-          "ps8_0_axi_periph/S01_ARESETN",
           "ps8_0_axi_periph/M02_ARESETN",
           "ps8_0_axi_periph/M03_ARESETN",
           "ps8_0_axi_periph/M04_ARESETN"
@@ -6634,8 +6680,11 @@
       },
       "zynq_ultra_ps_e_0_pl_clk0": {
         "ports": [
-          "zynq_ultra_ps_e_0/pl_clk0",
+          "clk_wiz_0/clk_out2",
           "axi_lite_0/s00_axi_aclk",
+          "audio_fifo_wrapper_0/clk_in",
+          "audio_fifo_wrapper_2/clk_in",
+          "dma_splitter_wrapper_0/clk",
           "axi_dma_0/s_axi_lite_aclk",
           "axi_dma_0/m_axi_mm2s_aclk",
           "axi_dma_0/m_axi_s2mm_aclk",
@@ -6647,26 +6696,28 @@
           "proc_sys_reset_0/slowest_sync_clk",
           "ps8_0_axi_periph/ACLK",
           "ps8_0_axi_periph/S00_ACLK",
+          "ps8_0_axi_periph/S01_ACLK",
           "ps8_0_axi_periph/M00_ACLK",
           "ps8_0_axi_periph/M01_ACLK",
-          "ps8_0_axi_periph/S01_ACLK",
           "ps8_0_axi_periph/M02_ACLK",
           "ps8_0_axi_periph/M03_ACLK",
           "ps8_0_axi_periph/M04_ACLK",
+          "system_ila_0/clk",
           "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
           "zynq_ultra_ps_e_0/maxihpm1_fpd_aclk",
           "zynq_ultra_ps_e_0/saxihp0_fpd_aclk",
-          "clk_wiz_0/clk_in1",
-          "system_ila_0/clk",
-          "audio_fifo_wrapper_0/clk_in",
+          "audio_fifo_wrapper_1/clk_out",
           "audio_fifo_wrapper_0/clk_out",
           "audio_pipeline_wrapp_0/clk_in",
           "audio_pipeline_wrapp_0/clk_audio",
           "audio_pipeline_wrapp_0/clk_out",
-          "audio_pipeline_wrapp_0/clk_axi_mm",
-          "audio_fifo_wrapper_1/clk_out",
-          "audio_fifo_wrapper_2/clk_in",
-          "dma_splitter_wrapper_0/clk"
+          "audio_pipeline_wrapp_0/clk_axi_mm"
+        ]
+      },
+      "zynq_ultra_ps_e_0_pl_clk1": {
+        "ports": [
+          "zynq_ultra_ps_e_0/pl_clk0",
+          "clk_wiz_0/clk_in1"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {

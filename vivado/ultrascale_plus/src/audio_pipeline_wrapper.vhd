@@ -32,6 +32,7 @@ use work.axi4_audio_pkg.all;
 use work.mixer_settings_pkg.all;
 use work.generic_fifo;
 use ieee.fixed_pkg.all;
+use work.axi4_mm_filter_pkg.all;
 
 entity audio_pipeline_wrapper is
     generic (
@@ -49,6 +50,7 @@ entity audio_pipeline_wrapper is
         channel_volume_select: in STD_LOGIC_VECTOR (c_ID_width - 1 downto 0);
         channel_volume_value: in STD_LOGIC_VECTOR(18 - 1 downto 0);
 
+        rst : in std_logic;
         -- monitoring of DMA engine
         dma_valid   : in STD_LOGIC;
 
@@ -116,7 +118,7 @@ begin
         end if;
     end process;
 
-    audio_pipeline_no_effect_inst: entity work.audio_pipeline_no_effect
+    audio_pipeline_inst: entity work.audio_pipeline
      generic map(
         g_chip_scope => g_chip_scope
     )
@@ -124,10 +126,28 @@ begin
         clk_in => clk_in,
         clk_audio => clk_audio,
         clk_out => clk_out,
+        rst => rst,
         clk_axi_mm => clk_axi_mm,
         master_volume => STD_LOGIC_VECTOR(to_unsigned(1, 18)),
         channel_volume_select => FIXME,
         channel_volume_value => STD_LOGIC_VECTOR(to_unsigned(1, 18)),
+        axi_in_mm_band_low_1 => axi4_mm_filter_inactive,
+        axi_in_mm_band_low_2=> axi4_mm_filter_inactive,
+        axi_in_mm_band_high_1=> axi4_mm_filter_inactive,
+        axi_in_mm_band_high_2=> axi4_mm_filter_inactive,
+        axi_in_mm_low_1=> axi4_mm_filter_inactive,
+        axi_in_mm_low_2=> axi4_mm_filter_inactive,
+        axi_in_mm_high_1=> axi4_mm_filter_inactive,
+        axi_in_mm_high_2=> axi4_mm_filter_inactive,
+        axi_in_mm_low_pass=> axi4_mm_filter_inactive,
+        axi_in_mm_high_pass_1=> axi4_mm_filter_inactive,
+        axi_in_mm_high_pass_2=> axi4_mm_filter_inactive,
+        axi_in_mm_echo => axi4_mm_echo_inactive,
+        axi_in_mm_ring_mod_anal => axi4_mm_ring_mod_inactive,
+        axi_in_mm_ring_mod_dma => axi4_mm_ring_mod_inactive,
+        axi_in_mm_saturation => axi4_mm_saturation_inactive,
+        axi_in_mm_volume_reduction => axi4_mm_volume_inactive,
+        axi_in_mm_band_volume => axi4_mm_band_volume_inactive,
         dma_valid => dma_valid,
         anal_fwd => anal_fwd,
         anal_bwd => anal_bwd,
