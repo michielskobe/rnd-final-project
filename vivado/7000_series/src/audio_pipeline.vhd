@@ -40,6 +40,7 @@ entity audio_pipeline is
         clk_in      : in STD_LOGIC;
         clk_audio   : in STD_LOGIC;
         clk_out     : in STD_LOGIC;
+        rst         : in STD_LOGIC;
 
         -- axi mm settings
         clk_axi_mm  : in STD_LOGIC;
@@ -398,6 +399,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_band_low_1,
             axi_in_fwd => band_volume_fwd,
             axi_in_bwd => band_volume_bwd,
@@ -412,6 +414,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_band_low_2,
             axi_in_fwd => band_low_1_fwd,
             axi_in_bwd => band_low_1_bwd,
@@ -426,6 +429,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_band_high_1,
             axi_in_fwd => band_low_2_fwd,
             axi_in_bwd => band_low_2_bwd,
@@ -440,6 +444,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_band_high_2,
             axi_in_fwd => band_high_1_fwd,
             axi_in_bwd => band_high_1_bwd,
@@ -458,6 +463,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_low_1,
             axi_in_fwd => band_high_2_fwd,
             axi_in_bwd => band_high_2_bwd,
@@ -472,6 +478,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_low_2,
             axi_in_fwd => low_1_fwd,
             axi_in_bwd => low_1_bwd,
@@ -490,6 +497,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_high_1,
             axi_in_fwd => low_2_fwd,
             axi_in_bwd => low_2_bwd,
@@ -504,6 +512,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_high_2,
             axi_in_fwd => high_1_fwd,
             axi_in_bwd => high_1_bwd,
@@ -522,6 +531,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_low_pass,
             axi_in_fwd => high_2_fwd,
             axi_in_bwd => high_2_bwd,
@@ -540,6 +550,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_high_pass_1,
             axi_in_fwd => low_pass_fwd,
             axi_in_bwd => low_pass_bwd,
@@ -554,6 +565,7 @@ begin
         port map(
             clk => clk_audio,
             axi_clk => clk_axi_mm,
+            rst => rst,
             axi_in_mm => axi_in_mm_high_pass_2,
             axi_in_fwd => high_pass_1_fwd,
             axi_in_bwd => high_pass_1_bwd,

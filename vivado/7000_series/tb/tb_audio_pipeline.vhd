@@ -40,7 +40,7 @@ use work.channel_mapper;
 use work.channel_merger;
 use work.mixer_wrapper;
 use work.audio_pipeline;
-use work.audio_pipeline_no_effect;
+--use work.audio_pipeline_no_effect;
 use work.axi4_mm_filter_pkg.all;
 
 entity tb_audio_pipeline is
@@ -77,6 +77,8 @@ architecture Behavioral of tb_audio_pipeline is
 
     signal channel_volume_select : STD_LOGIC_VECTOR(c_ID_width -1 downto 0) := (others => '0');
     signal dma_valid : std_logic := '0';
+
+    signal rst : STD_LOGIC := '0';
 begin
 
     ------------------------------------
@@ -132,11 +134,21 @@ begin
     begin
         wait until rising_edge(clk);
         -- dma_bwd <= dma_bwd_test;
+
+        for i in 0 to 50000 loop
+            wait until rising_edge(clk);
+        end loop;
+        rst <= '1';
+
         wait until rising_edge(dma_fwd.TValid);
         dma_valid <= '1';
         wait until rising_edge(clk);
 
-        for i in 0 to 500000 loop
+        for i in 0 to 50000 loop
+            wait until rising_edge(clk);
+        end loop;
+        rst <= '0';
+        for i in 0 to 450000 loop
             wait until rising_edge(clk);
         end loop;
         dma_valid <= '0';
@@ -172,6 +184,7 @@ begin
         clk_audio => clk,
         clk_out => clk,
         clk_axi_mm => axi_clk,
+        rst => rst,
         master_volume => STD_LOGIC_VECTOR(to_unsigned(1, 18)),
         channel_volume_select => channel_volume_select,
         channel_volume_value => STD_LOGIC_VECTOR(to_unsigned(1, 18)),

@@ -30,6 +30,7 @@ entity biquad_tdm is
     -- clocking
     clk : in std_logic;
     axi_clk : in std_logic;
+    rst : in std_logic;
 
     -- axi mm
     axi_in_mm : in t_axi4_mm_filter;
@@ -191,6 +192,7 @@ architecture rtl of biquad_tdm is
   -- Control flow
   -------------------------------------
   signal pipe_startup : integer range 0 to 4 := 4;
+  signal rst_internal: integer range 0 to 4 := 4;
 
   -------------------------------------
   -- Chip Scope
@@ -240,10 +242,13 @@ BEGIN
   -------------------------------------
   -- Data Input
   -------------------------------------
-  data_input_process : process (clk)
+  data_input_process : process (clk, rst_internal)
   begin
     if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+      if rst_internal > 0 then
+        TData_stage_1 <= (others => '0');
+        TID_stage_1 <= (others => '0');
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
         TData_stage_1 <= signed(axi_in_fwd.TData);
         TID_stage_1 <= axi_in_fwd.TID;
       end if;
@@ -254,10 +259,19 @@ BEGIN
   -------------------------------------
   -- Fetch Coefficients & Previous Data
   -------------------------------------
-  fetch_process : process (clk)
+  fetch_process : process (clk, rst_internal)
   begin
     if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+      if rst_internal > 0 then
+        TData_stage_2 <= (others => '0');
+        TID_stage_2 <= (others => '0');
+
+        Prev_Delay_X_1 <= (others => '0');
+        Prev_Delay_X_2 <= (others => '0');
+        Prev_Delay_Y_1 <= (others => '0');
+        Prev_Delay_Y_2 <= (others => '0');
+
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         TData_stage_2 <= TData_stage_1;
         TID_stage_2 <= TID_stage_1;
@@ -287,10 +301,25 @@ BEGIN
   -------------------------------------
   -- Filter
   -------------------------------------
-  filter_process : process (clk)
+  filter_process : process (clk, rst_internal)
   begin
-    if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+    if rising_edge(clk) then 
+      if rst_internal > 0 then
+        TData_stage_3 <= (others => '0');
+        TID_stage_3 <= (others => '0');
+        TID_stage_3_prev <= (others => '0');
+
+        Prev_Delay_X_1_2 <= (others => '0');
+        Prev_Delay_X_2_2 <= (others => '0');
+        Prev_Delay_Y_1_2 <= (others => '0');
+        Prev_Delay_Y_2_2 <= (others => '0');
+
+        Delay_X_1 <= (others => '0');
+        Delay_X_2 <= (others => '0');
+        Delay_Y_1 <= (others => '0');
+        Delay_Y_2 <= (others => '0');
+
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         -- Input Data
         TData_stage_3 <= TData_stage_2;
@@ -383,10 +412,19 @@ BEGIN
   -------------------------------------
   -- Output Data
   -------------------------------------
-  data_output_process : process (clk)
+  data_output_process : process (clk, rst_internal)
   begin
     if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+      if rst_internal > 0 then
+        data_array(rst_internal-1) <= (others => '0'); 
+        data_array2(rst_internal-1) <= (others => '0'); 
+        data_array3(rst_internal-1) <= (others => '0'); 
+        data_array4(rst_internal-1) <= (others => '0'); 
+
+        axi_out_fwd.TData <= (others => '0'); 
+        axi_out_fwd.TID   <= (others => '0'); 
+
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         axi_out_fwd.TData <= std_logic_vector(TData_stage_4);
         axi_out_fwd.TID   <= TID_stage_3;
@@ -408,19 +446,22 @@ BEGIN
   -- we are ready if the module behind us is ready
   axi_in_bwd.TReady <= axi_out_bwd.TReady;
 
-  p_ctrl_flow : process (clk)
+  p_ctrl_flow : process (clk, rst_internal)
   begin
-      if rising_edge(clk) then
-          if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+    if rising_edge(clk) then
+      if rst_internal > 0 then
+        pipe_startup <= 4;
 
-              if pipe_startup = 0 then
-                pipe_startup <= pipe_startup;
-              else
-                pipe_startup <= pipe_startup - 1;
-              end if;
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
-          end if;
+        if pipe_startup = 0 then
+          pipe_startup <= pipe_startup;
+        else
+          pipe_startup <= pipe_startup - 1;
+        end if;
+
       end if;
+    end if;
   end process;
 
 
@@ -435,5 +476,15 @@ BEGIN
 
   end process;
 
+  p_rst : process (clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        rst_internal <= 4;
+      elsif rst_internal > 0 then
+        rst_internal <= rst_internal - 1;
+      end if;
+    end if;
+  end process;
 
 END rtl;
