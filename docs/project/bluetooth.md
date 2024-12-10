@@ -67,9 +67,88 @@ hci0:	Type: Primary  Bus: USB
 
 The advantage of this dongle is that the firmware only needed to be downloaded and installed once. Once the files are installed, the device will automatically be initialized on startup.
 
-### The bluetooth console
+### Notes about the TP-Link UB500
 
-Now that the firmware is installed, we can open a bluetooth console to interact with the TP-Link UB500 Bluetooth dongle. Before opening the console, we will do a quick check with Bluez-alsa to check which A2DP profiles, also known as Bluetooth codecs, are supported. Each profile will be registered with the bluetooth agent as *MediaEndpoint*. To check which profiles are currently supported, we run the `bluealsa-cli status` command:
+When we reverted the PetaLinux project to version 2023.2, the Linux kernel version also downgraded to version 6.1 instead of version 6.6. It came to our attention that loading the firmware at boot for the TP-Link UB500 will always fail with `error code -2 (file not found)` for now. A temporary workaround is just plugging the USB dongle in when the system is fully started.
+
+## The Bluetooth console
+
+Now that the firmware is installed, we can open a Bluetooth console to interact with the TP-Link UB500 Bluetooth dongle.
+
+*To be continued...*
+
+## Bluetooth Audio Interfaces
+
+### PipeWire and Wireplumber as Bluetooth Audio Sink
+
+By default, the embedded system created with PetaLinux will use PulseAudio as its audio server. To provide better Bluetooth Audio stability and performance, we tried to use the newer PipeWire and Wireplumber packages. We executed the following steps:
+
+- First, we needed to disable some modules in the config files of pipewire and wireplumber. When changes are made to the default configuration of PipeWire, it is required to copy the configuration files from `/usr/share/pipewire/` to `/etc/pipewire/`:
+
+```console
+blendinator:~$ cd /etc
+blendinator:/etc$ sudo mkdir pipewire
+blendinator:/etc$ sudo cp /usr/share/pipewire/pipewire.conf /etc/pipewire/
+blendinator:/etc$ sudo cp /usr/share/pipewire/pipewire-pulse.conf /etc/pipewire/
+```
+
+- After this, we needed to disable the modules `libpipewire-module-portal`, `libpipewire-module-jackdbus-detect` and `libpipewire-module-rt` since they are required for the PipeWire GUI portal and will prevent PipeWire from starting up since there is no GUI at this moment. The modules can be disabled by commenting out the lines of each module in `/etc/pipewire/pipewire.conf`:
+
+- Lastly, we need to enable and start the PipeWire and Wireplumber processes:
+
+```console
+blendinator:~$ systemctl --user enable pipewire
+blendinator:~$ systemctl --user enable pipewire-pulse
+blendinator:~$ systemctl --user enable wireplumber
+blendinator:~$ systemctl --user start pipewire
+blendinator:~$ systemctl --user start pipewire-pulse
+blendinator:~$ systemctl --user start wireplumber
+```
+
+From now on, the PipeWire and Wireplumber processes are started automatically each time the system boots. We can see the current audio server configuration of the system and verify that PipeWire is working with the `pactl info` command:
+
+```console
+blendinator:~$ pactl info
+Server String: /run/user/1000/pulse/native
+Library Protocol Version: 35
+Server Protocol Version: 35
+Is Local: yes
+Client Index: 54
+Tile Size: 65472
+User Name: petalinux
+Host Name: u96v2-sbc-base-2023-2
+Server Name: PulseAudio (on PipeWire 1.2.6)
+Server Version: 15.0.0
+Default Sample Specification: float32le 2ch 48000Hz
+Default Channel Map: front-left,front-right
+Default Sink: alsa_output.platform-fd4a0000.display_zynqmp-dp-snd-card.stereo-fallback
+Default Source: alsa_output.platform-fd4a0000.display_zynqmp-dp-snd-card.stereo-fallback.monitor
+Cookie: f432:aa01
+```
+
+This shows that the current audio server on the system is managed by PipeWire. However, when installing PipeWire and Wireplumber within PetaLinux, it is configured to be executed systemwide. This means that the processes need to run as root instead of one of the system users, so that wireplumber will start up the profile *main-systemwide*. This enables PipeWire and Wireplumber to keep running, even when no user is logged in, which is of great importance in our system.
+
+### Notes about PipeWire and Wireplumber
+
+It is important to note that PipeWire and Wireplumber are audio servers. This means that they manage all audiostreams on the system, including the one from Bluetooth. Initially, we chose for PipeWire and Wireplumber to enable support for Bluetooth Audio on the system because Wireplumber already contains the neccessary A2DP decoder libraries and features to support Bluetooth Audio.
+
+However, when using PipeWire as audio server, we noticed that the DBus communication between PipeWire/Wireplumber and Bluez couldn't take place. We saw the following messages with `journalctl -xe`: 
+
+```console
+wireplumber[773]: wp-internal-comp-loader: Loading profile 'main-systemwide'
+wireplumber[773]: listen(): Address already in use
+wireplumber[773]: RegisterProfile() failed: org.bluez.Error.NotPermitted
+```
+
+This was problematic since Wireplumber couldn't inform bluez about its audio source or sink support so whenever a device is connected over Bluetooth, media streaming would be blocked. After a long search, the issue seem to be with the package `ofono` which is enabled and running by default on the system. Ofono seems to interfere with some features of Wireplumber so that it couldn't register any A2DP profile with Bluez. 
+
+Even though we could disable ofono and try Wireplumber again, we decided to continue the project with another package that acts as middleware between an audio application and a Bluetooth device. PipeWire and Wireplumber are audio servers that have a vast amount of features which are not needed for the project and increase the load on the system. It turns out that bluez-alsa is a better fit for our project and will enable us to have even more control over the Bluetooth Audio interface we're going to implement.
+
+### BlueZ-ALSA as Bluetooth Audio Sink
+
+BlueZ-ALSA (also known as BlueALSA) is a rebirth of the direct integration of BlueZ and ALSA, which has been removed since bluez5 in favor of 3rd party applications like PipeWire. BlueALSA provides very detailed documentation, from the build of the application to the configuration of the A2DP profiles. The documentation can be found in the [GitHub repository](https://github.com/arkq/bluez-alsa/wiki).
+
+First, we will do a quick check with BlueALSA to check which A2DP profiles, also known as Bluetooth codecs, are supported. Each profile/codec will be registered with the Bluetooth agent as a *MediaEndpoint*. To check which profiles are currently supported, we run the `bluealsa-cli status` command:
 
 *To be continued*
 
