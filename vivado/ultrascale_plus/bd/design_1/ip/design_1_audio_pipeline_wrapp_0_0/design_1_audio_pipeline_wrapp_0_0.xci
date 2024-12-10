@@ -49,6 +49,7 @@
         "channel_volume_select": [ { "direction": "in", "size_left": "1", "size_right": "0" } ],
         "channel_volume_value": [ { "direction": "in", "size_left": "17", "size_right": "0" } ],
         "rst": [ { "direction": "in" } ],
+        "vivado_is_zo_tof": [ { "direction": "in" } ],
         "dma_valid": [ { "direction": "in" } ],
         "s_TValid_anal": [ { "direction": "in" } ],
         "s_TLast_anal": [ { "direction": "in", "driver_value": "0" } ],

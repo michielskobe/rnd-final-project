@@ -63,6 +63,7 @@ ENTITY design_1_audio_pipeline_wrapp_0_0 IS
     channel_volume_select : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     channel_volume_value : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
     rst : IN STD_LOGIC;
+    vivado_is_zo_tof : IN STD_LOGIC;
     dma_valid : IN STD_LOGIC;
     s_TValid_anal : IN STD_LOGIC;
     s_TLast_anal : IN STD_LOGIC;
@@ -98,6 +99,7 @@ ARCHITECTURE design_1_audio_pipeline_wrapp_0_0_arch OF design_1_audio_pipeline_w
       channel_volume_select : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       channel_volume_value : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
       rst : IN STD_LOGIC;
+      vivado_is_zo_tof : IN STD_LOGIC;
       dma_valid : IN STD_LOGIC;
       s_TValid_anal : IN STD_LOGIC;
       s_TLast_anal : IN STD_LOGIC;
@@ -160,6 +162,7 @@ BEGIN
       channel_volume_select => channel_volume_select,
       channel_volume_value => channel_volume_value,
       rst => rst,
+      vivado_is_zo_tof => vivado_is_zo_tof,
       dma_valid => dma_valid,
       s_TValid_anal => s_TValid_anal,
       s_TLast_anal => s_TLast_anal,

@@ -30,6 +30,7 @@ use work.mixer_settings_pkg.all;
 use work.generic_fifo;
 use ieee.fixed_pkg.all;
 use work.axi4_mm_filter_pkg.all;
+use work.volume;
 
 entity audio_pipeline is
     generic (
@@ -190,70 +191,70 @@ begin
             axi_out_bwd => dma_buffered_bwd
         );
 
-        pre_merger_fwd(0) <= anal_buffered_fwd;
-        pre_merger_fwd(1) <= dma_buffered_fwd;
+        pre_ring_mod_fwd(0) <= anal_buffered_fwd;
+        pre_ring_mod_fwd(1) <= dma_buffered_fwd;
         
-        anal_buffered_bwd <= pre_merger_bwd(0);
-        dma_buffered_bwd <= pre_merger_bwd(1);
+        anal_buffered_bwd <= pre_ring_mod_bwd(0);
+        dma_buffered_bwd <= pre_ring_mod_bwd(1);
     end block;
 
 
-    -- ------------------------------------
-    -- -- Ring Modulators
-    -- ------------------------------------
-    -- b_ring_modulators : block 
-    --     signal ring_mod_anal_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
-    --     signal ring_mod_anal_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
-    --     signal ring_mod_dma_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
-    --     signal ring_mod_dma_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+    ------------------------------------
+    -- Ring Modulators
+    ------------------------------------
+    b_ring_modulators : block 
+        signal ring_mod_anal_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal ring_mod_anal_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
+        signal ring_mod_dma_fwd : t_axi4_audio_fwd := audio_fwd_inactive;
+        signal ring_mod_dma_bwd : t_axi4_audio_bwd := audio_bwd_inactive;
 
-    --     -------------------------------------
-    --     -- Chip Scope
-    --     -------------------------------------
-    --     attribute MARK_DEBUG : string;
+        -------------------------------------
+        -- Chip Scope
+        -------------------------------------
+        attribute MARK_DEBUG : string;
 
-    --     attribute MARK_DEBUG of ring_mod_anal_fwd : signal is g_chip_scope;
-    --     attribute MARK_DEBUG of ring_mod_anal_bwd : signal is g_chip_scope;
-    --     attribute MARK_DEBUG of ring_mod_dma_fwd : signal is g_chip_scope;
-    --     attribute MARK_DEBUG of ring_mod_dma_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of ring_mod_anal_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of ring_mod_anal_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of ring_mod_dma_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of ring_mod_dma_bwd : signal is g_chip_scope;
 
-    -- begin
+    begin
 
-    --     i_ring_mod_anal: entity work.ring_modulator
-    --     generic map(
-    --         g_TID_count => 2,
-    --         g_chip_scope => g_chip_scope
-    --     )
-    --     port map(
-    --         clk => clk_audio,
-    --         axi_in_mm => axi_in_mm_ring_mod_anal,
-    --         axi_in_fwd => pre_ring_mod_fwd(0),
-    --         axi_in_bwd => pre_ring_mod_bwd(0),
-    --         axi_out_fwd => ring_mod_anal_fwd,
-    --         axi_out_bwd => ring_mod_anal_bwd
-    --     );
+        i_ring_mod_anal: entity work.ring_modulator
+        generic map(
+            g_TID_count => 2,
+            g_chip_scope => g_chip_scope
+        )
+        port map(
+            clk => clk_audio,
+            axi_in_mm => axi_in_mm_ring_mod_anal,
+            axi_in_fwd => pre_ring_mod_fwd(0),
+            axi_in_bwd => pre_ring_mod_bwd(0),
+            axi_out_fwd => ring_mod_anal_fwd,
+            axi_out_bwd => ring_mod_anal_bwd
+        );
 
-    --     i_ring_mod_dma: entity work.ring_modulator
-    --     generic map(
-    --         g_TID_count => 2,
-    --         g_chip_scope => g_chip_scope
-    --     )
-    --     port map(
-    --         clk => clk_audio,
-    --         axi_in_mm => axi_in_mm_ring_mod_dma,
-    --         axi_in_fwd => pre_ring_mod_fwd(1),
-    --         axi_in_bwd => pre_ring_mod_bwd(1),
-    --         axi_out_fwd => ring_mod_dma_fwd,
-    --         axi_out_bwd => ring_mod_dma_bwd
-    --     );
+        i_ring_mod_dma: entity work.ring_modulator
+        generic map(
+            g_TID_count => 2,
+            g_chip_scope => g_chip_scope
+        )
+        port map(
+            clk => clk_audio,
+            axi_in_mm => axi_in_mm_ring_mod_dma,
+            axi_in_fwd => pre_ring_mod_fwd(1),
+            axi_in_bwd => pre_ring_mod_bwd(1),
+            axi_out_fwd => ring_mod_dma_fwd,
+            axi_out_bwd => ring_mod_dma_bwd
+        );
 
-    --     pre_merger_fwd(0) <= ring_mod_anal_fwd;
-    --     pre_merger_fwd(1) <= ring_mod_dma_fwd;
+        pre_merger_fwd(0) <= ring_mod_anal_fwd;
+        pre_merger_fwd(1) <= ring_mod_dma_fwd;
         
-    --     ring_mod_anal_bwd <= pre_merger_bwd(0);
-    --     ring_mod_dma_bwd <= pre_merger_bwd(1);
+        ring_mod_anal_bwd <= pre_merger_bwd(0);
+        ring_mod_dma_bwd <= pre_merger_bwd(1);
 
-    -- end block;
+    end block;
 
     -------------------------------------
     -- Merging of anal and dma streams
@@ -363,29 +364,29 @@ begin
         -- attribute MARK_DEBUG of saturation_bwd : signal is g_chip_scope;
     begin
 
-        band_volume_fwd <= post_merger_fwd;
-        post_merger_bwd <= band_volume_bwd;
 
         ------------------------------------
         -- Volume
         ------------------------------------
 
-        -- i_volume_reduction: entity work.volume
-        -- generic map(
-        --     g_chip_scope => g_chip_scope
-        -- )
-        -- port map(
-        --     clk => clk_audio,
-        --     axi_in_mm => axi_in_mm_volume_reduction,
-        --     axi_in_fwd => post_merger_fwd,
-        --     axi_in_bwd => post_merger_bwd,
-        --     axi_out_fwd => volume_fwd,
-        --     axi_out_bwd => volume_bwd
-        -- );
+        i_volume_reduction: entity work.volume
+        generic map(
+            g_chip_scope => g_chip_scope
+        )
+        port map(
+            clk => clk_audio,
+            axi_in_mm => axi_in_mm_volume_reduction,
+            axi_in_fwd => post_merger_fwd,
+            axi_in_bwd => post_merger_bwd,
+            axi_out_fwd => volume_fwd,
+            axi_out_bwd => volume_bwd
+        );
 
-        -- ------------------------------------
-        -- -- Band Shelf
-        -- ------------------------------------
+        band_volume_fwd <= volume_fwd;
+        volume_bwd <= band_volume_bwd;
+        ------------------------------------
+        -- Band Shelf
+        ------------------------------------
 
         -- i_band_volume: entity work.band_volume
         -- generic map(
@@ -601,6 +602,8 @@ begin
         --     axi_out_fwd => echo_fwd,
         --     axi_out_bwd => echo_bwd
         -- );
+        -- echo_fwd <= high_pass_2_fwd;
+        -- high_pass_2_bwd <= echo_bwd;
 
         -- ------------------------------------
         -- -- Saturation

@@ -51,6 +51,8 @@ entity audio_pipeline_wrapper is
         channel_volume_value: in STD_LOGIC_VECTOR(18 - 1 downto 0);
 
         rst : in std_logic;
+
+        vivado_is_zo_tof : in std_logic;
         -- monitoring of DMA engine
         dma_valid   : in STD_LOGIC;
 

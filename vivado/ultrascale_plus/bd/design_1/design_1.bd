@@ -5767,6 +5767,9 @@
             "type": "rst",
             "direction": "I"
           },
+          "vivado_is_zo_tof": {
+            "direction": "I"
+          },
           "dma_valid": {
             "direction": "I"
           }
