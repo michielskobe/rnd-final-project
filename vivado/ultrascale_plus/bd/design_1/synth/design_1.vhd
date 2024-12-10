@@ -2,7 +2,7 @@
 --Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
---Date        : Tue Dec 10 09:06:57 2024
+--Date        : Tue Dec 10 17:18:16 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -3180,7 +3180,7 @@ architecture STRUCTURE of design_1 is
     channel_volume_select : in STD_LOGIC_VECTOR ( 1 downto 0 );
     channel_volume_value : in STD_LOGIC_VECTOR ( 17 downto 0 );
     rst : in STD_LOGIC;
-    vivado_is_zo_tof : in STD_LOGIC;
+    vivado_is_zo_tof_ugh : in STD_LOGIC;
     dma_valid : in STD_LOGIC;
     s_TValid_anal : in STD_LOGIC;
     s_TLast_anal : in STD_LOGIC;
@@ -3692,7 +3692,7 @@ audio_pipeline_wrapp_0: component design_1_audio_pipeline_wrapp_0_0
       s_TValid_anal => audio_fifo_wrapper_1_s_out_TVALID,
       s_TValid_dma => audio_fifo_wrapper_0_s_TValid_out,
       s_TValid_out => audio_pipeline_wrapp_0_s_TValid_out,
-      vivado_is_zo_tof => '0'
+      vivado_is_zo_tof_ugh => '0'
     );
 axi_dma_0: component design_1_axi_dma_0_0
      port map (

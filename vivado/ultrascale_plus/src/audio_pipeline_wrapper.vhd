@@ -52,7 +52,7 @@ entity audio_pipeline_wrapper is
 
         rst : in std_logic;
 
-        vivado_is_zo_tof : in std_logic;
+        vivado_is_zo_tof_ugh : in std_logic;
         -- monitoring of DMA engine
         dma_valid   : in STD_LOGIC;
 

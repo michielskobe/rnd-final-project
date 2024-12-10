@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Dec 10 09:07:06 2024" VIVADOVERSION="2023.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Dec 10 17:18:23 2024" VIVADOVERSION="2023.2">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="avnet.com:ultra96v2:part0:1.2" DEVICE="xczu3eg" NAME="design_1" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
@@ -778,7 +778,7 @@
             <CONNECTION INSTANCE="system_ila_0" PORT="SLOT_1_AXIS_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="vivado_is_zo_tof" SIGIS="undef"/>
+        <PORT DIR="I" NAME="vivado_is_zo_tof_ugh" SIGIS="undef"/>
       </PORTS>
       <BUSINTERFACES>
         <BUSINTERFACE BUSNAME="audio_fifo_wrapper_1_s_out" NAME="s_anal" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
