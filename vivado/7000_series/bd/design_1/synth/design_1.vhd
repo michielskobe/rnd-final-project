@@ -2,7 +2,7 @@
 --Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
---Date        : Mon Dec  2 08:51:51 2024
+--Date        : Tue Dec 10 15:17:23 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -136,12 +136,12 @@ architecture STRUCTURE of design_1 is
     s_TValid_in : in STD_LOGIC;
     s_TLast_in : in STD_LOGIC;
     s_TData_in : in STD_LOGIC_VECTOR ( 23 downto 0 );
-    s_TID_in : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_TID_in : in STD_LOGIC_VECTOR ( 1 downto 0 );
     s_TReady_in : out STD_LOGIC;
     s_TValid_out : out STD_LOGIC;
     s_TLast_out : out STD_LOGIC;
     s_TData_out : out STD_LOGIC_VECTOR ( 23 downto 0 );
-    s_TID_out : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    s_TID_out : out STD_LOGIC_VECTOR ( 1 downto 0 );
     s_TReady_out : in STD_LOGIC
   );
   end component design_1_I2S_wrapper_0_0;
@@ -151,7 +151,7 @@ architecture STRUCTURE of design_1 is
   signal I2S_wrapper_0_mclk_r : STD_LOGIC;
   signal I2S_wrapper_0_mclk_t : STD_LOGIC;
   signal I2S_wrapper_0_s_out_TDATA : STD_LOGIC_VECTOR ( 23 downto 0 );
-  signal I2S_wrapper_0_s_out_TID : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal I2S_wrapper_0_s_out_TID : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal I2S_wrapper_0_s_out_TLAST : STD_LOGIC;
   signal I2S_wrapper_0_s_out_TREADY : STD_LOGIC;
   signal I2S_wrapper_0_s_out_TVALID : STD_LOGIC;
@@ -257,8 +257,8 @@ I2S_wrapper_0: component design_1_I2S_wrapper_0_0
       mclk_t => I2S_wrapper_0_mclk_t,
       s_TData_in(23 downto 0) => I2S_wrapper_0_s_out_TDATA(23 downto 0),
       s_TData_out(23 downto 0) => I2S_wrapper_0_s_out_TDATA(23 downto 0),
-      s_TID_in(3 downto 0) => I2S_wrapper_0_s_out_TID(3 downto 0),
-      s_TID_out(3 downto 0) => I2S_wrapper_0_s_out_TID(3 downto 0),
+      s_TID_in(1 downto 0) => I2S_wrapper_0_s_out_TID(1 downto 0),
+      s_TID_out(1 downto 0) => I2S_wrapper_0_s_out_TID(1 downto 0),
       s_TLast_in => I2S_wrapper_0_s_out_TLAST,
       s_TLast_out => I2S_wrapper_0_s_out_TLAST,
       s_TReady_in => I2S_wrapper_0_s_out_TREADY,

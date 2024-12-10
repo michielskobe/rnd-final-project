@@ -29,6 +29,7 @@ entity low_pass is
   port( 
     -- clocking
     clk : in std_logic;
+    rst : in std_logic;
 
     -- axi inputs
     axi_in_fwd : in t_axi4_audio_fwd;
@@ -50,11 +51,8 @@ architecture rtl of low_pass is
   signal coefficient_a1 : sfixed(g_coefficient_width -1 downto 0) := to_sfixed(1.81534108, 3, -23);
   signal coefficient_a2 : sfixed(g_coefficient_width -1 downto 0) := to_sfixed(0.83100559, 3, -23);
 
-  type t_data_array is array (0 to 2**c_ID_width) of signed(c_audio_width -1 downto 0);
+  type t_data_array is array (0 to 4*2**c_ID_width-1) of signed(c_audio_width -1 downto 0);
   signal data_array : t_data_array := (others => (others => '0'));
-  signal data_array2 : t_data_array := (others => (others => '0'));
-  signal data_array3 : t_data_array := (others => (others => '0'));
-  signal data_array4 : t_data_array := (others => (others => '0'));
 
 
   -------------------------------------
@@ -140,6 +138,7 @@ architecture rtl of low_pass is
   -- Control flow
   -------------------------------------
   signal pipe_startup : integer range 0 to 4 := 4;
+  signal rst_internal: integer range 0 to 4 := 4;
 
    
 BEGIN
@@ -150,7 +149,10 @@ BEGIN
   data_input_process : process (clk)
   begin
     if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+      if rst_internal > 0 then
+        TData_stage_1 <= (others => '0');
+        TID_stage_1 <= (others => '0');
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
         TData_stage_1 <= signed(axi_in_fwd.TData);
         TID_stage_1 <= axi_in_fwd.TID;
       end if;
@@ -164,7 +166,16 @@ BEGIN
   fetch_process : process (clk)
   begin
     if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+      if rst_internal > 0 then
+        TData_stage_2 <= (others => '0');
+        TID_stage_2 <= (others => '0');
+
+        Prev_Delay_X_1 <= (others => '0');
+        Prev_Delay_X_2 <= (others => '0');
+        Prev_Delay_Y_1 <= (others => '0');
+        Prev_Delay_Y_2 <= (others => '0');
+
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         TData_stage_2 <= TData_stage_1;
         TID_stage_2 <= TID_stage_1;
@@ -176,10 +187,10 @@ BEGIN
         TID_a2 <= coefficient_a2;
 
         if TID_stage_1 /= TID_stage_3 then
-          Prev_Delay_X_1 <= data_array(to_integer(unsigned(TID_stage_1)));
-          Prev_Delay_X_2 <= data_array2(to_integer(unsigned(TID_stage_1)));
-          Prev_Delay_Y_1 <= data_array3(to_integer(unsigned(TID_stage_1)));
-          Prev_Delay_Y_2 <= data_array4(to_integer(unsigned(TID_stage_1)));
+          Prev_Delay_X_1 <= data_array(4*to_integer(unsigned(TID_stage_1)));
+          Prev_Delay_X_2 <= data_array(4*to_integer(unsigned(TID_stage_1))+1);
+          Prev_Delay_Y_1 <= data_array(4*to_integer(unsigned(TID_stage_1))+2);
+          Prev_Delay_Y_2 <= data_array(4*to_integer(unsigned(TID_stage_1))+3);
         else
           Prev_Delay_X_1 <= TData_stage_3;
           Prev_Delay_X_2 <= Delay_X_1_muxed;
@@ -197,7 +208,22 @@ BEGIN
   filter_process : process (clk)
   begin
     if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+      if rst_internal > 0 then
+        TData_stage_3 <= (others => '0');
+        TID_stage_3 <= (others => '0');
+        TID_stage_3_prev <= (others => '0');
+
+        Prev_Delay_X_1_2 <= (others => '0');
+        Prev_Delay_X_2_2 <= (others => '0');
+        Prev_Delay_Y_1_2 <= (others => '0');
+        Prev_Delay_Y_2_2 <= (others => '0');
+
+        Delay_X_1 <= (others => '0');
+        Delay_X_2 <= (others => '0');
+        Delay_Y_1 <= (others => '0');
+        Delay_Y_2 <= (others => '0');
+
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         -- Input Data
         TData_stage_3 <= TData_stage_2;
@@ -293,16 +319,25 @@ BEGIN
   data_output_process : process (clk)
   begin
     if rising_edge(clk) then
-      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+      if rst_internal > 0 then
+        data_array(4*(rst_internal-1)) <= (others => '0'); 
+        data_array(4*(rst_internal-1)+1) <= (others => '0'); 
+        data_array(4*(rst_internal-1)+2) <= (others => '0'); 
+        data_array(4*(rst_internal-1)+3) <= (others => '0'); 
+
+        axi_out_fwd.TData <= (others => '0'); 
+        axi_out_fwd.TID   <= (others => '0'); 
+
+      elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         axi_out_fwd.TData <= std_logic_vector(TData_stage_4);
         axi_out_fwd.TID   <= TID_stage_3;
 
         -- Move Data from Filter
-        data_array(to_integer(unsigned(TID_stage_3)))   <= TData_stage_3;
-        data_array2(to_integer(unsigned(TID_stage_3))) <= Delay_X_1_muxed;
-        data_array3(to_integer(unsigned(TID_stage_3))) <= TData_stage_4;
-        data_array4(to_integer(unsigned(TID_stage_3))) <= Delay_Y_1_muxed;
+        data_array(4*to_integer(unsigned(TID_stage_3)))   <= TData_stage_3;
+        data_array(4*to_integer(unsigned(TID_stage_3))+1) <= Delay_X_1_muxed;
+        data_array(4*to_integer(unsigned(TID_stage_3))+2) <= TData_stage_4;
+        data_array(4*to_integer(unsigned(TID_stage_3))+3) <= Delay_Y_1_muxed;
 
       end if;
     end if;
@@ -318,7 +353,10 @@ BEGIN
   p_ctrl_flow : process (clk)
   begin
       if rising_edge(clk) then
-          if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+        if rst_internal > 0 then
+          pipe_startup <= 4;
+  
+        elsif axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
               if pipe_startup = 0 then
                 pipe_startup <= pipe_startup;
@@ -342,5 +380,17 @@ BEGIN
 
   end process;
 
+  p_rst : process (clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        rst_internal <= 4;
+      elsif rst_internal > 0 then
+        rst_internal <= rst_internal - 1;
+      end if;
+    end if;
+  end process;
+
 
 END rtl;
+

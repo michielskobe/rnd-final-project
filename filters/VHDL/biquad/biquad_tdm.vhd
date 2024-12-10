@@ -1,3 +1,8 @@
+----------------------------------------------------------------
+-- Company: KUL - rnd embed - Beats N Bytes
+-- Engineer: Wout Lyen
+-- Project Name: Blendinator
+----------------------------------------------------------------
 -- -------------------------------------------------------------
 -- 
 -- File Name: biquad_tdm.vhd
@@ -47,11 +52,10 @@ architecture RTL of biquad_tdm is
   -------------------------------------
   -- Memory init
   -------------------------------------
-  type t_coefficient_array is array (0 to 5*2**c_ID_width) of sfixed(g_coefficient_width -1 downto 0);
+  type t_coefficient_array is array (0 to 5*2**c_ID_width-1) of sfixed(g_coefficient_width -1 downto 0);
   signal coefficient_array : t_coefficient_array := (others => to_sfixed(1.0, 3, -23));
-  --signal coefficient_array : t_coefficient_array := (others => (others => '0'));
 
-  type t_data_array is array (0 to 4*2**c_ID_width) of signed(c_audio_width -1 downto 0);
+  type t_data_array is array (0 to 4*2**c_ID_width-1) of signed(c_audio_width -1 downto 0);
   signal data_array : t_data_array := (others => (others => '0'));
 
 

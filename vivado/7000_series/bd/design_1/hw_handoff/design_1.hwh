@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Dec  2 08:51:52 2024" VIVADOVERSION="2024.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Dec 10 15:17:23 2024" VIVADOVERSION="2024.1">
 
   <SYSTEMINFO ARCH="zynq" BOARD="tul.com.tw:pynq-z2:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -202,7 +202,7 @@
     <MODULE COREREVISION="1" FULLNAME="/I2S_wrapper_0" HWVERSION="1.0" INSTANCE="I2S_wrapper_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="I2S_wrapper" VLNV="xilinx.com:module_ref:I2S_wrapper:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="g_chip_scope" VALUE="True"/>
+        <PARAMETER NAME="g_chip_scope" VALUE="false"/>
         <PARAMETER NAME="g_clock_div_lrclk" VALUE="64"/>
         <PARAMETER NAME="g_clock_div_sclk" VALUE="4"/>
         <PARAMETER NAME="Component_Name" VALUE="design_1_I2S_wrapper_0_0"/>
@@ -255,12 +255,12 @@
             <CONNECTION INSTANCE="I2S_wrapper_0" PORT="s_TData_in"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="3" NAME="s_TID_in" RIGHT="0" SIGIS="undef" SIGNAME="I2S_wrapper_0_s_TID_in">
+        <PORT DIR="I" LEFT="1" NAME="s_TID_in" RIGHT="0" SIGIS="undef" SIGNAME="I2S_wrapper_0_s_TID_in">
           <CONNECTIONS>
             <CONNECTION INSTANCE="I2S_wrapper_0" PORT="s_TID_out"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="s_TID_out" RIGHT="0" SIGIS="undef" SIGNAME="I2S_wrapper_0_s_TID_in">
+        <PORT DIR="O" LEFT="1" NAME="s_TID_out" RIGHT="0" SIGIS="undef" SIGNAME="I2S_wrapper_0_s_TID_in">
           <CONNECTIONS>
             <CONNECTION INSTANCE="I2S_wrapper_0" PORT="s_TID_in"/>
           </CONNECTIONS>
@@ -335,7 +335,7 @@
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="4"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="2"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="s_TData_in"/>
@@ -357,7 +357,7 @@
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="3"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="4"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="2"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="TDATA" PHYSICAL="s_TData_out"/>

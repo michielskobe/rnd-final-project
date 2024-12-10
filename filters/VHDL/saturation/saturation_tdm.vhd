@@ -30,6 +30,7 @@ entity saturation_tdm is
     -- clocking
     clk : in std_logic;
     axi_clk : in std_logic;
+    rst : in std_logic;
 
     -- axi mm
     axi_in_mm : in t_axi4_mm_saturation;
@@ -51,7 +52,7 @@ architecture rtl of saturation_tdm is
   -------------------------------------
   -- Memory init
   -------------------------------------
-  type t_gain_array is array (0 to 2**c_ID_width) of sfixed(g_coefficient_width -1 downto 0);
+  type t_gain_array is array (0 to 2**c_ID_width-1) of sfixed(g_coefficient_width -1 downto 0);
   signal gain_array : t_gain_array := (others => to_sfixed(1.0, 3, -23));
 
   -------------------------------------
@@ -92,9 +93,13 @@ BEGIN
   -------------------------------------
   -- Axi MM
   -------------------------------------
-  axi_mm : process (axi_clk)
+  axi_mm : process (axi_clk, rst)
   begin
-    if rising_edge(axi_clk) then
+    if rst = '1' then
+      gain_array(0) <= gain_array(0);
+      gain_array(1) <= gain_array(1);
+
+    elsif rising_edge(axi_clk) then
       
       if (axi_in_mm.strobe = '1') then
         gain_array(to_integer(unsigned(axi_in_mm.channel_adress))) <= axi_in_mm.channel_value;
@@ -106,9 +111,13 @@ BEGIN
   -------------------------------------
   -- Data Input
   -------------------------------------
-  data_input_process : process (clk)
+  data_input_process : process (clk, rst)
   begin
-    if rising_edge(clk) then
+    if rst = '1' then
+      TData_stage_1 <= (others => '0');
+      TID_stage_1 <= (others => '0');
+
+    elsif rising_edge(clk) then
       if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
         TData_stage_1 <= signed(axi_in_fwd.TData);
         TID_stage_1 <= axi_in_fwd.TID;
@@ -120,9 +129,13 @@ BEGIN
   -------------------------------------
   -- Fetch Coefficients & Previous Data
   -------------------------------------
-  fetch_process : process (clk)
+  fetch_process : process (clk, rst)
   begin
-    if rising_edge(clk) then
+    if rst = '1' then
+      TData_stage_2 <= (others => '0');
+      TID_stage_2 <= (others => '0');
+
+    elsif rising_edge(clk) then
       if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         TData_stage_2 <= TData_stage_1;
@@ -137,9 +150,13 @@ BEGIN
   -------------------------------------
   -- Filter
   -------------------------------------
-  filter_process : process (clk)
+  filter_process : process (clk, rst)
   begin
-    if rising_edge(clk) then
+    if rst = '1' then
+      TData_stage_3 <= (others => '0');
+      TID_stage_3 <= (others => '0');
+
+    elsif rising_edge(clk) then
       if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         -- Input Data
@@ -165,9 +182,13 @@ BEGIN
   -------------------------------------
   -- Output Data
   -------------------------------------
-  data_output_process : process (clk)
+  data_output_process : process (clk, rst)
   begin
-    if rising_edge(clk) then
+    if rst = '1' then
+      axi_out_fwd.TData <= (others => '0');
+      axi_out_fwd.TID <= (others => '0');
+
+    elsif rising_edge(clk) then
       if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
         axi_out_fwd.TData <= std_logic_vector(TData_stage_4);
@@ -184,19 +205,22 @@ BEGIN
   -- we are ready if the module behind us is ready
   axi_in_bwd.TReady <= axi_out_bwd.TReady;
 
-  p_ctrl_flow : process (clk)
+  p_ctrl_flow : process (clk, rst)
   begin
-      if rising_edge(clk) then
-          if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
+    if rst = '1' then
+      pipe_startup <= 4;
 
-              if pipe_startup = 0 then
-                pipe_startup <= pipe_startup;
-              else
-                pipe_startup <= pipe_startup - 1;
-              end if;
+    elsif rising_edge(clk) then
+      if axi_in_fwd.TValid = '1' and axi_out_bwd.TReady = '1' then
 
-          end if;
+        if pipe_startup = 0 then
+          pipe_startup <= pipe_startup;
+        else
+          pipe_startup <= pipe_startup - 1;
+        end if;
+
       end if;
+    end if;
   end process;
 
 

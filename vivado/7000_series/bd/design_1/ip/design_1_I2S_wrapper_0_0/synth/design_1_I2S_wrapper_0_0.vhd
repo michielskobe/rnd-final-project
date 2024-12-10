@@ -68,12 +68,12 @@ ENTITY design_1_I2S_wrapper_0_0 IS
     s_TValid_in : IN STD_LOGIC;
     s_TLast_in : IN STD_LOGIC;
     s_TData_in : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
-    s_TID_in : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s_TID_in : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_TReady_in : OUT STD_LOGIC;
     s_TValid_out : OUT STD_LOGIC;
     s_TLast_out : OUT STD_LOGIC;
     s_TData_out : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
-    s_TID_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s_TID_out : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_TReady_out : IN STD_LOGIC
   );
 END design_1_I2S_wrapper_0_0;
@@ -101,12 +101,12 @@ ARCHITECTURE design_1_I2S_wrapper_0_0_arch OF design_1_I2S_wrapper_0_0 IS
       s_TValid_in : IN STD_LOGIC;
       s_TLast_in : IN STD_LOGIC;
       s_TData_in : IN STD_LOGIC_VECTOR(23 DOWNTO 0);
-      s_TID_in : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+      s_TID_in : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_TReady_in : OUT STD_LOGIC;
       s_TValid_out : OUT STD_LOGIC;
       s_TLast_out : OUT STD_LOGIC;
       s_TData_out : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
-      s_TID_out : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+      s_TID_out : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_TReady_out : IN STD_LOGIC
     );
   END COMPONENT I2S_wrapper;
@@ -115,7 +115,7 @@ ARCHITECTURE design_1_I2S_wrapper_0_0_arch OF design_1_I2S_wrapper_0_0 IS
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF design_1_I2S_wrapper_0_0_arch : ARCHITECTURE IS "design_1_I2S_wrapper_0_0,I2S_wrapper,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF design_1_I2S_wrapper_0_0_arch: ARCHITECTURE IS "design_1_I2S_wrapper_0_0,I2S_wrapper,{x_ipProduct=Vivado 2024.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=I2S_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,g_clock_div_sclk=4,g_clock_div_lrclk=64,g_chip_scope=True}";
+  ATTRIBUTE CORE_GENERATION_INFO OF design_1_I2S_wrapper_0_0_arch: ARCHITECTURE IS "design_1_I2S_wrapper_0_0,I2S_wrapper,{x_ipProduct=Vivado 2024.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=I2S_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,g_clock_div_sclk=4,g_clock_div_lrclk=64,g_chip_scope=false}";
   ATTRIBUTE IP_DEFINITION_SOURCE : STRING;
   ATTRIBUTE IP_DEFINITION_SOURCE OF design_1_I2S_wrapper_0_0_arch: ARCHITECTURE IS "module_ref";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
@@ -132,16 +132,16 @@ ARCHITECTURE design_1_I2S_wrapper_0_0_arch OF design_1_I2S_wrapper_0_0 IS
   ATTRIBUTE X_INTERFACE_INFO OF s_TLast_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TLAST";
   ATTRIBUTE X_INTERFACE_INFO OF s_TReady_in: SIGNAL IS "xilinx.com:interface:axis:1.0 s_in TREADY";
   ATTRIBUTE X_INTERFACE_INFO OF s_TReady_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TREADY";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_in: SIGNAL IS "XIL_INTERFACENAME s_in, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_in: SIGNAL IS "XIL_INTERFACENAME s_in, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 2, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_TValid_in: SIGNAL IS "xilinx.com:interface:axis:1.0 s_in TVALID";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_out: SIGNAL IS "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 4, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_TValid_out: SIGNAL IS "XIL_INTERFACENAME s_out, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 2, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s_TValid_out: SIGNAL IS "xilinx.com:interface:axis:1.0 s_out TVALID";
 BEGIN
   U0 : I2S_wrapper
     GENERIC MAP (
       g_clock_div_sclk => 4,
       g_clock_div_lrclk => 64,
-      g_chip_scope => "True"
+      g_chip_scope => "false"
     )
     PORT MAP (
       m_clk => m_clk,

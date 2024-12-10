@@ -350,18 +350,18 @@ begin
         -------------------------------------
         attribute MARK_DEBUG : string;
 
-        -- attribute MARK_DEBUG of volume_fwd : signal is g_chip_scope;
-        -- attribute MARK_DEBUG of volume_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of volume_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of volume_bwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_volume_fwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_volume_bwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_low_1_fwd : signal is g_chip_scope;
         attribute MARK_DEBUG of band_low_1_bwd : signal is g_chip_scope;
         attribute MARK_DEBUG of high_pass_2_fwd : signal is g_chip_scope;
         attribute MARK_DEBUG of high_pass_2_bwd : signal is g_chip_scope;
-        -- attribute MARK_DEBUG of echo_fwd : signal is g_chip_scope;
-        -- attribute MARK_DEBUG of echo_bwd : signal is g_chip_scope;
-        -- attribute MARK_DEBUG of saturation_fwd : signal is g_chip_scope;
-        -- attribute MARK_DEBUG of saturation_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of echo_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of echo_bwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of saturation_fwd : signal is g_chip_scope;
+        attribute MARK_DEBUG of saturation_bwd : signal is g_chip_scope;
     begin
 
 
@@ -382,25 +382,27 @@ begin
             axi_out_bwd => volume_bwd
         );
 
-        band_volume_fwd <= volume_fwd;
-        volume_bwd <= band_volume_bwd;
+        -- band_volume_fwd <= volume_fwd;
+        -- volume_bwd <= band_volume_bwd;
+
         ------------------------------------
         -- Band Shelf
         ------------------------------------
 
-        -- i_band_volume: entity work.band_volume
-        -- generic map(
-        --     g_chip_scope => g_chip_scope
-        -- )
-        -- port map(
-        --     clk => clk_audio,
-        --     axi_clk => clk_axi_mm,
-        --     axi_in_mm => axi_in_mm_band_volume,
-        --     axi_in_fwd => volume_fwd,
-        --     axi_in_bwd => volume_bwd,
-        --     axi_out_fwd => band_volume_fwd,
-        --     axi_out_bwd => band_volume_bwd
-        -- );
+        i_band_volume: entity work.band_volume
+        generic map(
+            g_chip_scope => g_chip_scope
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            rst => rst,
+            axi_in_mm => axi_in_mm_band_volume,
+            axi_in_fwd => volume_fwd,
+            axi_in_bwd => volume_bwd,
+            axi_out_fwd => band_volume_fwd,
+            axi_out_bwd => band_volume_bwd
+        );
 
         i_band_low_1: entity work.biquad_tdm
         generic map(
@@ -584,50 +586,54 @@ begin
             axi_out_bwd => high_pass_2_bwd
         );
 
-        -- ------------------------------------
-        -- -- Echo
-        -- ------------------------------------
-        --
-        -- i_echo: entity work.echo_tdm
-        -- generic map(
-        --     g_delay => 16384,
-        --     g_chip_scope => g_chip_scope
-        -- )
-        -- port map(
-        --     clk => clk_audio,
-        --     axi_clk => clk_axi_mm,
-        --     axi_in_mm => axi_in_mm_echo,
-        --     axi_in_fwd => high_pass_2_fwd,
-        --     axi_in_bwd => high_pass_2_bwd,
-        --     axi_out_fwd => echo_fwd,
-        --     axi_out_bwd => echo_bwd
-        -- );
+        ------------------------------------
+        -- Echo
+        ------------------------------------
+        
+        i_echo: entity work.echo_tdm
+        generic map(
+            -- g_delay => 16384,
+            g_delay => 20000,
+            g_chip_scope => g_chip_scope
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            rst => rst,
+            axi_in_mm => axi_in_mm_echo,
+            axi_in_fwd => high_pass_2_fwd,
+            axi_in_bwd => high_pass_2_bwd,
+            axi_out_fwd => echo_fwd,
+            axi_out_bwd => echo_bwd
+        );
+        
         -- echo_fwd <= high_pass_2_fwd;
         -- high_pass_2_bwd <= echo_bwd;
 
-        -- ------------------------------------
-        -- -- Saturation
-        -- ------------------------------------
+        ------------------------------------
+        -- Saturation
+        ------------------------------------
 
-        -- i_saturation: entity work.saturation_tdm
-        -- generic map(
-        --     g_chip_scope => g_chip_scope
-        -- )
-        -- port map(
-        --     clk => clk_audio,
-        --     axi_clk => clk_axi_mm,
-        --     axi_in_mm => axi_in_mm_saturation,
-        --     axi_in_fwd => echo_fwd,
-        --     axi_in_bwd => echo_bwd,
-        --     axi_out_fwd => saturation_fwd,
-        --     axi_out_bwd => saturation_bwd
-        -- );
+        i_saturation: entity work.saturation_tdm
+        generic map(
+            g_chip_scope => g_chip_scope
+        )
+        port map(
+            clk => clk_audio,
+            axi_clk => clk_axi_mm,
+            rst => rst,
+            axi_in_mm => axi_in_mm_saturation,
+            axi_in_fwd => echo_fwd,
+            axi_in_bwd => echo_bwd,
+            axi_out_fwd => saturation_fwd,
+            axi_out_bwd => saturation_bwd
+        );
 
-        -- pre_mixer_fwd <= saturation_fwd;
-        -- saturation_bwd <= pre_mixer_bwd;
+        pre_mixer_fwd <= saturation_fwd;
+        saturation_bwd <= pre_mixer_bwd;
          
-        pre_mixer_fwd <= high_pass_2_fwd;
-        high_pass_2_bwd <= pre_mixer_bwd;
+        -- pre_mixer_fwd <= high_pass_2_fwd;
+        -- high_pass_2_bwd <= pre_mixer_bwd;
 
     end block;
 
@@ -682,20 +688,21 @@ begin
     -- Low Pass Filter
     -------------------------------------
 
-    -- low_pass_inst: entity work.low_pass
-    --  generic map(
-    --     g_chip_scope => g_chip_scope
-    -- )
-    --  port map(
-    --     clk => clk_audio,
-    --     axi_in_fwd => post_master_volume_fwd,
-    --     axi_in_bwd => post_master_volume_bwd,
-    --     axi_out_fwd => post_lp_filter_fwd,
-    --     axi_out_bwd => post_lp_filter_bwd
-    -- );
+    low_pass_inst: entity work.low_pass
+     generic map(
+        g_chip_scope => g_chip_scope
+    )
+     port map(
+        clk => clk_audio,
+        rst => rst,
+        axi_in_fwd => post_master_volume_fwd,
+        axi_in_bwd => post_master_volume_bwd,
+        axi_out_fwd => post_lp_filter_fwd,
+        axi_out_bwd => post_lp_filter_bwd
+    );
 
-    post_lp_filter_fwd <= post_master_volume_fwd;
-    post_master_volume_bwd <= post_lp_filter_bwd;
+    -- post_lp_filter_fwd <= post_master_volume_fwd;
+    -- post_master_volume_bwd <= post_lp_filter_bwd;
 
     -------------------------------------
     -- output buffer

@@ -2013,7 +2013,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -2041,7 +2041,7 @@
               "TID": {
                 "physical_name": "s_TID_in",
                 "direction": "I",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
@@ -2078,7 +2078,7 @@
                 "value_src": "constant"
               },
               "TID_WIDTH": {
-                "value": "4",
+                "value": "2",
                 "value_src": "constant"
               },
               "TUSER_WIDTH": {
@@ -2106,7 +2106,7 @@
               "TID": {
                 "physical_name": "s_TID_out",
                 "direction": "O",
-                "left": "3",
+                "left": "1",
                 "right": "0"
               },
               "TDATA": {
