@@ -318,6 +318,24 @@
                 "TU": "register"
             },
             "V10": {
+                "VT": "AC",
+                "BA": "0x00A0050000",
+                "HA": "0x00A005FFFF",
+                "BP": "C_S00_AXI_BASEADDR",
+                "HP": "C_S00_AXI_HIGHADDR",
+                "MA": "Data",
+                "MX": "/zynq_ultra_ps_e_0",
+                "MI": "M_AXI_HPM0_FPD",
+                "MS": "SEG_audio_pipeline_IP_0_S00_AXI_reg",
+                "MV": "xilinx.com:ip:zynq_ultra_ps_e:3.5",
+                "SX": "/audio_pipeline_IP_0",
+                "SI": "S00_AXI",
+                "SS": "S00_AXI_reg",
+                "SV": "user.org:user:audio_pipeline_IP:1.0",
+                "TM": "both",
+                "TU": "register"
+            },
+            "V11": {
                 "VT": "ACE",
                 "BA": "0x00000000FF000000",
                 "HA": "0x00000000FFFFFFFF",
@@ -336,7 +354,7 @@
                 "TM": "both",
                 "TU": "register"
             },
-            "V11": {
+            "V12": {
                 "VT": "ACE",
                 "BA": "0x00000000FF000000",
                 "HA": "0x00000000FFFFFFFF",
@@ -407,6 +425,11 @@
             },
             {
                 "src": "V11",
+                "trg": "V2",
+                "EH": "2"
+            },
+            {
+                "src": "V12",
                 "trg": "V2",
                 "EH": "2"
             }
