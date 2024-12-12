@@ -48,6 +48,7 @@ entity audio_pipeline is
         master_volume: in STD_LOGIC_VECTOR(18 - 1 downto 0) := STD_LOGIC_VECTOR(to_unsigned(1, 18));
         channel_volume_select: in STD_LOGIC_VECTOR (c_ID_width - 1 downto 0) := (others => '0');
         channel_volume_value: in STD_LOGIC_VECTOR(18 - 1 downto 0) := STD_LOGIC_VECTOR(to_unsigned(1, 18));
+        channel_volume_strobe: in std_logic;
         axi_in_mm_band_low_1: in t_axi4_mm_filter := axi4_mm_filter_inactive;
         axi_in_mm_band_low_2: in t_axi4_mm_filter := axi4_mm_filter_inactive;
         axi_in_mm_band_high_1: in t_axi4_mm_filter := axi4_mm_filter_inactive;
@@ -106,6 +107,9 @@ architecture Behavioral of audio_pipeline is
 
     signal ugh_merger_fwd : t_axi4_audio_fwd;
     signal ugh_merger_bwd : t_axi4_audio_bwd;
+
+    signal chan_volume_fwd : t_axi4_audio_fwd;
+    signal chan_volume_bwd : t_axi4_audio_bwd;
 
     signal post_merger_fwd : t_axi4_audio_fwd;
     signal post_merger_bwd : t_axi4_audio_bwd;
@@ -287,14 +291,30 @@ begin
         axi_out_bwd => ugh_merger_bwd 
     );
 
+    volume_ctrl_inst: entity work.volume_ctrl
+     generic map(
+        g_chip_scope => g_chip_scope
+    )
+     port map(
+        clk => clk_audio,
+        axi_clk => clk_axi_mm,
+        channel_address => channel_volume_select,
+        channel_volume => channel_volume_value,
+        strobe => channel_volume_strobe,
+        axi_in_fwd => ugh_merger_fwd,
+        axi_in_bwd => ugh_merger_bwd,
+        axi_out_fwd => chan_volume_fwd,
+        axi_out_bwd => chan_volume_bwd 
+    );
+
     startup_fixer_inst: entity work.startup_fixer
      generic map(
         g_startup_delay => 1001 
     )
      port map(
         clk => clk_audio,
-        src_fwd => ugh_merger_fwd,
-        src_bwd => ugh_merger_bwd,
+        src_fwd => chan_volume_fwd,
+        src_bwd => chan_volume_bwd,
         -- src_fwd => pre_merger_fwd(0),
         -- src_bwd => pre_merger_bwd(0),
         sink_fwd => post_merger_fwd,
@@ -677,6 +697,7 @@ begin
             axi_clk => clk_axi_mm,
             channel_address => chan_counter,
             channel_volume => master_volume,
+            strobe => '1',
             axi_in_fwd => post_mixer_fwd,
             axi_in_bwd => post_mixer_bwd,
             axi_out_fwd => post_master_volume_fwd,

@@ -49,6 +49,7 @@ entity volume_ctrl is
         -- register settings
         channel_address: in STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
         channel_volume : in STD_LOGIC_VECTOR(g_volume_width -1 downto 0);
+        strobe: in std_logic;
 
         -- axi inputs
         axi_in_fwd : in t_axi4_audio_fwd;
@@ -64,8 +65,8 @@ architecture Behavioral of volume_ctrl is
     -------------------------------------
     -- Memory init
     -------------------------------------
-    type t_volume_array is array (0 to 2**c_ID_width) of sfixed(g_volume_width -1 downto 0);
-    signal volume_array : t_volume_array := (others => (others => '0'));
+    type t_volume_array is array (0 to 2**c_ID_width) of sfixed(2 downto -15);
+    signal volume_array : t_volume_array := (others => (to_sfixed(1, 2, -15)));
 
     -------------------------------------
     -- Pipeline
@@ -74,13 +75,13 @@ architecture Behavioral of volume_ctrl is
     signal tid_mid_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
     signal tid_late_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
     signal tid_post_calc : STD_LOGIC_VECTOR(c_ID_width -1 downto 0);
-    signal vol : sfixed(g_volume_width -1 downto 0);
-    signal res : sfixed(48 -1 downto 0);
+    signal vol : sfixed(2 downto -15);
+    signal res : sfixed(0 downto -48 +1);
 
-    signal sample_pre_calc : sfixed(c_audio_width -1 downto 0);
-    signal sample_mid_calc : sfixed(c_audio_width -1 downto 0);
-    signal sample_late_calc : sfixed(c_audio_width -1 downto 0);
-    signal sample_post_calc : sfixed(c_audio_width -1 downto 0);
+    signal sample_pre_calc : sfixed(0 downto - c_audio_width +1);
+    signal sample_mid_calc : sfixed(0 downto - c_audio_width +1);
+    signal sample_late_calc : sfixed(0 downto - c_audio_width +1);
+    signal sample_post_calc : sfixed(0 downto - c_audio_width +1);
 
     -------------------------------------
     -- Control flow
@@ -91,8 +92,10 @@ begin
     p_axi_mm : process (axi_clk)
     begin
         if rising_edge(axi_clk) then
-            -- move axi register commands into memory
-            volume_array(to_integer(unsigned(channel_address))) <= to_sfixed(channel_volume, vol);
+            if strobe = '1' then
+                -- move axi register commands into memory
+                volume_array(to_integer(unsigned(channel_address))) <= to_sfixed(channel_volume, vol);
+            end if;
         end if;
     end process;
 

@@ -68,19 +68,39 @@ architecture Behavioral of tb_volume_ctrl is
     -- volume ctrl
     ------------------------------------
     constant c_volume_width : integer := 18;
-    signal volume : integer := 1;
+    signal volume : real := 0.10;
     signal channel_address : STD_LOGIC_VECTOR(c_ID_width -1 downto 0) := (others => '0');
     signal channel_volume : STD_LOGIC_VECTOR(c_volume_width -1 downto 0) := (others => '0');
+    signal strobe : STD_LOGIC := '0';
 begin
 
     p_volume : process
     begin
         
         wait until rising_edge(axi_clk);
-        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, c_volume_width -1, 0));
+        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, 2, -15));
+        wait until rising_edge(axi_clk);
+        strobe <= '1';
+        wait until rising_edge(axi_clk);
+        wait until rising_edge(axi_clk);
+        wait until rising_edge(axi_clk);
+        strobe <= '0';
+        wait until rising_edge(axi_clk);
         wait until rising_edge(axi_clk);
         channel_address <= STD_LOGIC_VECTOR(to_unsigned(1, c_ID_width));
-        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, c_volume_width -1, 0));
+        channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, 2, -15));
+
+        wait until rising_edge(axi_clk);
+        wait until rising_edge(axi_clk);
+        wait until rising_edge(axi_clk);
+        wait until rising_edge(axi_clk);
+        strobe <= '0';
+        wait until rising_edge(axi_clk);
+        wait until rising_edge(axi_clk);
+        wait until rising_edge(axi_clk);
+        strobe <= '0';
+        wait until rising_edge(axi_clk);
+
         wait;
 
 
@@ -92,7 +112,7 @@ begin
      -- wav2axi
     i_dut: entity wav2axi
     generic map(
-        g_file_name => "test_piano.wav",
+        g_file_name => "Waiting.wav",
         g_channel => 0,
         g_start_del => 100
     )
@@ -117,6 +137,7 @@ begin
         axi_clk => axi_clk,
         channel_address => channel_address,
         channel_volume => channel_volume,
+        strobe => strobe,
         axi_in_fwd => wav_axi_fwd,
         axi_in_bwd => wav_axi_bwd,
         axi_out_fwd => axi_wav_fwd,

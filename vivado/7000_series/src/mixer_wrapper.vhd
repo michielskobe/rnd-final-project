@@ -98,7 +98,7 @@ architecture Behavioral of mixer_wrapper is
     signal channel_enable : STD_LOGIC_VECTOR(2**c_ID_width -1 downto 0) := (0=> '1', 1 => '1', others => '0');
     signal dma_enable : STD_LOGIC := '0';
 
-    signal volume :sfixed(18 -1 downto 0) := to_sfixed(1, 17, 0);
+    signal volume :sfixed(2 downto -15) := to_sfixed(1, 2, -15);
     signal channel_address: STD_LOGIC_VECTOR(c_ID_width -1 downto 0) := (others => '0');
 
 begin
@@ -129,7 +129,7 @@ begin
             if dma_valid_prev = '0' and dma_valid_sync_3 = '1' then
                 dma_enable <= '1';
                 channel_enable <= (others => '1');
-                volume <= to_sfixed(0.7, 17, 0);
+                volume <= to_sfixed(0.7, 2, -15);
             end if;
             
             -- falling edge of valid dma transfer
@@ -142,7 +142,7 @@ begin
                 -- wait until the dma channel fifo's are empty
                 if channel_fifo_output_fwd(2).TValid = '0' and channel_fifo_output_fwd(3).TValid = '0' then
                     dma_enable <= '0';
-                    volume <= to_sfixed(1, 17, 0);
+                    volume <= to_sfixed(1, 2, -15);
                     empty_dma <= '0';
                 end if;
             end if;
@@ -299,6 +299,7 @@ begin
         axi_clk => axi_mm_clk,
         channel_address => channel_address,
         channel_volume => to_slv(volume),
+        strobe => '1',
         axi_in_fwd => merger_out_fwd,
         axi_in_bwd => merger_out_bwd,
         axi_out_fwd => axi_out_fwd,

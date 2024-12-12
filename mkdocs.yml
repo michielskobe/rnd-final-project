@@ -89,6 +89,7 @@ nav:
       - Audio FIFO: project/hdl_audio_fifo.md
       - Mixer: project/hdl_mixer.md
       - Pipeline Overview: project/hdl_pipeline.md
+      - Vivado: project/hdl_vivado.md
    - Filters: 
       - MATLAB & Simulink: project/matlab.md
       - HDL: project/hdl_filters.md
