@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: user.org:user:audio_pipeline_IP:1.0
--- IP Revision: 5
+-- IP Revision: 7
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -188,7 +188,7 @@ BEGIN
     GENERIC MAP (
       C_S00_AXI_DATA_WIDTH => 32,
       C_S00_AXI_ADDR_WIDTH => 9,
-      g_chip_scope => "false"
+      g_chip_scope => "true"
     )
     PORT MAP (
       clk_in => clk_in,

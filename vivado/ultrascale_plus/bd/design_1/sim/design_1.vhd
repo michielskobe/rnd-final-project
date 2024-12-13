@@ -2,7 +2,7 @@
 --Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
---Date        : Thu Dec 12 15:15:52 2024
+--Date        : Fri Dec 13 10:01:23 2024
 --Host        : fedora running 64-bit unknown
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -2942,7 +2942,7 @@ entity design_1 is
     wifi_en_led_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=35,numReposBlks=26,numNonXlnxBlks=2,numHierBlks=9,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=5,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=9,da_board_cnt=2,da_clkrst_cnt=2,da_zynq_ultra_ps_e_cnt=2,synth_mode=Hierarchical}";
+  attribute CORE_GENERATION_INFO of design_1 : entity is "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=34,numReposBlks=25,numNonXlnxBlks=2,numHierBlks=9,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=5,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=9,da_board_cnt=2,da_clkrst_cnt=2,da_zynq_ultra_ps_e_cnt=2,synth_mode=Hierarchical}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of design_1 : entity is "design_1.hwdef";
 end design_1;
@@ -3501,31 +3501,34 @@ architecture STRUCTURE of design_1 is
     s00_axi_rready : in STD_LOGIC
   );
   end component design_1_audio_pipeline_IP_0_0;
-  component design_1_system_ila_1_0 is
-  port (
-    clk : in STD_LOGIC;
-    probe0 : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  end component design_1_system_ila_1_0;
-  component design_1_system_ila_0_2 is
+  component design_1_system_ila_0_3 is
   port (
     clk : in STD_LOGIC;
     probe0 : in STD_LOGIC_VECTOR ( 23 downto 0 );
-    probe1 : in STD_LOGIC_VECTOR ( 0 to 0 )
+    probe1 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe2 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe3 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe4 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  end component design_1_system_ila_0_2;
-  component design_1_system_ila_2_0 is
+  end component design_1_system_ila_0_3;
+  component design_1_system_ila_2_1 is
   port (
     clk : in STD_LOGIC;
-    probe0 : in STD_LOGIC_VECTOR ( 0 to 0 )
+    probe0 : in STD_LOGIC_VECTOR ( 23 downto 0 );
+    probe1 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe2 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe3 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  end component design_1_system_ila_2_0;
-  component design_1_system_ila_3_0 is
+  end component design_1_system_ila_2_1;
+  component design_1_system_ila_3_2 is
   port (
     clk : in STD_LOGIC;
-    probe0 : in STD_LOGIC_VECTOR ( 0 to 0 )
+    probe0 : in STD_LOGIC_VECTOR ( 23 downto 0 );
+    probe1 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe2 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe3 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  end component design_1_system_ila_3_0;
+  end component design_1_system_ila_3_2;
   signal I2S_wrapper_0_data_out : STD_LOGIC;
   signal I2S_wrapper_0_lrclk_r : STD_LOGIC;
   signal I2S_wrapper_0_lrclk_t : STD_LOGIC;
@@ -3540,37 +3543,51 @@ architecture STRUCTURE of design_1 is
   signal I2S_wrapper_0_sclk_r : STD_LOGIC;
   signal I2S_wrapper_0_sclk_t : STD_LOGIC;
   signal Net : STD_LOGIC;
-  signal audio_fifo_wrapper_0_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
   attribute DEBUG : string;
-  attribute DEBUG of audio_fifo_wrapper_0_s_TData_out : signal is "true";
+  attribute DEBUG of Net : signal is "true";
   attribute MARK_DEBUG : boolean;
+  attribute MARK_DEBUG of Net : signal is std.standard.true;
+  signal audio_fifo_wrapper_0_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
+  attribute DEBUG of audio_fifo_wrapper_0_s_TData_out : signal is "true";
   attribute MARK_DEBUG of audio_fifo_wrapper_0_s_TData_out : signal is std.standard.true;
   signal audio_fifo_wrapper_0_s_TID_out : STD_LOGIC_VECTOR ( 1 downto 0 );
   attribute DEBUG of audio_fifo_wrapper_0_s_TID_out : signal is "true";
   attribute MARK_DEBUG of audio_fifo_wrapper_0_s_TID_out : signal is std.standard.true;
   signal audio_fifo_wrapper_0_s_TLast_out : STD_LOGIC;
-  attribute DEBUG of audio_fifo_wrapper_0_s_TLast_out : signal is "true";
-  attribute MARK_DEBUG of audio_fifo_wrapper_0_s_TLast_out : signal is std.standard.true;
   signal audio_fifo_wrapper_0_s_TReady_in : STD_LOGIC;
   signal audio_fifo_wrapper_0_s_TValid_out : STD_LOGIC;
   attribute DEBUG of audio_fifo_wrapper_0_s_TValid_out : signal is "true";
   attribute MARK_DEBUG of audio_fifo_wrapper_0_s_TValid_out : signal is std.standard.true;
   signal audio_fifo_wrapper_1_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
+  attribute DEBUG of audio_fifo_wrapper_1_s_TData_out : signal is "true";
+  attribute MARK_DEBUG of audio_fifo_wrapper_1_s_TData_out : signal is std.standard.true;
   signal audio_fifo_wrapper_1_s_TID_out : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute DEBUG of audio_fifo_wrapper_1_s_TID_out : signal is "true";
+  attribute MARK_DEBUG of audio_fifo_wrapper_1_s_TID_out : signal is std.standard.true;
   signal audio_fifo_wrapper_1_s_TLast_out : STD_LOGIC;
   signal audio_fifo_wrapper_1_s_TValid_out : STD_LOGIC;
+  attribute DEBUG of audio_fifo_wrapper_1_s_TValid_out : signal is "true";
+  attribute MARK_DEBUG of audio_fifo_wrapper_1_s_TValid_out : signal is std.standard.true;
   signal audio_fifo_wrapper_2_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
   signal audio_fifo_wrapper_2_s_TID_out : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal audio_fifo_wrapper_2_s_TLast_out : STD_LOGIC;
   signal audio_fifo_wrapper_2_s_TValid_out : STD_LOGIC;
   signal audio_pipeline_IP_0_s_TReady_anal : STD_LOGIC;
+  attribute DEBUG of audio_pipeline_IP_0_s_TReady_anal : signal is "true";
+  attribute MARK_DEBUG of audio_pipeline_IP_0_s_TReady_anal : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TData_out : STD_LOGIC_VECTOR ( 23 downto 0 );
+  attribute DEBUG of audio_pipeline_wrapp_0_s_TData_out : signal is "true";
+  attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TData_out : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TID_out : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute DEBUG of audio_pipeline_wrapp_0_s_TID_out : signal is "true";
+  attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TID_out : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TLast_out : STD_LOGIC;
   signal audio_pipeline_wrapp_0_s_TReady_dma : STD_LOGIC;
   attribute DEBUG of audio_pipeline_wrapp_0_s_TReady_dma : signal is "true";
   attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TReady_dma : signal is std.standard.true;
   signal audio_pipeline_wrapp_0_s_TValid_out : STD_LOGIC;
+  attribute DEBUG of audio_pipeline_wrapp_0_s_TValid_out : signal is "true";
+  attribute MARK_DEBUG of audio_pipeline_wrapp_0_s_TValid_out : signal is std.standard.true;
   signal axi_dma_0_M_AXIS_MM2S_TDATA : STD_LOGIC_VECTOR ( 127 downto 0 );
   signal axi_dma_0_M_AXIS_MM2S_TKEEP : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal axi_dma_0_M_AXIS_MM2S_TLAST : STD_LOGIC;
@@ -4471,26 +4488,30 @@ ps8_0_axi_periph: entity work.design_1_ps8_0_axi_periph_0
       S01_AXI_wstrb(15 downto 0) => zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WSTRB(15 downto 0),
       S01_AXI_wvalid => zynq_ultra_ps_e_0_M_AXI_HPM1_FPD_WVALID
     );
-system_ila_0: component design_1_system_ila_0_2
+system_ila_0: component design_1_system_ila_0_3
+     port map (
+      clk => zynq_ultra_ps_e_0_pl_clk0,
+      probe0(23 downto 0) => audio_pipeline_wrapp_0_s_TData_out(23 downto 0),
+      probe1(1 downto 0) => audio_pipeline_wrapp_0_s_TID_out(1 downto 0),
+      probe2(0) => audio_pipeline_wrapp_0_s_TValid_out,
+      probe3(0) => Net,
+      probe4(0) => audio_pipeline_wrapp_0_s_TReady_dma
+    );
+system_ila_2: component design_1_system_ila_2_1
+     port map (
+      clk => zynq_ultra_ps_e_0_pl_clk0,
+      probe0(23 downto 0) => audio_fifo_wrapper_1_s_TData_out(23 downto 0),
+      probe1(1 downto 0) => audio_fifo_wrapper_1_s_TID_out(1 downto 0),
+      probe2(0) => audio_fifo_wrapper_1_s_TValid_out,
+      probe3(0) => audio_pipeline_IP_0_s_TReady_anal
+    );
+system_ila_3: component design_1_system_ila_3_2
      port map (
       clk => zynq_ultra_ps_e_0_pl_clk0,
       probe0(23 downto 0) => audio_fifo_wrapper_0_s_TData_out(23 downto 0),
-      probe1(0) => audio_pipeline_wrapp_0_s_TReady_dma
-    );
-system_ila_1: component design_1_system_ila_1_0
-     port map (
-      clk => zynq_ultra_ps_e_0_pl_clk0,
-      probe0(1 downto 0) => audio_fifo_wrapper_0_s_TID_out(1 downto 0)
-    );
-system_ila_2: component design_1_system_ila_2_0
-     port map (
-      clk => zynq_ultra_ps_e_0_pl_clk0,
-      probe0(0) => audio_fifo_wrapper_0_s_TLast_out
-    );
-system_ila_3: component design_1_system_ila_3_0
-     port map (
-      clk => zynq_ultra_ps_e_0_pl_clk0,
-      probe0(0) => audio_fifo_wrapper_0_s_TValid_out
+      probe1(1 downto 0) => audio_fifo_wrapper_0_s_TID_out(1 downto 0),
+      probe2(0) => audio_fifo_wrapper_0_s_TValid_out,
+      probe3(0) => audio_pipeline_wrapp_0_s_TReady_dma
     );
 xlconcat_0: component design_1_xlconcat_0_0
      port map (

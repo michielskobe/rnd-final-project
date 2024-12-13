@@ -336,7 +336,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4d85f804</spirit:value>
+            <spirit:value>e6e3ef99</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1250,7 +1250,7 @@
       <spirit:file>
         <spirit:name>xgui/audio_pipeline_IP_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_4d85f804</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_e6e3ef99</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>

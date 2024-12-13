@@ -2,11 +2,11 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-// Date        : Thu Dec 12 14:36:15 2024
+// Date        : Fri Dec 13 08:34:52 2024
 // Host        : fedora running 64-bit unknown
 // Command     : write_verilog -force -mode synth_stub -rename_top design_1_auto_pc_1 -prefix
-//               design_1_auto_pc_1_ design_1_auto_pc_0_stub.v
-// Design      : design_1_auto_pc_0
+//               design_1_auto_pc_1_ design_1_auto_pc_1_stub.v
+// Design      : design_1_auto_pc_1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xczu3eg-sbva484-1-i
 // --------------------------------------------------------------------------------
