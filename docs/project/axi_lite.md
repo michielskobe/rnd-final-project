@@ -159,13 +159,13 @@ Password:
 
 ## AXI Lite Memory Mapped registers
 
-Our audio pipeline has 94 registers to control the various filters and audio effects. All these registers are 32 bit. Some of the filters and audio effect modules need a `strobe` to ensure that the data will be correctly stored in the filters and audio effects. When the strobe is active, all the data of the different registers that belong to the filter or audio_effect will be loaded in the filter or audio effect at the same time. So, it is important to first load all the registers with valid data before enabling the strobe.
+Our audio pipeline has 94 registers to control the various filters and audio effects. All these registers are 32 bit. Some of the filters and audio effect modules need a `strobe` to ensure that the data will be correctly stored in the filters and audio effects. When the strobe is active, all the data of the different registers that belong to the filter or audio effect will be loaded in the filter or audio effect at the same time. So, it is important to first load all the registers with valid data before enabling the strobe.
 
-Some modules have a `channel_address` register. This has to be loaded with the address of the source you want. Evey source has two addresses, one for the left channel and one for the right channel. In our current configuration, channel address 0 and 1 belong to the left and right channel of the analog source and channel address 2 and 3 belong to the left and right channel of the DMA source.  
+Some modules have a `channel_address` register. This has to be loaded with the address of the source you want to control. Evey source has two addresses, one for the left channel and one for the right channel. In our current configuration, channel address 0 and 1 belong to the left and right channel of the analog source and channel address 2 and 3 belong to the left and right channel of the DMA source.  
 
 ### volume
 
-The `channel_value` register controls the volume of all the the input signals before they enters the audio pipeline. The value has to be between 0 and 1 V/V.
+The `channel_value` register controls the volume of all the the input signals before they enter the audio pipeline. The value has to be between 0 and 1 V/V.
 
 | Name                  | PS Addr       | PS Numerical Format                                               | PL Addr       | PL Numerical Format  |
 | :-------------------- | :----------   | :-------------------------------------------------------------    | :----------   | :------------------  |
@@ -181,14 +181,14 @@ The `channel_value` register controls the volume of all the the input signals be
 | Name                  | PS Addr       | PS Numerical Format                                               | PL Addr       | PL Numerical Format           |
 | :-------------------- | :------------ | :---------------------------------------------------------------- | :------------ | :---------------------------- |
 | channel_value         | 0xA0050004    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg1      | sfixed(1 downto -23)          |
-| channel_address       | 0xA0050008    | Integer                                                           | slv_reg2      | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050008    | Integer                                                           | slv_reg2      | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA005000C    | Boolean                                                           | slv_reg3      | std_logic                     |
 
 
 ### biquad_tdm
 
 * The `b0`, `b1`, `b2`, `a1` and `a2` registers are for the coëfficients of the biquad filter. The value has to be between 0 and 8.
-* The `channel_address` register has to be loaded with the address for which the `channel_value` belongs.
+* The `channel_address` register has to be loaded with the address for which the `b0`, `b1`, `b2`, `a1` and `a2` belongs.
 
 Because we have an 8th order band shelf filter, 4th order low shelf filter, 4th order high shelf filter, 2nd order low pass filter and 4th order high pass filter, we need 4, 2, 2, 1 and 2 biquad filters respectively to make these filters.
 
@@ -204,7 +204,7 @@ These are the registers for the first (of the 2) Low Shelf filters needed to mak
 | b2                    | 0xA0050018    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg6      | sfixed(3 downto -23)          |
 | a1                    | 0xA005001C    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg7      | sfixed(3 downto -23)          |
 | a2                    | 0xA0050020    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg8      | sfixed(3 downto -23)          |
-| channel_address       | 0xA0050024    | Integer                                                           | slv_reg9      | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050024    | Integer                                                           | slv_reg9      | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050028    | Boolean                                                           | slv_reg10     | std_logic                     |
 
 #### Band Shelf Low 2
@@ -218,7 +218,7 @@ These are the registers for the second (of the 2) Low Shelf filters needed to ma
 | b2                    | 0xA0050034    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg13     | sfixed(3 downto -23)          |
 | a1                    | 0xA0050038    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg14     | sfixed(3 downto -23)          |
 | a2                    | 0xA005003C    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg15     | sfixed(3 downto -23)          |
-| channel_address       | 0xA0050040    | Integer                                                           | slv_reg16     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050040    | Integer                                                           | slv_reg16     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050044    | Boolean                                                           | slv_reg17     | std_logic                     |
 
 #### Band Shelf High 1
@@ -232,7 +232,7 @@ These are the registers for the first (of the 2) High Shelf filters needed to ma
 | b2                    | 0xA0050050    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg20     | sfixed(3 downto -23)          |
 | a1                    | 0xA0050054    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg21     | sfixed(3 downto -23)          |
 | a2                    | 0xA0050058    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg22     | sfixed(3 downto -23)          |
-| channel_address       | 0xA005005C    | Integer                                                           | slv_reg23     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA005005C    | Integer                                                           | slv_reg23     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050060    | Boolean                                                           | slv_reg24     | std_logic                     |
 
 #### Band Shelf High 2
@@ -246,7 +246,7 @@ These are the registers for the second (of the 2) High Shelf filters needed to m
 | b2                    | 0xA005006C    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg27     | sfixed(3 downto -23)          |
 | a1                    | 0xA0050070    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg28     | sfixed(3 downto -23)          |
 | a2                    | 0xA0050074    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg29     | sfixed(3 downto -23)          |
-| channel_address       | 0xA0050078    | Integer                                                           | slv_reg30     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050078    | Integer                                                           | slv_reg30     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA005007C    | Boolean                                                           | slv_reg31     | std_logic                     |
 
 #### Low Shelf 1
@@ -260,7 +260,7 @@ These are the registers for the first (of the 2) Low Shelf filters.
 | b2                    | 0xA0050088    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg34     | sfixed(3 downto -23)          |
 | a1                    | 0xA005008C    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg35     | sfixed(3 downto -23)          |
 | a2                    | 0xA0050090    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg36     | sfixed(3 downto -23)          |
-| channel_address       | 0xA0050094    | Integer                                                           | slv_reg37     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050094    | Integer                                                           | slv_reg37     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050098    | Boolean                                                           | slv_reg38     | std_logic                     |
 
 #### Low Shelf 2
@@ -274,7 +274,7 @@ These are the registers for the second (of the 2) Low Shelf filters.
 | b2                    | 0xA00500A4    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg41     | sfixed(3 downto -23)          |
 | a1                    | 0xA00500A8    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg42     | sfixed(3 downto -23)          |
 | a2                    | 0xA00500AC    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg43     | sfixed(3 downto -23)          |
-| channel_address       | 0xA00500B0    | Integer                                                           | slv_reg44     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA00500B0    | Integer                                                           | slv_reg44     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA00500B4    | Boolean                                                           | slv_reg45     | std_logic                     |
 
 #### High Shelf 1
@@ -288,7 +288,7 @@ These are the registers for the first (of the 2) High Shelf filters.
 | b2                    | 0xA00500C0    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg48     | sfixed(3 downto -23)          |
 | a1                    | 0xA00500C4    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg49     | sfixed(3 downto -23)          |
 | a2                    | 0xA00500C8    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg50     | sfixed(3 downto -23)          |
-| channel_address       | 0xA00500CC    | Integer                                                           | slv_reg51     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA00500CC    | Integer                                                           | slv_reg51     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA00500D0    | Boolean                                                           | slv_reg52     | std_logic                     |
 
 #### High Shelf 2
@@ -302,7 +302,7 @@ These are the registers for the second (of the 2) High Shelf filters.
 | b2                    | 0xA00500DC    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg55     | sfixed(3 downto -23)          |
 | a1                    | 0xA00500E0    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg56     | sfixed(3 downto -23)          |
 | a2                    | 0xA00500E4    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg57     | sfixed(3 downto -23)          |
-| channel_address       | 0xA00500E8    | Integer                                                           | slv_reg58     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA00500E8    | Integer                                                           | slv_reg58     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA00500EC    | Boolean                                                           | slv_reg59     | std_logic                     |
 
 #### Low Pass
@@ -316,7 +316,7 @@ These are the registers for the Low Pass filter.
 | b2                    | 0xA00500F8    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg62     | sfixed(3 downto -23)          |
 | a1                    | 0xA00500FC    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg63     | sfixed(3 downto -23)          |
 | a2                    | 0xA0050100    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg64     | sfixed(3 downto -23)          |
-| channel_address       | 0xA0050104    | Integer                                                           | slv_reg65     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050104    | Integer                                                           | slv_reg65     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050108    | Boolean                                                           | slv_reg66     | std_logic                     |
 
 #### High Pass 1
@@ -330,7 +330,7 @@ These are the registers for the first (of the 2) High Pass filters.
 | b2                    | 0xA0050114    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg69     | sfixed(3 downto -23)          |
 | a1                    | 0xA0050118    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg70     | sfixed(3 downto -23)          |
 | a2                    | 0xA005011C    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg71     | sfixed(3 downto -23)          |
-| channel_address       | 0xA0050120    | Integer                                                           | slv_reg72     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050120    | Integer                                                           | slv_reg72     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050124    | Boolean                                                           | slv_reg73     | std_logic                     |
 
 #### High Pass 2
@@ -344,7 +344,7 @@ These are the registers for the second (of the 2) High Pass filters.
 | b2                    | 0xA0050130    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg76     | sfixed(3 downto -23)          |
 | a1                    | 0xA0050134    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg77     | sfixed(3 downto -23)          |
 | a2                    | 0xA0050138    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg78     | sfixed(3 downto -23)          |
-| channel_address       | 0xA005013C    | Integer                                                           | slv_reg79     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA005013C    | Integer                                                           | slv_reg79     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050140    | Boolean                                                           | slv_reg80     | std_logic                     |
 
 
@@ -356,7 +356,7 @@ These are the registers for the second (of the 2) High Pass filters.
 | Name                  | PS Addr       | PS Numerical Format                                               | PL Addr       | PL Numerical Format           |
 | :-------------------- | :------------ | :---------------------------------------------------------------- | :------------ | :---------------------------- |
 | channel_value         | 0xA0050144    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg81     | sfixed(0 downto -23)          |
-| channel_address       | 0xA0050148    | Integer                                                           | slv_reg82     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050148    | Integer                                                           | slv_reg82     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA005014C    | Boolean                                                           | slv_reg83     | std_logic                     |
 
 
@@ -368,7 +368,7 @@ These are the registers for the second (of the 2) High Pass filters.
 | Name                  | PS Addr       | PS Numerical Format                                               | PL Addr       | PL Numerical Format           |
 | :-------------------- | :------------ | :---------------------------------------------------------------- | :------------ | :---------------------------- |
 | channel_value         | 0xA0050150    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg84     | sfixed(3 downto -23)          |
-| channel_address       | 0xA0050154    | Integer                                                           | slv_reg85     | std_logic_vector(3 downto 0)  |
+| channel_address       | 0xA0050154    | Integer                                                           | slv_reg85     | std_logic_vector(1 downto 0)  |
 | strobe                | 0xA0050158    | Boolean                                                           | slv_reg86     | std_logic                     |
 
 
@@ -410,6 +410,6 @@ In our audio pipeline, there are two ring_modulator modules, one for the analog 
 
 | Name                  | PS Addr       | PS Numerical Format                                               | PL Addr       | PL Numerical Format           |
 | :-------------------- | :------------ | :---------------------------------------------------------------- | :------------ | :---------------------------- |
-| channel_volume_select | 0xA0050170    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg92     | std_logic_vector(3 downto 0)  |
+| channel_volume_select | 0xA0050170    | Integer                                                           | slv_reg92     | std_logic_vector(1 downto 0)  |
 | channel_volume_value  | 0xA0050174    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg93     | std_logic_vector(17 downto 0) |
-| channel_volume_strobe | 0xA0050178    | Signed Fixed-Point (8 integer digits and 23 fractional digits)    | slv_reg94     | std_logic                     |
+| channel_volume_strobe | 0xA0050178    | Boolean                                                           | slv_reg94     | std_logic                     |
