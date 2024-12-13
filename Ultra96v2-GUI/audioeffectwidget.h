@@ -26,7 +26,7 @@
 #define SATURATION_UPPER_BOUND 50
 #define ECHO_LOWER_BOUND 0
 #define ECHO_UPPER_BOUND 0.8
-#define RING_MODULATION_LOWER_BOUND 1
+#define RING_MODULATION_LOWER_BOUND 0
 #define RING_MODULATION_UPPER_BOUND 1024
 #define LOW_BANDWIDTH_LOWER_BOUND 0
 #define LOW_BANDWIDTH_UPPER_BOUND 1000
@@ -84,7 +84,9 @@ public:
     ~AudioEffectWidget();
 
 private slots:
+    // MIDI process helper method
     void handleMidiProcessOutput();
+    // High - and lowpass helper methods
     void handleAnalogHighpassFilterProcess();
     void handleAnalogLowpassFilterProcess();
     void handleDmaHighpassFilterProcess();
@@ -92,22 +94,26 @@ private slots:
 
 private:
     int writeToAxi(off_t reg_offset, auto val);
-
     QProcess* startPythonProcess(QString pythonScript);
 
+    // Shelving filter helper methods
     ShelvingCoefficients calculateHighShelfFilter(int bandwidth, int dBgain);
     ShelvingCoefficients calculateLowShelfFilter(int bandwidth, int dBgain);
+    void writeHighShelfFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel);
+    void writeBandShelfFilterParameters(ShelvingCoefficients highFilterCoefficients, ShelvingCoefficients lowFilterCoefficients, int leftChannel, int rightChannel);
+    void writeLowShelfFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel);
+    void writeBandShelfGain(float gain, int leftChannel, int rightChannel);
 
-    // Helper functions to simplify layout creation
+    // Effect helper methods
+    void writeEchoValue(double echoValue, int leftChannel, int rightChannel);
+    void writeSaturationValue(int saturationValue, int leftChannel, int rightChannel);
+
+    // Layout helper methods
     QLabel* createCustomValueLabel(const QString& defaultValue);
-    QVBoxLayout* createSectionLayout(QLabel* high, QLabel* mid, QLabel* low,
-        QLabel* highPass, QLabel* lowPass, QLabel* volume,
-        QLabel* saturation, QLabel* echo, QLabel* ringMod,
-        QLabel* highBandwidth, QLabel* lowBandwidth,
-        const QString& sectionTitle, QWidget* parent);
     QVBoxLayout* createLabelAndWidget(const QString& labelText, QWidget* widget, QWidget* parent);
+    QVBoxLayout* createSectionLayout(QLabel* high, QLabel* mid, QLabel* low, QLabel* highPass, QLabel* lowPass, QLabel* volume, QLabel* saturation, QLabel* echo, QLabel* ringMod, QLabel* highBandwidth, QLabel* lowBandwidth, const QString& sectionTitle, QWidget* parent);
 
-    // Analog Section Widgets
+    // Interface widgets
     QLabel* analogHighValueLabel;
     QLabel* analogMidValueLabel;
     QLabel* analogLowValueLabel;
@@ -119,8 +125,6 @@ private:
     QLabel* analogEchoValueLabel;
     QLabel* analogRingModulationValueLabel;
     QLabel* analogVolumeValueLabel;
-
-    // DMA Section Widgets
     QLabel* dmaHighValueLabel;
     QLabel* dmaMidValueLabel;
     QLabel* dmaLowValueLabel;
@@ -140,6 +144,7 @@ private:
     QProcess *dmaHighpassFilterProcess;
     QProcess *dmaLowpassFilterProcess;
 
+    // Selection instances
     AudioEffect selectedAudioEffect;
     FilterBandwith selectedAnalogBandwidth;
     FilterBandwith selectedDmaBandwidth;

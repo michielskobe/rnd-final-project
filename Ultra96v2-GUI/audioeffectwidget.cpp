@@ -15,7 +15,7 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     analogLowpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
     analogSaturationValueLabel = createCustomValueLabel("1");
     analogEchoValueLabel = createCustomValueLabel("0");
-    analogRingModulationValueLabel = createCustomValueLabel("1");
+    analogRingModulationValueLabel = createCustomValueLabel("OFF");
     analogVolumeValueLabel = createCustomValueLabel("0%");
 
     // Initialize DMA Section Widgets
@@ -28,7 +28,7 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     dmaLowpassValueLabel = createCustomValueLabel(QString::number(FREQUENCY_FILTER_LOWER_BOUND) + "Hz");
     dmaSaturationValueLabel = createCustomValueLabel("1");
     dmaEchoValueLabel = createCustomValueLabel("0");
-    dmaRingModulationValueLabel = createCustomValueLabel("1");
+    dmaRingModulationValueLabel = createCustomValueLabel("OFF");
     dmaVolumeValueLabel = createCustomValueLabel("0%");
 
     // Set default select effect
@@ -182,10 +182,18 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int lowGain = lowGainMatch.captured(1).toInt();
 
                         // Calculate filter coefficients
-                        ShelvingCoefficients lowShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, lowGain);
-                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, midGain);
-                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, midGain);
                         ShelvingCoefficients highShelftFilterCoefficients = calculateHighShelfFilter(higherBandwidth, highGain);
+                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, midGain);
+                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, midGain);
+                        ShelvingCoefficients lowShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, lowGain);
+
+                        // Write coefficients to AXI
+                        writeHighShelfFilterParameters(highShelftFilterCoefficients, 0, 1);
+                        writeBandShelfFilterParameters(highBandShelfFilterCoefficients, lowBandShelfFilterCoefficients, 0, 1);
+                        writeLowShelfFilterParameters(lowShelfFilterCoefficients, 0, 1);
+
+                        // Write gain to AXI
+                        writeBandShelfGain(midGain, 0, 1);
                         break;
                     }
                     case 51: { // High Shelf filter control
@@ -198,8 +206,6 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Map values below 64 to the range [-26, 0]
                             gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
                         }
-                        // Update value in interface
-                        analogHighValueLabel->setText(QString("%1dB").arg(round(gain)));
 
                         // Get higher filter bandwidth value
                         QRegularExpression regex(R"((\d+)(?=Hz))");
@@ -208,6 +214,12 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                         // Calculate filter coefficients
                         ShelvingCoefficients coefficients = calculateHighShelfFilter(bandwidth, gain);
+
+                        // Write coefficients to AXI
+                        writeHighShelfFilterParameters(coefficients, 0, 1);
+
+                        // Update value in interface
+                        analogHighValueLabel->setText(QString("%1dB").arg(round(gain)));
                         break;
                     }
                     case 52: { // Band Shelf filter control
@@ -220,8 +232,6 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Map values below 64 to the range [-26, 0]
                             gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
                         }
-                        // Update value in interface
-                        analogMidValueLabel->setText(QString("%1dB").arg(round(gain)));
 
                         // Get lower and higher bandwidth value
                         QRegularExpression regex(R"((\d+)(?=Hz))");
@@ -231,8 +241,29 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float higherBandwidth = higherMatch.captured(1).toInt();
 
                         // Calculate filter coefficients
-                        ShelvingCoefficients lowerFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
-                        ShelvingCoefficients higherFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+                        ShelvingCoefficients lowFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
+                        ShelvingCoefficients highFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+
+                        // Get previous gain value
+                        QRegularExpression gainRegex(R"((\d+)(?=dB))");
+                        QRegularExpressionMatch gainMatch = gainRegex.match(analogMidValueLabel->text());
+                        float previousGain = pow(10, gainMatch.captured(1).toInt() / 20.0f);
+                        float newGain = pow(10, gain / 20.0f);
+
+                        if (newGain > previousGain){
+                            // Write coefficients to AXI
+                            writeBandShelfFilterParameters(highFilterCoefficients, lowFilterCoefficients, 0, 1);
+                            // Write gain to AXI
+                            writeBandShelfGain(newGain, 0, 1);
+                        } else {
+                            // Write gain to AXI
+                            writeBandShelfGain(newGain, 0, 1);
+                            // Write coefficients to AXI
+                            writeBandShelfFilterParameters(highFilterCoefficients, lowFilterCoefficients, 0, 1);
+                        }
+
+                        // Update value in interface
+                        analogMidValueLabel->setText(QString("%1dB").arg(round(gain)));
                         break;
                     }
                     case 53: { // Low Shelf filter control
@@ -245,8 +276,6 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Map values below 64 to the range [-26, 0]
                             gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
                         }
-                        // Update value in interface
-                        analogLowValueLabel->setText(QString("%1dB").arg(round(gain)));
 
                         // Get lower filter bandwidth value
                         QRegularExpression regex(R"((\d+)(?=Hz))");
@@ -255,13 +284,17 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                         // Calculate filter coefficients
                         ShelvingCoefficients coefficients = calculateLowShelfFilter(bandwidth, gain);
+
+                        // Write coefficients to AXI
+                        writeLowShelfFilterParameters(coefficients, 0, 1);
+
+                        // Update value in interface
+                        analogLowValueLabel->setText(QString("%1dB").arg(round(gain)));
                         break;
                     }
                     case 55: { // Volume control
                         // Normalize volume
                         float volumeValue = valueByte / 127.0f;
-                        // Update value in interface
-                        analogVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
 
                         auto fixedVolume = make_fixed<8, 23>{volumeValue};
                         writeToAxi(0x170, fixedVolume);
@@ -273,6 +306,9 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         writeToAxi(0x174,1);
                         // Clear strobe
                         writeToAxi(0x178,0);
+
+                        // Update value in interface
+                        analogVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
                         break;
                     }
                     default : {
@@ -291,6 +327,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         // Calculate filter parameters
                         QString input = "lowpass 2 " + QString::number(frequencyValue);
                         dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
+
                         // Update value in interface
                         dmaLowpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
                         break;
@@ -303,6 +340,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         // Calculate filter parameters
                         QString input = "highpass 4 " + QString::number(frequencyValue);
                         dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
+
                         // Update value in interface
                         dmaHighpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
                         break;
@@ -323,6 +361,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Update value in interface
                             dmaHighBandwidthValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
                         }
+
                         QRegularExpression bandwidthRegex(R"((\d+)(?=Hz))");
                         QRegularExpressionMatch lowerMatch = bandwidthRegex.match(dmaLowBandwidthValueLabel->text());
                         QRegularExpressionMatch higherMatch = bandwidthRegex.match(dmaHighBandwidthValueLabel->text());
@@ -341,6 +380,14 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, midGain);
                         ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, midGain);
                         ShelvingCoefficients highShelftFilterCoefficients = calculateHighShelfFilter(higherBandwidth, highGain);
+
+                        // Write coefficients to AXI
+                        writeHighShelfFilterParameters(highShelftFilterCoefficients, 2, 3);
+                        writeBandShelfFilterParameters(highBandShelfFilterCoefficients, lowBandShelfFilterCoefficients, 2, 3);
+                        writeLowShelfFilterParameters(lowShelfFilterCoefficients, 2, 3);
+
+                        // Write gain to AXI
+                        writeBandShelfGain(midGain, 2, 3);
                         break;
                     }
                     case 67: { // High Shelf filter control
@@ -353,8 +400,6 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Map values below 64 to the range [-26, 0]
                             gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
                         }
-                        // Update value in interface
-                        dmaHighValueLabel->setText(QString("%1dB").arg(round(gain)));
 
                         // Get higher filter bandwidth value
                         QRegularExpression regex(R"((\d+)(?=Hz))");
@@ -363,6 +408,12 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                         // Calculate filter coefficients
                         ShelvingCoefficients coefficients = calculateHighShelfFilter(bandwidth, gain);
+
+                        // Write coefficients to AXI
+                        writeHighShelfFilterParameters(coefficients, 2, 3);
+
+                        // Update value in interface
+                        dmaHighValueLabel->setText(QString("%1dB").arg(round(gain)));
                         break;
                     }
                     case 68: { // Band Shelf filter control
@@ -374,8 +425,6 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Map values below 64 to the range [-26, 0]
                             gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
                         }
-                        // Update value in interface
-                        dmaMidValueLabel->setText(QString("%1dB").arg(round(gain)));
 
                         // Get lower and higher bandwidth value
                         QRegularExpression regex(R"((\d+)(?=Hz))");
@@ -385,8 +434,29 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float higherBandwidth = higherMatch.captured(1).toInt();
 
                         // Calculate filter coefficients
-                        ShelvingCoefficients lowerFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
-                        ShelvingCoefficients higherFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+                        ShelvingCoefficients lowFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
+                        ShelvingCoefficients highFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+
+                        // Get previous gain value
+                        QRegularExpression gainRegex(R"((\d+)(?=dB))");
+                        QRegularExpressionMatch gainMatch = gainRegex.match(dmaMidValueLabel->text());
+                        float previousGain = pow(10, gainMatch.captured(1).toInt() / 20.0f);
+                        float newGain = pow(10, gain / 20.0f);
+
+                        if (newGain > previousGain){
+                            // Write coefficients to AXI
+                            writeBandShelfFilterParameters(highFilterCoefficients, lowFilterCoefficients, 2, 3);
+                            // Write gain to AXI
+                            writeBandShelfGain(newGain, 2, 3);
+                        } else {
+                            // Write gain to AXI
+                            writeBandShelfGain(newGain, 2, 3);
+                            // Write coefficients to AXI
+                            writeBandShelfFilterParameters(highFilterCoefficients, lowFilterCoefficients, 2, 3);
+                        }
+
+                        // Update value in interface
+                        dmaMidValueLabel->setText(QString("%1dB").arg(round(gain)));
                         break;
                     }
                     case 69: { // Low Shelf filter control
@@ -398,8 +468,6 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Map values below 64 to the range [-26, 0]
                             gain = -26 + ((valueByte - 0) / float(64 - 0)) * (0 - (-26));
                         }
-                        // Update value in interface
-                        dmaLowValueLabel->setText(QString("%1dB").arg(round(gain)));
 
                         // Get lower filter bandwidth value
                         QRegularExpression regex(R"((\d+)(?=Hz))");
@@ -408,10 +476,28 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                         // Calculate filter coefficients
                         ShelvingCoefficients coefficients = calculateLowShelfFilter(bandwidth, gain);
+
+                        // Write coefficients to AXI
+                        writeLowShelfFilterParameters(coefficients, 2, 3);
+
+                        // Update value in interface
+                        dmaLowValueLabel->setText(QString("%1dB").arg(round(gain)));
                         break;
                     }
                     case 71: { // Volume control
                         float volumeValue = valueByte / 127.0f;
+
+                        auto fixedVolume = make_fixed<8, 23>{volumeValue};
+                        writeToAxi(0x170, fixedVolume);
+                        // Write channel adress (dma left)
+                        writeToAxi(0x174,2);
+                        // Set strobe
+                        writeToAxi(0x178,1);
+                        // Write channel adress (dma right)
+                        writeToAxi(0x174,3);
+                        // Clear strobe
+                        writeToAxi(0x178,0);
+
                         // Update value in interface
                         dmaVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
                         break;
@@ -536,6 +622,10 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Normalize and map MIDI value to correct value
                             float normalizedValue = valueByte / 127.0f;
                             int saturationValue = SATURATION_LOWER_BOUND + normalizedValue * (SATURATION_UPPER_BOUND - SATURATION_LOWER_BOUND);
+
+                            // Write value to AXI
+                            writeSaturationValue(saturationValue, 0, 1);
+
                             // Update value in interface
                             analogSaturationValueLabel->setText(QString("%1").arg(round(saturationValue)));
                             break;
@@ -544,6 +634,10 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Normalize and map MIDI value to correct value
                             float normalizedValue = valueByte / 127.0f;
                             double echoValue = ECHO_LOWER_BOUND + normalizedValue * (ECHO_UPPER_BOUND - ECHO_LOWER_BOUND);
+
+                            // Write value to AXI
+                            writeEchoValue(echoValue, 0, 1);
+
                             // Update value in interface
                             analogEchoValueLabel->setText(QString("%1").arg(round(echoValue*100)/100));
                             break;
@@ -552,14 +646,31 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Normalize and map MIDI value to correct value
                             float normalizedValue = valueByte / 127.0f;
                             int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
-                            // Update value in interface
-                            analogRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+
+                            // Write value to AXI
+                            if (ringModulationValue){
+                                // Write ON status to AXI
+                                writeToAxi(0x15C, 1);
+                                // Write phase value to AXI
+                                writeToAxi(0x160, ringModulationValue);
+                                // Update value in interface
+                                analogRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+                            } else {
+                                // Write OFF status to AXI
+                                writeToAxi(0x15C, 0);
+                                // Update value in interface
+                                analogRingModulationValueLabel->setText(QString("OFF"));
+                            }
                             break;
                         }
                         case DMA_SATURATION: {
                             // Normalize and map MIDI value to correct value
                             float normalizedValue = valueByte / 127.0f;
                             int saturationValue = SATURATION_LOWER_BOUND + normalizedValue * (SATURATION_UPPER_BOUND - SATURATION_LOWER_BOUND);
+
+                            // Write value to AXI
+                            writeSaturationValue(saturationValue, 2, 3);
+
                             // Update value in interface
                             dmaSaturationValueLabel->setText(QString("%1").arg(round(saturationValue)));
                             break;
@@ -568,6 +679,10 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Normalize and map MIDI value to correct value
                             float normalizedValue = valueByte / 127.0f;
                             double echoValue = ECHO_LOWER_BOUND + normalizedValue * (ECHO_UPPER_BOUND - ECHO_LOWER_BOUND);
+
+                            // Write value to AXI
+                            writeEchoValue(echoValue, 2, 3);
+
                             // Update value in interface
                             dmaEchoValueLabel->setText(QString("%1").arg(round(echoValue*100)/100));
                             break;
@@ -576,8 +691,21 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             // Normalize and map MIDI value to correct value
                             float normalizedValue = valueByte / 127.0f;
                             int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
-                            // Update value in interface
-                            dmaRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+
+                            // Write value to AXI
+                            if (ringModulationValue){
+                                // Write ON status to AXI
+                                writeToAxi(0x164, 1);
+                                // Write phase value to AXI
+                                writeToAxi(0x168, ringModulationValue);
+                                // Update value in interface
+                                dmaRingModulationValueLabel->setText(QString("%1").arg(round(ringModulationValue)));
+                            } else {
+                                // Write OFF status to AXI
+                                writeToAxi(0x164, 0);
+                                // Update value in interface
+                                dmaRingModulationValueLabel->setText(QString("OFF"));
+                            }
                             break;
                         }
                         default: {
@@ -593,6 +721,37 @@ void AudioEffectWidget::handleMidiProcessOutput() {
         }
     }
 }
+
+int AudioEffectWidget::writeToAxi(off_t reg_offset, auto val) {
+    // Open /dev/mem to map the physical address into user space
+    int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
+    if (mem_fd == -1) {
+        perror("Error opening /dev/mem");
+        return EXIT_FAILURE;
+    }
+
+    // Map AXI memory to user space (using mmap)
+    void* mapped_base = mmap(NULL, MMAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, AXI_BASE_ADDR);
+    if (mapped_base == MAP_FAILED) {
+        perror("Error mapping AXI memory");
+        ::close(mem_fd);
+        return EXIT_FAILURE;
+    }
+
+    // Write the value to the AXI memory address
+    volatile uint32_t* reg_ptr = (volatile uint32_t *)((char *)mapped_base + reg_offset);
+    *reg_ptr = val;
+
+    // Clean up and close /dev/mem
+    if (munmap(mapped_base, MMAP_SIZE) == -1) {
+        perror("Error unmapping memory");
+    }
+    ::close(mem_fd);
+
+    return EXIT_SUCCESS;
+}
+
+/**************************************** SHELVING FILTER HELPER METHODS ****************************************/
 
 ShelvingCoefficients AudioEffectWidget::calculateHighShelfFilter(int bandwidth, int dBgain) {
     // Calculate parameters
@@ -650,6 +809,188 @@ ShelvingCoefficients AudioEffectWidget::calculateLowShelfFilter(int bandwidth, i
     return coefficients;
 
 }
+
+void AudioEffectWidget::writeHighShelfFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel){
+    // Write high shelft filter coefficients (filter 1)
+    auto fixed_b0_1 = make_fixed<8, 23>{coefficients.b0_1};
+    writeToAxi(0xB8, fixed_b0_1);
+    auto fixed_b1_1 = make_fixed<8, 23>{coefficients.b1_1};
+    writeToAxi(0xBC, fixed_b1_1);
+    auto fixed_b2_1 = make_fixed<8, 23>{coefficients.b2_1};
+    writeToAxi(0xC0, fixed_b2_1);
+    auto fixed_a1_1 = make_fixed<8, 23>{coefficients.a1_1};
+    writeToAxi(0xC4, fixed_a1_1);
+    auto fixed_a2_1 = make_fixed<8, 23>{coefficients.a2_1};
+    writeToAxi(0xC8, fixed_a2_1);
+    // Write channel adress
+    writeToAxi(0xCC,leftChannel);
+    // Set strobe
+    writeToAxi(0xD0,1);
+    // Write channel adress
+    writeToAxi(0xCC,rightChannel);
+    // Clear strobe
+    writeToAxi(0xD0,0);
+
+    // Write high shelft filter coefficients (filter 2)
+    auto fixed_b0_2 = make_fixed<8, 23>{coefficients.b0_2};
+    writeToAxi(0xD4, fixed_b0_2);
+    auto fixed_b1_2 = make_fixed<8, 23>{coefficients.b1_2};
+    writeToAxi(0xD8, fixed_b1_2);
+    auto fixed_b2_2 = make_fixed<8, 23>{coefficients.b2_2};
+    writeToAxi(0xDC, fixed_b2_2);
+    auto fixed_a1_2 = make_fixed<8, 23>{coefficients.a1_2};
+    writeToAxi(0xE0, fixed_a1_2);
+    auto fixed_a2_2 = make_fixed<8, 23>{coefficients.a2_2};
+    writeToAxi(0xE4, fixed_a2_2);
+    // Write channel adress
+    writeToAxi(0xE8,leftChannel);
+    // Set strobe
+    writeToAxi(0xEC,1);
+    // Write channel adress
+    writeToAxi(0xE8,rightChannel);
+    // Clear strobe
+    writeToAxi(0xEC,0);
+}
+
+void AudioEffectWidget::writeBandShelfFilterParameters(ShelvingCoefficients highFilterCoefficients, ShelvingCoefficients lowFilterCoefficients, int leftChannel, int rightChannel){
+    // Write high shelft filter coefficients (filter 1)
+    auto fixed_high_b0_1 = make_fixed<8, 23>{highFilterCoefficients.b0_1};
+    writeToAxi(0x48, fixed_high_b0_1);
+    auto fixed_high_b1_1 = make_fixed<8, 23>{highFilterCoefficients.b1_1};
+    writeToAxi(0x4C, fixed_high_b1_1);
+    auto fixed_high_b2_1 = make_fixed<8, 23>{highFilterCoefficients.b2_1};
+    writeToAxi(0x50, fixed_high_b2_1);
+    auto fixed_high_a1_1 = make_fixed<8, 23>{highFilterCoefficients.a1_1};
+    writeToAxi(0x54, fixed_high_a1_1);
+    auto fixed_high_a2_1 = make_fixed<8, 23>{highFilterCoefficients.a2_1};
+    writeToAxi(0x58, fixed_high_a2_1);
+    // Write channel adress
+    writeToAxi(0x5C,leftChannel);
+    // Set strobe
+    writeToAxi(0x60,1);
+    // Write channel adress
+    writeToAxi(0x5C,rightChannel);
+    // Clear strobe
+    writeToAxi(0x60,0);
+
+    // Write high shelft filter coefficients (filter 2)
+    auto fixed_high_b0_2 = make_fixed<8, 23>{highFilterCoefficients.b0_2};
+    writeToAxi(0x64, fixed_high_b0_2);
+    auto fixed_high_b1_2 = make_fixed<8, 23>{highFilterCoefficients.b1_2};
+    writeToAxi(0x68, fixed_high_b1_2);
+    auto fixed_high_b2_2 = make_fixed<8, 23>{highFilterCoefficients.b2_2};
+    writeToAxi(0x6C, fixed_high_b2_2);
+    auto fixed_high_a1_2 = make_fixed<8, 23>{highFilterCoefficients.a1_2};
+    writeToAxi(0x70, fixed_high_a1_2);
+    auto fixed_high_a2_2 = make_fixed<8, 23>{highFilterCoefficients.a2_2};
+    writeToAxi(0x74, fixed_high_a2_2);
+    // Write channel adress
+    writeToAxi(0x78,leftChannel);
+    // Set strobe
+    writeToAxi(0x7C,1);
+    // Write channel adress
+    writeToAxi(0x78,rightChannel);
+    // Clear strobe
+    writeToAxi(0x7C,0);
+
+    // Write low shelft filter coefficients (filter 1)
+    auto fixed_low_b0_1 = make_fixed<8, 23>{lowFilterCoefficients.b0_1};
+    writeToAxi(0x10, fixed_low_b0_1);
+    auto fixed_low_b1_1 = make_fixed<8, 23>{lowFilterCoefficients.b1_1};
+    writeToAxi(0x14, fixed_low_b1_1);
+    auto fixed_low_b2_1 = make_fixed<8, 23>{lowFilterCoefficients.b2_1};
+    writeToAxi(0x18, fixed_low_b2_1);
+    auto fixed_low_a1_1 = make_fixed<8, 23>{lowFilterCoefficients.a1_1};
+    writeToAxi(0x1C, fixed_low_a1_1);
+    auto fixed_low_a2_1 = make_fixed<8, 23>{lowFilterCoefficients.a2_1};
+    writeToAxi(0x20, fixed_low_a2_1);
+    // Write channel adress
+    writeToAxi(0x24,leftChannel);
+    // Set strobe
+    writeToAxi(0x28,1);
+    // Write channel adress
+    writeToAxi(0x24,rightChannel);
+    // Clear strobe
+    writeToAxi(0x28,0);
+
+    // Write low shelft filter coefficients (filter 2)
+    auto fixed_low_b0_2 = make_fixed<8, 23>{lowFilterCoefficients.b0_2};
+    writeToAxi(0x2C, fixed_low_b0_2);
+    auto fixed_low_b1_2 = make_fixed<8, 23>{lowFilterCoefficients.b1_2};
+    writeToAxi(0x30, fixed_low_b1_2);
+    auto fixed_low_b2_2 = make_fixed<8, 23>{lowFilterCoefficients.b2_2};
+    writeToAxi(0x34, fixed_low_b2_2);
+    auto fixed_low_a1_2 = make_fixed<8, 23>{lowFilterCoefficients.a1_2};
+    writeToAxi(0x38, fixed_low_a1_2);
+    auto fixed_low_a2_2 = make_fixed<8, 23>{lowFilterCoefficients.a2_2};
+    writeToAxi(0x3C, fixed_low_a2_2);
+    // Write channel adress
+    writeToAxi(0x40,leftChannel);
+    // Set strobe
+    writeToAxi(0x44,1);
+    // Write channel adress
+    writeToAxi(0x40,rightChannel);
+    // Clear strobe
+    writeToAxi(0x44,0);
+}
+
+void AudioEffectWidget::writeBandShelfGain(float gain, int leftChannel, int rightChannel){
+    auto fixedGain = make_fixed<8, 23>{gain};
+    writeToAxi(0x04, fixedGain);
+    // Write channel adress
+    writeToAxi(0x08,leftChannel);
+    // Set strobe
+    writeToAxi(0x0C,1);
+    // Write channel adress
+    writeToAxi(0x08,rightChannel);
+    // Clear strobe
+    writeToAxi(0x0C,0);
+}
+
+void AudioEffectWidget::writeLowShelfFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel){
+    // Write low shelft filter coefficients (filter 1)
+    auto fixed_b0_1 = make_fixed<8, 23>{coefficients.b0_1};
+    writeToAxi(0x80, fixed_b0_1);
+    auto fixed_b1_1 = make_fixed<8, 23>{coefficients.b1_1};
+    writeToAxi(0x84, fixed_b1_1);
+    auto fixed_b2_1 = make_fixed<8, 23>{coefficients.b2_1};
+    writeToAxi(0x88, fixed_b2_1);
+    auto fixed_a1_1 = make_fixed<8, 23>{coefficients.a1_1};
+    writeToAxi(0x8C, fixed_a1_1);
+    auto fixed_a2_1 = make_fixed<8, 23>{coefficients.a2_1};
+    writeToAxi(0x90, fixed_a2_1);
+    // Write channel adress
+    writeToAxi(0x94,leftChannel);
+    // Set strobe
+    writeToAxi(0x98,1);
+    // Write channel adress
+    writeToAxi(0x94,rightChannel);
+    // Clear strobe
+    writeToAxi(0x98,0);
+
+    // Write low shelft filter coefficients (filter 2)
+    auto fixed_b0_2 = make_fixed<8, 23>{coefficients.b0_2};
+    writeToAxi(0x9C, fixed_b0_2);
+    auto fixed_b1_2 = make_fixed<8, 23>{coefficients.b1_2};
+    writeToAxi(0xA0, fixed_b1_2);
+    auto fixed_b2_2 = make_fixed<8, 23>{coefficients.b2_2};
+    writeToAxi(0xA4, fixed_b2_2);
+    auto fixed_a1_2 = make_fixed<8, 23>{coefficients.a1_2};
+    writeToAxi(0xA8, fixed_a1_2);
+    auto fixed_a2_2 = make_fixed<8, 23>{coefficients.a2_2};
+    writeToAxi(0xAC, fixed_a2_2);
+    // Write channel adress
+    writeToAxi(0xB0,leftChannel);
+    // Set strobe
+    writeToAxi(0xB4,1);
+    // Write channel adress
+    writeToAxi(0xB0,rightChannel);
+    // Clear strobe
+    writeToAxi(0xB4,0);
+
+}
+
+/**************************************** HIGH - AND LOWPASS FILTER HELPER METHODS ****************************************/
 
 void AudioEffectWidget::handleAnalogHighpassFilterProcess() {
     QString output = analogHighpassFilterProcess->readAllStandardOutput();
@@ -727,7 +1068,7 @@ void AudioEffectWidget::handleAnalogLowpassFilterProcess() {
         float a1 = match.captured(5).toFloat();
         float a2 = match.captured(6).toFloat();
 
-        // Write high pass coefficients (filter 1)
+        // Write low pass coefficients
         auto fixed_b0 = make_fixed<8, 23>{b0/a0};
         writeToAxi(0xF0, fixed_b0);
         auto fixed_b1 = make_fixed<8, 23>{b1/a0};
@@ -828,7 +1169,7 @@ void AudioEffectWidget::handleDmaLowpassFilterProcess() {
         float a1 = match.captured(5).toFloat();
         float a2 = match.captured(6).toFloat();
 
-        // Write high pass coefficients (filter 1)
+        // Write low pass coefficients
         auto fixed_b0 = make_fixed<8, 23>{b0/a0};
         writeToAxi(0xF0, fixed_b0);
         auto fixed_b1 = make_fixed<8, 23>{b1/a0};
@@ -854,34 +1195,35 @@ void AudioEffectWidget::handleDmaLowpassFilterProcess() {
     }
 }
 
-int AudioEffectWidget::writeToAxi(off_t reg_offset, auto val) {
-    // Open /dev/mem to map the physical address into user space
-    int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
-    if (mem_fd == -1) {
-        perror("Error opening /dev/mem");
-        return EXIT_FAILURE;
-    }
+/**************************************** EFFECT HELPER METHODS ****************************************/
 
-    // Map AXI memory to user space (using mmap)
-    void* mapped_base = mmap(NULL, MMAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, AXI_BASE_ADDR);
-    if (mapped_base == MAP_FAILED) {
-        perror("Error mapping AXI memory");
-        ::close(mem_fd);
-        return EXIT_FAILURE;
-    }
-
-    // Write the value to the AXI memory address
-    volatile uint32_t* reg_ptr = (volatile uint32_t *)((char *)mapped_base + reg_offset);
-    *reg_ptr = val;
-
-    // Clean up and close /dev/mem
-    if (munmap(mapped_base, MMAP_SIZE) == -1) {
-        perror("Error unmapping memory");
-    }
-    ::close(mem_fd);
-
-    return EXIT_SUCCESS;
+void AudioEffectWidget::writeEchoValue(double echoValue, int leftChannel, int rightChannel){
+    auto fixedEcho = make_fixed<8, 23>{echoValue};
+    writeToAxi(0x144, fixedEcho);
+    // Write channel adress
+    writeToAxi(0x148,leftChannel);
+    // Set strobe
+    writeToAxi(0x14C,1);
+    // Write channel adress
+    writeToAxi(0x148,rightChannel);
+    // Clear strobe
+    writeToAxi(0x14C,0);
 }
+
+void AudioEffectWidget::writeSaturationValue(int saturationValue, int leftChannel, int rightChannel){
+    auto fixedSaturation = make_fixed<8, 23>{saturationValue};
+    writeToAxi(0x150, fixedSaturation);
+    // Write channel adress
+    writeToAxi(0x154,leftChannel);
+    // Set strobe
+    writeToAxi(0x158,1);
+    // Write channel adress
+    writeToAxi(0x154,rightChannel);
+    // Clear strobe
+    writeToAxi(0x158,0);
+}
+
+/**************************************** LAYOUT HELPER METHODS ****************************************/
 
 QLabel* AudioEffectWidget::createCustomValueLabel(const QString& defaultValue) {
     QLabel* label = new QLabel(defaultValue, this);
@@ -900,12 +1242,7 @@ QVBoxLayout* AudioEffectWidget::createLabelAndWidget(const QString& labelText, Q
     return layout;
 }
 
-QVBoxLayout* AudioEffectWidget::createSectionLayout(
-    QLabel* high, QLabel* mid, QLabel* low,
-    QLabel* highPass, QLabel* lowPass, QLabel* volume,
-    QLabel* saturation, QLabel* echo, QLabel* ringMod,
-    QLabel* highBandwidth, QLabel* lowBandwidth,
-    const QString& sectionTitle, QWidget* parent)
+QVBoxLayout* AudioEffectWidget::createSectionLayout(QLabel* high, QLabel* mid, QLabel* low, QLabel* highPass, QLabel* lowPass, QLabel* volume, QLabel* saturation, QLabel* echo, QLabel* ringMod, QLabel* highBandwidth, QLabel* lowBandwidth, const QString& sectionTitle, QWidget* parent)
 {
     // Create Section Title
     QLabel* sectionLabel = new QLabel(sectionTitle, parent);
@@ -960,4 +1297,3 @@ QVBoxLayout* AudioEffectWidget::createSectionLayout(
 
     return sectionLayout;
 }
-
