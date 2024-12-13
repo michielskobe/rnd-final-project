@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <cmath>
+#include <sg14/fixed_point>
 
 #define FREQUENCY_FILTER_LOWER_BOUND 200
 #define FREQUENCY_FILTER_UPPER_BOUND 20000
@@ -31,7 +32,7 @@
 #define LOW_BANDWIDTH_UPPER_BOUND 1000
 #define HIGH_BANDWIDTH_LOWER_BOUND 1000
 #define HIGH_BANDWIDTH_UPPER_BOUND 10000
-#define AXI_BASE_ADDR 0xA0040000
+#define AXI_BASE_ADDR 0xA0050000
 #define MMAP_SIZE 0x10000
 
 struct ShelvingCoefficients {
@@ -90,7 +91,7 @@ private slots:
     void handleDmaLowpassFilterProcess();
 
 private:
-    int writeToAxi(volatile uint32_t *base_addr, uint32_t val);
+    int writeToAxi(off_t reg_offset, auto val);
 
     QProcess* startPythonProcess(QString pythonScript);
 
