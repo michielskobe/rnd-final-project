@@ -377,7 +377,7 @@ begin
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
 	    if S_AXI_ARESETN = '0' then
-	      slv_reg0 <= (others => '0');
+	      slv_reg0 <= to_slv(to_sfixed(0.5, 8, -23));
 	      slv_reg1 <= (others => '0');
 	      slv_reg2 <= (others => '0');
 	      slv_reg3 <= (others => '0');
@@ -468,7 +468,7 @@ begin
 	      slv_reg88 <= (others => '0');
 	      slv_reg89 <= (others => '0');
 	      slv_reg90 <= (others => '0');
-	      slv_reg91 <= (others => '0');
+	      slv_reg91 <= to_slv(to_sfixed(1.0, 8, -23));
 	      slv_reg92 <= (others => '0');
 	      slv_reg93 <= (others => '0');
 	      slv_reg94 <= (others => '0');
