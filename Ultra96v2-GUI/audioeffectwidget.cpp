@@ -262,6 +262,17 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float volumeValue = valueByte / 127.0f;
                         // Update value in interface
                         analogVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
+
+                        auto fixedVolume = make_fixed<8, 23>{volumeValue};
+                        writeToAxi(0x170, fixedVolume);
+                        // Write channel adress (analog left)
+                        writeToAxi(0x174,0);
+                        // Set strobe
+                        writeToAxi(0x178,1);
+                        // Write channel adress (analog right)
+                        writeToAxi(0x174,1);
+                        // Clear strobe
+                        writeToAxi(0x178,0);
                         break;
                     }
                     default : {
