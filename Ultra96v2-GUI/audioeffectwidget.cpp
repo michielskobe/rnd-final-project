@@ -31,6 +31,9 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     dmaRingModulationValueLabel = createCustomValueLabel("OFF");
     dmaVolumeValueLabel = createCustomValueLabel("0%");
 
+    // Master Volume Label
+    masterVolumeValueLabel = createCustomValueLabel("0%");
+
     // Set default select effect
     selectedAudioEffect = NO_EFFECT;
     selectedAnalogBandwidth = ANALOG_LOW_BANDWIDTH;
@@ -87,7 +90,29 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     mainLayout->addLayout(dmaLayout);
     mainLayout->setContentsMargins(20, 0, 20, 20);
 
-    setLayout(mainLayout);
+    // Create Master Volume Layout
+    QVBoxLayout* masterVolumeLayout = new QVBoxLayout;
+    QLabel* masterVolumeLabel = new QLabel("Master Volume", this);
+    masterVolumeLabel->setAlignment(Qt::AlignCenter);
+    masterVolumeLabel->setStyleSheet("font-weight: bold; font-size: 16px; margin: 10px;");
+    masterVolumeLayout->addWidget(masterVolumeLabel);
+    masterVolumeLayout->addWidget(masterVolumeValueLabel);
+    masterVolumeLayout->setSpacing(10);
+    masterVolumeLayout->setAlignment(Qt::AlignCenter);
+
+    // Combine All Sections Into Main Vertical Layout
+    QVBoxLayout* mainVerticalLayout = new QVBoxLayout;
+    mainVerticalLayout->addLayout(mainLayout); // Add the combined analog and DMA layout
+    mainVerticalLayout->addLayout(masterVolumeLayout); // Add the master volume layout below
+    mainVerticalLayout->setContentsMargins(20, 0, 20, 20);
+
+    mainVerticalLayout->setContentsMargins(20, 10, 20, 10); // Reduced margins
+    mainLayout->setContentsMargins(0, 0, 0, 0); // Inner horizontal layout margins
+    masterVolumeLayout->setContentsMargins(0, 10, 0, 0); // Master volume margins
+
+
+    // Set the layout for the widget
+    setLayout(mainVerticalLayout);
     setMinimumSize(1000, 400);
 
     auto value = make_fixed<8, 23>{0.5};
@@ -616,7 +641,17 @@ void AudioEffectWidget::handleMidiProcessOutput() {
             }
             break;
             case 180: { // Control for selected effect value
-                if (controllerByte == 83){
+                if (controllerByte == 81) {
+                    float volumeValue = valueByte / 127.0f;
+
+                    // Write value to AXI
+                    auto fixedVolume = make_fixed<8, 23>{volumeValue};
+                    writeToAxi(0x16C, fixedVolume);
+
+                    // Update value in interface
+                    masterVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
+                }
+                else if (controllerByte == 83){
                     switch (selectedAudioEffect) {
                         case ANALOG_SATURATION: {
                             // Normalize and map MIDI value to correct value

@@ -136,6 +136,7 @@ private:
     QLabel* dmaEchoValueLabel;
     QLabel* dmaRingModulationValueLabel;
     QLabel* dmaVolumeValueLabel;
+    QLabel* masterVolumeValueLabel;
 
     // QProcess to run Python processes
     QProcess *midiProcess;
