@@ -2,7 +2,7 @@
 
 ## Block design
 
-to be continued when finished bd is available
+<img src="/img/vivado_overview.png"/>
 
 ## Statistics of the entire design
 
