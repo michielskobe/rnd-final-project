@@ -21,7 +21,7 @@ BluetoothWidget::BluetoothWidget(QWidget *parent)
     connect(connectButton, &QPushButton::clicked, this, &BluetoothWidget::connectToDevice);
 
     // Set up the process to handle bluetoothctl commands
-    connect(bluetoothProcess, &QProcess::finished, this, &BluetoothWidget::onProcessFinished);
+    connect(bluetoothProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &BluetoothWidget::onProcessFinished);
     connect(bluetoothProcess, &QProcess::readyReadStandardOutput, this, &BluetoothWidget::onReadyReadStandardOutput);
     connect(bluetoothProcess, &QProcess::readyReadStandardError, this, &BluetoothWidget::onReadyReadStandardError);
 }

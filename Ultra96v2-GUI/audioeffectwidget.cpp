@@ -116,7 +116,8 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     setMinimumSize(1000, 400);
 
     auto value = make_fixed<8, 23>{0.5};
-    writeToAxi(0x00, value);
+    writeToAxi(0x00, value.data());
+
 }
 
 AudioEffectWidget::~AudioEffectWidget()
@@ -140,6 +141,7 @@ QProcess* AudioEffectWidget::startPythonProcess(QString pythonScript){
 }
 
 void AudioEffectWidget::handleMidiProcessOutput() {
+    std::cout << "midi" << std::endl;
     QString output = midiProcess->readAllStandardOutput();
     QRegularExpression regex(R"(\[(\d+), (\d+), (\d+)\])");
     QRegularExpressionMatch match = regex.match(output);
@@ -218,7 +220,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         writeLowShelfFilterParameters(lowShelfFilterCoefficients, 0, 1);
 
                         // Write gain to AXI
-                        writeBandShelfGain(midGain, 0, 1);
+                        float convertedMidGain = pow(10, midGain / 20.0f);
+                        writeBandShelfGain(convertedMidGain, 0, 1);
                         break;
                     }
                     case 51: { // High Shelf filter control
@@ -322,13 +325,13 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float volumeValue = valueByte / 127.0f;
 
                         auto fixedVolume = make_fixed<8, 23>{volumeValue};
-                        writeToAxi(0x170, fixedVolume);
+                        writeToAxi(0x174, fixedVolume.data());
                         // Write channel adress (analog left)
-                        writeToAxi(0x174,0);
+                        writeToAxi(0x170,0);
                         // Set strobe
                         writeToAxi(0x178,1);
                         // Write channel adress (analog right)
-                        writeToAxi(0x174,1);
+                        writeToAxi(0x170,1);
                         // Clear strobe
                         writeToAxi(0x178,0);
 
@@ -412,7 +415,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         writeLowShelfFilterParameters(lowShelfFilterCoefficients, 2, 3);
 
                         // Write gain to AXI
-                        writeBandShelfGain(midGain, 2, 3);
+                        float convertedMidGain = pow(10, midGain / 20.0f);
+                        writeBandShelfGain(convertedMidGain, 2, 3);
                         break;
                     }
                     case 67: { // High Shelf filter control
@@ -513,7 +517,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float volumeValue = valueByte / 127.0f;
 
                         auto fixedVolume = make_fixed<8, 23>{volumeValue};
-                        writeToAxi(0x170, fixedVolume);
+                        writeToAxi(0x170, fixedVolume.data());
                         // Write channel adress (dma left)
                         writeToAxi(0x174,2);
                         // Set strobe
@@ -646,7 +650,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                     // Write value to AXI
                     auto fixedVolume = make_fixed<8, 23>{volumeValue};
-                    writeToAxi(0x16C, fixedVolume);
+                    writeToAxi(0x16C, fixedVolume.data());
 
                     // Update value in interface
                     masterVolumeValueLabel->setText(QString("%1%").arg(round(volumeValue*100)));
@@ -764,7 +768,6 @@ int AudioEffectWidget::writeToAxi(off_t reg_offset, auto val) {
         perror("Error opening /dev/mem");
         return EXIT_FAILURE;
     }
-
     // Map AXI memory to user space (using mmap)
     void* mapped_base = mmap(NULL, MMAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, AXI_BASE_ADDR);
     if (mapped_base == MAP_FAILED) {
@@ -772,7 +775,6 @@ int AudioEffectWidget::writeToAxi(off_t reg_offset, auto val) {
         ::close(mem_fd);
         return EXIT_FAILURE;
     }
-
     // Write the value to the AXI memory address
     volatile uint32_t* reg_ptr = (volatile uint32_t *)((char *)mapped_base + reg_offset);
     *reg_ptr = val;
@@ -848,15 +850,15 @@ ShelvingCoefficients AudioEffectWidget::calculateLowShelfFilter(int bandwidth, i
 void AudioEffectWidget::writeHighShelfFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel){
     // Write high shelft filter coefficients (filter 1)
     auto fixed_b0_1 = make_fixed<8, 23>{coefficients.b0_1};
-    writeToAxi(0xB8, fixed_b0_1);
+    writeToAxi(0xB8, fixed_b0_1.data());
     auto fixed_b1_1 = make_fixed<8, 23>{coefficients.b1_1};
-    writeToAxi(0xBC, fixed_b1_1);
+    writeToAxi(0xBC, fixed_b1_1.data());
     auto fixed_b2_1 = make_fixed<8, 23>{coefficients.b2_1};
-    writeToAxi(0xC0, fixed_b2_1);
+    writeToAxi(0xC0, fixed_b2_1.data());
     auto fixed_a1_1 = make_fixed<8, 23>{coefficients.a1_1};
-    writeToAxi(0xC4, fixed_a1_1);
+    writeToAxi(0xC4, fixed_a1_1.data());
     auto fixed_a2_1 = make_fixed<8, 23>{coefficients.a2_1};
-    writeToAxi(0xC8, fixed_a2_1);
+    writeToAxi(0xC8, fixed_a2_1.data());
     // Write channel adress
     writeToAxi(0xCC,leftChannel);
     // Set strobe
@@ -868,15 +870,15 @@ void AudioEffectWidget::writeHighShelfFilterParameters(ShelvingCoefficients coef
 
     // Write high shelft filter coefficients (filter 2)
     auto fixed_b0_2 = make_fixed<8, 23>{coefficients.b0_2};
-    writeToAxi(0xD4, fixed_b0_2);
+    writeToAxi(0xD4, fixed_b0_2.data());
     auto fixed_b1_2 = make_fixed<8, 23>{coefficients.b1_2};
-    writeToAxi(0xD8, fixed_b1_2);
+    writeToAxi(0xD8, fixed_b1_2.data());
     auto fixed_b2_2 = make_fixed<8, 23>{coefficients.b2_2};
-    writeToAxi(0xDC, fixed_b2_2);
+    writeToAxi(0xDC, fixed_b2_2.data());
     auto fixed_a1_2 = make_fixed<8, 23>{coefficients.a1_2};
-    writeToAxi(0xE0, fixed_a1_2);
+    writeToAxi(0xE0, fixed_a1_2.data());
     auto fixed_a2_2 = make_fixed<8, 23>{coefficients.a2_2};
-    writeToAxi(0xE4, fixed_a2_2);
+    writeToAxi(0xE4, fixed_a2_2.data());
     // Write channel adress
     writeToAxi(0xE8,leftChannel);
     // Set strobe
@@ -890,15 +892,15 @@ void AudioEffectWidget::writeHighShelfFilterParameters(ShelvingCoefficients coef
 void AudioEffectWidget::writeBandShelfFilterParameters(ShelvingCoefficients highFilterCoefficients, ShelvingCoefficients lowFilterCoefficients, int leftChannel, int rightChannel){
     // Write high shelft filter coefficients (filter 1)
     auto fixed_high_b0_1 = make_fixed<8, 23>{highFilterCoefficients.b0_1};
-    writeToAxi(0x48, fixed_high_b0_1);
+    writeToAxi(0x48, fixed_high_b0_1.data());
     auto fixed_high_b1_1 = make_fixed<8, 23>{highFilterCoefficients.b1_1};
-    writeToAxi(0x4C, fixed_high_b1_1);
+    writeToAxi(0x4C, fixed_high_b1_1.data());
     auto fixed_high_b2_1 = make_fixed<8, 23>{highFilterCoefficients.b2_1};
-    writeToAxi(0x50, fixed_high_b2_1);
+    writeToAxi(0x50, fixed_high_b2_1.data());
     auto fixed_high_a1_1 = make_fixed<8, 23>{highFilterCoefficients.a1_1};
-    writeToAxi(0x54, fixed_high_a1_1);
+    writeToAxi(0x54, fixed_high_a1_1.data());
     auto fixed_high_a2_1 = make_fixed<8, 23>{highFilterCoefficients.a2_1};
-    writeToAxi(0x58, fixed_high_a2_1);
+    writeToAxi(0x58, fixed_high_a2_1.data());
     // Write channel adress
     writeToAxi(0x5C,leftChannel);
     // Set strobe
@@ -910,15 +912,15 @@ void AudioEffectWidget::writeBandShelfFilterParameters(ShelvingCoefficients high
 
     // Write high shelft filter coefficients (filter 2)
     auto fixed_high_b0_2 = make_fixed<8, 23>{highFilterCoefficients.b0_2};
-    writeToAxi(0x64, fixed_high_b0_2);
+    writeToAxi(0x64, fixed_high_b0_2.data());
     auto fixed_high_b1_2 = make_fixed<8, 23>{highFilterCoefficients.b1_2};
-    writeToAxi(0x68, fixed_high_b1_2);
+    writeToAxi(0x68, fixed_high_b1_2.data());
     auto fixed_high_b2_2 = make_fixed<8, 23>{highFilterCoefficients.b2_2};
-    writeToAxi(0x6C, fixed_high_b2_2);
+    writeToAxi(0x6C, fixed_high_b2_2.data());
     auto fixed_high_a1_2 = make_fixed<8, 23>{highFilterCoefficients.a1_2};
-    writeToAxi(0x70, fixed_high_a1_2);
+    writeToAxi(0x70, fixed_high_a1_2.data());
     auto fixed_high_a2_2 = make_fixed<8, 23>{highFilterCoefficients.a2_2};
-    writeToAxi(0x74, fixed_high_a2_2);
+    writeToAxi(0x74, fixed_high_a2_2.data());
     // Write channel adress
     writeToAxi(0x78,leftChannel);
     // Set strobe
@@ -930,15 +932,15 @@ void AudioEffectWidget::writeBandShelfFilterParameters(ShelvingCoefficients high
 
     // Write low shelft filter coefficients (filter 1)
     auto fixed_low_b0_1 = make_fixed<8, 23>{lowFilterCoefficients.b0_1};
-    writeToAxi(0x10, fixed_low_b0_1);
+    writeToAxi(0x10, fixed_low_b0_1.data());
     auto fixed_low_b1_1 = make_fixed<8, 23>{lowFilterCoefficients.b1_1};
-    writeToAxi(0x14, fixed_low_b1_1);
+    writeToAxi(0x14, fixed_low_b1_1.data());
     auto fixed_low_b2_1 = make_fixed<8, 23>{lowFilterCoefficients.b2_1};
-    writeToAxi(0x18, fixed_low_b2_1);
+    writeToAxi(0x18, fixed_low_b2_1.data());
     auto fixed_low_a1_1 = make_fixed<8, 23>{lowFilterCoefficients.a1_1};
-    writeToAxi(0x1C, fixed_low_a1_1);
+    writeToAxi(0x1C, fixed_low_a1_1.data());
     auto fixed_low_a2_1 = make_fixed<8, 23>{lowFilterCoefficients.a2_1};
-    writeToAxi(0x20, fixed_low_a2_1);
+    writeToAxi(0x20, fixed_low_a2_1.data());
     // Write channel adress
     writeToAxi(0x24,leftChannel);
     // Set strobe
@@ -950,15 +952,15 @@ void AudioEffectWidget::writeBandShelfFilterParameters(ShelvingCoefficients high
 
     // Write low shelft filter coefficients (filter 2)
     auto fixed_low_b0_2 = make_fixed<8, 23>{lowFilterCoefficients.b0_2};
-    writeToAxi(0x2C, fixed_low_b0_2);
+    writeToAxi(0x2C, fixed_low_b0_2.data());
     auto fixed_low_b1_2 = make_fixed<8, 23>{lowFilterCoefficients.b1_2};
-    writeToAxi(0x30, fixed_low_b1_2);
+    writeToAxi(0x30, fixed_low_b1_2.data());
     auto fixed_low_b2_2 = make_fixed<8, 23>{lowFilterCoefficients.b2_2};
-    writeToAxi(0x34, fixed_low_b2_2);
+    writeToAxi(0x34, fixed_low_b2_2.data());
     auto fixed_low_a1_2 = make_fixed<8, 23>{lowFilterCoefficients.a1_2};
-    writeToAxi(0x38, fixed_low_a1_2);
+    writeToAxi(0x38, fixed_low_a1_2.data());
     auto fixed_low_a2_2 = make_fixed<8, 23>{lowFilterCoefficients.a2_2};
-    writeToAxi(0x3C, fixed_low_a2_2);
+    writeToAxi(0x3C, fixed_low_a2_2.data());
     // Write channel adress
     writeToAxi(0x40,leftChannel);
     // Set strobe
@@ -971,7 +973,7 @@ void AudioEffectWidget::writeBandShelfFilterParameters(ShelvingCoefficients high
 
 void AudioEffectWidget::writeBandShelfGain(float gain, int leftChannel, int rightChannel){
     auto fixedGain = make_fixed<8, 23>{gain};
-    writeToAxi(0x04, fixedGain);
+    writeToAxi(0x04, fixedGain.data());
     // Write channel adress
     writeToAxi(0x08,leftChannel);
     // Set strobe
@@ -985,15 +987,15 @@ void AudioEffectWidget::writeBandShelfGain(float gain, int leftChannel, int righ
 void AudioEffectWidget::writeLowShelfFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel){
     // Write low shelft filter coefficients (filter 1)
     auto fixed_b0_1 = make_fixed<8, 23>{coefficients.b0_1};
-    writeToAxi(0x80, fixed_b0_1);
+    writeToAxi(0x80, fixed_b0_1.data());
     auto fixed_b1_1 = make_fixed<8, 23>{coefficients.b1_1};
-    writeToAxi(0x84, fixed_b1_1);
+    writeToAxi(0x84, fixed_b1_1.data());
     auto fixed_b2_1 = make_fixed<8, 23>{coefficients.b2_1};
-    writeToAxi(0x88, fixed_b2_1);
+    writeToAxi(0x88, fixed_b2_1.data());
     auto fixed_a1_1 = make_fixed<8, 23>{coefficients.a1_1};
-    writeToAxi(0x8C, fixed_a1_1);
+    writeToAxi(0x8C, fixed_a1_1.data());
     auto fixed_a2_1 = make_fixed<8, 23>{coefficients.a2_1};
-    writeToAxi(0x90, fixed_a2_1);
+    writeToAxi(0x90, fixed_a2_1.data());
     // Write channel adress
     writeToAxi(0x94,leftChannel);
     // Set strobe
@@ -1005,15 +1007,15 @@ void AudioEffectWidget::writeLowShelfFilterParameters(ShelvingCoefficients coeff
 
     // Write low shelft filter coefficients (filter 2)
     auto fixed_b0_2 = make_fixed<8, 23>{coefficients.b0_2};
-    writeToAxi(0x9C, fixed_b0_2);
+    writeToAxi(0x9C, fixed_b0_2.data());
     auto fixed_b1_2 = make_fixed<8, 23>{coefficients.b1_2};
-    writeToAxi(0xA0, fixed_b1_2);
+    writeToAxi(0xA0, fixed_b1_2.data());
     auto fixed_b2_2 = make_fixed<8, 23>{coefficients.b2_2};
-    writeToAxi(0xA4, fixed_b2_2);
+    writeToAxi(0xA4, fixed_b2_2.data());
     auto fixed_a1_2 = make_fixed<8, 23>{coefficients.a1_2};
-    writeToAxi(0xA8, fixed_a1_2);
+    writeToAxi(0xA8, fixed_a1_2.data());
     auto fixed_a2_2 = make_fixed<8, 23>{coefficients.a2_2};
-    writeToAxi(0xAC, fixed_a2_2);
+    writeToAxi(0xAC, fixed_a2_2.data());
     // Write channel adress
     writeToAxi(0xB0,leftChannel);
     // Set strobe
@@ -1048,15 +1050,15 @@ void AudioEffectWidget::handleAnalogHighpassFilterProcess() {
 
         // Write high pass coefficients (filter 1)
         auto fixed_b0_1 = make_fixed<8, 23>{first_b0/first_a0};
-        writeToAxi(0x10C, fixed_b0_1);
+        writeToAxi(0x10C, fixed_b0_1.data());
         auto fixed_b1_1 = make_fixed<8, 23>{first_b1/first_a0};
-        writeToAxi(0x110, fixed_b1_1);
+        writeToAxi(0x110, fixed_b1_1.data());
         auto fixed_b2_1 = make_fixed<8, 23>{first_b2/first_a0};
-        writeToAxi(0x114, fixed_b2_1);
+        writeToAxi(0x114, fixed_b2_1.data());
         auto fixed_a1_1 = make_fixed<8, 23>{first_a1/first_a0};
-        writeToAxi(0x118, fixed_a1_1);
+        writeToAxi(0x118, fixed_a1_1.data());
         auto fixed_a2_1 = make_fixed<8, 23>{first_a2/first_a0};
-        writeToAxi(0x11C, fixed_a2_1);
+        writeToAxi(0x11C, fixed_a2_1.data());
         // Write channel adress (analog left)
         writeToAxi(0x120,0);
         // Set strobe
@@ -1068,15 +1070,15 @@ void AudioEffectWidget::handleAnalogHighpassFilterProcess() {
 
         // Write high pass coefficients (filter 2)
         auto fixed_b0_2 = make_fixed<8, 23>{second_b0/second_a0};
-        writeToAxi(0x128, fixed_b0_2);
+        writeToAxi(0x128, fixed_b0_2.data());
         auto fixed_b1_2 = make_fixed<8, 23>{second_b1/second_a0};
-        writeToAxi(0x12C, fixed_b1_2);
+        writeToAxi(0x12C, fixed_b1_2.data());
         auto fixed_b2_2 = make_fixed<8, 23>{second_b2/second_a0};
-        writeToAxi(0x130, fixed_b2_2);
+        writeToAxi(0x130, fixed_b2_2.data());
         auto fixed_a1_2 = make_fixed<8, 23>{second_a1/second_a0};
-        writeToAxi(0x134, fixed_a1_2);
+        writeToAxi(0x134, fixed_a1_2.data());
         auto fixed_a2_2 = make_fixed<8, 23>{second_a2/second_a0};
-        writeToAxi(0x138, fixed_a2_2);
+        writeToAxi(0x138, fixed_a2_2.data());
         // Write channel adress (analog left)
         writeToAxi(0x13C,0);
         // Set strobe
@@ -1105,15 +1107,15 @@ void AudioEffectWidget::handleAnalogLowpassFilterProcess() {
 
         // Write low pass coefficients
         auto fixed_b0 = make_fixed<8, 23>{b0/a0};
-        writeToAxi(0xF0, fixed_b0);
+        writeToAxi(0xF0, fixed_b0.data());
         auto fixed_b1 = make_fixed<8, 23>{b1/a0};
-        writeToAxi(0xF4, fixed_b1);
+        writeToAxi(0xF4, fixed_b1.data());
         auto fixed_b2 = make_fixed<8, 23>{b2/a0};
-        writeToAxi(0xF8, fixed_b2);
+        writeToAxi(0xF8, fixed_b2.data());
         auto fixed_a1 = make_fixed<8, 23>{a1/a0};
-        writeToAxi(0xFC, fixed_a1);
+        writeToAxi(0xFC, fixed_a1.data());
         auto fixed_a2 = make_fixed<8, 23>{a2/a0};
-        writeToAxi(0x100, fixed_a2);
+        writeToAxi(0x100, fixed_a2.data());
         // Write channel adress (analog left)
         writeToAxi(0x104,0);
         // Set strobe
@@ -1149,15 +1151,15 @@ void AudioEffectWidget::handleDmaHighpassFilterProcess() {
 
         // Write high pass coefficients (filter 1)
         auto fixed_b0_1 = make_fixed<8, 23>{first_b0/first_a0};
-        writeToAxi(0x10C, fixed_b0_1);
+        writeToAxi(0x10C, fixed_b0_1.data());
         auto fixed_b1_1 = make_fixed<8, 23>{first_b1/first_a0};
-        writeToAxi(0x110, fixed_b1_1);
+        writeToAxi(0x110, fixed_b1_1.data());
         auto fixed_b2_1 = make_fixed<8, 23>{first_b2/first_a0};
-        writeToAxi(0x114, fixed_b2_1);
+        writeToAxi(0x114, fixed_b2_1.data());
         auto fixed_a1_1 = make_fixed<8, 23>{first_a1/first_a0};
-        writeToAxi(0x118, fixed_a1_1);
+        writeToAxi(0x118, fixed_a1_1.data());
         auto fixed_a2_1 = make_fixed<8, 23>{first_a2/first_a0};
-        writeToAxi(0x11C, fixed_a2_1);
+        writeToAxi(0x11C, fixed_a2_1.data());
         // Write channel adress (dma left)
         writeToAxi(0x120,2);
         // Set strobe
@@ -1169,15 +1171,15 @@ void AudioEffectWidget::handleDmaHighpassFilterProcess() {
 
         // Write high pass coefficients (filter 2)
         auto fixed_b0_2 = make_fixed<8, 23>{second_b0/second_a0};
-        writeToAxi(0x128, fixed_b0_2);
+        writeToAxi(0x128, fixed_b0_2.data());
         auto fixed_b1_2 = make_fixed<8, 23>{second_b1/second_a0};
-        writeToAxi(0x12C, fixed_b1_2);
+        writeToAxi(0x12C, fixed_b1_2.data());
         auto fixed_b2_2 = make_fixed<8, 23>{second_b2/second_a0};
-        writeToAxi(0x130, fixed_b2_2);
+        writeToAxi(0x130, fixed_b2_2.data());
         auto fixed_a1_2 = make_fixed<8, 23>{second_a1/second_a0};
-        writeToAxi(0x134, fixed_a1_2);
+        writeToAxi(0x134, fixed_a1_2.data());
         auto fixed_a2_2 = make_fixed<8, 23>{second_a2/second_a0};
-        writeToAxi(0x138, fixed_a2_2);
+        writeToAxi(0x138, fixed_a2_2.data());
         // Write channel adress (analog left)
         writeToAxi(0x13C,2);
         // Set strobe
@@ -1206,15 +1208,15 @@ void AudioEffectWidget::handleDmaLowpassFilterProcess() {
 
         // Write low pass coefficients
         auto fixed_b0 = make_fixed<8, 23>{b0/a0};
-        writeToAxi(0xF0, fixed_b0);
+        writeToAxi(0xF0, fixed_b0.data());
         auto fixed_b1 = make_fixed<8, 23>{b1/a0};
-        writeToAxi(0xF4, fixed_b1);
+        writeToAxi(0xF4, fixed_b1.data());
         auto fixed_b2 = make_fixed<8, 23>{b2/a0};
-        writeToAxi(0xF8, fixed_b2);
+        writeToAxi(0xF8, fixed_b2.data());
         auto fixed_a1 = make_fixed<8, 23>{a1/a0};
-        writeToAxi(0xFC, fixed_a1);
+        writeToAxi(0xFC, fixed_a1.data());
         auto fixed_a2 = make_fixed<8, 23>{a2/a0};
-        writeToAxi(0x100, fixed_a2);
+        writeToAxi(0x100, fixed_a2.data());
         // Write channel adress (dma left)
         writeToAxi(0x104,2);
         // Set strobe
@@ -1234,7 +1236,7 @@ void AudioEffectWidget::handleDmaLowpassFilterProcess() {
 
 void AudioEffectWidget::writeEchoValue(double echoValue, int leftChannel, int rightChannel){
     auto fixedEcho = make_fixed<8, 23>{echoValue};
-    writeToAxi(0x144, fixedEcho);
+    writeToAxi(0x144, fixedEcho.data());
     // Write channel adress
     writeToAxi(0x148,leftChannel);
     // Set strobe
@@ -1247,7 +1249,7 @@ void AudioEffectWidget::writeEchoValue(double echoValue, int leftChannel, int ri
 
 void AudioEffectWidget::writeSaturationValue(int saturationValue, int leftChannel, int rightChannel){
     auto fixedSaturation = make_fixed<8, 23>{saturationValue};
-    writeToAxi(0x150, fixedSaturation);
+    writeToAxi(0x150, fixedSaturation.data());
     // Write channel adress
     writeToAxi(0x154,leftChannel);
     // Set strobe

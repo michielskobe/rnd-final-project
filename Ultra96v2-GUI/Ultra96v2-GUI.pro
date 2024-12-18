@@ -1,5 +1,5 @@
-QT += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui widgets
+greaterThan(5, 4)
 
 CONFIG += c++20
 
@@ -52,5 +52,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    build/Desktop-Debug/filter_process.py \
-    build/Desktop-Debug/receive_midi_data.py
+    build/blendinator-Release/filter_process.py \
+    build/blendinator-Release/receive_midi_data.py
