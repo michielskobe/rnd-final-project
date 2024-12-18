@@ -6004,13 +6004,13 @@
       },
       "audio_pipeline_IP_0": {
         "vlnv": "user.org:user:audio_pipeline_IP:1.0",
-        "ip_revision": "7",
+        "ip_revision": "8",
         "xci_name": "design_1_audio_pipeline_IP_0_0",
         "xci_path": "ip/design_1_audio_pipeline_IP_0_0/design_1_audio_pipeline_IP_0_0.xci",
         "inst_hier_path": "audio_pipeline_IP_0",
         "parameters": {
           "g_chip_scope": {
-            "value": "true"
+            "value": "false"
           }
         }
       },
@@ -6021,11 +6021,14 @@
         "xci_path": "ip/design_1_system_ila_0_3/design_1_system_ila_0_3.xci",
         "inst_hier_path": "system_ila_0",
         "parameters": {
+          "C_DATA_DEPTH": {
+            "value": "4096"
+          },
           "C_MON_TYPE": {
             "value": "NATIVE"
           },
           "C_NUM_OF_PROBES": {
-            "value": "5"
+            "value": "4"
           },
           "C_PROBE0_TYPE": {
             "value": "0"
@@ -6040,6 +6043,15 @@
             "value": "0"
           },
           "C_PROBE4_TYPE": {
+            "value": "0"
+          },
+          "C_PROBE5_TYPE": {
+            "value": "0"
+          },
+          "C_PROBE6_TYPE": {
+            "value": "0"
+          },
+          "C_PROBE7_TYPE": {
             "value": "0"
           }
         }
@@ -6231,17 +6243,8 @@
       "Net": {
         "ports": [
           "audio_fifo_wrapper_2/s_TReady_in",
-          "system_ila_0/probe3",
           "audio_pipeline_IP_0/s_TReady_out"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+        ]
       },
       "audio_fifo_wrapper_0_s_TData_out": {
         "ports": [
@@ -6384,42 +6387,26 @@
         ],
         "hdl_attributes": {
           "DEBUG": {
-            "value": "true"
+            "value": "true",
+            "value_src": "undefined"
           },
           "MARK_DEBUG": {
-            "value": "true"
+            "value": "true",
+            "value_src": "undefined"
           }
         }
       },
       "audio_pipeline_wrapp_0_s_TData_out": {
         "ports": [
           "audio_pipeline_IP_0/s_TData_out",
-          "audio_fifo_wrapper_2/s_TData_in",
-          "system_ila_0/probe0"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "audio_fifo_wrapper_2/s_TData_in"
+        ]
       },
       "audio_pipeline_wrapp_0_s_TID_out": {
         "ports": [
           "audio_pipeline_IP_0/s_TID_out",
-          "audio_fifo_wrapper_2/s_TID_in",
-          "system_ila_0/probe1"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "audio_fifo_wrapper_2/s_TID_in"
+        ]
       },
       "audio_pipeline_wrapp_0_s_TLast_out": {
         "ports": [
@@ -6431,8 +6418,8 @@
         "ports": [
           "audio_pipeline_IP_0/s_TReady_dma",
           "audio_fifo_wrapper_0/s_TReady_out",
-          "system_ila_0/probe4",
-          "system_ila_3/probe3"
+          "system_ila_3/probe3",
+          "system_ila_0/probe0"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -6446,17 +6433,8 @@
       "audio_pipeline_wrapp_0_s_TValid_out": {
         "ports": [
           "audio_pipeline_IP_0/s_TValid_out",
-          "audio_fifo_wrapper_2/s_TValid_in",
-          "system_ila_0/probe2"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "audio_fifo_wrapper_2/s_TValid_in"
+        ]
       },
       "axi_dma_0_mm2s_introut": {
         "ports": [
@@ -6473,8 +6451,17 @@
       "axis_data_fifo_0_m_axis_tdata": {
         "ports": [
           "axis_data_fifo_0/m_axis_tdata",
-          "dma_splitter_wrapper_0/dma_data"
-        ]
+          "dma_splitter_wrapper_0/dma_data",
+          "system_ila_0/probe1"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "axis_data_fifo_0_m_axis_tlast": {
         "ports": [
@@ -6485,8 +6472,17 @@
       "axis_data_fifo_0_m_axis_tvalid": {
         "ports": [
           "axis_data_fifo_0/m_axis_tvalid",
-          "dma_splitter_wrapper_0/dma_valid"
-        ]
+          "dma_splitter_wrapper_0/dma_valid",
+          "system_ila_0/probe2"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "bt_ctsn_1": {
         "ports": [
@@ -6511,8 +6507,17 @@
       "dma_splitter_wrapper_0_dma_ready": {
         "ports": [
           "dma_splitter_wrapper_0/dma_ready",
-          "axis_data_fifo_0/m_axis_tready"
-        ]
+          "axis_data_fifo_0/m_axis_tready",
+          "system_ila_0/probe3"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       },
       "dma_splitter_wrapper_0_s_TData_out": {
         "ports": [

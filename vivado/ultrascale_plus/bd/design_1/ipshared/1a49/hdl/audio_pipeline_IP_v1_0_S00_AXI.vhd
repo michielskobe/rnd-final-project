@@ -377,7 +377,7 @@ begin
 	begin
 	  if rising_edge(S_AXI_ACLK) then 
 	    if S_AXI_ARESETN = '0' then
-	      slv_reg0 <= to_slv(to_sfixed(0.5, 8, -23));
+	      slv_reg0 <= to_slv(to_sfixed(0.44668359, 8, -23));
 	      slv_reg1 <= (others => '0');
 	      slv_reg2 <= (others => '0');
 	      slv_reg3 <= (others => '0');
@@ -2216,7 +2216,7 @@ begin
 		master_volume <= slv_reg91(31) & slv_reg91(24 downto 8);
 
 		channel_volume_select <= slv_reg92(c_ID_width - 1 downto 0);
-		channel_volume_value <= slv_reg93(31) & slv_reg91(24 downto 8);
+		channel_volume_value <= slv_reg93(31) & slv_reg93(24 downto 8);
 		channel_volume_strobe <= slv_reg94(0);
 
 		audio_pipeline_inst: entity work.audio_pipeline

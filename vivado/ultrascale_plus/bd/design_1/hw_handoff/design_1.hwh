@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Dec 13 10:01:30 2024" VIVADOVERSION="2023.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Dec 18 22:44:49 2024" VIVADOVERSION="2023.2">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="avnet.com:ultra96v2:part0:1.2" DEVICE="xczu3eg" NAME="design_1" PACKAGE="sbva484" SPEEDGRADE="-1"/>
 
@@ -581,7 +581,6 @@
         </PORT>
         <PORT DIR="O" NAME="s_TReady_in" SIGIS="undef" SIGNAME="audio_fifo_wrapper_2_s_TReady_in">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="system_ila_0" PORT="probe3"/>
             <CONNECTION INSTANCE="audio_pipeline_IP_0" PORT="s_TReady_out"/>
           </CONNECTIONS>
         </PORT>
@@ -664,7 +663,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="7" FULLNAME="/audio_pipeline_IP_0" HWVERSION="1.0" INSTANCE="audio_pipeline_IP_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="audio_pipeline_IP" VLNV="user.org:user:audio_pipeline_IP:1.0">
+    <MODULE COREREVISION="8" FULLNAME="/audio_pipeline_IP_0" HWVERSION="1.0" INSTANCE="audio_pipeline_IP_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="audio_pipeline_IP" VLNV="user.org:user:audio_pipeline_IP:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="S00_AXI" NAME="S00_AXI_reg" RANGE="4096" USAGE="register"/>
@@ -672,7 +671,7 @@
       <PARAMETERS>
         <PARAMETER NAME="C_S00_AXI_ADDR_WIDTH" VALUE="9"/>
         <PARAMETER NAME="C_S00_AXI_DATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="g_chip_scope" VALUE="true"/>
+        <PARAMETER NAME="g_chip_scope" VALUE="false"/>
         <PARAMETER NAME="Component_Name" VALUE="design_1_audio_pipeline_IP_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
         <PARAMETER NAME="C_S00_AXI_BASEADDR" VALUE="0xA0050000"/>
@@ -823,7 +822,6 @@
         <PORT DIR="O" LEFT="23" NAME="s_TData_out" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TData_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TData_in"/>
-            <CONNECTION INSTANCE="system_ila_0" PORT="probe0"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="s_TID_anal" RIGHT="0" SIGIS="undef" SIGNAME="audio_fifo_wrapper_1_s_TID_out">
@@ -839,7 +837,6 @@
         <PORT DIR="O" LEFT="1" NAME="s_TID_out" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TID_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TID_in"/>
-            <CONNECTION INSTANCE="system_ila_0" PORT="probe1"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_TLast_anal" SIGIS="undef" SIGNAME="audio_fifo_wrapper_1_s_TLast_out">
@@ -866,8 +863,8 @@
         <PORT DIR="O" NAME="s_TReady_dma" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TReady_dma">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_fifo_wrapper_0" PORT="s_TReady_out"/>
-            <CONNECTION INSTANCE="system_ila_0" PORT="probe4"/>
             <CONNECTION INSTANCE="system_ila_3" PORT="probe3"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="probe0"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_TReady_out" SIGIS="undef" SIGNAME="audio_fifo_wrapper_2_s_TReady_in">
@@ -888,7 +885,6 @@
         <PORT DIR="O" NAME="s_TValid_out" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TValid_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TValid_in"/>
-            <CONNECTION INSTANCE="system_ila_0" PORT="probe2"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -5487,6 +5483,7 @@
         <PORT DIR="O" LEFT="127" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axis_data_fifo_0_m_axis_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="dma_splitter_wrapper_0" PORT="dma_data"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="probe1"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="15" NAME="m_axis_tkeep" RIGHT="0" SIGIS="undef"/>
@@ -5503,6 +5500,7 @@
         <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="axis_data_fifo_0_m_axis_tvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="dma_splitter_wrapper_0" PORT="dma_valid"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="probe2"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="I" NAME="s_axis_aclk" SIGIS="clk" SIGNAME="clk_wiz_0_clk_out2">
@@ -6250,6 +6248,7 @@
         <PORT DIR="O" NAME="dma_ready" SIGIS="undef" SIGNAME="dma_splitter_wrapper_0_dma_ready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axis_data_fifo_0" PORT="m_axis_tready"/>
+            <CONNECTION INSTANCE="system_ila_0" PORT="probe3"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="dma_valid" SIGIS="undef" SIGNAME="axis_data_fifo_0_m_axis_tvalid">
@@ -7918,7 +7917,7 @@
         <PARAMETER NAME="ALL_PROBE_SAME_MU_CNT" VALUE="1"/>
         <PARAMETER NAME="C_ADV_TRIGGER" VALUE="FALSE"/>
         <PARAMETER NAME="C_BRAM_CNT" VALUE="0.0"/>
-        <PARAMETER NAME="C_DATA_DEPTH" VALUE="1024"/>
+        <PARAMETER NAME="C_DATA_DEPTH" VALUE="4096"/>
         <PARAMETER NAME="C_DDR_CLK_GEN" VALUE="FALSE"/>
         <PARAMETER NAME="C_EN_DDR_ILA" VALUE="FALSE"/>
         <PARAMETER NAME="C_EN_STRG_QUAL" VALUE="0"/>
@@ -7926,7 +7925,7 @@
         <PARAMETER NAME="C_INPUT_PIPE_STAGES" VALUE="0"/>
         <PARAMETER NAME="C_MON_TYPE" VALUE="NATIVE"/>
         <PARAMETER NAME="C_NUM_MONITOR_SLOTS" VALUE="1"/>
-        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="5"/>
+        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="4"/>
         <PARAMETER NAME="C_PROBE0_MU_CNT" VALUE="1"/>
         <PARAMETER NAME="C_PROBE0_TYPE" VALUE="0"/>
         <PARAMETER NAME="C_PROBE0_WIDTH" VALUE="1"/>
@@ -11751,29 +11750,24 @@
             <CONNECTION INSTANCE="clk_wiz_0" PORT="clk_out2"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="23" NAME="probe0" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TData_out">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_pipeline_IP_0" PORT="s_TData_out"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="probe1" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TID_out">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_pipeline_IP_0" PORT="s_TID_out"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="probe2" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TValid_out">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_pipeline_IP_0" PORT="s_TValid_out"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="probe3" RIGHT="0" SIGIS="undef" SIGNAME="audio_fifo_wrapper_2_s_TReady_in">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fifo_wrapper_2" PORT="s_TReady_in"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="probe4" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TReady_dma">
+        <PORT DIR="I" LEFT="0" NAME="probe0" RIGHT="0" SIGIS="undef" SIGNAME="audio_pipeline_IP_0_s_TReady_dma">
           <CONNECTIONS>
             <CONNECTION INSTANCE="audio_pipeline_IP_0" PORT="s_TReady_dma"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="127" NAME="probe1" RIGHT="0" SIGIS="undef" SIGNAME="axis_data_fifo_0_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_data_fifo_0" PORT="m_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="probe2" RIGHT="0" SIGIS="undef" SIGNAME="axis_data_fifo_0_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_data_fifo_0" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="probe3" RIGHT="0" SIGIS="undef" SIGNAME="dma_splitter_wrapper_0_dma_ready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="dma_splitter_wrapper_0" PORT="dma_ready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

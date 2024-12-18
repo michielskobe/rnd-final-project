@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x6226DB9774628304",
+      "boundary_crc": "0xF42334587C1E4C60",
       "design_src": "SBD",
       "device": "xczu3eg-sbva484-1-i",
       "name": "bd_f74c",
@@ -43,12 +43,12 @@
       },
       "probe0": {
         "direction": "I",
-        "left": "23",
+        "left": "0",
         "right": "0"
       },
       "probe1": {
         "direction": "I",
-        "left": "1",
+        "left": "127",
         "right": "0"
       },
       "probe2": {
@@ -57,11 +57,6 @@
         "right": "0"
       },
       "probe3": {
-        "direction": "I",
-        "left": "0",
-        "right": "0"
-      },
-      "probe4": {
         "direction": "I",
         "left": "0",
         "right": "0"
@@ -85,7 +80,7 @@
             "value": "FALSE"
           },
           "C_DATA_DEPTH": {
-            "value": "1024"
+            "value": "4096"
           },
           "C_EN_STRG_QUAL": {
             "value": "0"
@@ -100,7 +95,7 @@
             "value": "Native"
           },
           "C_NUM_OF_PROBES": {
-            "value": "5"
+            "value": "4"
           },
           "C_PROBE0_MU_CNT": {
             "value": "1"
@@ -109,7 +104,7 @@
             "value": "0"
           },
           "C_PROBE0_WIDTH": {
-            "value": "24"
+            "value": "1"
           },
           "C_PROBE1_MU_CNT": {
             "value": "1"
@@ -118,7 +113,7 @@
             "value": "0"
           },
           "C_PROBE1_WIDTH": {
-            "value": "2"
+            "value": "128"
           },
           "C_PROBE2_MU_CNT": {
             "value": "1"
@@ -136,15 +131,6 @@
             "value": "0"
           },
           "C_PROBE3_WIDTH": {
-            "value": "1"
-          },
-          "C_PROBE4_MU_CNT": {
-            "value": "1"
-          },
-          "C_PROBE4_TYPE": {
-            "value": "0"
-          },
-          "C_PROBE4_WIDTH": {
             "value": "1"
           },
           "C_TRIGIN_EN": {
@@ -188,12 +174,6 @@
         "ports": [
           "probe3",
           "ila_lib/probe3"
-        ]
-      },
-      "probe4_1": {
-        "ports": [
-          "probe4",
-          "ila_lib/probe4"
         ]
       }
     }

@@ -628,11 +628,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Dec 13 09:04:38 UTC 2024</spirit:value>
+            <spirit:value>Wed Dec 18 21:49:43 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b0f56492</spirit:value>
+            <spirit:value>9:a6695433</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -646,11 +646,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Dec 13 09:01:27 UTC 2024</spirit:value>
+            <spirit:value>Wed Dec 18 21:44:46 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b0f56492</spirit:value>
+            <spirit:value>9:a6695433</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -661,7 +661,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b0f56492</spirit:value>
+            <spirit:value>9:a6695433</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -677,11 +677,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Dec 13 09:01:27 UTC 2024</spirit:value>
+            <spirit:value>Wed Dec 18 21:44:46 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:69f6b47e</spirit:value>
+            <spirit:value>9:c8aabf99</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -697,11 +697,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Dec 13 09:01:27 UTC 2024</spirit:value>
+            <spirit:value>Wed Dec 18 21:44:46 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:69f6b47e</spirit:value>
+            <spirit:value>9:c8aabf99</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -717,11 +717,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Dec 13 09:01:27 UTC 2024</spirit:value>
+            <spirit:value>Wed Dec 18 21:44:46 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b0f56492</spirit:value>
+            <spirit:value>9:a6695433</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -737,11 +737,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Fri Dec 13 09:01:27 UTC 2024</spirit:value>
+            <spirit:value>Wed Dec 18 21:44:46 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b0f56492</spirit:value>
+            <spirit:value>9:a6695433</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1370,7 +1370,7 @@
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>g_chip_scope</spirit:name>
         <spirit:displayName>G Chip Scope</spirit:displayName>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.g_chip_scope">true</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.g_chip_scope">false</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -1457,91 +1457,91 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/hdl/audio_pipeline_IP_v1_0_S00_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/hdl/audio_pipeline_IP_v1_0_S00_AXI.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/axi4_audio_pkg.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/axi4_audio_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/audio_fifo.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/audio_fifo.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/axi4_mm_filter_pkg.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/axi4_mm_filter_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/mixer_settings_pkg.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/mixer_settings_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/generic_fifo.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/generic_fifo.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/volume.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/volume.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/trafic_shaper.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/trafic_shaper.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/ring_modulator.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/ring_modulator.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/channel_merger.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/channel_merger.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/volume_ctrl.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/volume_ctrl.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/startup_fixer.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/startup_fixer.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/band_volume.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/band_volume.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/biquad_tdm.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/biquad_tdm.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/echo_tdm.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/echo_tdm.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/saturation_tdm.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/saturation_tdm.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/channel_splitter.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/channel_splitter.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/channel_mapper.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/channel_mapper.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/mixer_wrapper.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/mixer_wrapper.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/low_pass.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/low_pass.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/audio_pipeline.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/audio_pipeline.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/hdl/audio_pipeline_IP_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/hdl/audio_pipeline_IP_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1561,91 +1561,91 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/hdl/audio_pipeline_IP_v1_0_S00_AXI.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/hdl/audio_pipeline_IP_v1_0_S00_AXI.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/axi4_audio_pkg.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/axi4_audio_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/audio_fifo.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/audio_fifo.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/axi4_mm_filter_pkg.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/axi4_mm_filter_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/mixer_settings_pkg.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/mixer_settings_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/generic_fifo.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/generic_fifo.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/volume.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/volume.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/trafic_shaper.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/trafic_shaper.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/ring_modulator.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/ring_modulator.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/channel_merger.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/channel_merger.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/volume_ctrl.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/volume_ctrl.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/startup_fixer.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/startup_fixer.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/band_volume.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/band_volume.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/biquad_tdm.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/biquad_tdm.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/echo_tdm.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/echo_tdm.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/saturation_tdm.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/saturation_tdm.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/channel_splitter.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/channel_splitter.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/channel_mapper.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/channel_mapper.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/mixer_wrapper.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/mixer_wrapper.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/low_pass.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/low_pass.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/src/audio_pipeline.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/src/audio_pipeline.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../ipshared/8c4a/hdl/audio_pipeline_IP_v1_0.vhd</spirit:name>
+        <spirit:name>../../ipshared/1a49/hdl/audio_pipeline_IP_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1722,7 +1722,7 @@
     <spirit:parameter>
       <spirit:name>g_chip_scope</spirit:name>
       <spirit:displayName>G Chip Scope</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.g_chip_scope">true</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.g_chip_scope">false</spirit:value>
     </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
@@ -1731,7 +1731,7 @@
       <xilinx:xpmLibraries>
         <xilinx:xpmLibrary>XPM_FIFO</xilinx:xpmLibrary>
       </xilinx:xpmLibraries>
-      <xilinx:coreRevision>7</xilinx:coreRevision>
+      <xilinx:coreRevision>8</xilinx:coreRevision>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RST.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S00_AXI.ADDR_WIDTH" xilinx:valueSource="auto" xilinx:valuePermission="bd"/>
@@ -1781,7 +1781,7 @@
       <xilinx:xilinxVersion>2023.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="6b8d249b"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="ed1368d5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="01391647"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="1d13dfa4"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="2b412e54"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="0386c904"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="10b04864"/>

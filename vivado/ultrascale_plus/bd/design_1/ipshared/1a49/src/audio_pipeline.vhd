@@ -525,7 +525,7 @@ begin
 
         i_high_1: entity work.biquad_tdm
         generic map(
-            g_chip_scope => "False"
+            g_chip_scope => "True"
         )
         port map(
             clk => clk_audio,
@@ -540,7 +540,7 @@ begin
 
         i_high_2: entity work.biquad_tdm
         generic map(
-            g_chip_scope => "False"
+            g_chip_scope => "True"
         )
         port map(
             clk => clk_audio,

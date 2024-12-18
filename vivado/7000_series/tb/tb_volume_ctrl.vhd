@@ -68,10 +68,11 @@ architecture Behavioral of tb_volume_ctrl is
     -- volume ctrl
     ------------------------------------
     constant c_volume_width : integer := 18;
-    signal volume : real := 0.10;
+    signal volume : real := 0.50;
     signal channel_address : STD_LOGIC_VECTOR(c_ID_width -1 downto 0) := (others => '0');
     signal channel_volume : STD_LOGIC_VECTOR(c_volume_width -1 downto 0) := (others => '0');
     signal strobe : STD_LOGIC := '0';
+    signal vol_test : sfixed(8 downto -23);
 begin
 
     p_volume : process
@@ -79,6 +80,7 @@ begin
         
         wait until rising_edge(axi_clk);
         channel_volume <= STD_LOGIC_VECTOR(to_sfixed(volume, 2, -15));
+        vol_test <= to_sfixed(volume, 8, -23);
         wait until rising_edge(axi_clk);
         strobe <= '1';
         wait until rising_edge(axi_clk);

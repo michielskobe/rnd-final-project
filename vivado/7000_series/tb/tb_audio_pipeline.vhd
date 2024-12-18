@@ -138,7 +138,7 @@ begin
         for i in 0 to 50000 loop
             wait until rising_edge(clk);
         end loop;
-        --rst <= '1';
+        -- rst <= '1';
 
         wait until rising_edge(dma_fwd.TValid);
         dma_valid <= '1';
@@ -205,7 +205,7 @@ begin
         axi_in_mm_saturation => axi4_mm_saturation_inactive,
         axi_in_mm_volume_reduction => axi4_mm_volume_inactive,
         axi_in_mm_band_volume => axi4_mm_band_volume_inactive,
-        channel_volume_strobe => '1',
+        channel_volume_strobe => '0',
         dma_valid => dma_valid,
         anal_fwd => anal_fwd,
         anal_bwd => anal_bwd,
