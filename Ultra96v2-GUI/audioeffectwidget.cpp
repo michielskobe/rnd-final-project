@@ -141,7 +141,6 @@ QProcess* AudioEffectWidget::startPythonProcess(QString pythonScript){
 }
 
 void AudioEffectWidget::handleMidiProcessOutput() {
-    std::cout << "midi" << std::endl;
     QString output = midiProcess->readAllStandardOutput();
     QRegularExpression regex(R"(\[(\d+), (\d+), (\d+)\])");
     QRegularExpressionMatch match = regex.match(output);
