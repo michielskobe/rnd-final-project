@@ -277,7 +277,7 @@ BEGIN
         axi_out_fwd.TID   <= TID_stage_4;
 
         -- Move Data from Filter
-        addr := to_integer(unsigned(to_integer(unsigned(TID_stage_4))*g_delay+TID_counter));
+        addr := to_integer(unsigned(to_integer(unsigned(TID_stage_4))*g_delay+TID_counter_3));
         data_array(addr) <= std_logic_vector(TData_stage_5);
 
       end if;

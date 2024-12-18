@@ -159,15 +159,17 @@ architecture RTL of biquad_tdm is
   attribute MARK_DEBUG of TID_stage_3 : signal is g_chip_scope;
   attribute MARK_DEBUG of TID_stage_3_prev : signal is g_chip_scope;
 
-  attribute MARK_DEBUG of Prev_Delay_X_1 : signal is g_chip_scope;
-  attribute MARK_DEBUG of Prev_Delay_X_2 : signal is g_chip_scope;
-  attribute MARK_DEBUG of Prev_Delay_Y_1 : signal is g_chip_scope;
-  attribute MARK_DEBUG of Prev_Delay_Y_2 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_b0 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_b1 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_b2 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_a1 : signal is g_chip_scope;
+  attribute MARK_DEBUG of TID_a2 : signal is g_chip_scope;
 
-  attribute MARK_DEBUG of Delay_X_1_muxed : signal is g_chip_scope;
-  attribute MARK_DEBUG of Delay_X_2_muxed : signal is g_chip_scope;
-  attribute MARK_DEBUG of Delay_Y_1_muxed : signal is g_chip_scope;
-  attribute MARK_DEBUG of Delay_Y_2_muxed : signal is g_chip_scope;
+  attribute MARK_DEBUG of b0_signed : signal is g_chip_scope;
+  attribute MARK_DEBUG of b1_signed : signal is g_chip_scope;
+  attribute MARK_DEBUG of b2_signed : signal is g_chip_scope;
+  attribute MARK_DEBUG of a1_signed : signal is g_chip_scope;
+  attribute MARK_DEBUG of a2_signed : signal is g_chip_scope;
    
 
    
