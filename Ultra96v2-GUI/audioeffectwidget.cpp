@@ -513,7 +513,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         break;
                     }
                     case 71: { // Volume control
-                        float volumeValue = valueByte / 127.0f;
+                        float volumeValue = valueByte / 1270.0f;
 
                         auto fixedVolume = make_fixed<8, 23>{volumeValue};
                         writeToAxi(0x174, fixedVolume.data());
@@ -795,7 +795,7 @@ ShelvingCoefficients AudioEffectWidget::calculateHighShelfFilter(int bandwidth, 
     float c_2 = 0.92388f;
     float gain = pow(10, dBgain / 20.0f);
     float V = pow(gain, 0.25)-1;
-    float K = tan(bandwidth*M_PI/48000);
+    float K = tan((24000-bandwidth)*M_PI/48000);
 
     // Calculate coefficients
     float a0_1 = K*K + 2*K*c_1 + 1;
