@@ -115,7 +115,7 @@ AudioEffectWidget::AudioEffectWidget(QWidget *parent)
     setLayout(mainVerticalLayout);
     setMinimumSize(1000, 400);
 
-    auto value = make_fixed<8, 23>{0.5};
+    auto value = make_fixed<8, 23>{0.446684};
     writeToAxi(0x00, value.data());
 
 }
@@ -209,8 +209,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                         // Calculate filter coefficients
                         ShelvingCoefficients highShelftFilterCoefficients = calculateHighShelfFilter(higherBandwidth, highGain);
-                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, midGain);
-                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, midGain);
+                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, -midGain);
+                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, -midGain);
                         ShelvingCoefficients lowShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, lowGain);
 
                         // Write coefficients to AXI
@@ -268,8 +268,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float higherBandwidth = higherMatch.captured(1).toInt();
 
                         // Calculate filter coefficients
-                        ShelvingCoefficients lowFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
-                        ShelvingCoefficients highFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+                        ShelvingCoefficients lowFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, -gain);
+                        ShelvingCoefficients highFilterCoefficients = calculateHighShelfFilter(higherBandwidth, -gain);
 
                         // Get previous gain value
                         QRegularExpression gainRegex(R"((\d+)(?=dB))");
@@ -404,8 +404,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
 
                         // Calculate filter coefficients
                         ShelvingCoefficients lowShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, lowGain);
-                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, midGain);
-                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, midGain);
+                        ShelvingCoefficients lowBandShelfFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, -midGain);
+                        ShelvingCoefficients highBandShelfFilterCoefficients = calculateHighShelfFilter(higherBandwidth, -midGain);
                         ShelvingCoefficients highShelftFilterCoefficients = calculateHighShelfFilter(higherBandwidth, highGain);
 
                         // Write coefficients to AXI
@@ -462,8 +462,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float higherBandwidth = higherMatch.captured(1).toInt();
 
                         // Calculate filter coefficients
-                        ShelvingCoefficients lowFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, gain);
-                        ShelvingCoefficients highFilterCoefficients = calculateHighShelfFilter(higherBandwidth, gain);
+                        ShelvingCoefficients lowFilterCoefficients = calculateLowShelfFilter(lowerBandwidth, -gain);
+                        ShelvingCoefficients highFilterCoefficients = calculateHighShelfFilter(higherBandwidth, -gain);
 
                         // Get previous gain value
                         QRegularExpression gainRegex(R"((\d+)(?=dB))");
@@ -516,13 +516,13 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         float volumeValue = valueByte / 127.0f;
 
                         auto fixedVolume = make_fixed<8, 23>{volumeValue};
-                        writeToAxi(0x170, fixedVolume.data());
+                        writeToAxi(0x174, fixedVolume.data());
                         // Write channel adress (dma left)
-                        writeToAxi(0x174,2);
+                        writeToAxi(0x170,2);
                         // Set strobe
                         writeToAxi(0x178,1);
                         // Write channel adress (dma right)
-                        writeToAxi(0x174,3);
+                        writeToAxi(0x170,3);
                         // Clear strobe
                         writeToAxi(0x178,0);
 
@@ -812,8 +812,7 @@ ShelvingCoefficients AudioEffectWidget::calculateHighShelfFilter(int bandwidth, 
     float b1_2 = -(2*K*K*(V*V + 2*V + 1) -2)/a0_2;
     float b2_2 = (K*K*(V*V + 2*V + 1) - 2*K*c_2*(V+1) + 1)/a0_2;
 
-    ShelvingCoefficients coefficients(a1_1, a2_1, b0_1, b1_1, b2_1,
-                                      a1_2, a2_2, b0_2, b1_2, b2_2);
+    ShelvingCoefficients coefficients(a1_1, a2_1, b0_1, b1_1, b2_1, a1_2, a2_2, b0_2, b1_2, b2_2);
     return coefficients;
 
 }
