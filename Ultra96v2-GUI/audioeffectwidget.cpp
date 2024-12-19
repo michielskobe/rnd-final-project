@@ -157,8 +157,14 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        QString input = "lowpass 2 " + QString::number(frequencyValue);
-                        analogLowpassFilterProcess->write(input.toUtf8() + '\n');
+                        if (frequencyValue >= 19000)
+                        {
+                            writeLowpassFilterParameters(disableFilterCoefficients, 0, 1);
+                        }
+                        else {
+                            QString input = "lowpass 2 " + QString::number(frequencyValue);
+                            analogLowpassFilterProcess->write(input.toUtf8() + '\n');
+                        }
 
                         // Update value in interface
                         analogLowpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
@@ -170,8 +176,13 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        QString input = "highpass 4 " + QString::number(frequencyValue);
-                        analogHighpassFilterProcess->write(input.toUtf8() + '\n');
+                        if (frequencyValue <= 210){
+                            writeHighpassFilterParameters(disableFilterCoefficients, 0, 1);
+                        }
+                        else {
+                            QString input = "highpass 4 " + QString::number(frequencyValue);
+                            analogHighpassFilterProcess->write(input.toUtf8() + '\n');
+                        }
 
                         // Update value in interface
                         analogHighpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
@@ -352,8 +363,14 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        QString input = "lowpass 2 " + QString::number(frequencyValue);
-                        dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
+                        if (frequencyValue >= 19000)
+                        {
+                            writeLowpassFilterParameters(disableFilterCoefficients, 2, 3);
+                        }
+                        else {
+                            QString input = "lowpass 2 " + QString::number(frequencyValue);
+                            dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
+                        }
 
                         // Update value in interface
                         dmaLowpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
@@ -365,8 +382,13 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        QString input = "highpass 4 " + QString::number(frequencyValue);
-                        dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
+                        if (frequencyValue <= 210){
+                            writeHighpassFilterParameters(disableFilterCoefficients, 2, 3);
+                        }
+                        else {
+                            QString input = "highpass 4 " + QString::number(frequencyValue);
+                            dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
+                        }
 
                         // Update value in interface
                         dmaHighpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
@@ -1228,6 +1250,70 @@ void AudioEffectWidget::handleDmaLowpassFilterProcess() {
     else {
         std::cout << "No match found!" << std::endl;
     }
+}
+
+void AudioEffectWidget::writeHighpassFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel){
+   // Write high pass coefficients (filter 1)
+    auto fixed_b0_1 = make_fixed<8, 23>{coefficients.b0_1};
+    writeToAxi(0x10C, fixed_b0_1.data());
+    auto fixed_b1_1 = make_fixed<8, 23>{coefficients.b1_1};
+    writeToAxi(0x110, fixed_b1_1.data());
+    auto fixed_b2_1 = make_fixed<8, 23>{coefficients.b2_1};
+    writeToAxi(0x114, fixed_b2_1.data());
+    auto fixed_a1_1 = make_fixed<8, 23>{coefficients.a1_1};
+    writeToAxi(0x118, fixed_a1_1.data());
+    auto fixed_a2_1 = make_fixed<8, 23>{coefficients.a2_1};
+    writeToAxi(0x11C, fixed_a2_1.data());
+    // Write channel adress
+    writeToAxi(0x120,leftChannel);
+    // Set strobe
+    writeToAxi(0x124,1);
+    // Write channel adress
+    writeToAxi(0x120,rightChannel);
+    // Clear strobe
+    writeToAxi(0x124,0);
+
+    // Write high pass coefficients (filter 2)
+    auto fixed_b0_2 = make_fixed<8, 23>{coefficients.b0_2};
+    writeToAxi(0x128, fixed_b0_2.data());
+    auto fixed_b1_2 = make_fixed<8, 23>{coefficients.b1_2};
+    writeToAxi(0x12C, fixed_b1_2.data());
+    auto fixed_b2_2 = make_fixed<8, 23>{coefficients.b2_2};
+    writeToAxi(0x130, fixed_b2_2.data());
+    auto fixed_a1_2 = make_fixed<8, 23>{coefficients.a1_2};
+    writeToAxi(0x134, fixed_a1_2.data());
+    auto fixed_a2_2 = make_fixed<8, 23>{coefficients.a2_2};
+    writeToAxi(0x138, fixed_a2_2.data());
+    // Write channel adress
+    writeToAxi(0x13C,leftChannel);
+    // Set strobe
+    writeToAxi(0x140,1);
+    // Write channel adress
+    writeToAxi(0x13C,rightChannel);
+    // Clear strobe
+    writeToAxi(0x140,0);
+}
+
+void AudioEffectWidget::writeLowpassFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel){
+    // Write low pass coefficients
+    auto fixed_b0 = make_fixed<8, 23>{coefficients.b0_1};
+    writeToAxi(0xF0, fixed_b0.data());
+    auto fixed_b1 = make_fixed<8, 23>{coefficients.b1_1};
+    writeToAxi(0xF4, fixed_b1.data());
+    auto fixed_b2 = make_fixed<8, 23>{coefficients.b2_1};
+    writeToAxi(0xF8, fixed_b2.data());
+    auto fixed_a1 = make_fixed<8, 23>{coefficients.a1_1};
+    writeToAxi(0xFC, fixed_a1.data());
+    auto fixed_a2 = make_fixed<8, 23>{coefficients.a2_1};
+    writeToAxi(0x100, fixed_a2.data());
+    // Write channel adress
+    writeToAxi(0x104,leftChannel);
+    // Set strobe
+    writeToAxi(0x108,1);
+    // Write channel adress
+    writeToAxi(0x104,rightChannel);
+    // Clear strobe
+    writeToAxi(0x108,0);
 }
 
 /**************************************** EFFECT HELPER METHODS ****************************************/

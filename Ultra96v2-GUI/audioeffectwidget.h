@@ -20,10 +20,10 @@
 #include <cmath>
 #include <sg14/fixed_point>
 
-#define FREQUENCY_FILTER_LOWER_BOUND 40
+#define FREQUENCY_FILTER_LOWER_BOUND 200
 #define FREQUENCY_FILTER_UPPER_BOUND 20000
 #define SATURATION_LOWER_BOUND 1
-#define SATURATION_UPPER_BOUND 50
+#define SATURATION_UPPER_BOUND 1
 #define ECHO_LOWER_BOUND 0
 #define ECHO_UPPER_BOUND 0.8
 #define RING_MODULATION_LOWER_BOUND 0
@@ -103,6 +103,11 @@ private:
     void writeBandShelfFilterParameters(ShelvingCoefficients highFilterCoefficients, ShelvingCoefficients lowFilterCoefficients, int leftChannel, int rightChannel);
     void writeLowShelfFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel);
     void writeBandShelfGain(float gain, int leftChannel, int rightChannel);
+
+
+    void writeLowpassFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel);
+    void writeHighpassFilterParameters(ShelvingCoefficients coefficients, int leftChannel, int rightChannel);
+    ShelvingCoefficients disableFilterCoefficients {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 
     // Effect helper methods
     void writeEchoValue(double echoValue, int leftChannel, int rightChannel);
