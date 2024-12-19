@@ -157,14 +157,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        if (frequencyValue >= 19000)
-                        {
-                            writeLowpassFilterParameters(disableFilterCoefficients, 0, 1);
-                        }
-                        else {
-                            QString input = "lowpass 2 " + QString::number(frequencyValue);
-                            analogLowpassFilterProcess->write(input.toUtf8() + '\n');
-                        }
+                        QString input = "lowpass 2 " + QString::number(frequencyValue);
+                        analogLowpassFilterProcess->write(input.toUtf8() + '\n');
 
                         // Update value in interface
                         analogLowpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
@@ -176,13 +170,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        if (frequencyValue <= 210){
-                            writeHighpassFilterParameters(disableFilterCoefficients, 0, 1);
-                        }
-                        else {
-                            QString input = "highpass 4 " + QString::number(frequencyValue);
-                            analogHighpassFilterProcess->write(input.toUtf8() + '\n');
-                        }
+                        QString input = "highpass 4 " + QString::number(frequencyValue);
+                        analogHighpassFilterProcess->write(input.toUtf8() + '\n');
 
                         // Update value in interface
                         analogHighpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
@@ -363,14 +352,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        if (frequencyValue >= 19000)
-                        {
-                            writeLowpassFilterParameters(disableFilterCoefficients, 2, 3);
-                        }
-                        else {
-                            QString input = "lowpass 2 " + QString::number(frequencyValue);
-                            dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
-                        }
+                        QString input = "lowpass 2 " + QString::number(frequencyValue);
+                        dmaLowpassFilterProcess->write(input.toUtf8() + '\n');
 
                         // Update value in interface
                         dmaLowpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
@@ -382,13 +365,8 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         int frequencyValue = FREQUENCY_FILTER_LOWER_BOUND + normalizedValue * (FREQUENCY_FILTER_UPPER_BOUND - FREQUENCY_FILTER_LOWER_BOUND);
 
                         // Calculate filter parameters
-                        if (frequencyValue <= 210){
-                            writeHighpassFilterParameters(disableFilterCoefficients, 2, 3);
-                        }
-                        else {
-                            QString input = "highpass 4 " + QString::number(frequencyValue);
-                            dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
-                        }
+                        QString input = "highpass 4 " + QString::number(frequencyValue);
+                        dmaHighpassFilterProcess->write(input.toUtf8() + '\n');
 
                         // Update value in interface
                         dmaHighpassValueLabel->setText(QString("%1Hz").arg(round(frequencyValue)));
