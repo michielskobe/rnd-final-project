@@ -686,7 +686,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
 
                             // Write value to AXI
-                            if (ringModulationValue){
+                            if (ringModulationValue >= 40){
                                 // Write ON status to AXI
                                 writeToAxi(0x15C, 1);
                                 // Write phase value to AXI
@@ -731,7 +731,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
 
                             // Write value to AXI
-                            if (ringModulationValue){
+                            if (ringModulationValue >= 40){
                                 // Write ON status to AXI
                                 writeToAxi(0x164, 1);
                                 // Write phase value to AXI
