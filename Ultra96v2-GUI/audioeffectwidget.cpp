@@ -513,7 +513,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                         break;
                     }
                     case 71: { // Volume control
-                        float volumeValue = valueByte / 1270.0f;
+                        float volumeValue = valueByte / 127.0f;
 
                         auto fixedVolume = make_fixed<8, 23>{volumeValue};
                         writeToAxi(0x174, fixedVolume.data());
@@ -686,7 +686,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
 
                             // Write value to AXI
-                            if (ringModulationValue >= 40){
+                            if (ringModulationValue >= 100){
                                 // Write ON status to AXI
                                 writeToAxi(0x15C, 1);
                                 // Write phase value to AXI
@@ -731,7 +731,7 @@ void AudioEffectWidget::handleMidiProcessOutput() {
                             int ringModulationValue = RING_MODULATION_LOWER_BOUND + normalizedValue * (RING_MODULATION_UPPER_BOUND - RING_MODULATION_LOWER_BOUND);
 
                             // Write value to AXI
-                            if (ringModulationValue >= 40){
+                            if (ringModulationValue >= 100){
                                 // Write ON status to AXI
                                 writeToAxi(0x164, 1);
                                 // Write phase value to AXI
