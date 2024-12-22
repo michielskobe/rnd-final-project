@@ -1,3 +1,41 @@
+/*
+ * DMA-based ALSA PCM Module to create an audio card to AXI DMA
+ *
+ * This driver provides a basic ALSA PCM device that uses a DMA channel
+ * to transfer audio samples from kernel-allocated buffers to a target device.
+ * It sets up a single sound card and a single PCM playback device, where audio
+ * data is pulled from the ALSA buffer and converted into a 64-bit word format
+ * per frame before being sent out through the DMA engine.
+ *
+ * Supported Audio Format:
+ * - Signed 24-bit samples, packed in 3 bytes per sample (S24_3LE)
+ * - Signed 24-bit samples in 4-byte containers (S24_LE), where the fourth byte
+ *   is ignored to maintain the same 64-bit frame structure.
+ *
+ * Supported Configuration:
+ * - Stereo (2-channel) only
+ * - 48 kHz sample rate
+ * - Hardware parameters such as period size and buffer size are restricted to
+ *   specific ranges to ensure stable operation.
+ *
+ * Operation:
+ * - The driver allocates a continuous DMA buffer and uses DMA transfers to 
+ *   feed samples to the hardware. When a period completes, a DMA completion 
+ *   callback triggers a workqueue job to safely interact with ALSA APIs, 
+ *   mark the period as elapsed, and start transferring the next period.
+ * - The PCM operations (open, close, hw_params, prepare, trigger, etc.) are 
+ *   implemented to interact seamlessly with ALSA applications, ensuring that 
+ *   streams can be started, stopped, paused, or resumed without glitches.
+ *
+ * Limitations:
+ * - This is a simplified reference driver and may need adjustments for 
+ *   hardware-specific DMA handling, or additional sample formats and rates.
+ *
+ * Author: Lander Van Loock
+ * License: GPL
+ */
+
+
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/dmaengine.h>
@@ -8,27 +46,28 @@
 #include <sound/pcm.h>
 #include <sound/pcm_params.h>
 
-#define PCM_DEVICE_NAME "axi_dma_pcm"
-#define CARD_NAME "AXI DMA Audio Card"
-#define AUDIO_BUFFER_SIZE (64 * 1024)   // 64 KB audio buffer
+#define PCM_DEVICE_NAME "dma_pcm"           // PCM device name
+#define CARD_NAME "DMA Audio Card"          // Audio card name
+#define AUDIO_BUFFER_SIZE (256 * 1024)      // 256 KB max audio buffer = 900ms of latency
 
-static struct snd_card *card;
-static struct snd_pcm *pcm;
-static struct dma_chan *dma_channel;                    // A DMA Channel
-static void *dma_buffer;                                // Single DMA buffer
-static dma_addr_t dma_handle;                           // Physical address for the dma buffer
+static struct snd_card *card;                           // Audio card struct
+static struct snd_pcm *pcm;                             // PCM device struct
+static struct dma_chan *dma_channel;                    // DMA Channel struct
+static void *dma_buffer;                                // The DMA buffer
+static dma_addr_t dma_handle;                           // Physical address for the DMA buffer
 static struct mutex dma_lock;                           // Mutex for non-atomic contexts
-static struct snd_pcm_substream *g_substream = NULL;
-static size_t buffer_fill_level = 0;
+static struct snd_pcm_substream *g_substream = NULL;    // PCM substream struct
+static size_t buffer_fill_level = 0;                    // The DMA buffer fill level
+static snd_pcm_uframes_t driver_hw_ptr = 0;             // Hrdware pointer of the module
 
 // Declare a workqueue and a work struct to handle DMA completion outside interrupt context
 static struct work_struct dma_work;
 static bool work_pending = false;
 
-/* ALSA PCM hardware parameters */
+// ALSA PCM hardware parameters
 static struct snd_pcm_hardware dma_pcm_hardware = {
     .info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER,
-    .formats = SNDRV_PCM_FMTBIT_S24_3LE,
+    .formats = SNDRV_PCM_FMTBIT_S24_3LE | SNDRV_PCM_FMTBIT_S24_LE,
     .rates = SNDRV_PCM_RATE_48000,
     .rate_min = 48000,
     .rate_max = 48000,
@@ -38,13 +77,23 @@ static struct snd_pcm_hardware dma_pcm_hardware = {
     .period_bytes_min = 4096,
     .period_bytes_max = 16384,
     .periods_min = 2,
-    .periods_max = 4,
+    .periods_max = 8,
 };
 
-/* Forward declaration of write_to_buffer so we can call it from work handler */
+// DMA channel states
+enum dma_alsa_state {
+    DMA_ALSA_STATE_RUNNING,
+    DMA_ALSA_STATE_RECOVERING,
+    DMA_ALSA_STATE_STOPPED,
+};
+
+// Init DMA state
+static enum dma_alsa_state dma_state = DMA_ALSA_STATE_STOPPED;
+
+// Forward declaration of write_to_buffer so we can call it from work handler
 static void write_to_buffer(struct snd_pcm_substream *substream);
 
-/* Workqueue handler - runs in process context, can use mutexes and call ALSA functions safely */
+// Workqueue handler - runs in process context, can use mutexes and call ALSA functions safely
 static void dma_work_handler(struct work_struct *work)
 {
     struct snd_pcm_runtime *runtime;
@@ -55,22 +104,27 @@ static void dma_work_handler(struct work_struct *work)
 
     runtime = g_substream->runtime;
 
-    // *** CHANGED: This logic was previously in the dma_transfer_callback interrupt handler.
-    // Now we are in a safe context to call ALSA functions, hold mutexes, etc.
-
     // First, inform ALSA that a period has elapsed
+    driver_hw_ptr = (driver_hw_ptr + runtime->period_size) % runtime->buffer_size;
     snd_pcm_period_elapsed(g_substream);
 
     // Check if there is another period available
-    available_frames = runtime->control->appl_ptr - runtime->status->hw_ptr;
+    available_frames = runtime->control->appl_ptr - driver_hw_ptr;
     if (available_frames < 0)
-        // Compensate for the circular alsa buffer
+        // Compensate for the circular ALSA buffer
         available_frames += runtime->buffer_size;
 
     if (available_frames < (snd_pcm_sframes_t)runtime->period_size) {
         // Not enough data for next period -> UNDERRUN
+
+        /* 
+        * Underrun is highly unwanted because ALSA has to recover from it and
+        * a drop in the audio stream may be observed.
+        */
+
         pr_info("dma-alsa: underrun detected in work handler\n");
-        snd_pcm_stop(g_substream, SNDRV_PCM_STATE_XRUN);
+        snd_pcm_stop_xrun(g_substream);
+        dma_state = DMA_ALSA_STATE_RECOVERING;
         return;
     }
 
@@ -90,13 +144,15 @@ static void dma_transfer_callback(void *completion)
     Instead, we schedule our workqueue task.
     */
 
-    // Minimal work here: just schedule the work
+    // Minimal work here for performance reasons: just schedule the work
     pr_info("dma-alsa: dma transfer completed (interrupt handler), scheduling work\n");
 
     // To avoid queueing multiple works before handling, check a flag
-    if (!work_pending) {
-        work_pending = true;
-        schedule_work(&dma_work);
+    if (dma_state == DMA_ALSA_STATE_RUNNING || dma_state == DMA_ALSA_STATE_RECOVERING) {
+        if (!work_pending) {
+            work_pending = true;
+            schedule_work(&dma_work);
+        }
     }
 }
 
@@ -106,6 +162,7 @@ static int init_dma_channel(void)
     /*
     This function is part of the __init() of the module to init the dma channel
         A DMA channel is requested taking into account the parameters set in the mask
+        Every kind of DMA channel can be requested here, this module uses the channel to AXI DMA in hardware
     */
 
     dma_cap_mask_t mask;
@@ -165,27 +222,45 @@ static int start_dma_transfer(void *src, size_t len, dma_addr_t phys_addr)
 }
 
 /* Write audio from ALSA buffer to dma_buffer */
-// This function can now safely use mutex and ALSA functions since we'll call it from non-atomic context (work handler or trigger start)
+// This function can safely use mutex and ALSA functions since it's called from non-atomic context (work handler or trigger start)
 static void write_to_buffer(struct snd_pcm_substream *substream)
 {
     /*
-    This function is executed in the .ack callback to add and zero pad the new data to the DMA buffer
-        The received data from the ALSA buffer is zero padded and combined to an L/R sample in 1 word (64 bit or 8 bytes)
-        If the current dma_buffer is full, the dma transfer is started and a new buffer is assigned
+    This function is executed in the work handler to add and zero pad the new data to the DMA buffer
+        The received data from the ALSA buffer is zero padded and combined to an L/R sample in 1 word in memory (64 bit or 8 bytes)
+        The processed data, 1 period, is then transferred with the DMA
     */
 
+    if (dma_state != DMA_ALSA_STATE_RUNNING) {
+        pr_info("dma-alsa: not in RUNNING state, skipping write_to_buffer\n");
+        return;
+    }
+    if(substream == NULL) {
+        pr_err("dma-alsa: substream NULL in write");
+        return;
+    }
     struct snd_pcm_runtime *runtime = substream->runtime;
     snd_pcm_sframes_t available_frames;
     void *src;
     size_t i;
     uint8_t *src_byte;
     uint64_t *dst;
-    size_t processed = 0;
+    int processed = 0;
     size_t period_bytes = frames_to_bytes(runtime, runtime->period_size);
+
+    if(runtime == NULL) {
+        pr_err("dma-alsa: runtime NULL in write");
+        return;
+    }
+
+    if(dma_buffer == NULL) {
+        pr_err("dma-alsa: dma buffer NULL in write");
+        return;
+    }
 
     mutex_lock(&dma_lock);
 
-    available_frames = runtime->control->appl_ptr - runtime->status->hw_ptr;
+    available_frames = runtime->control->appl_ptr - driver_hw_ptr;
     if (available_frames < 0)
         available_frames += runtime->buffer_size;
 
@@ -196,24 +271,53 @@ static void write_to_buffer(struct snd_pcm_substream *substream)
         return;
     }
 
-    src = runtime->dma_area + frames_to_bytes(runtime, runtime->status->hw_ptr);
-    runtime->status->hw_ptr = (runtime->status->hw_ptr + runtime->period_size) % runtime->buffer_size;
+    int sample_size;
+    if (runtime->format == SNDRV_PCM_FORMAT_S24_3LE) {
+        sample_size = 3;
+    } else if (runtime->format == SNDRV_PCM_FORMAT_S24_LE) {
+        sample_size = 4;
+    } else {
+        pr_err("dma-alsa: unsupported runtime format in write_to_buffer\n");
+        mutex_unlock(&dma_lock);
+        return;
+    }
+
+    int frame_bytes = sample_size * runtime->channels;
+
+
+    src = runtime->dma_area + frames_to_bytes(runtime, driver_hw_ptr);
 
     dst = (uint64_t *)dma_buffer;
     src_byte = (uint8_t *)src;
     buffer_fill_level = 0;
 
-    for (i = 0; i < period_bytes; i += 6) {
-        uint32_t left = (src_byte[0] << 16) | (src_byte[1] << 8) | src_byte[2];
-        uint32_t right = (src_byte[3] << 16) | (src_byte[4] << 8) | src_byte[5];
-        *dst++ = ((uint64_t)left << 40) | ((uint64_t)right << 16);
-        src_byte += 6;
-        processed += 6;
+    for (i = 0; i < period_bytes; i += frame_bytes) {
+        uint64_t word = 0;
+
+        if (sample_size == 3) {
+            for (int j = 0; j < 6; j++) {
+                word |= ((uint64_t)src_byte[processed+j]) << (8 * (5 - j));
+            }
+            word <<= 16;
+            processed += 6;
+        } else {
+            word |= ((uint64_t)src_byte[processed+0]) << 40; // L1
+            word |= ((uint64_t)src_byte[processed+1]) << 32; // L2
+            word |= ((uint64_t)src_byte[processed+2]) << 24; // L3
+            word |= ((uint64_t)src_byte[processed+4]) << 16; // R1
+            word |= ((uint64_t)src_byte[processed+5]) << 8;  // R2
+            word |= ((uint64_t)src_byte[processed+6]);       // R3
+
+            word <<= 16;
+            processed += 8;
+        }
+
+        *dst = word;
+        dst++;
+        buffer_fill_level += 8; 
     }
 
-    buffer_fill_level = processed;
-
-    if (start_dma_transfer(dma_buffer, buffer_fill_level, virt_to_phys(dma_buffer))) {
+    if (start_dma_transfer(dma_buffer, buffer_fill_level, dma_handle)) {
         pr_err("dma-alsa: failed to start DMA for period in write_to_buffer\n");
         // If this fails, we can stop the stream
         snd_pcm_stop(substream, SNDRV_PCM_STATE_XRUN);
@@ -227,30 +331,22 @@ static int dma_pcm_open(struct snd_pcm_substream *substream)
 {
     /*
     This callback is executed when an application opens the PCM device
-        The hardware specific parameters dma_pcm_hardware are set
-        1 ALSA buffer of AUDIO_BUFFER_SIZE is allocated and set to use => we use the ALSA API for buffer allocation
-        2 DMA buffers of AUDIO_BUFFER_SIZE are allocated and set to use
+        The pcm hardware specific parameters dma_pcm_hardware are set
+        1 DMA buffer of AUDIO_BUFFER_SIZE is allocated and set to use
+        The hardware pointer is reset
     */
 
     struct snd_pcm_runtime *runtime = substream->runtime;
     runtime->hw = dma_pcm_hardware;
 
-    snd_pcm_lib_preallocate_pages(
-        substream,
-        SNDRV_DMA_TYPE_CONTINUOUS,
-        NULL,
-        AUDIO_BUFFER_SIZE,
-        AUDIO_BUFFER_SIZE
-    );
-
     dma_buffer = dma_alloc_coherent(dma_channel->device->dev, AUDIO_BUFFER_SIZE, &dma_handle, GFP_KERNEL);
     if (!dma_buffer) {
         pr_err("dma-alsa: could not allocate dma_buffer\n");
-        snd_pcm_lib_free_pages(substream);
         return -ENOMEM;
     }
 
     g_substream = substream;
+    driver_hw_ptr = 0;
 
     pr_info("dma-alsa: PCM opened, DMA buffer allocated at %p\n", dma_buffer);
     return 0;
@@ -263,7 +359,8 @@ static int dma_pcm_close(struct snd_pcm_substream *substream)
     This callback is executed when an application closes the PCM device
         The mutex lock is requested to release the dma buffers
         1 ALSA buffer is released
-        2 DMA buffers are released
+        1 DMA buffer is released
+        The global substream pointer is dereferenced
     */
 
     mutex_lock(&dma_lock);
@@ -287,7 +384,10 @@ static int dma_pcm_hw_params(struct snd_pcm_substream *substream, struct snd_pcm
 {
     /*
     This callback is executed when new parameters of the pcm device need to be set
-        The function just forwards the call to snd_pcm_lib_malloc_pages
+        The requested parameters are checked against what the module supports
+        The requested period size is set
+        The requested buffer size is set
+        An ALSA buffer is allocated
     */
 
     struct snd_pcm_runtime *runtime = substream->runtime;
@@ -299,7 +399,7 @@ static int dma_pcm_hw_params(struct snd_pcm_substream *substream, struct snd_pcm
         return -EINVAL;
     }
 
-    if (params_format(params) != SNDRV_PCM_FORMAT_S24_3LE) {
+    if (params_format(params) != SNDRV_PCM_FORMAT_S24_3LE && params_format(params) != SNDRV_PCM_FORMAT_S24_LE) {
         pr_err("dma-alsa: unsupported format requested: %d\n", params_format(params));
         return -EINVAL;
     }
@@ -350,12 +450,11 @@ static int dma_pcm_hw_params(struct snd_pcm_substream *substream, struct snd_pcm
 static snd_pcm_uframes_t dma_pcm_pointer(struct snd_pcm_substream *substream)
 {
     /*
-    This callback is executed whenever the application wants to know where the hardware pointer
-    is currently located in the ALSA ringbuffer.
+    This callback is executed whenever the application wants to know where the hardware
+    is currently located in the ALSA ringbuffer = the hardware pointer
     */
 
-    struct snd_pcm_runtime *runtime = substream->runtime;
-    snd_pcm_uframes_t hw_ptr = runtime->status->hw_ptr;
+    snd_pcm_uframes_t hw_ptr = driver_hw_ptr;
 
     pr_info("dma-alsa: Returning hw_ptr=%lu frames\n", hw_ptr);
 
@@ -367,7 +466,7 @@ static int dma_pcm_hw_free(struct snd_pcm_substream *substream)
 {
     /*
     This callback is executed by ALSA to free all hardware and buffers
-        The buffer is freed by resetting the buffer fill level
+        The ALSA buffer is freed
     */
 
     struct snd_pcm_runtime *runtime = substream->runtime;
@@ -377,7 +476,6 @@ static int dma_pcm_hw_free(struct snd_pcm_substream *substream)
         return -EINVAL;
     }
 
-    buffer_fill_level = 0;
     snd_pcm_lib_free_pages(substream);
     
     pr_info("dma-alsa: hw free successful\n");
@@ -407,7 +505,6 @@ static int dma_pcm_prepare(struct snd_pcm_substream *substream)
     }
 
     pr_info("dma-alsa: preparing hw, resetting DMA and buffers\n");
-    buffer_fill_level = 0;
     dmaengine_terminate_sync(dma_channel);
     pr_info("dma-alsa: prepare completed successfully\n");
     return 0;
@@ -430,12 +527,14 @@ static int dma_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
     case SNDRV_PCM_TRIGGER_START:
         pr_info("dma-alsa: playback started\n");
         // Load first period and start DMA
+        dma_state = DMA_ALSA_STATE_RUNNING;
         write_to_buffer(substream);
         break;
 
     case SNDRV_PCM_TRIGGER_STOP:
         pr_info("dma-alsa: playback stopped\n");
         dmaengine_terminate_sync(dma_channel);
+        dma_state = DMA_ALSA_STATE_STOPPED;
         break;
 
     case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
@@ -446,6 +545,7 @@ static int dma_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
     case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
         pr_info("dma-alsa: playback resumed\n");
         dmaengine_resume(dma_channel);
+        dma_state = DMA_ALSA_STATE_RUNNING;
         break;
 
     default:
@@ -482,6 +582,7 @@ static int __init dma_pcm_init(void)
         A new sound card is created from this module
         A new pcm device is created from this module
         The callback functions for this sound card are set
+        The ALSA buffer is preallocated
         The sound card is registered with the system
     */
 
@@ -509,6 +610,12 @@ static int __init dma_pcm_init(void)
         return err;
     }
 
+    snd_pcm_lib_preallocate_pages_for_all(pcm,
+                                      SNDRV_DMA_TYPE_CONTINUOUS,
+                                      NULL,
+                                      AUDIO_BUFFER_SIZE,
+                                      AUDIO_BUFFER_SIZE);
+
     snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &dma_pcm_ops);
 
     err = snd_card_register(card);
@@ -529,8 +636,8 @@ static void __exit dma_pcm_exit(void)
 {
     /*
     This function contains the exit of the DMA ALSA kernel module
-        The ALSA buffer is released
-        The 2 allocated DMA buffers are released
+        Scheduled work is flushed
+        The allocated DMA buffers is released if not done yet
         The DMA channel is released
         The sound card is unregistered from the system
     */
@@ -567,4 +674,4 @@ module_exit(dma_pcm_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Lander Van Loock");
-MODULE_DESCRIPTION("DMA ALSA PCM kernel module with AXI DMA via DMAengine");
+MODULE_DESCRIPTION("DMA ALSA PCM kernel module to AXI DMA via DMAengine");
