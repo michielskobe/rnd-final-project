@@ -262,29 +262,7 @@ BlueZ-ALSA (also known as BlueALSA) is a rebirth of the direct integration of Bl
 
 The full context of BlueALSA is well summarized in the diagram below coming from the repository:
 
-```mermaid
-flowchart TD
-classDef external fill:#eee,stroke:#333,stroke-width:4px,color:black;
-classDef bluealsa fill:#bbf,stroke:#333,stroke-width:4px,color:black;
-
-A[Bluetooth Adapter] <--> B((bluetoothd<br/>daemon))
-A <--> C((bluealsad daemon))
-B <-- dbus --> C
-C <-- dbus --> G((bluealsactl))
-C <-- dbus --> D((bluealsa-aplay))
-D --> E([ALSA libasound])
-E --> K[Speakers]
-C <-- dbus --> F((bluealsa<br/>ALSA plug-ins))
-F <--> H([ALSA libasound])
-H <--> I((ALSA<br/>applications))
-C <-- dbus --> J(("other D-Bus<br/>clients"))
-C <--> L((ALSA MIDI<br/>sequencer))
-L <--> M([ALSA libasound])
-M <--> N((ALSA MIDI<br/>application))
-
-class A,B,E,H,I,J,K,L,M,N external;
-class C,D,F,G bluealsa;
-```
+<img src="/img/bluezalsa.png"/>
 
 We can see that almost all communication will go over `dbus`. DBus is a message bus system used by many applications. The BlueALSA daemon is the central point of BlueALSA's operation. In our project, we will primarily use `bluealsactl`, the `bluealsa ALSA plug-ins` and `bluealsa-aplay`.
 
