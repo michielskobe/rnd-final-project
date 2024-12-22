@@ -63,7 +63,7 @@ The main callbacks that are almost always implemented in a driver are listed bel
 
 Some drivers also implement the **ioctl** callback which allows a redefinition of some of the PCM read ioctls, but in most cases we can stick with the default implementation in the ALSA middle layer.
 
-**Important note:** some callbacks are atomic, which means that they cannot be interrupted. Consequently, no mutexes, spin-locks or other locking mechanisms may be used in these calls: due to the atomic nature, race conditions will never exist in this callback. The three atomic callbacks are **trigger**, **pointer** and **ack**. 
+**Important note:** some callbacks are **atomic**, which means that they cannot be interrupted. Consequently, no mutexes, spin-locks or other locking mechanisms may be used in these calls: due to the atomic nature, race conditions will never exist in this callback. The three atomic callbacks are **trigger**, **pointer** and **ack**. 
 
 #### Periods and Buffers
 
@@ -89,13 +89,42 @@ The above concepts form the basis of the ALSA architecture. However, it is impor
 
 ### Driver Source Code
 
-Now that we know a bit about ALSA, we can go through the module we created.
+Now that we know a bit about ALSA, we can go through the module we created. The hardware parameters of our driver are defined as a `snd_pcm_hardware` struct at the top of the module:
+
+```c
+static struct snd_pcm_hardware dma_pcm_hardware = {
+    .info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER,
+    .formats = SNDRV_PCM_FMTBIT_S24_3LE | SNDRV_PCM_FMTBIT_S24_LE,
+    .rates = SNDRV_PCM_RATE_48000,
+    .rate_min = 48000,
+    .rate_max = 48000,
+    .channels_min = 2,
+    .channels_max = 2,
+    .buffer_bytes_max = AUDIO_BUFFER_SIZE,
+    .period_bytes_min = 4096,
+    .period_bytes_max = 16384,
+    .periods_min = 2,
+    .periods_max = 8,
+};
+```
+
+The most important takeaway here is that our virtual soundcard will only support **24-bit 48kHz audio** and has a max buffer size of **256 kB**. This means that the driver will introduce a maximum latency of 900ms when the negotiated buffer size equals the max buffer size. It is important to notice that this isn't the final latency that will be observed when listening to the audio: other factors like the Bluetooth connection also introduce extra latency. In our project, we decided that when listening to music, latency isn't the biggest concern like it is when gaming or watching media content. The used high-quality codec aptX-HD has a max bitrate of almost 560 kbit/s which means the Bluetooth connection can become a bit unstable. To keep the audio stream smooth and compensate for possible unstabilities in the stream, a rather big hardware buffer can be used.
+
+In the driver, we created a function `write_to_buffer()` which will take a period of data from the software buffer, zero pad the data so that it's ready to be processed in the PL, writes it to the hardware buffer and starts the DMA so the data is being send to the PL. When this transfer is done, an interrupt is generated which will schedule work in a work queue and notify ALSA that a period has been elapsed. Because the `write_to_buffer()` function contains mutex locks for safe access to the DMA buffer, we can't execute it from within the interrupt subroutine which is atomic. This is why the work handler for the scheduled work in the interrupt will take care of this.
+
+Data is writtin into the DMA buffer in the following format:
+
+64-bit word in memory: `< L1, L2, L3, R1, R2, R3, 0, 0 >`
+
+where every sample is 3 byte (24 bit). 
 
 ### Driver Compilation
 
 ### Usage
 
 ### References
+
+As mentioned earlier, the resources about writing an ALSA driver are very scarce. The resources below helped us tremendously towards creating the driver we have now. We hope this documentation and the written ALSA driver will add to the scarce resources and help others.
 
 1. [Writing an ALSA driver](https://www.kernel.org/doc/html/next/sound/kernel-api/writing-an-alsa-driver.html)
 2. [ALSA: Writing the soundcard driver](https://events.linuxfoundation.org/wp-content/uploads/2023/12/Ivan-Orlov-Mentorship-12-7-23-Writing-the-soundcard-driver.pdf)
