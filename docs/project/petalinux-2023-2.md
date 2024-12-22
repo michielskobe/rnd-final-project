@@ -59,6 +59,18 @@ petalinux-config -c rootfs
 
 In the grahpical interface, we navigate to **Filesystem Packages** → **console** → **utils** → **alsa-utils** and enable `alsa-utils` and `alsa-utils-midi`.
 
+## Adding ALSA plugins for Bluetooth Audio
+
+On top of the already enabled `alsa-utils`, we will also enable `alsa-plugins` so that we get access to extra features like the ALSA resampler. We will need this later on to resample Bluetooth audio from 44.1 kHz to 48 kHz.
+
+We run again the following command:
+
+``` bash
+petalinux-config -c rootfs
+```
+
+In the grahpical interface, we navigate to **Filesystem Packages** → **multimedia** → **alsa-plugins** and enable `alsa-plugins`.
+
 ## Building our PetaLinux project
 
 After we made all the necessary modifications to our project, we can start to build it by running the following command:
