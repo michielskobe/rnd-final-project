@@ -394,6 +394,12 @@ blendinator:~$ sudo devmem 0xa004000c 32
     * **`value` (Controller Value):** Specifies the state of Controller 83, ranging from 0 to 127
     * **Use in project:** Effect control based on the effect selected with the Hot Cue Buttons
 
+* **Headphones Volume Dial:** [180, 81, `value`]
+    * **180 (Status Byte):** Control Change on MIDI Channel 5
+    * **81 (Controller Number):** Controller 81
+    * **`value` (Controller Value):** Specifies the state of Controller 81, ranging from 0 to 127
+    * **Use in project:** Master volume control
+
 This gives us the following mapping on the Reloop BeatMix controller:
 
 <img src="/img/reloop-beatmix.png"/>

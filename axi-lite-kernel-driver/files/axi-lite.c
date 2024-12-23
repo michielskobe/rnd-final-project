@@ -102,7 +102,7 @@ static int axi_lite_remove(struct platform_device *pdev)
 
 #ifdef CONFIG_OF
 static struct of_device_id axi_lite_of_match[] = {
-	{ .compatible = "kobe-michiels,axi-lite-1.0", },
+	{ .compatible = "blendinator,axi-lite-1.0", },
 	{ /* end of list */ },
 };
 MODULE_DEVICE_TABLE(of, axi_lite_of_match);

@@ -16,7 +16,7 @@ Lastly, we click **Finish**, after selecting **Edit IP**. We go to the **Packagi
 
 ### Creating the User Module
 
-To enable the kernel to communicate with the AXI Lite device connected to the system, we developed a custom kernel driver for the AXI Lite interface. This driver provides seamless access to the device via the kernel.
+To be able to acces the AXI Lite registers from user-space, we started developing a custom kernel driver for the AXI Lite interface. Due to a time shortage, the driver wasn't finished for our final project and we accessed the registers as root, but here you can find the steps we executed to try to achieve this goal.
 
 We created the custom user module using the `petalinux-create` command within our PetaLinux project environment:
 
@@ -61,11 +61,13 @@ We will add the following snippet to `system-user.dtsi`:
 ```dts
 amba_pl@0 {
     axi_lite@a0040000 {
-        compatible = "kobe-michiels,axi-lite-1.0";
+        compatible = "blendinator,axi-lite-1.0";
         status = "okay";
     };
 };
 ```
+
+Later on during the project we used `audio_pipeline_IP@a0050000` instead of `axi_lite@a004000`.
 
 ### Adding our module to the build
 
