@@ -97,4 +97,5 @@ nav:
       - Qt application: project/qt.md
       - Qt Bluetooth Widget: project/qt_bluetooth.md
       - Qt Audio Effects Widget: project/qt_audio.md
+      - Qt Cross Compilation: project/qt_cross_compile.md
 
