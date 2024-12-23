@@ -20,3 +20,5 @@ When this is done, we added a device in Qt Creator to connect to the Ultra96-v2.
 Qt Creator groups settings used for building and running projects as kits to make cross-platform and cross-configuration development easier. Hence, Wwe then created a kit in Qt Creator and selected the run device, C and C++ compilers, debugger,  sysroot and Qt version from SDK as you can see in the image below.
 
 <img src="/img/qt-kit.png"/>
+
+We can now build the code for the Ultra96-v2. When we are connected to our device, it will automatically flash to the FPGA. The only thing we need to do now to be able to execute it, is run `export DISPLAY=:0` and connect our monitor to the Ultra96-V2. We can also add the export statement to .bashrc so we don't need to run it every time.
