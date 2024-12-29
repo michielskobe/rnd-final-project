@@ -58,6 +58,9 @@ The `a1`, `a2`, `b0`, `b1` and `b2` signals are the coefficients for a normalize
 
 The filter coefficients (`a1`, `a2`, `b0`, `b1` and `b2`) for a specific channel_address must be updated simultaneously. When the strobe signal is high, all coefficients for the specified channel_address are loaded into the filter concurrently, ensuring synchronized updates.
 
+This is the block diagram of the implementation of the biquad in VHDL:
+<img src="/img/biquad.png"/>
+
 ### echo_tdm
 
 This module implements the echo audio effect.
@@ -80,6 +83,9 @@ constant axi4_mm_echo_inactive : t_axi4_mm_echo := (
 The `channel_value` is the amount of echo you want (between 0 and 1) and the `channel_adress` indicates for which source.
 
 To ensure the correct `channel_value` is updated, this module employs a strobe signal. This mechanism prevents issues where the `channel_address` arrives later than the `channel_value`, which could otherwise result in the internal channel_value of the previous channel_address being updated with the channel_value intended for the current channel_address.
+
+This is the block diagram of the implementation of the echo in VHDL:
+<img src="/img/echo.png"/>
 
 ### saturation_tdm
 
@@ -168,6 +174,9 @@ constant axi4_mm_ring_mod_inactive : t_axi4_mm_ring_mod := (
 the `on_off` signal is for enabling/disabling the ring modulator effect and the `phase_inc` is for adjusting the speed of the effect.
     
 When a new `on_off` or `phase_inc` is provided, the internal value is updated immediately.
+
+This is the block diagram of the implementation of the ring modulator in VHDL:
+<img src="/img/ring_mod.png"/>
 
 ### low_pass
 
